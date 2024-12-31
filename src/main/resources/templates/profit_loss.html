@@ -1,0 +1,355 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif; /* Using a more common font */
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+</script>
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	
+
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-5 ml-5 mt-2">
+
+				<div th:if="${formmode}=='list'">
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #e9ecef">
+						<div class="float-left" style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+  <h4>INCOME</h4>
+  <input type="text" id="income-input" style="flex-grow: 1; max-width: 200px;">
+</div>
+
+					
+						
+									
+								
+						</div>
+						
+						
+						<div class="table-responsive" >
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;" id="usertable">
+								<thead class="thead-light" >
+									<tr>
+										<th style="text-align: center">SUB HEAD</th>
+										<th style="text-align: center;">ACC NUMBER</th>
+										<th style="text-align: center">ACC NAME </th>
+										<th style="text-align: center">CUR</th>
+										<th style="text-align: center">AMOUNT</th>
+								
+								
+									
+									</tr>
+								</thead>
+								<tbody id="placelist">
+									<tr th:each="chartacc : ${chartaccount}">
+										<td th:text="${chartacc?.classification}"></td>
+										<td th:text="${chartacc?.gl_code}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.glsh_code}"
+											style="text-align: right;"></td>
+										<td th:text="${chartacc?.acct_num}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.acct_name}"></td>
+										<td th:text="${chartacc?.acct_crncy}"></td>
+										<td th:text="${chartacc?.cr_amt}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.dr_amt}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.acct_bal}" style="text-align: right;"></td>
+										<th:block th:switch="${chartacc.entity_flg}">
+											<td th:case="'Y'" style="color: green;">Active</td>
+											<td th:case="'N'" style="color: red;">UnActive</td>
+										</th:block>
+										<td>
+											<div class="dropdown" style="text-align: center;">
+												<button class="btn btn-sm btn-info btns" type="button"
+													id="dropdownMenuButton" data-toggle="dropdown"
+													aria-haspopup="true" aria-expanded="false">Action</button>
+												<div class="dropdown-menu"
+													aria-labelledby="dropdownMenuButton">
+													<button type="button" class="dropdown-item" id="btnmodify"
+														th:attr="data-attr=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="modifyuser(this);">Modify</button>
+													<div class="dropdown-divider"></div>
+													<button type="button" class="dropdown-item" id="btnmodify"
+														th:attr="data-attr=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="verifyuser(this);">Verify</button>
+													<div class="dropdown-divider"></div>
+													<button type="button" class="dropdown-item" id="btndelete"
+														th:attr="data-attribute=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="deleteuser(this);">Delete</button>
+													<div class="dropdown-divider"></div>
+													<button type="button" class="dropdown-item" id="btnEnquiry"
+														th:attr="data-attr=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="enquiryuser(this);">view</button>
+												</div>
+											</div>
+											
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+							<div class="card-footer text-center border-top-0"
+									style="background-color: #e9ecef">
+									<button type="button" class="btn btn-xs btn-primary mr-2"
+										id="btnHome" onclick="home();">Home</button>
+									<button type="button" class="btn btn-xs btn-primary ml-2"
+										id="btnBack" onclick="back();">Back</button>
+								</div>
+					
+					</div>
+
+				</div>
+			</div>
+			
+		
+			<div class="col-sm-5 ml-5 mt-2">
+<div class="float-right"></div>
+				<div th:if="${formmode}=='list'">
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #e9ecef">
+							<div class="float-left">
+								<h4 >EXPENDITURE</h4>
+									
+							</div>
+						
+									
+											
+					
+						</div>
+						
+						<div class="table-responsive" >
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;" id="usertable">
+								<thead class="thead-light" >
+									<tr>
+										<th style="text-align: center">SUB HEAD</th>
+										<th style="text-align: center;">ACC NUMBER</th>
+										<th style="text-align: center">ACC NAME </th>
+										<th style="text-align: center">CUR</th>
+										<th style="text-align: center">AMOUNT</th>
+					
+								
+									
+									</tr>
+								</thead>
+								<tbody id="placelist">
+									<tr th:each="chartacc : ${chartaccount}">
+										<td th:text="${chartacc?.classification}"></td>
+										<td th:text="${chartacc?.gl_code}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.glsh_code}"
+											style="text-align: right;"></td>
+										<td th:text="${chartacc?.acct_num}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.acct_name}"></td>
+										<td th:text="${chartacc?.acct_crncy}"></td>
+										<td th:text="${chartacc?.cr_amt}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.dr_amt}" style="text-align: right;"></td>
+										<td th:text="${chartacc?.acct_bal}" style="text-align: right;"></td>
+										<th:block th:switch="${chartacc.entity_flg}">
+											<td th:case="'Y'" style="color: green;">Active</td>
+											<td th:case="'N'" style="color: red;">UnActive</td>
+										</th:block>
+										<td>
+											<div class="dropdown" style="text-align: center;">
+												<button class="btn btn-sm btn-info btns" type="button"
+													id="dropdownMenuButton" data-toggle="dropdown"
+													aria-haspopup="true" aria-expanded="false">Action</button>
+												<div class="dropdown-menu"
+													aria-labelledby="dropdownMenuButton">
+													<button type="button" class="dropdown-item" id="btnmodify"
+														th:attr="data-attr=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="modifyuser(this);">Modify</button>
+													<div class="dropdown-divider"></div>
+													<button type="button" class="dropdown-item" id="btnmodify"
+														th:attr="data-attr=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="verifyuser(this);">Verify</button>
+													<div class="dropdown-divider"></div>
+													<button type="button" class="dropdown-item" id="btndelete"
+														th:attr="data-attribute=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="deleteuser(this);">Delete</button>
+													<div class="dropdown-divider"></div>
+													<button type="button" class="dropdown-item" id="btnEnquiry"
+														th:attr="data-attr=${chartacc?.acct_num}"
+														style="text-align: center;" onclick="enquiryuser(this);">view</button>
+												</div>
+											</div>
+											
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+							<div class="card-footer text-center border-top-0"
+									style="background-color: #e9ecef">
+									<button type="button" class="btn btn-xs btn-primary mr-2"
+										id="btnHome" onclick="home();">Home</button>
+									<button type="button" class="btn btn-xs btn-primary ml-2"
+										id="btnBack" onclick="back();">Back</button>
+								</div>
+					
+					</div>
+
+				</div>
+	
+			</div>
+			</div>
+			</div>
+		
+
+
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td {
+	font-size: smaller;
+}
+
+.table-bordered th {
+	font-size: medium;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #f5a142;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tablinks {
+	background-color: #f1f1f1;
+	/* Default background color */
+	border: none;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.tablinks.active {
+	background-color: #2084a9;
+	color: white;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f2f2f2;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 56px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 0px;
+	border-top: 1px solid #ccc;
+}
+
+.active {
+	background-color: #2084a9;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.table-responsive {
+	max-height: 650px;
+	overflow-y: auto;
+	font-size: 15px;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+.radio-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 8vh; /* Keeps the radio buttons centered vertically */
+}
+</style>
+
+<script>
+	$(function() {
+		$("#fromdate").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			changeYear : true,
+			onSelect : function(selectedDate) {
+				// Set the minDate for the "To Date" based on the selected "From Date"
+				$("#todate").datepicker("option", "minDate", selectedDate);
+			}
+		});
+
+		$("#todate").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			changeYear : true
+
+		});
+	});
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+</script>
+<script th:inline="javascript">
+	/* <![CDATA[ */
+	// Convert the Thymeleaf variable to a JavaScript date
+	var trandate = /*[[${TRANDATE}]]*/'1970-01-01'; // Default value if TRANDATE is null
+
+	// Function to format date as yyyy-MM-dd
+	function formatForInput(date) {
+		var d = new Date(date);
+		var day = ('0' + d.getDate()).slice(-2);
+		var month = ('0' + (d.getMonth() + 1)).slice(-2);
+		var year = d.getFullYear();
+		return `${year}-${month}-${day}`;
+	}
+
+	// Function to format date as dd-MM-yyyy
+	function formatDate(date) {
+		var d = new Date(date);
+		var day = ('0' + d.getDate()).slice(-2);
+		var month = ('0' + (d.getMonth() + 1)).slice(-2);
+		var year = d.getFullYear();
+		return `${day}-${month}-${year}`;
+	}
+
+	// Handle the date of loan input
+	document.addEventListener('DOMContentLoaded', function() {
+		var dateOfLoanInput = document.getElementById('date_of_loan');
+		if (trandate) {
+			dateOfLoanInput.value = formatForInput(trandate);
+		}
+
+		// Add an event listener to update the date of loan value before submission
+		document.querySelector('form').addEventListener('submit', function() {
+			var loanDateValue = dateOfLoanInput.value;
+			if (loanDateValue) {
+				var formattedLoanDate = formatDate(loanDateValue);
+				dateOfLoanInput.value = formattedLoanDate;
+			}
+		});
+	});
+	/* ]]> */
+</script>
+<script th:inline="javascript">
+	/* <![CDATA[ */
+	// Handle the deposit period input
+	document.addEventListener('DOMContentLoaded', function() {
+		var depositPeriodInput = document.getElementById('deposit_periods');
+
+		if (trandate) {
+			depositPeriodInput.value = formatForInput(trandate);
+		}
+
+		// Add an event listener to update the deposit period value before submission
+		document.querySelector('form').addEventListener('submit', function() {
+			var depositDateValue = depositPeriodInput.value;
+			if (depositDateValue) {
+				var formattedDepositDate = formatDate(depositDateValue);
+				depositPeriodInput.value = formattedDepositDate;
+			}
+		});
+	});
+	/* ]]> */
+</script>
+
+
+
+
+<script>
+	function clkLease() {
+
+		location.href = './Account_Balances?formmode=Lease';
+
+	}
+	function clkDeposit() {
+		location.href = './Account_Balances?formmode=Deposit';
+	}
+</script>
+
+
+
+
+</head>
+
+
+<body>
+
+	<script>
+		function leasedate() {
+			var date_of_loan = document.getElementById('date_of_loan').value;
+			//alert(date_of_loan);
+			console.log(date_of_loan)
+
+			if (date_of_loan) {
+				// Split the date string by the hyphen
+				var dateParts = date_of_loan.split("-");
+
+				// Rearrange and format to dd-mm-yyyy
+				var formattedDate = dateParts[2] + "-" + dateParts[1] + "-"
+						+ dateParts[0];
+
+				// Display the converted date
+				//alert(formattedDate);
+			} else {
+				//alert("Please select a date.");
+				return; // Exit the function if no date is selected
+			}
+
+			// Make the AJAX call only after the date is formatted
+			$
+					.ajax({
+						type : 'GET',
+						url : './LeaseBalance',
+						data : {
+							date_of_loan : formattedDate
+						},
+						success : function(response) {
+							console.log("Formatted date_of_loan: "
+									+ formattedDate);
+							var tableBody = $('#leasetbody');
+							tableBody.empty(); // Clear existing rows
+
+							if (response.length === 0) {
+								// If no data, show a 'No data available' message
+								var noDataRow = '<tr><td colspan="7" class="text-center text-danger">No data available</td></tr>';
+								tableBody.append(noDataRow);
+							} else {
+								// Populate the table with data from the response
+								$
+										.each(
+												response,
+												function(index, leaseaccount) {
+													var dateString = leaseaccount[3];
+													var formattedDate = formatCustomDate(dateString);
+
+													var formattedLoanAmount = Number(
+															leaseaccount[4])
+															.toLocaleString(
+																	'en-US',
+																	{
+																		minimumFractionDigits : 2,
+																		maximumFractionDigits : 2
+																	});
+													var formatteddisb = Number(
+															leaseaccount[5])
+															.toLocaleString(
+																	'en-US',
+																	{
+																		minimumFractionDigits : 2,
+																		maximumFractionDigits : 2
+																	});
+
+													var row = '<tr>' + '<td>'
+															+ (index + 1)
+															+ '</td>'
+															+ '<td > '
+															+ leaseaccount[0]
+															+ ' </td>'
+															+ '<td class="text-primary" data-acct="'
+															+ leaseaccount[1]
+															+ '" onclick="clicktoacctloan(this)">'
+															+ leaseaccount[1]
+															+ '</td>'
+															+ '<td>'
+															+ leaseaccount[2]
+															+ '</td>'
+															+ '<td>'
+															+ formattedDate
+															+ '</td>'
+															+ '<td class="text-right">'
+															+ formattedLoanAmount
+															+ '</td>'
+															+ '<td  class="text-right">'
+															+ formatteddisb
+															+ '</td>' + '</tr>';
+													tableBody.append(row);
+												});
+							}
+
+						},
+						error : function(xhr, status, error) {
+							// Log the error for debugging purposes
+							console.error("Error: " + error);
+							$('#errorMessage')
+									.text(
+											'Error fetching account details. Please try again later.');
+							$('#errorModal').modal('show');
+						}
+					});
+		}
+
+		function depositdate() {
+			var deposit_period = document.getElementById('deposit_periods').value;
+			//alert(deposit_period);
+
+			if (deposit_period) {
+				// Split the date string by the hyphen
+				var dateParts = deposit_period.split("-");
+
+				// Rearrange and format to dd-mm-yyyy
+				var formattedDate = dateParts[2] + "-" + dateParts[1] + "-"
+						+ dateParts[0];
+
+				// Display the converted date
+				//alert(formattedDate);
+			} else {
+				//alert("Please select a date.");
+				return; // Exit the function if no date is selected
+			}
+
+			// Make the AJAX call only after the date is formatted
+			$
+					.ajax({
+						type : 'GET',
+						url : './DepositBalance',
+						data : {
+							deposit_period : formattedDate
+						},
+						success : function(response) {
+							console.log("Formatted date_of_loan: "
+									+ formattedDate);
+							var tableBody = $('#deposittbody');
+							tableBody.empty(); // Clear existing rows
+
+							if (response.length === 0) {
+								// If no data, show a 'No data available' message
+								var noDataRow = '<tr><td colspan="10" class="text-center text-danger">No data available</td></tr>';
+								tableBody.append(noDataRow);
+							} else {
+								// Populate the table with data from the response
+								$
+										.each(
+												response,
+												function(index, depaccount) {
+													var dateString1 = depaccount[3];
+													var formattedDate1 = formatCustomDate(dateString1);
+													var dateString2 = depaccount[7];
+													var formattedDate2 = formatCustomDate(dateString2);
+
+													var formatteddepAmount = Number(
+															depaccount[4])
+															.toLocaleString(
+																	'en-US',
+																	{
+																		minimumFractionDigits : 2,
+																		maximumFractionDigits : 2
+																	});
+													var formatteddepAmount1 = Number(
+															depaccount[10])
+															.toLocaleString(
+																	'en-US',
+																	{
+																		minimumFractionDigits : 2,
+																		maximumFractionDigits : 2
+																	});
+
+													var row = '<tr>' + '<td>'
+															+ (index + 1)
+															+ '</td>'
+															+ '<td> '
+															+ depaccount[0]
+															+ ' </td>'
+															+ '<td>'
+															+ depaccount[1]
+															+ '</td>'
+															+ '<td>'
+															+ depaccount[2]
+															+ '</td>'
+															+ '<td>'
+															+ formattedDate1
+															+ '</td>'
+															+ '<td class="text-right">'
+															+ formatteddepAmount
+															+ '</td>'
+															+ '<td >'
+															+ depaccount[5]
+															+ '</td>'
+															+ '<td >'
+															+ depaccount[6]
+															+ '</td>'
+															+ '<td>'
+															+ formattedDate2
+															+ '</td>'
+															+ '<td>'
+															+ formatteddepAmount1
+															+ '</td>' + '</tr>';
+													tableBody.append(row);
+												});
+							}
+
+						},
+						error : function(xhr, status, error) {
+							// Log the error for debugging purposes
+							console.error("Error: " + error);
+							$('#errorMessage')
+									.text(
+											'Error fetching account details. Please try again later.');
+							$('#errorModal').modal('show');
+						}
+					});
+		}
+
+		function formatCustomDate(dateString) {
+			dateString = String(dateString);
+
+			// Extract the part before the 'T'
+			var datePart = dateString.split("T")[0]; // "05-15-2024"
+
+			// Split the date part by '-'
+			var dateParts = datePart.split("-");
+
+			// Rearrange to dd-MM-yyyy
+			//  var formattedDate = dateParts[1] + "-" + "-" + dateParts[2];
+			/* 	var formattedDate = dateParts[1] + "-" + dateParts[2] + "-"
+						+ dateParts[0]; */
+			var formattedDate = dateParts[2] + "-" + dateParts[1] + "-"
+					+ dateParts[0];
+			return formattedDate;
+		}
+
+		function clicktoacctloan(a) {
+			var loan_accountno = a.getAttribute("data-acct");
+
+			location.href = 'drawDownLoanMaintanace?formmode=view&loan_accountno='
+					+ loan_accountno;
+
+		}
+		function clicktoacctdeposit(a) {
+			var actno = a.getAttribute("data-acct");
+
+			location.href = 'deposits?formmode=view&actno=' + actno;
+
+		}
+
+		function viewCustomerMaster(a) {
+
+			event.preventDefault();
+			/*var button = document.getElementById('verifyButton');
+			button.disabled = true;*/
+			var accountNo = a.getAttribute('data-loan_accountno');
+			var customer_id = a.getAttribute('data-customer_id');
+
+			console.log(customer_id + " " + accountNo);
+
+			location.href = 'CustomerMaintenanceFromLease?formmode=viewCust&customer_id='
+					+ customer_id + '&loanAcctNo=' + accountNo;
+
+		}
+	</script>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+
+				<div th:if="${formmode}=='list'">
+					<div class="card-header "
+						style="background-color: #f5a142; HEIGHT: 50px; padding-left: 5px;">
+
+						<div class="float-left">
+							<h6 style="font-size: 1.2rem; color: black;" class="ml-4">Account
+								Balances</h6>
+						</div>
+					</div>
+
+					<div class="card-body border">
+
+						<div class="radio-container">
+							<label class="mr-3"> <input type="radio"
+								name="accountType" value="retail" onclick="clkLease()"
+								class="mr-1"> Lease Account Balances
+							</label> <label> <input type="radio" name="accountType"
+								value="corporate" onclick="clkDeposit()"> Deposit
+								Account Balances
+							</label>
+						</div>
+
+					</div>
+
+
+					<div class="card-footer text-center"
+						style="background-color: #f5a142;">
+
+
+						<button class="btn btn-primary P-2" onclick="Home();">Home</button>
+						<button class="btn btn-primary P-2" onclick="back();">Back</button>
+
+					</div>
+
+
+
+
+				</div>
+				<div th:if="${formmode} == 'Lease'">
+					<div class="row">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+								<div class="panel panel-primary filterable">
+									<div
+										class="card-header d-flex justify-content-between align-items-center"
+										style="background-color: #f5a142; height: auto;">
+										<div>
+											<h4
+												style="font-family: Verdana; font-size: x-large; font-style: inherit;">Lease
+												Account Balances</h4>
+										</div>
+										<div class="d-flex align-items-center">
+											<label for="date_of_loan"
+												style="font-size: 15px; margin-right: 10px; white-space: nowrap;">As on
+												Date</label> <input type="date" id="date_of_loan"
+												onchange="leasedate()"
+												class="form-control form-control-sm bg-white border border-dark pl-2"
+												autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="card-body p-0">
+
+										<div class="table-responsive mt-2">
+											<table class=" table  table-bordered  table-hover table-sm">
+												<thead style="background-color: #f5a142;">
+
+													<tr>
+														<th>Sr No</th>
+														<th>Customer ID</th>
+														<th>Account No.</th>
+														<th>Account Name</th>
+														<th>Date of Loan</th>
+														<th class="text-right">Loan Amount</th>
+														<th class="text-right">Outstanding Balances</th>
+													</tr>
+												</thead>
+												<tbody id="leasetbody">
+													<tr th:if="${#lists.isEmpty(leaseaccount)}">
+														<td colspan="9" style="text-align: center; color: red;">No
+															data available</td>
+													</tr>
+													<tr th:each="leaseaccount,iterator : ${leaseaccount}">
+														<td th:text="${iterator.index +1}"></td>
+														<td th:text="${leaseaccount[0]}" class="text-primary"
+															th:attr="data-customer_id = ${leaseaccount[0]},data-loan_accountno = ${leaseaccount[1]}"
+															onclick="viewCustomerMaster(this);"></td>
+														<td th:text="${leaseaccount[1]}" class="text-primary"
+															th:attr="data-acct =${leaseaccount[1]}"
+															onclick="clicktoacctloan(this)"></td>
+														<td th:text="${leaseaccount[2]}"></td>
+														<td
+															th:text="${#dates.format(leaseaccount[3], 'dd-MM-yyyy')}"></td>
+														<td align="right"
+															th:text="${leaseaccount[4] != null && leaseaccount[4] == 0 ? '0.00' : #numbers.formatDecimal(leaseaccount[4], 2, 'COMMA', 0, 'POINT') + '.00'}"></td>
+														<td align="right"
+															th:text="${leaseaccount[5] != null && leaseaccount[5] == 0 ? '0.00' : #numbers.formatDecimal(leaseaccount[5], 2, 'COMMA', 0, 'POINT') + '.00'}"></td>
+
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<div class="card-footer text-center">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back()">Back</button>
+
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div th:if="${formmode} == 'Deposit'">
+					<div class="row">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+								<div class="panel panel-primary filterable">
+									<div class="card-header d-flex justify-content-between">
+										<h4
+											style="font-family: verdana; font-size: x-large; font-style: inherit;">Deposit
+											Balances</h4>
+									</div>
+
+									<div class="card-body p-0">
+										<div class="row formline mt-3 ">
+
+											<div class="col-sm-7"></div>
+											<div class="col-sm-2">
+												<label>As on Date </label>
+											</div>
+
+											<div class="col-sm-2">
+												<input type="date" id="deposit_periods"
+													name="deposit_periods" onchange="depositdate()"
+													class="form-control form-control-sm bg-white border border-dark pl-2"
+													autocomplete="off" />
+
+											</div>
+										</div>
+										<div class="table-responsive mt-2">
+											<table class=" table  table-bordered  table-hover table-sm">
+												<thead>
+
+													<tr>
+														<th>Sr No</th>
+														<th>Customer ID</th>
+														<th>Account No.</th>
+														<th>Account Name</th>
+														<th>Date of Period</th>
+														<th class="text-right">Deposit Amount</th>
+														<th>Period</th>
+														<th>Rate of Interest</th>
+														<th>Maturity Date</th>
+														<th class="text-right">Account Balances</th>
+													</tr>
+												</thead>
+												<tbody id="deposittbody">
+													<tr th:if="${#lists.isEmpty(depsoitaccount)}">
+														<td colspan="10" style="text-align: center; color: red;">No
+															data available</td>
+													</tr>
+													<tr th:each="depsoitaccount,iterator : ${depsoitaccount}">
+														<td th:text="${iterator.index +1}"></td>
+														<td th:text="${depsoitaccount[0]}"></td>
+														<td th:text="${depsoitaccount[1]}" class="text-primary"
+															th:attr="data-acct =${depsoitaccount[1]}"
+															onclick="clicktoacctdeposit(this)"></td>
+														<td th:text="${depsoitaccount[2]}"></td>
+														<td
+															th:text="${#dates.format(depsoitaccount[3], 'dd-MM-yyyy')}"></td>
+														<td align="right"
+															th:text="${depsoitaccount[4] == 0 ? '0.00' :#numbers.formatDecimal(depsoitaccount[4], 0, 'COMMA', 2, 'POINT')}"></td>
+														<td th:text="${depsoitaccount[5]}"></td>
+														<td th:text="${depsoitaccount[6]}"></td>
+														<td
+															th:text="${#dates.format(depsoitaccount[7], 'dd-MM-yyyy')}"></td>
+														<td
+															th:text="${depsoitaccount[8] == 0 ? '0.00' :#numbers.formatDecimal(depsoitaccount[8], 0, 'COMMA', 2, 'POINT')}"></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<div class="card-footer text-center" 
+									style="background-color: #f5a142">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back()">Back</button>
+
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+</body>
+
+
+
+
+</html>

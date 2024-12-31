@@ -1,0 +1,601 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 18-09-24
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 100px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+			font-family: Arial, sans-serif;
+		}
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+
+		.table-responsive {
+			max-height: 650px;
+			overflow-y: auto;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		thead {
+			top: 0;
+			background-color: #f9f9f9;
+			z-index: 10;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+	</style>
+
+
+	<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+
+
+		function Back() {
+			window.history.back();
+		}
+
+
+	</script>
+	<script>
+			document.addEventListener('DOMContentLoaded', function () {
+			    const dateInput = document.getElementById('reportDate');
+			    dateInput.addEventListener('change', function () {
+			        const selectedDate = this.value;
+			        console.log('Selected Date:', selectedDate);
+			        $.ajax({
+			            url: './journalbook2',
+			            data: { selectedDate: selectedDate },
+			            type: 'GET',
+			            success: function (data) {
+			                console.log('Data received:', data);
+	
+			                // Clear the table body before appending new rows
+			                $('#placelist').empty();
+	
+			                if (data.length === 0) {
+			                    // If no data, append a single row with "No records found"
+			                    const noRecordsRow = `
+			                        <tr>
+			                            <td colspan="10" style="text-align: center; font-weight: bold;color:red">No records found</td>
+			                        </tr>
+			                    `;
+			                    $('#placelist').append(noRecordsRow);
+			                } else {
+			                    // Loop through and append rows as usual if data exists
+			                    data.forEach(trial => {
+			                        // Format tran_date to dd-MM-yyyy
+			                        const dateObj = new Date(trial.tran_date);
+			                        const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${dateObj.getFullYear()}`;
+	
+			                        // Format tran_amt with commas and two decimal places
+			                        const formattedAmount = parseFloat(trial.tran_amt).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	
+			                        const row = document.createElement('tr');
+			                        row.innerHTML = `
+			                            <td>${formattedDate}</td>
+			                            <td>${trial.tran_id}</td>
+			                            <td>${trial.part_tran_type}</td>
+			                            <td>${trial.acct_crncy}</td>
+			                            <td >${formattedAmount}</td>
+			                            <td>${trial.acct_num}</td>
+			                            <td>${trial.acct_name}</td>
+			                            <td>${trial.tran_particular}</td>
+			                            <td>${trial.tran_status}</td>
+			                            <td>
+			                                <div class="dropdown" style="text-align: center;">
+			                                    <button class="btn btn-primary p-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                                        Action
+			                                    </button>
+			                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			                                        ${trial.tran_status === 'ENTERED' ? `
+			                                            <a class="dropdown-item" id="btndelete" 
+			                                               data-tranid="${trial.tran_id}" 
+			                                               data-partnid="${trial.part_tran_id}" 
+			                                               data-acctnum="${trial.acct_num}"
+			                                               style="text-align: center;" onclick="deleteuser(this);">Delete</a>
+			                                            <div class="dropdown-divider"></div>
+			                                        ` : ''}
+			                                        <a class="dropdown-item" id="btnEnquiry" 
+			                                           data-tranid="${trial.tran_id}" 
+			                                           data-partnid="${trial.part_tran_id}" 
+			                                           data-acctnum="${trial.acct_num}"
+			                                           style="text-align: center;" onclick="enquiryuser(this);">View</a>
+			                                    </div>
+			                                </div>
+			                            </td>
+			                        `;
+	
+			                        // Append the new row to the table body
+			                        $('#placelist').append(row);
+			                    });
+			                }
+			            },
+			            error: function (err) {
+			                console.error('Error fetching data:', err);
+			            }
+			        });
+			    });
+			});
+
+
+
+	</script>
+	<script>
+		//Filter Table
+
+		$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function () {
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No Record found</td></tr>'));
+								}
+							});
+				});
+				
+				
+	</script>
+	<style>
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+	</style>
+	<script>
+	function enquiryuser(element) {
+		var tranId = $(element).attr('data-tranid');
+		var partnId = $(element).attr('data-partnid');
+		var acctNum = $(element).attr('data-acctnum');
+
+		var url = 'journalEntries?formmode=view&tran_id=' + tranId
+				+ '&part_tran_id=' + partnId + '&acct_num=' + acctNum;
+
+		location.href = url;
+	}
+	</script>
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Journal Entries List---------------------------------- -->
+				<div th:if="${formmode}=='list1'">
+
+					<div class="panel panel-primary filterable">
+						<div class="card w-100 border panel panel-primary filterable">
+							<div class="card-header" style="background-color: #e9ecef; height: 50px">
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">TRANSACTION
+										MAINTANANCE - LIST</h6>
+
+								</div>
+								<div class="d-flex justify-content-end align-items-center float-right"
+									style="flex-wrap: nowrap;">
+									<h6 class="mb-0 mr-2">DATE</h6>
+									<input type="date" name="reportDate"
+										th:value="${#dates.format(session.TRANDATE, 'yyyy-MM-dd')}" id="reportDate"
+										class="form-control form-control-sm bg-white border border-dark" />
+								</div>
+								<div class="float-right mr-3">
+									<button type="button" class="btn btn-primary btns p-2 btn-filter">Filter</button>
+								</div>
+
+
+
+
+
+
+
+
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table  table-bordered table-hover table-sm"
+										style="margin-bottom: 0px; font-size: initial; table-layout: fixed; width: 100%;"
+										id="usertable">
+										<thead class="thead-light">
+
+
+											<tr class="filters">
+												<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Tran Date"
+														disabled></th>
+												</th>
+												<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Tran Id"
+														disabled></th>
+												</th>
+												<th style="text-align: center"><input type="text"
+														class="form-control font-weight-bold" placeholder="Pa Tran Ty"
+														disabled></th>
+												</th>
+												<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Currency"
+														disabled></th>
+												</th>
+												<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Amount"
+														disabled></th>
+												</th>
+												<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Acct Num"
+														disabled></th>
+												</th>
+												<th style="text-align: center; width: 20%;"><input type="text"
+														class="form-control font-weight-bold" placeholder="Acct Name "
+														disabled></th>
+												</th>
+												<th style="text-align: center; width: 20%;"><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="Tran Particular" disabled></th>
+												</th>
+												<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Status"
+														disabled></th>
+											 	<th style="text-align: center"> <input type="text"
+														class="form-control font-weight-bold" placeholder="Select"
+														disabled></th>
+											</tr>
+										</thead>
+										<tbody id="placelist">
+											<tr th:each="details : ${jour}">
+
+												<td 
+													th:text="${details.tran_date != null ? #dates.format(details.tran_date,'dd-MM-yyyy') : ''}" >
+												</td>
+												<td th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num}"
+												class="text-primary" onclick="enquiryuser(this);"
+												 th:text="${details.tran_id} + '/' + ${details.part_tran_id}"></td>
+												<td th:text="${details.part_tran_type}"></td>
+												<td th:text="${details.acct_crncy}"></td>
+
+												<td style="text-align: right;" 
+													th:text="${details?.tran_amt == 0 ? '0.00' :#numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+												</td>
+												<td th:text="${details.acct_num}"></td>
+												<td th:text="${details.acct_name}"></td>
+												<td th:text="${details.tran_particular}"></td>
+												<td th:text="${details.tran_status}"></td>
+												 <td>
+													<div class="dropdown" style="text-align: center;">
+														<button class="btn btn-primary p-2" type="button"
+															id="dropdownMenuButton" data-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															Action</button>
+														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+															<a class="dropdown-item" id="btndelete"
+																th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num}"
+																th:if="${details.tran_status} == 'ENTERED'"
+																style="text-align: center;"
+																onclick="deleteuser(this);">Delete</a>
+
+															<div class="dropdown-divider"
+																th:if="${details.tran_status} == 'ENTERED'"></div>
+															<a class="dropdown-item" id="btnEnquiry"
+																th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num}"
+																style="text-align: center;"
+																onclick="enquiryuser(this);">view</a>
+														</div>
+													</div>
+												</td>
+
+
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

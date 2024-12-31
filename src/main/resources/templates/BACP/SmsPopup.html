@@ -1,0 +1,427 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : SURIYA
+	DATE       : 25-11-24
+	PURPOSE    : SMS POPUP
+	VERSION    : 01
+-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+
+<style>
+.modal-body {
+	text-align: center;
+}
+
+canvas {
+	border: 1px solid #000;
+	margin-bottom: 10px;
+}
+</style>
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+
+
+<script>
+	// Get references to HTML elements
+	var canvas = document.getElementById('signature-pad');
+
+	var clearButton = document.getElementById('clear-button');
+
+	var saveButton = document.getElementById('save-button');
+
+	// Initialize the signature pad
+	var signaturePad = new SignaturePad(canvas, {
+		backgroundColor : 'rgb(255, 255, 255)', // Background color of the signature pad
+		penColor : 'rgb(0, 0, 0)' // Pen color
+	});
+	// Clear the signature pad when the "Clear" button is clicked
+	clearButton.addEventListener('click', function() {
+		signaturePad.clear();
+	});
+
+	// Save the signature as an image when the "Save" button is clicked
+	saveButton.addEventListener('click', function() {
+		if (signaturePad.isEmpty()) {
+			$('#myrequired').modal("toggle");
+			$('#myrequired .modal-body').text(
+					"Please provide a signature first.");
+		} else {
+			// Convert the signature to an image (PNG format)
+			var signatureImage = signaturePad.toDataURL();
+			console.log(signatureImage);
+
+			// Create a new <img> element
+			var imgElement = document.createElement('img');
+			imgElement.src = signatureImage;
+			imgElement.id = 'vjImage';
+
+			// Get the 0th row and its respective cell for the signature image
+			var row0 = document.getElementById('row0');
+			var imageContainer = row0.querySelector('#imageContainer');
+
+			// Clear any existing content in the image container
+			imageContainer.innerHTML = '';
+			// Append the new image element to the image container
+			imageContainer.appendChild(imgElement);
+
+			// Optionally, save the image data (base64) into a hidden field or somewhere else
+			var hiddenInput = document.createElement('input');
+			hiddenInput.type = 'hidden';
+			hiddenInput.name = 'sign0';
+			hiddenInput.value = signatureImage; // Store the signature as base64 data
+			imageContainer.appendChild(hiddenInput); // You can append this to the same <td> or another place
+
+			// Close the signature pad
+			closeSignaturePad();
+		}
+	});
+
+	function closeSignaturePad() {
+		var container = document.getElementById('myModal');
+		container.style.display = 'none';
+	}
+
+	function convertSignatureToImage() {
+		// Get the Data URL from the SignaturePad
+		var signatureImage = signaturePad.toDataURL();
+
+		// Create a new <img> element
+		var imgElement = document.createElement('img');
+
+		// Set the src attribute of the <img> element to the Data URL
+		imgElement.src = signatureImageDataURL;
+
+		// Append the <img> element to a container in your HTML, e.g., a <div> with the id "signatureContainer"
+		document.getElementById('imageContainer').appendChild(imgElement);
+		//alert(document.getElementById('imageContainer').value)
+		//  alert(imgElement);
+	}
+</script>
+
+
+
+</head>
+
+
+<body>
+
+
+	<!---------------------CustInquiries List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+
+				<!-- ------------------------------------CustInquiries- List---------------------------------- -->
+				<div>
+					<div class="row justify-content-center">
+						<div class="text-center">
+							<div class="card">
+								<div class="modal-body">
+									<canvas id="signature-pad" width="400" height="200"></canvas>
+
+									<p class="text-center">Please Sign Your Signature</p>
+
+								</div>
+								<div class="modal-footer" style="padding: 16px 16px;">
+									<button id="clear-button" class="btn btn-primary p-2">Clear</button>
+									<button id="save-button" class="btn btn-primary p-2">Save</button>
+									<input type="text" id="appl_ref_no" th:value="${appl_ref_no}"
+										hidden autocomplete="off" /> <input type="text"
+										id="unique_id" th:value="${unique_id}" hidden
+										autocomplete="off" />
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<script>
+						// Initialize the signature pad
+						var canvas = document.getElementById('signature-pad');
+						var signaturePad = new SignaturePad(canvas);
+
+						// Clear button event listener
+						document.getElementById('clear-button')
+								.addEventListener('click', function() {
+									signaturePad.clear();
+								});
+
+						// Save button event listener
+						document
+								.getElementById('save-button')
+								.addEventListener(
+										'click',
+										function() {
+											var appl_ref_no = document
+													.getElementById('appl_ref_no').value;
+											var unique_id = document
+													.getElementById('unique_id').value;
+											alert('Application Ref No: '
+													+ appl_ref_no
+													+ '\nUnique ID: '
+													+ unique_id);
+											if (signaturePad.isEmpty()) {
+												alert("sign");
+												/* $('#myrequired')
+														.modal("toggle");
+												$('#alertmsg')
+														.text(
+																"Please provide a signature...!"); */
+											} else {
+												var dataURL = signaturePad
+														.toDataURL();
+												console.log(dataURL);
+												var encodedDataURL = encodeURIComponent(dataURL);
+												var url = 'CustomerOnboarding?formmode=proceed&appl_ref_no='
+														+ encodeURIComponent(appl_ref_no)
+														+ '&unique_id='
+														+ encodeURIComponent(unique_id);
+
+												location.href = url;
+												window.close();
+
+												/*    $.ajax({
+												       type: 'POST', // or 'GET' if your server expects a GET request
+												       url: 'CustomerOnboarding',
+												       data: {
+												           formmode: 'proceed',
+												           appl_ref_no: appl_ref_no,
+												           unique_id: unique_id,
+												           dataURL: encodedDataURL
+												       },
+												       success: function(response) {
+												           console.log('Success:', response);
+												           window.close();
+												       },
+												       error: function(xhr, status, error) {
+												           console.error('Error:', error);
+												           // Handle errors here
+												       }
+												   }); */
+
+											}
+										});
+					</script>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal fade" data-backdrop="false" data-keyboard="false"
+			tabindex="-1" role="dialog" aria-hidden="true"
+			style="padding-left: 10%; padding-top: 20%" id="myrequired">
+			<div
+				class="modal-dialog modal-diaCap At Maturity ? log-centered modal-dialog-scrollable"
+				style="height: 20%">
+				<div class="modal-content">
+					<div class="modal-body" style="text-align: center">
+						<p id="alertmsg"></p>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="goBack()">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

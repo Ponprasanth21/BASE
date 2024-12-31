@@ -1,0 +1,1281 @@
+
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!-- 
+	CREATED BY : RUKMANI J
+	USED FOR :CATEGORY CODE MAINTENANCE -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+
+
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th,td {
+            border: 1px solid #dcdcdc;
+                 }
+        td {
+            border-top: 1px solid #dcdcdc;
+        }
+    </style>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+	
+		$(function() {
+	
+			$("#disableStartDate,#disableEndDate").datepicker({
+				minDate : new Date(),
+				changeMonth : true,
+				changeYear : true,
+				gotoCurrent : true,
+				dateFormat : "dd-mm-yy"
+			});
+	
+		});
+	
+		function home() {
+			location.href = 'Dashboard'
+		}
+	
+		function back() {
+			window.history.back();
+		}
+	
+		function list() {
+			location.href = 'MtAssociateProfile?formmode=list';
+		}
+		function Headcode(a) {
+			var headcode = a.id;
+			alert(headcode)
+			location.href = 'Catcodemaintain?formmode=edit&headcode='+headcode;
+		}
+		
+		function codeadd() {
+			
+			location.href = 'Catcodemaintain?formmode=add&hcode=m';
+		}
+	
+		/*]]>*/
+	</script>
+<script>
+		$(function() {
+			$("#dob,#doj,#disableEndDate,#disableStartDate").datepicker({
+				dateFormat : "dd-mm-yy",
+				changeMonth : true,
+				numberOfMonths : 1,
+				gotoCurrent : true
+	
+			});
+	
+			$(".checkToModify").on(
+					'click',
+					function() {
+	
+						$(this).prop('checked', true);
+	
+						var formMode = "edit";
+	
+						var resId = $(this).val();
+	
+						location.href = 'MtAssociateProfile?formmode=' + formMode
+								+ '&resId=' + resId;
+	
+					});
+	
+		});
+	
+		function submiteditform(a) {
+	
+			if ($("#Bamcategorycodemain").valid()) {
+				//$("#loader1").modal("toggle");
+				var formmode = 'edit';
+				alert(formmode);
+				var url = "./Catcodemaintainadd?formmode=" + formmode;
+	
+				$("#Bamcategorycodemain").attr('action', url);
+	
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+	
+				$("#Bamcategorycodemain").ajaxSubmit(options);
+	
+				function showResponse(responseText, statusText, xhr, $form) {
+					//$("#loader1").hide();
+					$("#alertmsg").text(responseText);
+	
+					$('#alert').modal("toggle");
+	
+				};
+	
+			}
+			
+		}
+		
+		
+		function submitaddform(a) {
+			var headcodeElement = document.getElementById('staticSelect');
+	        var headcode = headcodeElement.options[headcodeElement.selectedIndex].text;
+	       // alert(headcode);
+	        var categorycodeElement = document.getElementById('dynamicSelect1');
+	        var categorycode = categorycodeElement.options[categorycodeElement.selectedIndex].text;
+	        //alert(categorycode); 
+	        var subcategorycodeElement = document.getElementById('dynamicSelect2');
+	        var subcategorycode = subcategorycodeElement.options[subcategorycodeElement.selectedIndex].text;
+	          // alert(subcategorycode);
+			if ($("#Bamcategorycodemain").valid()) {
+			//	$("#loader1").modal("toggle");
+				var formmode = 'add';
+				//alert(formmode);
+				var url = "./Catcodemaintainadd?formmode=" + formmode + '&headcode=' +headcode + '&categorycode=' +categorycode + '&subcategorycode=' +subcategorycode;
+	
+				$("#Bamcategorycodemain").attr('action', url);
+	
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+	
+				$("#Bamcategorycodemain").ajaxSubmit(options);
+	
+				function showResponse(responseText, statusText, xhr, $form) {
+				//	$("#loader1").hide();
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+	
+				};
+	
+			}
+			
+		}
+	
+		//Filter Table
+	
+		$(document)
+				.ready(
+						function() {
+	
+							$('.filterable .btn-filter')
+									.click(
+											function(event) {
+												event.preventDefault();
+												var $panel = $(this).parents(
+														'.filterable'), $filters = $panel
+														.find('.filters input'), $tbody = $panel
+														.find('.table tbody');
+												if ($filters.prop('disabled') == true) {
+													$filters
+															.prop('disabled', false);
+													$filters.first().focus();
+												} else {
+													$filters.val('').prop(
+															'disabled', true);
+													$tbody.find('.no-result')
+															.remove();
+													$tbody.find('tr').show();
+												}
+											});
+	
+							$('.filterable .filters input')
+									.keyup(
+											function(e) {
+												/* Ignore tab key */
+												var code = e.keyCode || e.which;
+												if (code == '9')
+													return;
+												/* Useful DOM data and selectors */
+												var $input = $(this), inputContent = $input
+														.val().toLowerCase(), $panel = $input
+														.parents('.filterable'), column = $panel
+														.find('.filters th')
+														.index($input.parents('th')), $table = $panel
+														.find('.table'), $rows = $table
+														.find('tbody tr');
+												/* Dirtiest filter function ever ;) */
+												var $filteredRows = $rows
+														.filter(function() {
+															var value = $(this)
+																	.find('td').eq(
+																			column)
+																	.text()
+																	.toLowerCase();
+															return value
+																	.indexOf(inputContent) === -1;
+														});
+												/* Clean previous no-result if exist */
+												$table.find('tbody .no-result')
+														.remove();
+												/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+												$rows.show();
+												$filteredRows.hide();
+												/* Prepend no-result row if all rows are filtered */
+												if ($filteredRows.length === $rows.length) {
+													$table
+															.find('tbody')
+															.prepend(
+																	$('<tr class="no-result text-center"><td colspan="'
+																			+ $table
+																					.find('.filters th').length
+																			+ '">No result found</td></tr>'));
+												}
+											});
+	
+						});
+						
+						
+						function Deleteform(a) {
+
+							var ASN = document.getElementById('deleteSubmit').value;
+							alert(ASN);
+								//$("#loader1").modal("toggle");
+							
+								var url = "./deleteserialno?ASN="+ ASN;
+					
+								$("#Bamcategorycodemain").attr('action', url);
+					
+								var options = {
+									success : showResponse
+								// post-submit callback 
+								};
+					
+								$("#Bamcategorycodemain").ajaxSubmit(options);
+					
+								function showResponse(responseText, statusText, xhr, $form) {
+									//$("#loader1").hide();
+									$("#alertmsg").text(responseText);
+					
+									$('#alert').modal("toggle");
+					
+								};
+					
+							
+							
+						}
+						
+						
+	</script>
+	
+	 					
+	</head>
+<title>BAM</title>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content" th:if="${formmode} == 'list'">
+					<div class="row">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+								<div class="panel panel-primary filterable">
+									<div class="card-header d-flex justify-content-between">
+										<h4
+											style="font-family: verdana; font-size: x-large; font-style: inherit;">CATEGORY
+											CODE MAINTENANCE</h4>
+									</div>
+
+									<div class="card-body p-0">
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+
+													<tr>
+														<th rowspan="2">Srl. No</th>
+														<th colspan="2" style="text-align: center;background-color: #f2f2f2;">Head</th>
+														<th colspan="2" style="text-align: center;background-color: #f2f2f2;">Category</th>
+														<th colspan="2" style="text-align: center;background-color: #f2f2f2;">Sub-Category</th>
+														<th rowspan="2">Asset Code</th>
+														<!--
+														<th rowspan="2">Depreciation Method</th>
+														<th rowspan="2">Depreciation Percentage(%)</th>
+														-->
+														<th rowspan="2">Asset Account Number</th>
+														<th rowspan="2">Depreciation Fund Account</th>
+														<th rowspan="2">Depreciation P&L Account</th>
+														<th rowspan="2">Select</th>
+													</tr>
+													<tr>
+														<th>Code</th>
+														<th>Description</th>
+														<th>Code</th>
+														<th>Description</th>
+														<th>Code</th>
+														<th>Description</th>
+
+													</tr>
+												</thead>
+												<tbody id="associatemonthly">
+
+													<tr th:each="Bamcatcode : ${Bamcategorycodemain}">
+														<td th:text="${Bamcatcode.sl_no}"></td>
+														<td th:text="${Bamcatcode?.head_code}"></td>
+														<td th:text="${Bamcatcode?.head_description}"></td>
+														<td th:text="${Bamcatcode?.category_code}"></td>
+														<td th:text="${Bamcatcode?.category_description}"></td>
+														<td th:text="${Bamcatcode?.sub_category_code}"></td>
+														<td th:text="${Bamcatcode?.sub_category_description}"></td>
+														<td th:text="${Bamcatcode?.asset_code}"></td>
+														<!--
+														<td th:text="${Bamcatcode?.depreciation_method}"></td>
+														<td th:text="${Bamcatcode?.depreciation_percentage}"></td>-->
+														<td th:text="${Bamcatcode?.asset_account_number}"></td>
+														<td th:text="${Bamcatcode?.depreciation_fund_account}"></td>
+														<td th:text="${Bamcatcode?.depreciation_pandl_account}"></td>
+														<td><input type="radio"
+															th:id="${Bamcatcode?.asset_code}" onclick="Headcode(this)">
+														</td>
+
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<div class="card-footer text-center">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="codeadd()">Add</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back()">Back</button>
+
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="container-fluid content" th:if="${formmode}=='edit'">
+					<div class="row">
+
+						<form action="#" th:object="${Bamcategorycodemain}" class="w-100"
+							method="post" autocomplete="off" id="Bamcategorycodemain">
+
+							<div class="associateProfileList mt-4">
+								<div class="card">
+									<div class="card-header">
+										<div class="float-left">
+											<h4>Category Code Maintenance - Edit</h4>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="form-group">
+																<div class="row formline">
+												<div class="col-sm-2">
+													<label for="solid">Serial No</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" 
+													th:value="${Bamcategorycodemain.sl_no}" 
+													class="form-control form-control-sm" id="sl_no" name="sl_no" readonly>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="location">Sol Id</label>
+												</div>
+												<div class="col-sm-3">
+												<input type="text" 
+													th:value="${Bamcategorycodemain.solid}" 
+													class="form-control form-control-sm" id="solid" name="solid" >
+												
+												
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="head_code">Head Code</label>
+												</div>
+
+												<div class="col-sm-3">
+    												<select id="staticSelect" name="head_code" class="form-control form-control-sm" disabled>
+            										<option th:text="${Bamcategorycodemain.head_code}"></option>
+            										<option value="Furniture&Fittings">A</option>
+            										<option value="Machinery&Plant">B</option>
+            										<option value="Premises">C</option>
+       												</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="head_description">Head Description</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="staticTextBox1" name="head_description" 
+													th:value="${Bamcategorycodemain.head_description}" readonly>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="category_code">Category Code</label>
+												</div>
+
+												<div class="col-sm-3">
+    												<select id="dynamicSelect1" name="category_code" class="form-control form-control-sm" disabled >
+            										<option th:text="${Bamcategorycodemain.category_code}"></option>
+        											</select>
+												</div>
+												
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="category_description">Category
+														Description</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="dynamicTextBox11"
+													 name="category_description" 
+													th:value="${Bamcategorycodemain.category_description}" readonly>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="sub_category_code">Sub Category Code</label>
+												</div>
+
+												<div class="col-sm-3">
+    												<select id="dynamicSelect2" name="sub_category_code" class="form-control form-control-sm" disabled>
+            										<option th:text="${Bamcategorycodemain.sub_category_code}"></option>
+        											</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="sub_category_description">Sub Category
+														Description</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="dynamicTextBox2"  name="sub_category_description" 
+													th:value="${Bamcategorycodemain.sub_category_description}" readonly>
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asset_code">Asset Code</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${Bamcategorycodemain.asset_code}"
+														id="asset_code" class="form-control form-control-sm"
+														autocomplete="off" name="asset_code" required="required" readonly/>
+												</div>
+												<!--
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depreciation_method">Depreciation
+														Method</label>
+												</div>
+												<div class="col-sm-3">
+													
+														<select id="depreciation_method" name="depreciation_method" class="form-control form-control-sm" >
+            										<option th:text="${Bamcategorycodemain.depreciation_method}"></option>
+            										<option value="SLM">SLM</option>
+            										<option value="WDV">WDV</option>
+       												</select>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depreciation_percentage">Depreciation
+														Percentage</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" placeholder="Only Numeric value"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														maxlength="3"
+														th:value="${Bamcategorycodemain.depreciation_percentage}"
+														id="depreciation_percentage"
+														class="form-control form-control-sm"
+														name="depreciation_percentage" autocomplete="off" required="required" />
+												</div>-->
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asset_account_number">Asset Account
+														Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														
+														th:value="${Bamcategorycodemain.asset_account_number}"
+														id="asset_account_number"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asset_account_number" required="required" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depreciation_fund_account">Depreciation
+														Fund Account</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+													oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${Bamcategorycodemain?.depreciation_fund_account}"
+														id="depreciation_fund_account"
+														class="form-control form-control-sm"
+														name="depreciation_fund_account" autocomplete="off" required="required" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depreciation_pandl_account">Depreciation
+														Pandl Account</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${Bamcategorycodemain?.depreciation_pandl_account}"
+														id="depreciation_pandl_account"
+														class="form-control form-control-sm"
+														name="depreciation_pandl_account" autocomplete="off" />
+												</div>
+												
+												<!-- 
+											</div>
+											
+											<div class="row formline">
+											
+												<div class="col-sm-2">
+													<label for="location">Location</label>
+												</div>
+												<div class="col-sm-3">
+												<select id="location" name="location" class="form-control form-control-sm" >
+            										<option th:text="${Bamcategorycodemain.location}" ></option>
+            										<option value="OFF">Office</option>
+														<option value="BRN">Branch</option>
+														<option value="QUA">Quarters</option>
+														<option value="GEN">General</option>
+       												</select>
+												
+												</div>
+												
+												
+											</div>
+											
+											-->
+										</div>
+
+									</div>
+									<div class="card-footer text-center">
+
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home();">Home</button>
+
+
+
+										<button th:if="${formmode}=='edit'" type="button"
+											class="btn btn-xs btn-primary"
+											onclick="submiteditform(this);" form="Bamcategorycodemain"
+											id="btnSubmit" th:attr="data-formmode='edit'">Submit</button>
+											
+
+										<button th:if="${formmode}=='edit'" type="button"
+											class="btn btn-xs btn-primary" 	th:value="${Bamcategorycodemain?.sl_no}"
+											onclick="Deleteform(this);" 
+											id="deleteSubmit" th:attr="data-formmode='edit'">Delete</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back();">Back</button>
+
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+				<div class="container-fluid content" th:if="${formmode}=='add'">
+					<div class="row">
+
+						<form action="#" th:object="${Bamcategorycodemain}" class="w-100"
+							method="post" autocomplete="off" id="Bamcategorycodemain">
+
+							<div class="associateProfileList mt-4">
+								<div class="card">
+									<div class="card-header">
+										<div class="float-left">
+											<h4>Category Code Maintenance - Add</h4>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="form-group">
+										<div class="row formline">
+												<div class="col-sm-2">
+													<label for="solid">SOL ID</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="solid" name="solid">
+												</div>
+												
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asset_account_number">ASSET ACCOUNT
+														NUMBER</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${Bamcategorycodemain.asset_account_number}"
+														id="asset_account_number"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asset_account_number" />
+												</div>
+												
+												
+												
+												
+												<!--
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="location">LOCATION</label>
+												</div>
+												<div class="col-sm-3">
+												<select id="location" name="location" class="form-control form-control-sm" >
+            										<option value="">Please Select</option>
+            							<option value="OFF">Office</option>
+														<option value="BRN">Branch</option>
+														<option value="QUA">Quarters</option>
+														<option value="GEN">General</option>
+       												</select>
+												
+												</div>
+												-->
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="head_code">HEAD CODE</label>
+												</div>
+
+												<div class="col-sm-3">
+    												<select id="staticSelect" name="head_code" class="form-control form-control-sm" >
+            										<option value="">Please Select</option>
+            										<option value="Furniture&Fittings">A</option>
+            										<option value="Machinery&Plant">B</option>
+            										<option value="Premises">C</option>
+            										<option value="Premises Under Construction">D</option>
+       												</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="head_description">HEAD DESCRIPTION</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="staticTextBox" name="head_description" readonly>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="category_code">CATEGORY CODE</label>
+												</div>
+
+												<div class="col-sm-3">
+    												<select id="dynamicSelect1" name="category_code" class="form-control form-control-sm">
+            										<!-- Options will be populated dynamically based on the static select -->
+        											</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="category_description">CATEGORY
+														DESCRIPTION</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="dynamicTextBox1" name="category_description" readonly>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="sub_category_code">SUB CATEGORY CODE</label>
+												</div>
+
+												<div class="col-sm-3">
+    												<select id="dynamicSelect2" class="form-control form-control-sm">
+            										<!-- Options will be populated dynamically based on the second select -->
+        											</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="sub_category_description">SUB CATEGORY
+														DESCRIPTION</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" class="form-control form-control-sm" id="dynamicTextBox2" name="sub_category_description"  readonly>											
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asset_code">ASSET CODE</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														id="asset_code" class="form-control form-control-sm"
+														autocomplete="off" name="asset_code" readonly />
+												</div>
+												
+												
+												
+												
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depreciation_pandl_account">DEPRECIATION
+														PANDL ACCOUNT</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${Bamcategorycodemain?.depreciation_pandl_account}"
+														id="depreciation_pandl_account"
+														class="form-control form-control-sm"
+														name="depreciation_pandl_account" autocomplete="off" />
+												</div>
+												
+												
+												<!-- 
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depreciation_method">DEPRECIATION
+														METHOD</label>
+												</div>
+												<div class="col-sm-3">
+													<!-- <input type="text"
+														th:value="${Bamcategorycodemain.depreciation_method}"
+														id="depreciation_method"
+														class="form-control form-control-sm" autocomplete="off"
+														name="depreciation_method" />
+														 
+														<select id="depreciation_method" name="depreciation_method" class="form-control form-control-sm" >
+            										<option value="">Please Select</option>
+            										<option value="SLM">SLM</option>
+            										<option value="WDV">WDV</option>
+       												</select>
+														
+												</div>
+												-->
+											</div>
+											
+											
+											
+											<!-- 
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depreciation_percentage">DEPRECIATION
+														PERCENTAGE</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="number"
+														th:value="${Bamcategorycodemain.depreciation_percentage}"
+														id="depreciation_percentage"
+														class="form-control form-control-sm"
+														name="depreciation_percentage" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asset_account_number">ASSET ACCOUNT
+														NUMBER</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${Bamcategorycodemain.asset_account_number}"
+														id="asset_account_number"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asset_account_number" />
+												</div>
+											</div> -->
+											
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depreciation_fund_account">DEPRECIATION
+														FUND ACCOUNT</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${Bamcategorycodemain?.depreciation_fund_account}"
+														id="depreciation_fund_account"
+														class="form-control form-control-sm"
+														name="depreciation_fund_account" autocomplete="off" />
+												</div>
+												
+											</div>
+										</div>
+
+									</div>
+									<div class="card-footer text-center">
+
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home();">Home</button>
+
+
+
+										<button th:if="${formmode}=='add'" type="button"
+											class="btn btn-xs btn-primary"
+											onclick="submitaddform(this);" form="Bamcategorycodemain"
+											id="btnSubmit" th:attr="data-formmode='edit'">Submit</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back();">Back</button>
+
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+        // Function to set options dynamically for the first dynamic select
+        function setDynamicOptions1(condition) {
+            const selectElement = document.getElementById('dynamicSelect1');
+            selectElement.innerHTML = '';
+
+            const optionsForCondition1 = [
+                { value: 'AT STC &STAFF COLLEGES(FOR LOCAL HEAD OFFICE)', text: 'I' },
+                { value: 'At Officers Residence', text: 'II' },
+                { value: 'At Other Premises', text: 'III' },
+                { value: 'Electric Fitting', text: 'IV' }
+            ];
+            
+            const optionsForCondition2 = [
+                { value: 'Computers', text: 'I' },
+                { value: 'Computers Software', text: 'II' },
+                { value: 'Motor Vehicles', text: 'III' },
+                { value: 'Other Machinery & Plant', text: 'IV' }
+            ];
+
+            const optionsForCondition3 = [
+                { value: 'Premises', text: 'I' },
+                { value: 'Premises Under Construction', text: 'II' }
+            ];
+            
+            const optionsForCondition4 = [
+                { value: 'Premises Under Construction', text: 'I' }
+            ];
+
+            const defaultOption = { value: '', text: 'Please Select' };
+
+            let options;
+            if (condition === 'Furniture&Fittings') {
+                options = [defaultOption, ...optionsForCondition1];
+            } else if (condition === 'Machinery&Plant') {
+                options = [defaultOption, ...optionsForCondition2];
+            } else if (condition === 'Premises') {
+                options = [defaultOption, ...optionsForCondition3];
+            }else if (condition === 'Premises Under Construction') {
+                options = [defaultOption, ...optionsForCondition4];
+            }  else {
+                options = [defaultOption];
+            }
+
+            options.forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                selectElement.appendChild(option);
+            });
+
+            // Set default selected value for dynamicSelect1
+            selectElement.value = '';
+            document.getElementById('dynamicTextBox1').value = selectElement.value;
+
+            // Trigger change event to update the third select box
+            selectElement.dispatchEvent(new Event('change'));
+        }
+
+        // Function to set options dynamically for the second dynamic select
+        function setDynamicOptions2(condition) {
+            const selectElement = document.getElementById('dynamicSelect2');
+            selectElement.innerHTML = '';
+
+            const optionsForValue1A = [
+                { value: 'value1A1', text: 'Sub Option 1A1' },
+                { value: 'value1A2', text: 'Sub Option 1A2' }
+            ];
+
+            const optionsForValue1B = [
+                { value: 'value1B1', text: 'Sub Option 1B1' },
+                { value: 'value1B2', text: 'Sub Option 1B2' },
+                { value: 'value1B3', text: 'Sub Option 1B3' }
+            ];
+
+            const optionsForValue1C = [
+                { value: 'value1C1', text: 'Sub Option 1C1' },
+                { value: 'value1C2', text: 'Sub Option 1C2' },
+                { value: 'value1C3', text: 'Sub Option 1C3' }
+            ];
+
+            const staticSelectValue = document.getElementById('staticSelect').value;
+
+            const defaultOption = { value: '', text: 'Please Select' };
+
+            let options;
+
+
+            if (staticSelectValue === 'Furniture&Fittings') {
+                if (condition === 'AT STC &STAFF COLLEGES(FOR LOCAL HEAD OFFICE)') {
+                    options = [
+                        defaultOption,
+                        { value: 'At STC & STAFF COLLEGES', text: 'A' },
+                    ];
+                } else if (condition === 'At Officers Residence') {
+                    options = [
+                        defaultOption,
+                        { value: 'At Officer Residence', text: 'A' }
+                    ];
+                } else if (condition === 'At Other Premises') {
+                    options = [
+                        defaultOption,
+                        { value: 'At Other Premises', text: 'A' }
+                    ];
+                } else if (condition === 'Electric Fitting') {
+                    options = [
+                        defaultOption,
+                        { value: 'Electric Fitting', text: 'A' }
+                    ];
+                }
+            }
+
+
+
+            else if (staticSelectValue === 'Machinery&Plant') {
+                if (condition === 'Computers') {
+                    options = [
+                        defaultOption,
+                        { value: 'Computers', text: 'A' },
+                    ];
+                } else if (condition === 'Computers Software') {
+                    options = [
+                        defaultOption,
+                        { value: 'Computers Software(forming integral part of HardWare)', text: 'A' },
+                        { value: 'Computers Software(not forming integral part of HardWare)', text: 'B' }
+                        
+                    ];
+                } else if (condition === 'Motor Vehicles') {
+                    options = [
+                        defaultOption,
+                        { value: 'Motor Vehicles', text: 'A' }
+                    ];
+                } else if (condition === 'Other Machinery & Plant') {
+                    options = [
+                        defaultOption,
+                        { value: 'At Officers Residence', text: 'A' },
+                        { value: 'At STCS(For local Head Office)', text: 'B' },
+                        { value: 'At Other Premises', text: 'C' }
+                    ];
+                }
+            }
+
+
+
+            else if (staticSelectValue === 'Premises') {
+                if (condition === 'Premises') {
+                    options = [
+                        defaultOption,
+                        { value: 'Land', text: 'A' },
+                        { value: 'Office Building', text: 'B' },
+                        { value: 'Residentail Quarters', text: 'C' }
+                    ];
+                } else if (condition === 'Premises Under Construction') {
+                    options = [
+                        defaultOption,
+                        { value: 'Premises Under Construction', text: 'A' },
+                        
+                    ];
+                } 
+            }
+            
+
+            else if (staticSelectValue === 'Premises Under Construction') {
+                if (condition === 'Premises Under Construction') {
+                    options = [
+                        defaultOption,
+                        { value: 'Premises Under Construction', text: 'A' },
+                    ];
+                } 
+            }
+            
+            
+            
+            
+            
+             else {
+                options = [defaultOption];
+            }
+
+            options.forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                selectElement.appendChild(option);
+            });
+
+            // Set default selected value for dynamicSelect2
+            selectElement.value = '';
+            document.getElementById('dynamicTextBox2').value = selectElement.value;
+        }
+
+        // Update static text box based on static select box selection
+        document.getElementById('staticSelect').addEventListener('change', function() {
+            const selectedValue = this.value;
+            document.getElementById('staticTextBox').value = selectedValue;
+            setDynamicOptions1(selectedValue);
+        });
+
+        // Update first dynamic text box and populate second dynamic select based on first dynamic select box selection
+        document.getElementById('dynamicSelect1').addEventListener('change', function() {
+            const selectedValue = this.value;
+            document.getElementById('dynamicTextBox1').value = selectedValue;
+            setDynamicOptions2(selectedValue);
+        });
+
+        // Update second dynamic text box based on second dynamic select box selection
+        document.getElementById('dynamicSelect2').addEventListener('change', function() {
+            const selectedValue = this.value;
+            document.getElementById('dynamicTextBox2').value = selectedValue;
+            
+            //FOR ASSET CODE
+
+          var headcodeElement = document.getElementById('staticSelect');
+	        var headcode = headcodeElement.options[headcodeElement.selectedIndex].text;
+	        //alert(headcode);
+	        var categorycodeElement = document.getElementById('dynamicSelect1');
+	        var categorycode = categorycodeElement.options[categorycodeElement.selectedIndex].text;
+	       // alert(categorycode); 
+	        var subcategorycodeElement = document.getElementById('dynamicSelect2');
+	        var subcategorycode = subcategorycodeElement.options[subcategorycodeElement.selectedIndex].text;
+	          // alert(subcategorycode);
+            
+	          if(headcode=='A' && categorycode=='I' && subcategorycode=='A' ){
+	        	  
+	  	       document.getElementById('asset_code').value="A01A";
+	          }else if(headcode=='A' && categorycode=='II' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="A02A";
+		      }else if(headcode=='A' && categorycode=='III' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="A03A";
+		      }else if(headcode=='A' && categorycode=='IV' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="A04A";
+		      }else if(headcode=='B' && categorycode=='I' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B01A";
+		      }else if(headcode=='B' && categorycode=='II' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B02A";
+		      }else if(headcode=='B' && categorycode=='II' && subcategorycode=='B' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B02B";
+		      }else if(headcode=='B' && categorycode=='III' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B03A";
+		      }else if(headcode=='B' && categorycode=='IV' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B04A";
+		      }else if(headcode=='B' && categorycode=='IV' && subcategorycode=='B' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B04B";
+		      }else if(headcode=='B' && categorycode=='IV' && subcategorycode=='C' ){
+	        	  
+		  	       document.getElementById('asset_code').value="B04C";
+		      }else if(headcode=='C' && categorycode=='I' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="C01A";
+		      }else if(headcode=='C' && categorycode=='I' && subcategorycode=='B' ){
+	        	  
+		  	       document.getElementById('asset_code').value="C01B";
+		      }else if(headcode=='C' && categorycode=='I' && subcategorycode=='C' ){
+	        	  
+		  	       document.getElementById('asset_code').value="C01C";
+		      }else if(headcode=='D' && categorycode=='I' && subcategorycode=='A' ){
+	        	  
+		  	       document.getElementById('asset_code').value="D01A";
+		      }
+	          
+            
+            
+            
+            
+            
+        });
+
+        // Initialize dynamicSelect1 and dynamicSelect2 based on the initial staticSelect value
+        window.onload = function() {
+            const initialStaticValue = document.getElementById('staticSelect').value;
+            document.getElementById('staticTextBox').value = initialStaticValue;
+            setDynamicOptions1(initialStaticValue);
+        };
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black;font-family: verdana;font-size: medium;
+						font-weight: bold;">BANK NAME</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;">BANK NAME</p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="loader1" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="background: transparent;">
+				<div class="modal-body" style="text-align: center">
+					<div>
+						<img th:src=@{/images/loadingapp.gif} id="bfirelogo"
+							style="width: 153px; margin-left: 18px;" alt="Bornfire">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+</html>

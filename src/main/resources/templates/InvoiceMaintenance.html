@@ -1,0 +1,1311 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 18-09-24
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+
+			font-family: Arial, sans-serif;
+
+		}
+
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+	</style>
+
+
+	<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		$(function () {
+			$(
+				"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
+				.datepicker({
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					changeYear: true
+
+				});
+		});
+	</script>
+	<script>
+		function add() {
+
+			location.href = 'invoiceMaintance?formmode=add';
+		}
+
+		function list() {
+
+			location.href = './assosiateProfile?formmode=list';
+		}
+
+
+	</script>
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Invoice Maintanance List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="card w-100 border">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">INVOICE MAINTENANCE</h6>
+							</div>
+
+							<div class="btn-group nav-buttons float-right" style="padding: 5px;">
+
+								<button class="btn btn-primary p-2" onclick="add();">Add</button>
+
+							</div>
+
+						</div>
+						<div class="table-responsive">
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;" id="usertable">
+								<thead class="thead-light">
+
+
+
+
+									<tr>
+										<th style="text-align: center">INVOICE NUMBER</th>
+										<th style="text-align: center">INVOICE DATE</th>
+										<th style="text-align: center">DUE DATE</th>
+										<th style="text-align: center">STATUS</th>
+										<th style="text-align: center">INVOICE TYPE</th>
+										<th style="text-align: center">CLIENT</th>
+										<th style="text-align: center">SELECT</th>
+
+									</tr>
+								</thead>
+								<tbody id="placelist">
+									<!--<tr th:each="details : ${inv}">
+
+												<td th:text="${details.inv_srl_no}"></td>
+												<td th:text="${details.inv_date}"></td>
+												<td th:text="${details.inv_due_date}"></td>
+												<td th:text="${details.inv_status}"></td>
+												<td th:text="${details.inv_type}"></td>
+												<td></td>
+
+												<td style="text-align: center">
+													<div class="dropdown">
+
+														<button class="btn btn-secondary dropdown-toggle" type="button"
+															id="dropdownMenuButton" title="action"
+															style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+															data-toggle="dropdown" aria-haspopup="true"
+															aria-expanded="false">Action</button>
+
+														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+															style="background-color: #e3e3e4; color: #3a4550;">
+
+															<a th:attr="data-inv_srl_no=${details.inv_srl_no}"
+																class="dropdown-item" title="View"
+																style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																onclick="view(this)" id="view_btn">View </a>
+															<div class="dropdown-divider"></div>
+
+															<a th:attr="data-inv_srl_no=${details.inv_srl_no}"
+																class="dropdown-item" title=" Modify"
+																style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																id="edit_value" onclick="modify(this)">Modify</a>
+															<div class="dropdown-divider"></div>
+
+															<a th:attr="data-inv_srl_no=${details.inv_srl_no}"
+																class="dropdown-item" title=" Delete"
+																style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																id="delete" onclick="Delete(this)">Delete</a>
+															<div class="dropdown-divider"></div>
+
+
+														</div>
+
+													</div>
+												</td>
+											</tr>-->
+
+
+
+								</tbody>
+							</table>
+						</div>
+						<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- ------------------------------------Invoice Maintanance add---------------------------------- -->
+				<div th:if="${formmode}=='add'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card w-100 border">
+								<div class="card-header " style="background-color: #e9ecef;">
+
+									<div class="float-left">
+										<h6 style="font-size: 1.2rem; color: black;">INVOICE MAINTENANCE</h6>
+									</div>
+
+
+
+								</div>
+								<form class=" border border-secondary" method="post" id="invoiceidadd" autocomplete="off" class="mt-3">
+
+
+
+
+									<div class="row formline" style="padding: 10px 0px 5px 0px;">
+
+
+										<div class="col-sm-4"></div>
+										<div class="col-sm-2">Invoice Type</div>
+
+
+										<div class="col-sm-2">
+											<select id="inv_type" name="inv_type" class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<option value="TRG">TRG</option>
+												<option value="PRJ">PRJ</option>
+												<option value="RPL">RPL</option>
+												<option value="APL">APL</option>
+												<option value="REI">REI</option>
+
+
+											</select>
+										</div>
+
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-4"></div>
+										<div class="col-sm-2">Currency</div>
+
+
+										<div class="col-sm-2">
+											<select id="inv_crncy" name="inv_crncy" onchange="showINRDiv()"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="INR">INR</option>
+												<option value="USD">USD</option>
+
+
+											</select>
+										</div>
+
+									</div>
+
+									<div class="row formline" style="padding: 10px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Invoice No</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="inv_srl_no" id="inv_srl_no"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Invoice Date</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_date" id="inv_date"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Due Date</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="inv_due_date" id="inv_due_date"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Status</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_status" id="inv_status"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Client</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="" id="" class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Reference</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_ref_no" id="inv_ref_no"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+									<div class="row formline" id="inrdiv" style="padding: 10px 100px 0px 100px;">
+
+										<table class="table table-bordered table-sm" id="">
+											<thead>
+												<tr>
+													<th style="width:5%"></th>
+													<th style="text-align: center;">
+														<h6>Description</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> Amount</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>Tax Rate</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> CGST</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> SGST</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> IGST</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> Total Amount</h6>
+													</th>
+
+												</tr>
+											</thead>
+
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">1
+												</td>
+												<td> <input type="text" name="desc_1" id="desc_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="inr_amt_1" id="inr_amt_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tax_1" id="tax_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="cgst_1" id="cgst_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="sgst_1" id="sgst_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="igst_1" id="igst_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tot_inr_amt_1" id="tot_inr_amt_1"
+														class="form-control input-md" readonly /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">2
+												</td>
+												<td> <input type="text" name="desc_2" id="desc_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="inr_amt_2" id="inr_amt_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tax_2" id="tax_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="cgst_2" id="cgst_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="sgst_2" id="sgst_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="igst_2" id="igst_=2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tot_inr_amt_2" id="tot_inr_amt_2"
+														class="form-control input-md" readonly /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">3
+												</td>
+												<td> <input type="text" name="desc_3" id="desc_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="inr_amt_3" id="inr_amt_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tax_3" id="tax_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="cgst_3" id="cgst_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="sgst_3" id="sgst_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="igst_3" id="igst_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tot_inr_amt_3" id="tot_inr_amt_3"
+														class="form-control input-md" readonly /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">4
+												</td>
+												<td> <input type="text" name="desc_4" id="desc_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="inr_amt_4" id="inr_amt_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tax_4" id="tax_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="cgst_4" id="cgst_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="sgst_4" id="sgst_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="igst_4" id="igst_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tot_inr_amt_4" id="tot_inr_amt_4"
+														class="form-control input-md" readonly /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">5
+												</td>
+												<td> <input type="text" name="desc_5" id="desc_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="inr_amt_5" id="inr_amt_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tax_5" id="tax_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="cgst_5" id="cgst_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="sgst_5" id="sgst_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="igst_5" id="igst_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="tot_inr_amt_5" id="tot_inr_amt_5"
+														class="form-control input-md" readonly /></td>
+
+
+											</tr>
+
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+									<div class="row formline" id="usddiv"
+										style="padding: 10px 100px 0px 100px;display:none;">
+
+										<table class="table table-bordered table-sm" id="">
+											<thead>
+												<tr>
+													<th style="width:5%"></th>
+													<th style="text-align: center;">
+														<h6>Description</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>Local Currency</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>CONV Rate</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>USD Amount</h6>
+													</th>
+
+												</tr>
+											</thead>
+
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">1
+												</td>
+												<td> <input type="text" name="desc_1" id="desc_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="loc_crncy_1" id="loc_crncy_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="conv_rate_1" id="conv_rate_1"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="usd_amt_1" id="usd_amt_1"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">2
+												</td>
+												<td> <input type="text" name="desc_2" id="desc_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="loc_crncy_2" id="loc_crncy_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="conv_rate_2" id="conv_rate_2"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="usd_amt_2" id="usd_amt_2"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">3
+												</td>
+												<td> <input type="text" name="desc_3" id="desc_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="loc_crncy_3" id="loc_crncy_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="conv_rate_3" id="conv_rate_3"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="usd_amt_3" id="usd_amt_3"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">4
+												</td>
+												<td> <input type="text" name="desc_4" id="desc_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="loc_crncy_4" id="loc_crncy_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="conv_rate_4" id="conv_rate_4"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="usd_amt_4" id="usd_amt_4"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">5
+												</td>
+												<td> <input type="text" name="desc_5" id="desc_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="loc_crncy_5" id="loc_crncy_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="conv_rate_5" id="conv_rate_5"
+														class="form-control input-md" /></td>
+												<td> <input type="number" name="usd_amt_5" id="usd_amt_5"
+														class="form-control input-md" /></td>
+
+											</tr>
+
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+
+									<div class="row formline" style="padding: 10px 975px 0px 100px;">
+
+										<table class="table table-bordered table-sm" id="">
+											<thead>
+												<tr>
+													<th style="width:18%"></th>
+													<th style="text-align: center;">
+														<h6>Enclosures</h6>
+													</th>
+
+												</tr>
+											</thead>
+
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">1
+												</td>
+												<td> <input type="text" name="encl_1" id="encl_1"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">2
+												</td>
+												<td> <input type="text" name="encl_2" id="encl_2"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">3
+												</td>
+												<td> <input type="text" name="encl_3" id="encl_3"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">4
+												</td>
+												<td> <input type="text" name="encl_4" id="encl_4"
+														class="form-control input-md" /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">5
+												</td>
+												<td> <input type="text" name="encl_5" id="encl_5"
+														class="form-control input-md" /></td>
+
+											</tr>
+
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+
+
+								</form>
+								<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+									<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+									<button class="btn btn-primary p-2" onclick="addsubmit();">Submit</button>
+									<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ------------------------------------Invoice Maintanance View---------------------------------- -->
+				<div th:if="${formmode}=='view'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card w-100 border">
+
+								<div class="card-header " style="background-color: #e9ecef;">
+
+									<div class="float-left">
+										<h6 style="font-size: 1.2rem; color: black;">INVOICE MAINTENANCE</h6>
+									</div>
+
+
+
+								</div>
+								<form class=" border border-secondary" method="post" id="invoiceid" autocomplete="off" class="mt-3">
+
+
+
+
+
+									<div class="row formline" style="padding: 10px 0px 5px 0px;">
+
+
+										<div class="col-sm-4"></div>
+										<div class="col-sm-2">Invoice Type</div>
+
+
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_type" id="inv_type"
+												class="form-control form-control-sm bg-white border border-dark" th:value=${invoice?.inv_type} />
+
+										</div>
+
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-4"></div>
+										<div class="col-sm-2">Currency</div>
+
+
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_crncy" id="inv_crncy"
+												class="form-control form-control-sm bg-white border border-dark" th:value=${invoice?.inv_type} />
+
+										</div>
+
+									</div>
+
+									<div class="row formline" style="padding: 10px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Invoice No</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="inv_srl_no" id="inv_srl_no"
+												class="form-control form-control-sm bg-white border border-dark" th:value=${invoice?.inv_srl_no} />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Invoice Date</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_date" id="inv_date"
+												class="form-control form-control-sm bg-white border border-dark" th:value=${invoice?.inv_date} />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Due Date</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="inv_due_date" id="inv_due_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value=${invoice?.inv_due_date} />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Status</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_status" id="inv_status"
+												class="form-control form-control-sm bg-white border border-dark" th:value=${invoice?.inv_status} />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Client</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="" id="" class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Reference</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="inv_ref_no" id="inv_ref_no"
+												class="form-control form-control-sm bg-white border border-dark" th:value=${invoice?.inv_ref_no} />
+
+										</div>
+									</div>
+
+									<div class="row formline" id="inrdiv" style="padding: 10px 100px 0px 100px;">
+
+										<table class="table table-bordered table-sm" id="">
+											<thead>
+												<tr>
+													<th style="width:5%"></th>
+													<th style="text-align: center;">
+														<h6>Description</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> Amount</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>Tax Rate</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> CGST</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> SGST</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> IGST</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6> Total Amount</h6>
+													</th>
+
+												</tr>
+											</thead>
+
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">1
+												</td>
+												<td> <input type="text" name="desc_1" id="desc_1"
+														class="form-control input-md"
+														th:value="${invoice?.desc_1 != null ? invoice?.desc_1.replace(',', '') : ''}" />
+												</td>
+
+												<td> <input type="number" name="inr_amt_1" id="inr_amt_1"
+														class="form-control input-md" th:value=${invoice?.inr_amt_1} />
+												</td>
+												<td> <input type="number" name="tax_1" id="tax_1"
+														class="form-control input-md" th:value=${invoice?.tax_1} /></td>
+												<td> <input type="number" name="cgst_1" id="cgst_1"
+														class="form-control input-md" th:value=${invoice?.cgst_1} />
+												</td>
+												<td> <input type="number" name="sgst_1" id="sgst_1"
+														class="form-control input-md" th:value=${invoice?.sgst_1} />
+												</td>
+												<td> <input type="number" name="igst_1" id="igst_1"
+														class="form-control input-md" th:value=${invoice?.igst_1} />
+												</td>
+												<td> <input type="number" name="tot_inr_amt_1" id="tot_inr_amt_1"
+														class="form-control input-md" readonly
+														th:value=${invoice?.tot_inr_amt_1} /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">2
+												</td>
+												<td> <input type="text" name="desc_2" id="desc_2"
+														class="form-control input-md"
+														th:value="${invoice?.desc_2 != null ? invoice?.desc_2.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="inr_amt_2" id="inr_amt_2"
+														class="form-control input-md" th:value=${invoice?.inr_amt_2} />
+												</td>
+												<td> <input type="number" name="tax_2" id="tax_2"
+														class="form-control input-md" th:value=${invoice?.tax_2} /></td>
+												<td> <input type="number" name="cgst_2" id="cgst_2"
+														class="form-control input-md" th:value=${invoice?.cgst_2} />
+												</td>
+												<td> <input type="number" name="sgst_2" id="sgst_2"
+														class="form-control input-md" th:value=${invoice?.sgst_2} />
+												</td>
+												<td> <input type="number" name="igst_2" id="igst_=2"
+														class="form-control input-md" th:value=${invoice?.igst_2} />
+												</td>
+												<td> <input type="number" name="tot_inr_amt_2" id="tot_inr_amt_2"
+														class="form-control input-md" readonly
+														th:value=${invoice?.tot_inr_amt_2} /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">3
+												</td>
+												<td> <input type="text" name="desc_3" id="desc_3"
+														class="form-control input-md"
+														th:value="${invoice?.desc_3 != null ? invoice?.desc_3.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="inr_amt_3" id="inr_amt_3"
+														class="form-control input-md" th:value=${invoice?.inr_amt_3} />
+												</td>
+												<td> <input type="number" name="tax_3" id="tax_3"
+														class="form-control input-md" th:value=${invoice?.tax_3} /></td>
+												<td> <input type="number" name="cgst_3" id="cgst_3"
+														class="form-control input-md" th:value=${invoice?.cgst_3} />
+												</td>
+												<td> <input type="number" name="sgst_3" id="sgst_3"
+														class="form-control input-md" th:value=${invoice?.sgst_3} />
+												</td>
+												<td> <input type="number" name="igst_3" id="igst_3"
+														class="form-control input-md" th:value=${invoice?.igst_3} />
+												</td>
+												<td> <input type="number" name="tot_inr_amt_3" id="tot_inr_amt_3"
+														class="form-control input-md" readonly
+														th:value=${invoice?.tot_inr_amt_3} /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">4
+												</td>
+												<td> <input type="text" name="desc_4" id="desc_4"
+														class="form-control input-md"
+														th:value="${invoice?.desc_4 != null ? invoice?.desc_4.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="inr_amt_4" id="inr_amt_4"
+														class="form-control input-md" th:value=${invoice?.inr_amt_4} />
+												</td>
+												<td> <input type="number" name="tax_4" id="tax_4"
+														class="form-control input-md" th:value=${invoice?.tax_4} /></td>
+												<td> <input type="number" name="cgst_4" id="cgst_4"
+														class="form-control input-md" th:value=${invoice?.cgst_4} />
+												</td>
+												<td> <input type="number" name="sgst_4" id="sgst_4"
+														class="form-control input-md" th:value=${invoice?.sgst_4} />
+												</td>
+												<td> <input type="number" name="igst_4" id="igst_4"
+														class="form-control input-md" th:value=${invoice?.igst_4} />
+												</td>
+												<td> <input type="number" name="tot_inr_amt_4" id="tot_inr_amt_4"
+														class="form-control input-md" readonly
+														th:value=${invoice?.tot_inr_amt_4} /></td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">5
+												</td>
+												<td> <input type="text" name="desc_5" id="desc_5"
+														class="form-control input-md"
+														th:value="${invoice?.desc_5 != null ? invoice?.desc_5.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="inr_amt_5" id="inr_amt_5"
+														class="form-control input-md" th:value=${invoice?.inr_amt_5} />
+												</td>
+												<td> <input type="number" name="tax_5" id="tax_5"
+														class="form-control input-md" th:value=${invoice?.tax_5} /></td>
+												<td> <input type="number" name="cgst_5" id="cgst_5"
+														class="form-control input-md" th:value=${invoice?.cgst_5} />
+												</td>
+												<td> <input type="number" name="sgst_5" id="sgst_5"
+														class="form-control input-md" th:value=${invoice?.sgst_5} />
+												</td>
+												<td> <input type="number" name="igst_5" id="igst_5"
+														class="form-control input-md" th:value=${invoice?.igst_5} />
+												</td>
+												<td> <input type="number" name="tot_inr_amt_5" id="tot_inr_amt_5"
+														class="form-control input-md" readonly
+														th:value=${invoice?.tot_inr_amt_5} /></td>
+
+
+											</tr>
+
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+									<div class="row formline" id="usddiv"
+										style="padding: 10px 100px 0px 100px;display:none;">
+
+										<table class="table table-bordered table-sm" id="">
+											<thead>
+												<tr>
+													<th style="width:5%"></th>
+													<th style="text-align: center;">
+														<h6>Description</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>Local Currency</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>CONV Rate</h6>
+													</th>
+													<th style="text-align: center;">
+														<h6>USD Amount</h6>
+													</th>
+
+												</tr>
+											</thead>
+
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">1
+												</td>
+												<td> <input type="text" name="desc_1" id="desc_1"
+														class="form-control input-md"
+														th:value="${invoice?.desc_1 != null ? invoice?.desc_1.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="loc_crncy_1" id="loc_crncy_1"
+														class="form-control input-md"
+														th:value=${invoice?.loc_crncy_1} /></td>
+												<td> <input type="number" name="conv_rate_1" id="conv_rate_1"
+														class="form-control input-md"
+														th:value=${invoice?.conv_rate_1} /></td>
+												<td> <input type="number" name="usd_amt_1" id="usd_amt_1"
+														class="form-control input-md" th:value=${invoice?.usd_amt_1} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">2
+												</td>
+												<td> <input type="text" name="desc_2" id="desc_2"
+														class="form-control input-md"
+														th:value="${invoice?.desc_2 != null ? invoice?.desc_2.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="loc_crncy_2" id="loc_crncy_2"
+														class="form-control input-md"
+														th:value=${invoice?.loc_crncy_2} /></td>
+												<td> <input type="number" name="conv_rate_2" id="conv_rate_2"
+														class="form-control input-md"
+														th:value=${invoice?.conv_rate_2} /></td>
+												<td> <input type="number" name="usd_amt_2" id="usd_amt_2"
+														class="form-control input-md" th:value=${invoice?.usd_amt_2} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">3
+												</td>
+												<td> <input type="text" name="desc_3" id="desc_3"
+														class="form-control input-md"
+														th:value="${invoice?.desc_3 != null ? invoice?.desc_3.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="loc_crncy_3" id="loc_crncy_3"
+														class="form-control input-md"
+														th:value=${invoice?.loc_crncy_3} /></td>
+												<td> <input type="number" name="conv_rate_3" id="conv_rate_3"
+														class="form-control input-md"
+														th:value=${invoice?.conv_rate_3} /></td>
+												<td> <input type="number" name="usd_amt_3" id="usd_amt_3"
+														class="form-control input-md" th:value=${invoice?.usd_amt_3} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">4
+												</td>
+												<td> <input type="text" name="desc_4" id="desc_4"
+														class="form-control input-md"
+														th:value="${invoice?.desc_4 != null ? invoice?.desc_4.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="loc_crncy_4" id="loc_crncy_4"
+														class="form-control input-md"
+														th:value=${invoice?.loc_crncy_4} /></td>
+												<td> <input type="number" name="conv_rate_4" id="conv_rate_4"
+														class="form-control input-md"
+														th:value=${invoice?.conv_rate_4} /></td>
+												<td> <input type="number" name="usd_amt_4" id="usd_amt_4"
+														class="form-control input-md" th:value=${invoice?.usd_amt_4} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">5
+												</td>
+												<td> <input type="text" name="desc_5" id="desc_5"
+														class="form-control input-md"
+														th:value="${invoice?.desc_5 != null ? invoice?.desc_5.replace(',', '') : ''}" />
+												</td>
+												<td> <input type="number" name="loc_crncy_5" id="loc_crncy_5"
+														class="form-control input-md"
+														th:value=${invoice?.loc_crncy_5} /></td>
+												<td> <input type="number" name="conv_rate_5" id="conv_rate_5"
+														class="form-control input-md"
+														th:value=${invoice?.conv_rate_5} /></td>
+												<td> <input type="number" name="usd_amt_5" id="usd_amt_5"
+														class="form-control input-md" th:value=${invoice?.usd_amt_5} />
+												</td>
+
+											</tr>
+
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+
+									<div class="row formline" style="padding: 10px 975px 0px 100px;">
+
+										<table class="table table-bordered table-sm" id="">
+											<thead>
+												<tr>
+													<th style="width:18%"></th>
+													<th style="text-align: center;">
+														<h6>Enclosures</h6>
+													</th>
+
+												</tr>
+											</thead>
+
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">1
+												</td>
+												<td> <input type="text" name="encl_1" id="encl_1"
+														class="form-control input-md" th:value=${invoice?.encl_1} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">2
+												</td>
+												<td> <input type="text" name="encl_2" id="encl_2"
+														class="form-control input-md" th:value=${invoice?.encl_2} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">3
+												</td>
+												<td> <input type="text" name="encl_3" id="encl_3"
+														class="form-control input-md" th:value=${invoice?.encl_3} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">4
+												</td>
+												<td> <input type="text" name="encl_4" id="encl_4"
+														class="form-control input-md" th:value=${invoice?.encl_4} />
+												</td>
+
+											</tr>
+											<tr>
+												<td style="font-size:12px; vertical-align: middle;text-align:center;">5
+												</td>
+												<td> <input type="text" name="encl_5" id="encl_5"
+														class="form-control input-md" th:value=${invoice?.encl_5} />
+												</td>
+
+											</tr>
+
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+
+
+								</form>
+								<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+									<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+									<button class="btn btn-primary p-2" onclick="Submit();">Submit</button>
+									<button class="btn btn-primary p-2" onclick="Backadd();">Back</button>
+
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>

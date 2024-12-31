@@ -1,0 +1,4588 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : NITHYAPRIYA
+	DATE       : 22-09-24
+	PURPOSE    : BACP - CustomerMaintenance
+	VERSION    : 01
+-->
+<!--
+	CREATED BY : SURIAY
+	DATE       : 18-11-24
+	PURPOSE    : UPDATED CODE 
+	VERSION    : 02
+-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.jsdelivr.net/npm/signature_pad/dist/signature-pad.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<style type="text/css">
+canvas#signature-pad {
+	background: #fff;
+	width: 100%;
+	height: 100%;
+	cursor: crosshair;
+}
+
+button#clear {
+	height: 100%;
+	background: #4b00ff;
+	border: 1px solid transparent;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button#clear span {
+	transform: rotate(90deg);
+	display: block;
+}
+
+.signature-pad {
+	margin: auto;
+	height: auto;
+}
+
+.signature-pad--body {
+	min-height: 360px;
+}
+
+.signature-pad--actions {
+	overflow: hidden;
+}
+
+.signature-pad--actions>div:first-child {
+	float: left;
+}
+
+.signature-pad--actions>div:last-child {
+	float: right;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+canvas {
+	display: block;
+	position: relative;
+	border: 1px solid;
+}
+
+/*css style starts for the image*/
+.file-upload {
+	background-color: #ffffff;
+	width: 200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.file-upload-content {
+	display: none;
+	text-align: left;
+}
+
+.image-upload-wrap {
+	margin-top: 0px;
+	margin-left: 20px;
+	width: 150px;
+	height: 150px;
+	/* border: 1px dashed #000000; */
+	position: relative;
+}
+
+.image-title-wrap {
+	padding: 0 15px 15px 15px;
+	color: #222;
+}
+
+.drag-text {
+	text-align: center;
+}
+
+.drag-text h3 {
+	font-weight: 100;
+	text-transform: uppercase;
+	color: #000000;
+	padding: 60px 0;
+}
+
+.file-upload-image {
+	max-height: 200px;
+	max-width: 200px;
+	margin: auto;
+	padding: 20px;
+}
+
+.remove-image {
+	width: 200px;
+	margin: 0;
+	color: #fff;
+	background: #cd4535;
+	border: none;
+	padding: 10px;
+	border-radius: 4px;
+	border-bottom: 4px solid #b02818;
+	transition: all .2s ease;
+	outline: none;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.remove-image:active {
+	border: 0;
+	transition: all .2s ease;
+}
+
+.file-upload-input {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.image-upload-wrapone {
+	margin-top: 10px;
+	width: 150px;
+	height: 150px;
+	border: 1px dashed #000000;
+	position: relative;
+}
+
+.image-dropping, .image-upload-wrap:hover {
+	background-color: #ffffff;
+	border: 4px dashed #ffffff;
+}
+
+.custom-icon {
+	font-size: 20px; /* Adjust the size of the icon */
+}
+
+.myModal {
+	position: absolute;
+	width: 50%;
+	height: 50%;
+	float: top;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+</style>
+<style>
+#imgCapture11 img {
+	transition: box-shadow 0.3s ease;
+	/* Smooth transition */
+}
+
+#imgCapture11 img:hover {
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	/* Adjust values for the shadow */
+}
+
+.modaldoc {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 30%;
+	width: 50%;
+	height: 100%;
+	/*  background-color: rgba(0, 0, 0, 0.7); */
+	z-index: 1;
+}
+
+.modal-contentdoc {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	border: 1px solid #888;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	text-align: center;
+}
+
+.closedoc {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 30px;
+	cursor: pointer;
+	color: white;
+}
+
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td {
+	font-size: smaller;
+}
+
+.table-bordered th {
+	font-size: medium;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+.table-responsive {
+	max-height: 650px;
+	overflow-y: auto;
+}
+</style>
+<style>
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.chn {
+	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.uniform-input {
+	width: 160px;
+	/* You can adjust this width to fit your layout */
+	box-sizing: border-box;
+	/* Ensures consistent sizing */
+}
+
+.radio-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 8vh;
+	/* Keeps the radio buttons centered vertically */
+}
+
+.radio-container label {
+	margin-right: 40px;
+	/* Adds space between "Retail" and "Corporate" */
+	font-size: 16px;
+}
+
+.radio-container label:last-child {
+	margin-right: 0;
+	/* Removes extra space after the last radio button */
+}
+
+.customer-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+	/* Adjust height as needed */
+}
+
+.customer-container>div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.customer-container label {
+	margin-right: 10px;
+	font-size: 16px;
+}
+
+.customer-container .col-sm-3, .customer-container .col-sm-2 {
+	display: flex;
+	align-items: center;
+}
+
+.customer-container .col-sm-3 input, .customer-container .col-sm-2 input
+	{
+	width: 100%;
+}
+</style>
+
+<script>
+		function back() {
+		    window.history.back();
+		}
+		
+		function back1() {
+		    window.history.back();
+		}
+		</script>
+<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+	
+
+		$(document).ready(function () {
+			$(".CH2").show();
+			$("#chl").text("Web");
+			$(".CH3").hide();
+			$("#listtype").on("change", function () {
+				if ($("#listtype").val() == "Web") {
+					$(".CH2").show();
+					$("#chl").text("Web");
+					$(".CH3").hide();
+				} else {
+					$(".CH3").show();
+					$("#chl").text("Mobile");
+					$(".CH2").hide();
+				}
+			});
+
+		});
+
+		function setphoto(a) {
+
+			var filesSelected = document.getElementById("photoupload" + a).files;
+			var getfile = document.getElementById("photoupload" + a).value;
+			var ext = getfile.match(/\.(.+)$/)[1].toLowerCase();
+			var options = ['jpg', 'jpeg', 'png'];
+			if (options.indexOf(ext) > -1) {
+				if (filesSelected.length > 0) {
+					var fileToLoad = filesSelected[0];
+
+					var fileReader = new FileReader();
+
+					fileReader.onload = function (e) {
+						var base64 = e.target.result; // <--- data: base64
+						$("#photoCapture" + a).attr("src", base64);
+						$("#photoCapture" + a).show();
+						// var encodedString = btoa(base64);
+						$("#photo" + a).html(base64);
+					}
+					fileReader.readAsDataURL(fileToLoad);
+				}
+
+			} else {
+
+				alert('This Type(jpg,jpeg,png) of File Only Allowed');
+				getfile = '';
+			}
+
+		}
+	</script>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+		function list() {
+			location.href = 'CustomerRequest?formmode=list';
+		}
+
+	</script>
+<script>
+		function base64ToUint8Array(base64) {
+
+			const binaryString = window.atob(base64);
+
+			const length = binaryString.length;
+
+			const uint8Array = new Uint8Array(length);
+
+			for (let i = 0; i < length; i++) {
+				uint8Array[i] = binaryString.charCodeAt(i);
+			}
+
+			return uint8Array;
+		}
+
+
+		function fndashboard() {
+			location.href = 'Dashboard'
+		}
+
+		$(document)
+		.ready(
+			function () {
+				$('.filterable .btn-filter')
+					.click(
+						function () {
+							var $panel = $(this).parents(
+								'.filterable'), $filters = $panel
+									.find('.filters input'), $tbody = $panel
+										.find('.table tbody');
+							if ($filters.prop('disabled') == true) {
+								$filters
+									.prop('disabled', false);
+								$filters.first().focus();
+							} else {
+								$filters.val('').prop(
+									'disabled', true);
+								$tbody.find('.no-result')
+									.remove();
+								$tbody.find('tr').show();
+							}
+						});
+
+				$('.filterable .filters input')
+					.keyup(
+						function (e) {
+							/* Ignore tab key */
+							var code = e.keyCode || e.which;
+							if (code == '9')
+								return;
+							/* Useful DOM data and selectors */
+							var $input = $(this), inputContent = $input
+								.val().toLowerCase(), $panel = $input
+									.parents('.filterable'), column = $panel
+										.find('.filters th')
+										.index($input.parents('th')), $table = $panel
+											.find('.table'), $rows = $table
+												.find('tbody tr');
+							console.log($input);
+							/* Dirtiest filter function ever ;) */
+							var $filteredRows = $rows
+								.filter(function () {
+									var value = $(this)
+										.find('td').eq(
+											column)
+										.text()
+										.toLowerCase();
+									console.log(value);
+									return value
+										.indexOf(inputContent) === -1;
+								});
+							/* Clean previous no-result if exist */
+							$table.find('tbody .no-result')
+								.remove();
+							/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+							$rows.show();
+							$filteredRows.hide();
+							/* Prepend no-result row if all rows are filtered */
+							if ($filteredRows.length === $rows.length) {
+								$table
+									.find('tbody')
+									.prepend(
+										$('<tr class="no-result text-center"><td colspan="'
+											+ $table
+												.find('.filters th').length
+											+ '">No result found</td></tr>'));
+							}
+						});
+			});
+
+
+
+
+		function backs() {
+			window.history.back();
+		}
+	</script>
+
+<script>
+		function show1(a) {
+			$("#imgCapture11 img").empty();
+			$("#imgCapture11").html("");
+			var values = document.getElementById("gooom").value;
+			var value1 = a.getAttribute("data-doc_type");
+			console.log(values);
+			console.log(value1);
+			$.ajax({
+				type: 'get',
+				url: '/BGLS/getproof1?appl_ref_no=' + values + '&doc_type=' + value1,
+				success: function (response) {
+					const base64String = response;
+					const uint8Array = base64ToUint8Array(base64String);
+
+					const blob = new Blob([uint8Array]);
+					const imageUrl = URL.createObjectURL(blob);
+
+					const img = document.createElement("img");
+					img.src = imageUrl;
+
+
+					img.style.width = "350px";
+					img.style.height = "250px";
+					$(document).ready(function () {
+						$(function () {
+							$('#popup1').css("visibility", "visible");
+							$('#popup1').css("opacity", 1);
+						});
+
+						$(".imageclose").click(function () {
+							$('#popup1').css("visibility", "hidden");
+							$('#popup1').css("opacity", 0);
+						});
+					});
+					var modaldoc = document.getElementById("myModaldoc");
+					modaldoc.style.display = "block";
+					var element = document.getElementById("imgCapture11");
+					element.appendChild(img);
+					console.log(img);
+				}
+			});
+
+		}
+
+		function closeDoc(a) {
+			var modaldoc = document.getElementById("myModaldoc");
+			modaldoc.style.display = "none";
+		}
+
+
+		
+	</script>
+<script>
+
+		function sechduleView(a) {
+
+			var accountNo = a.getAttribute('data-loan_accountno');
+			console.log(accountNo);
+
+			$
+				.ajax({
+					type: "GET",
+					url: "./getInterestDetailsView?accountNo=" + accountNo,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+									var no_of_instalment = entity.no_of_instalment;
+									var from_date = formatDate(entity.from_date);
+									var installment_date = formatDate(entity.installment_date);
+									var installment_description = entity.installment_description;
+									var installment_amt = formatNumber(entity.installment_amt);
+									var principal_amt = formatNumber(entity.principal_amt);
+									var interest_amt = formatNumber(entity.interest_amt);
+									var charges_amt = formatNumber(entity.charges_amt);
+									var principal_outstanding = formatNumber(entity.principal_outstanding);
+
+
+
+									trHTML += '<tr id="sechduleRow">'
+										+ '<td><input type="text" class="border-0" name="scheduleNo" readonly value="' + no_of_instalment + '" /></td>'
+										+ '<td><input type="text" class="border-0" name="originalDemandDate" readonly value="' + from_date + '" /></td>'
+
+										+ '<td><input type="text" class="border-0" name="demandType" readonly value="' + installment_description + '" /></td>'
+										+ '<td><input type="text" class="text-right border-0" name="demandId" readonly value="' + installment_amt + '" /></td>'
+										+ '<td><input class="text-right border-0"  type="text" readonly name="demandAmount" value="'
+										+ principal_amt
+										+ '" /></td>'
+										+ '<td><input type="text" class="text-right border-0" name="demandId" readonly value="' + interest_amt + '" /></td>'
+										+ '<td><input type="text"  class="text-right border-0" name="demandId" readonly value="' + charges_amt + '" /></td>'
+										+ '<td><input type="text"  class="text-right border-0" name="demandId" readonly value="' + principal_outstanding + '" /></td>'
+
+										+ '</tr>';
+
+								});
+						$('#repaymentDet').empty().append(trHTML);
+
+
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+		function formatDate(dateString) {
+
+			var date = new Date(dateString);
+
+
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		function formatNumber(number) {
+			return Number(number).toLocaleString('en-US', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+		}
+	</script>
+<script type="text/javascript">
+		function calculateMonthlyRepayment() {
+			// Fetch the values directly from the input fields
+			var loanSanctioned = parseFloat(document.getElementById('loan_sanctioned').value.replace(/,/g, '')); // Remove commas for proper parsing
+			var loanPeriod = parseFloat(document.getElementById('loan_period').value);
+
+			// Validate the values and calculate the monthly repayment
+			if (!isNaN(loanSanctioned) && !isNaN(loanPeriod) && loanPeriod > 0) {
+				var monthlyRepayment = loanSanctioned / loanPeriod;
+				document.getElementById('monthly_repayment').value = monthlyRepayment.toFixed(2); // Show in 2 decimal places
+			} else {
+				document.getElementById('monthly_repayment').value = ""; // Clear the field if invalid values
+				console.log("Invalid loan sanctioned or loan period");
+			}
+		}
+
+
+
+		function calculateDTI() {
+			// Get values of monthly repayment and monthly income
+			var monthlyRepayment = parseFloat(document.getElementById('monthly_repayment').value) || 0;
+			var monthlyIncome = parseFloat(document.getElementById('month_income').value) || 0;
+
+			// Validate inputs to make sure monthly income is greater than 0
+			if (monthlyIncome > 0) {
+				// Calculate DTI ratio (Monthly Repayment / Monthly Income) * 100
+				var dtiRatio = (monthlyRepayment / monthlyIncome) * 100;
+
+				// Display DTI ratio in the DTI Ratio field, rounded to 2 decimal places
+				document.getElementById('dti_ratio').value = dtiRatio.toFixed(2) + '%';
+
+				// Determine the status based on DTI ratio
+				var statusMessage;
+				if (dtiRatio <= 35) {
+					statusMessage = "Favorable";
+				} else if (dtiRatio >= 36 && dtiRatio <= 49) {
+					statusMessage = "Adequate";
+				} else {
+					statusMessage = "Not Favorable"; // You can adjust this message as needed
+				}
+
+				// Display the status message in a separate field or alert
+				document.getElementById('dti_status').textContent = statusMessage; // Update this line based on how you want to display it
+			} else {
+				// Show error message if income is invalid
+				document.getElementById('dti_ratio').value = 'Invalid input';
+				alert('Please enter a valid Monthly Income greater than 0.');
+				document.getElementById('dti_status').textContent = ""; // Clear status message if input is invalid
+			}
+		}
+
+		function clkRetail() {
+			location.href = 'CustomerMaintenance?formmode=retailclick';
+		}
+
+		function clkCorp() {
+			location.href = 'CustomerMaintenance?formmode=Corporateclick';
+		}
+
+
+		function Clickview(a) {
+
+			var appl_ref_no = a.getAttribute("data-appl_ref_no");
+			var account_type = a.getAttribute("data-account_type");
+			var rec_no = a.getAttribute("data-rec_no");
+			if (account_type === 'CORPORATE') {
+				location.href = 'CustMaintCorp?formmode=viewCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+			} else if (account_type === 'JOINT ACCOUNT') {
+				location.href = 'CustMaintJoint?formmode=viewCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+			} else {
+				location.href = 'CustomerMaintenance?formmode=viewCust&appl_ref_no=' + appl_ref_no;
+			}
+		}
+		function ClickEdit(a) {
+
+			var appl_ref_no = a.getAttribute("data-appl_ref_no");
+			var account_type = a.getAttribute("data-account_type");
+			var rec_no = a.getAttribute("data-rec_no");
+			if (account_type === 'CORPORATE') {
+				location.href = 'CustMaintCorp?formmode=EditCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+			} else if (account_type === 'JOINT ACCOUNT') {
+				location.href = 'CustMaintJoint?formmode=EditCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+			} else {
+				location.href = 'CustomerMaintenance?formmode=EditCust&appl_ref_no=' + appl_ref_no;
+			}
+		}
+	function 	buttonfnCorporate(a){
+		var appl_ref_no = a.getAttribute("data-appl_ref_no");
+		var account_type = a.getAttribute("data-account_type");
+		var rec_no = a.getAttribute("data-rec_no");
+		var status = a.getAttribute("data-status");
+		if(status === "APPROVED"){
+			location.href = 'CustMaintCorp?formmode=EditCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+		}else {
+			location.href = 'CustMaintCorp?formmode=VerifyCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+		}
+	}
+		function buttonfnRetail(a){
+			var appl_ref_no = a.getAttribute("data-appl_ref_no");
+			var account_type = a.getAttribute("data-account_type");
+			var rec_no = a.getAttribute("data-rec_no");
+			var status = a.getAttribute("data-status");
+			if(status === "APPROVED"){
+				 if (account_type === 'JOINT ACCOUNT') {
+					location.href = 'CustMaintJoint?formmode=EditCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+				} else {
+					location.href = 'CustomerMaintenance?formmode=EditCust&appl_ref_no=' + appl_ref_no;
+				}
+			}else {
+				 if (account_type === 'JOINT ACCOUNT') {
+					location.href = 'CustMaintJoint?formmode=VerifyCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+				} else {
+					location.href = 'CustomerMaintenance?formmode=VerifyCust&appl_ref_no=' + appl_ref_no;
+				}
+			}
+			
+			
+		}
+		function ClickVerify(a) {
+
+			var appl_ref_no = a.getAttribute("data-appl_ref_no");
+			var account_type = a.getAttribute("data-account_type");
+			var rec_no = a.getAttribute("data-rec_no");
+			if (account_type === 'CORPORATE') {
+				location.href = 'CustMaintCorp?formmode=VerifyCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+			} else if (account_type === 'JOINT ACCOUNT') {
+				location.href = 'CustMaintJoint?formmode=VerifyCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+			} else {
+				location.href = 'CustomerMaintenance?formmode=VerifyCust&appl_ref_no=' + appl_ref_no;
+			}
+		}
+		document.addEventListener('DOMContentLoaded', function () {
+			handleFilterChange(); // Automatically apply the filter on page load
+		});
+
+		function handleFilterChange() {
+			var a = document.getElementById('approvedfilter').value;
+
+			if (a === 'ALL') {
+				$.ajax({
+					url: './AllApproved',
+					type: 'GET',
+					success: function (data) {
+						updateTable(data);
+					},
+					error: function (err) {
+						console.error('Error fetching data:', err);
+					}
+				});
+			} else if (a === 'APPROVED') {
+				$.ajax({
+					url: './Approved',
+					type: 'GET',
+					success: function (data) {
+						updateTable(data);
+					},
+					error: function (err) {
+						console.error('Error fetching data:', err);
+					}
+				});
+			} else if (a === 'NOTAPPROVED') {
+				$.ajax({
+					url: './NotApproved',
+					type: 'GET',
+					success: function (data) {
+						updateTable(data);
+					},
+					error: function (err) {
+						console.error('Error fetching data:', err);
+					}
+				});
+			}
+		}
+
+
+	</script>
+<script type="text/javascript">
+		function openTab(evt, tabName) {
+			event.preventDefault();
+			let currentTab = 'tab1';
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].classList.remove("active");
+			}
+			evt.currentTarget.classList.add("active");
+			if (currentTab == 'tab1') {
+				hideAllTabs();
+				document.getElementById(tabName).style.display = 'block';
+				currentTab = tabName;
+			} else {
+				evt.preventDefault();
+			}
+		}
+		function hideAllTabs() {
+			const tabContents = document.getElementsByClassName('tabcontent');
+			for (let i = 0; i < tabContents.length; i++) {
+				tabContents[i].style.display = 'none';
+			}
+		}
+		hideAllTabs();
+		document.getElementById('tab1').style.display = 'block';
+
+	</script>
+<script type="text/javascript">
+
+	function zeroth_change_re(){
+		var docType0 = document.getElementById("docType0").value;
+		if(docType0 === 'NIC'){
+			$('#docCode0').val("NIC");
+			$('#docDesc0').val("NATIONAL ID CARD");
+		}else if(docType0 === 'PSP'){
+			$('#docCode0').val("PSP");
+			$('#docDesc0').val("PASSPORT NO");
+		}else if(docType0 === 'AGM'){
+			$('#docCode0').val("AGM");
+			$('#docDesc0').val("AGREEMENT");
+		}else if(docType0 === 'DOC'){
+			$('#docCode0').val("DOC");
+			$('#docDesc0').val("DOCUMENT");
+		}
+	}
+	function first_change_re(){
+		var docType1 = document.getElementById("docType1").value;
+		if(docType1 === 'NIC'){
+			$('#docCode1').val("NIC");
+			$('#docDesc1').val("NATIONAL ID CARD");
+			
+		}else if(docType1 === 'PSP'){
+			$('#docCode1').val("PSP");
+			$('#docDesc1').val("PASSPORT NO");
+		}else if(docType1 === 'AGM'){
+			$('#docCode1').val("AGM");
+			$('#docDesc1').val("AGREEMENT");
+		}else if(docType1 === 'DOC'){
+			$('#docCode1').val("DOC");
+			$('#docDesc1').val("DOCUMENT");
+		}
+	}
+
+
+
+
+
+	function last_change_re(rowCount) {
+
+		 var docType = document.getElementById("docType" + rowCount).value;
+
+		    var docDesc = '#docDesc' + rowCount;
+		    var docCode = '#docCode' +rowCount;
+
+		    if (docType === 'NIC') {
+		    	 $(docCode).val("NIC");
+		        $(docDesc).val("BUSINESS REGISTRATION NO");
+		    } else if (docType === 'PSP') {
+		    	$(docCode).val("PSP");
+		        $(docDesc).val("PASSPORT NO");
+		    } else if (docType === 'AGM') {
+		    	$(docCode).val("AGM");
+		        $(docDesc).val("AGREEMENT");
+		    } else if (docType === 'DOC') {
+		    	$(docCode).val("DOC");
+		        $(docDesc).val("DOCUMENT");
+		    }
+	}
+
+	var mrowCount = 1;
+	var mrowCountcor =3;
+	function rowadd() {  
+		 if (mrowCountcor < 6) {
+				
+				var table = document.getElementById("click1"); 
+				var row = table.insertRow(); 
+				//var cell1 = row.insertCell(); 
+				var cell2 = row.insertCell(); 
+				var cell3 = row.insertCell(); 
+				var cell4 = row.insertCell(); 
+				var cell5 = row.insertCell(); 
+				var cell6 = row.insertCell(); 
+				var cell7 = row.insertCell(); 
+				var cell8 = row.insertCell();  
+				var cell9 = row.insertCell(); 
+				var cell10 = row.insertCell(); 
+				//cell1.innerHTML = '<input type="checkbox"' + mrowCount + '">'; 
+			 cell2.innerHTML = '<select name="document_type" id="docType' + mrowCountcor + '"  class="uniform-input pl-2" style="height: 24px" onchange="last_change_re(' + mrowCountcor + ')" >' +
+	      '<option>SELECT</option>' +
+	      '<option value="NIC">CUSTOMER-RETAIL-NIC</option>' +
+	      '<option value="PSP">CUSTOMER-RETAIL-PSP</option>' +
+	      '<option value="AGM">CUSTOMER-RETAIL-AGM</option>' +
+	      '<option value="DOC">CUSTOMER-RETAIL-DOC</option>' +
+	      '</select>';		
+	      cell3.innerHTML = '<input type="text"  name="docCode" id="docCode' + mrowCountcor + '" class="uniform-input pl-2" autocomplete="off" style="height: 24px" readonly>';
+	     
+	    //  cell3.innerHTML = '<input type="text" name="docCode" id="docCode1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();handleIn(this);">';
+				cell4.innerHTML = '<input type="text" name="docDesc" id="docDesc' + mrowCountcor + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();handleIn(this);" readonly>'; 
+				cell5.innerHTML = '<input type="text" name="uniqId" id="uniqId1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();handleIn(this);">'; 
+				cell6.innerHTML = '<input type="text" name="docIssPlace" id="docIssPlace1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();handleIn(this);">'; 
+				cell7.innerHTML = '<input type="date" name="docIssDate"   id="docIssDate1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();handleIn(this);">';  
+				cell8.innerHTML = '<input type="date" name="docExpDate"  id="docExpDate1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();handleIn(this);">'; 
+				cell9.innerHTML = '<input type="file" name="docExpDate" id="file' + mrowCount + '">'; 
+				cell10.innerHTML = '<i class="fa fa-trash" aria-hidden="true" id="deletefunction" onclick="rowdeleteforjs(this);"></i>';
+				cell10.style.textAlign = "center";
+
+			
+		        mrowCountcor++;
+				 mrowCount++;
+				 }else{ 
+					  
+					   $('#myrequired').modal("toggle");
+				        $('#alertmsg').text("You can only add up to 5 rows.");
+				 }
+		 }
+	function rowdeleteforjs(ele){
+		  var row = ele.parentNode.parentNode;
+		    row.parentNode.removeChild(row);
+	}
+	function rowdelete(ele) {
+		 var row = ele.parentNode.parentNode;
+	 
+
+	    // Find the input with the name 'unique_id' within the row and get its value
+	    var unique_no = row.querySelector("input[name='unique_id']").value;
+	    alert(unique_no);
+
+	    $.ajax({
+	        url: '/BGLS/DocRemove?unique_no=' + encodeURIComponent(unique_no),
+	        type: 'POST',
+	        contentType: 'application/json',
+	        success: function (data) {
+	            $('#DOCPOPUP').modal("toggle");
+	            $('#alertmsgdoc').html(data);
+	        }
+	    });
+
+	    // Delete the specific row
+	    row.parentNode.removeChild(row);
+	}
+
+		function readURL(input) {
+			var Thisinput = $(input)
+			if (input.files && input.files[0]) {
+
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					Thisinput.closest('.file-uploadone').find('.image-upload-wrap')
+						.hide();
+
+					Thisinput.closest('.file-uploadone').find('.file-upload-image')
+						.attr('src', e.target.result);
+					Thisinput.closest('.file-uploadone').find('.file-upload-content')
+						.show();
+
+					Thisinput.closest('.file-uploadone').find('.image-title').html(
+						input.files[0].name);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+
+			} else {
+				removeUpload();
+			}
+		}
+	</script>
+<script type="text/javascript">
+		function submitfileForEdit(value) {
+			// Check if required fields are filled for both rows
+			let allFilled = true;
+			$("#click1 tr").each(function () {
+				if ($(this).find("input[name='document_type']").val() == "" ||
+					$(this).find("input[name='docCode']").val() == "" ||
+					$(this).find("input[name='docDesc']").val() == "" ||
+					$(this).find("input[name='uniqId']").val() == "" ||
+					$(this).find("input[name='docIssPlace']").val() == "" ||
+					$(this).find("input[name='docIssDate']").val() == "" ||
+					$(this).find("input[name='docExpDate']").val() == "") {
+					allFilled = false; // Mark as not all fields are filled
+					return false; // Exit the loop early
+				}
+			});
+
+			if (!allFilled) {
+				 $('#mypopup22').modal('show'); 
+	             $("#popupmsg_body").text("Enter the Required Fields.."); 
+	               
+				return; // Exit the function if not all fields are filled
+			}
+
+			var rec_no = document.getElementById('rec_no_for_indi').value;
+			var appl_ref_no = value.getAttribute("data-refnumber");
+
+			const dynamicValues = []; // Initialize the array here
+
+			// Loop through each row in the tbody with id "click1"
+			$("#click1 tr").each(function () {
+				var row = {}; // Create an object to hold the data for this row
+
+				// Get values from the current row
+				row.doctype = $(this).find("input[name='document_type']").val(); // Use select directly
+				row.doccode = $(this).find("input[name='docCode']").val();
+				row.doctypesesc = $(this).find("input[name='docDesc']").val();
+				row.uniqueid = $(this).find("input[name='uniqId']").val();
+				row.placeofissue = $(this).find("input[name='docIssPlace']").val();
+				row.issuedate = $(this).find("input[name='docIssDate']").val();
+				row.exprydate = $(this).find("input[name='docExpDate']").val();
+
+				// Get the file input and extract the filename
+				const fileInput = $(this).find("input[type='file']"); // Adjust selector as necessary
+				if (fileInput.length > 0 && fileInput[0].files.length > 0) {
+					const file = fileInput[0].files[0]; // Get the file object
+					row.file = file; // Set the file object in the row
+					row.filename = file.name; // Get the filename directly from the file object
+				}
+				 if (row.doctype || row.doccode || row.doctypesesc || row.uniqueid || row.placeofissue || row.issuedate || row.exprydate || row.filename) {
+			            dynamicValues.push(row); // Push the row object to the dynamicValues array
+			        } 
+			
+			});
+
+			console.log(dynamicValues);
+
+			// AJAX request to submit data
+			$.ajax({
+				url: '/BGLS/multiline?appl_ref_no=' + appl_ref_no + "&rec_no=" + rec_no,
+				data: JSON.stringify(dynamicValues),
+				type: 'POST',
+				contentType: 'application/json',
+				success: function (data) {
+					imageuploadFunction(data, dynamicValues, appl_ref_no);
+
+				}
+			});
+		}
+
+		function imageuploadFunction(Responcedata, dynamicvalues, appl_ref_no) {
+			var formData = new FormData();
+			formData.append("unique", Responcedata);
+
+			// Function to process a file and return a promise
+			function processFile(value) {
+				return new Promise((resolve, reject) => {
+					if (!value.file) {
+						console.error("File object is invalid:", value);
+						return reject("Invalid file");
+					}
+
+					// Determine the file type (image, excel, pdf, etc.)
+					const fileType = value.file.type;
+
+					if (fileType.startsWith('image/')) {
+						// Process image file (JPEG, PNG, etc.)
+						var canvas = document.createElement('canvas');
+						var ctx = canvas.getContext('2d');
+						var img = new Image();
+
+						img.src = URL.createObjectURL(value.file);
+						img.onload = function () {
+							canvas.width = img.width;
+							canvas.height = img.height;
+							ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+							var dataURL = canvas.toDataURL('image/jpeg');
+
+							resolve({file: value.file, dataURL: dataURL});
+						};
+
+						img.onerror = function (error) {
+							console.error("Error loading image:", error);
+							reject(error);
+						};
+					} else {
+						// For non-image files, bypass canvas and directly resolve
+						resolve({file: value.file, dataURL: null});
+					}
+				});
+			}
+
+			// Process all files
+			Promise.all(dynamicvalues.map(processFile)).then((results) => {
+				results.forEach((result) => {
+					formData.append("files", result.file); // Append the original file
+					if (result.dataURL) {
+						formData.append("dataURL", result.dataURL); // Append dataURL for images
+					} else {
+						formData.append("dataURL", ""); // Placeholder for non-image files
+					}
+				});
+
+				formData.append("appl_ref_no", appl_ref_no);
+
+				// Make a single AJAX call
+				$.ajax({
+					url: '/BGLS/imageupload11',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function (response) {
+						    $('#DOCPOPUP').modal("toggle");
+			                $('#alertmsgdoc').html(response);
+					}
+				});
+			}).catch((error) => {
+				console.error('Error processing files:', error);
+			});
+		}
+
+	</script>
+<script>
+        let rowCount = 1; // Global variable to keep track of rows
+
+        function addRowsignature() {
+            // Maximum row limit
+            const maxRows = 5;
+            const tableBody = document.getElementById('signbody');
+
+            // Create a new row
+            const newRow = document.createElement('tr');
+            newRow.id = `row${rowCount}`;
+
+            // Create cells for the new row
+            newRow.innerHTML = `
+                <td>
+                    <select id="imgaccesscode${rowCount}" name ="img_access_code" class="form-control form-control-sm bg-white border border-dark bg-white border border-dark" style="margin-left: 30px; font-size: 15px; width: 200px">
+                        <option>Select</option>
+                        <option>Customer</option>
+                        <option>Account</option>
+                    </select>
+                </td>
+                <td>
+                    <input id="group${rowCount}" type="text" name ="img_group" maxlength="10" class="form-control form-control-sm bg-white border border-dark bg-white border border-dark" style="margin-left: 30px;width: 200px">
+                </td>
+                <td>
+                    <input id="keyword${rowCount}" type="text" name ="keyword" maxlength="10" class="form-control form-control-sm bg-white border border-dark bg-white border border-dark" style="margin-left: 30px;width: 200px">
+                </td>
+                <td class="pr-4">
+                    <div class="file-uploadone" id="counts${rowCount}" style="display: block;">
+                        <div class="image-upload-wrap">
+                            <input class="file-upload-input" type='file'  name="photo" onchange="readURL(this);" id="barathphoto${rowCount}" accept="image/*" />
+                            <div class="drag-text">
+                                <h3 style="font-size: 10px;">Choose Image</h3>
+                            </div>
+                        </div>
+                        <div class="file-upload-content">
+                            <img class="file-upload-image" src="#"  alt="your image" id="imagefile${rowCount}" />
+                            <div class="image-title-wrap"></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="pl-3">
+                    <div id="collect${rowCount}" style="display: block;width: 150px;">
+                        <div id="signatureown${rowCount}">
+                            <div id="imageContainer${rowCount}" style="width: 150px;height: 50%;">
+                                <div class="image-upload-wrap" id="imageContainerWrap${rowCount}">
+                                    <input class="file-upload-input" type='file' name="sign" onchange="readURL(this);" accept="image/*" name="barathsign" id="barathsign${rowCount}" style="margin-left: 50px;">
+                                </div>
+                            </div>
+                            <div>
+                                <p  onclick="openSignatureModal(${rowCount})" style="margin-bottom: 10px">Draw signature</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center h-50" id="del_icon${rowCount}"><i class="fa fa-trash custom-icon"
+					aria-hidden="true" id="deletefunction"
+					onclick="rowdeleteforjs(this);"></i></td>
+
+            `;
+
+            // Create the modal for the signature
+            const modalHTML = `
+                <div id="myModal${rowCount}" class="modal">
+                    <div class="modal-content" style="width:50%">
+                        <div class="modal-header">
+                            <h2 style="background-color: #BBC3CB;">Put your signature</h2>
+                            <div class="modal-footer">
+                                <span class="close1" onclick="closeSignatureModal(${rowCount})">X</span>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <canvas id="signature-pad${rowCount}" width="400" height="200" style="width: 829px; border: 1px solid black;"></canvas>
+                            <button id="clear-button${rowCount}">Clear</button>
+                            <button id="save-button${rowCount}" onclick="saveSignature(${rowCount})">Save</button>
+                            <p>Please sign your signature</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Append the modal to the body (or another appropriate container)
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+          
+            tableBody.appendChild(newRow);
+
+            // Increment the row count
+            rowCount++;
+        }
+
+        function openSignatureModal(index) {
+            const modal = document.getElementById(`myModal${index}`);
+            if (modal) {
+                modal.style.display = 'block'; // Show the modal
+                console.log(`Modal with index ${index} is displayed`);
+            } else {
+                console.error(`Modal with index ${index} not found`);
+            }
+
+
+            const canvas = document.getElementById(`signature-pad${index}`);
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            let drawing = false;
+
+            canvas.addEventListener('mousedown', function(event) {
+                drawing = true;
+                context.beginPath();
+                context.moveTo(event.offsetX, event.offsetY);
+            });
+
+            canvas.addEventListener('mousemove', function(event) {
+                if (drawing) {
+                    context.lineTo(event.offsetX, event.offsetY);
+                    context.stroke();
+                }
+            });
+
+            canvas.addEventListener('mouseup', function() {
+                drawing = false;
+                context.closePath();
+            });
+
+            document.getElementById(`clear-button${index}`).onclick = function() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+            };
+        }
+
+       
+
+        function saveSignature(index) {
+            const canvas = document.getElementById(`signature-pad${index}`);
+            const modal = document.getElementById(`myModal${index}`);
+            const drawButton = document.querySelector(`#row${index} button[onclick='openSignatureModal(${index})']`);
+
+            if (canvas && modal) {
+                // Convert canvas content to a data URL (base64-encoded image)
+                const dataURL = canvas.toDataURL();
+                const img = new Image();
+                img.src = dataURL;
+                img.style.width = '150 px'; // Set desired width
+                img.style.height = '50%'; // Set desired height
+
+              const row = document.querySelector(`#row${index}`);   
+              const td = row.children[4];
+                td.innerHTML = ''; // Clear any existing content
+                td.appendChild(img); // Show the saved signature image
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = `sign${index}`;
+                hiddenInput.value = dataURL;  
+                td.appendChild(hiddenInput);  
+                if (drawButton) {
+                    drawButton.style.display = 'none';  
+                }
+
+                // Create a new "Draw Signature" button to allow drawing again
+                const newDrawButton = document.createElement('p');
+                newDrawButton.textContent = 'Draw Signature';
+                newDrawButton.onclick = function() {
+                    openSignatureModal(index); // Open the signature modal again
+                };
+                td.appendChild(newDrawButton); // Append the new button to the <td>
+
+                modal.style.display = 'none'; // Close modal after saving
+            } else {
+                console.error(`Canvas or modal with ID signature-pad${index} not found.`);
+            }
+        }
+
+        // Close modal logic
+        function closeSignatureModal(index) {
+            const modal = document.getElementById(`myModal${index}`);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        function rowdeletesignature(ele) {
+       	 var row = ele.parentNode.parentNode;
+       	 var srl_no = row.querySelector("input[name='srl_no']").value;
+       	    alert(srl_no);
+       	    $.ajax({
+          	        url: '/BGLS/SignRemove?srl_no=' + encodeURIComponent(srl_no),
+          	        type: 'POST',
+          	        contentType: 'application/json',
+          	        success: function (data) {
+          	        $('#signature_pop').modal("toggle");
+    		        $('#alertmsgsig').html(data);
+          	        }
+          	    });
+
+          	    // Delete the specific row
+          	    row.parentNode.removeChild(row);
+       }
+        function signsubmitcor(value) {
+        	event.preventDefault();
+        	  //  alert("signsubmitcor");
+        	    var rec_no = document.getElementById("rec_no_for_indi").value;
+        	    var appl_ref_no = value.getAttribute("data-refnumber");
+        	    var cif_id =document.getElementById("cif_id").value;
+        	    var formData = new FormData(); // Create a new FormData object
+
+        	    // Create an array to hold the row data for Bacp_Signature_master
+        	    var schedulerData = [];
+
+        	    // Loop through each row in the tbody with id "signbody"
+        	    $("#signbody tr").each(function (index) { // Use 'index' to differentiate rows
+        	        var row = {
+        	        	
+        	            rec_no: rec_no,
+        	            appl_ref_no: appl_ref_no,
+        	            img_access_code: $(this).find("select[name='img_access_code']").val(),
+        	            img_group: $(this).find("input[name='img_group']").val(),
+        	            keyword: $(this).find("input[name='keyword']").val(),
+        	            srl_no: $(this).find("input[name='srl_no']").val()
+        	        };
+
+        	        // Add row data to schedulerData array
+        	        schedulerData.push(row);
+        	        console.log(row)
+
+        	        // Handle photo file uploads for each row
+        	         var photoFileInput = $(this).find("input[name='photo']");
+                if (photoFileInput.length > 0 && photoFileInput[0].files.length > 0) {
+                    var photoFile = photoFileInput[0].files[0]; // Get the photo file for the current row
+                    console.log('photoFile Blob for row ' + index + ':', photoFile);
+                    formData.append('photo', photoFile); // Append the photo file
+                }
+
+        	        const signatureDataElement = document.querySelector(`[name="sign${index}"]`);
+        	        console.log(signatureDataElement);
+        	        if (signatureDataElement) {
+        	            const signDataUrl = signatureDataElement.value;  // Assuming it's a base64 data URL
+        	            const byteString = atob(signDataUrl.split(',')[1]);
+        	            const mimeString = signDataUrl.split(',')[0].split(':')[1].split(';')[0];
+        	            
+        	            const byteNumbers = new Array(byteString.length);
+        	            for (let i = 0; i < byteString.length; i++) {
+        	                byteNumbers[i] = byteString.charCodeAt(i);
+        	            }
+        	            
+        	            const byteArray = new Uint8Array(byteNumbers);
+        	            const signBlob = new Blob([byteArray], { type: mimeString });
+
+        	            console.log('Signature Data for row ' + index + ':', signBlob);
+        	            
+        	            formData.append('sign', signBlob, `signature${index}.png`);
+        	        } else {
+        	            console.warn(`Signature data for row ${index} not found.`);
+        	        }
+        	 
+        	    });
+        	       formData.append('scheduler', new Blob([JSON.stringify(schedulerData)], { type: 'application/json' }));
+
+        	 
+        	    // Send the FormData via AJAX
+        	  $.ajax({
+        	        url: './AddSigCor?cif_id=' + cif_id,
+        	        data: formData,
+        	        type: 'POST',
+        	        processData: false,
+        	        contentType: false,
+        	        success: function (response) {
+        	        
+        	            $('#signature_pop').modal("toggle");
+        		        $('#alertmsgsig').text(response);
+        	           
+        	            	
+        	        },
+        	        error: function (xhr, status, error) {
+        	            console.error("Error occurred: " + error);
+        	        },
+        	        complete: function() {
+        	            // Hide the loader after the AJAX call is complete, regardless of success or error
+        	            $('#loader3').hide();
+        	        }
+        	    });  
+        	} 
+function gotocorporate(){
+	 location.href = 'CustomerMaintenance?formmode=retailclick';
+}
+        	// Helper function to convert dataURL to Blob
+        	function dataURLtoBlob(dataURL) {
+        	    var byteString = atob(dataURL.split(',')[1]);
+        	    var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+        	    var ab = new ArrayBuffer(byteString.length);
+        	    var ia = new Uint8Array(ab);
+        	    for (var i = 0; i < byteString.length; i++) {
+        	        ia[i] = byteString.charCodeAt(i);
+        	    }
+        	    return new Blob([ab], { type: mimeString });
+        	}
+
+        	// Helper function to convert dataURL to Blob
+        	function dataURLtoBlob(dataURL) {
+        	    var byteString = atob(dataURL.split(',')[1]);
+        	    var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+        	    var ab = new ArrayBuffer(byteString.length);
+        	    var ia = new Uint8Array(ab);
+        	    for (var i = 0; i < byteString.length; i++) {
+        	        ia[i] = byteString.charCodeAt(i);
+        	    }
+        	    return new Blob([ab], { type: mimeString });
+        	}
+    </script>
+<script>
+    function addsubmitverify(event){
+    	
+    	 if (event) {
+    	        event.preventDefault();
+    	    }
+
+    	var entryuser = document.getElementById("entryuser").value;  	
+    	var modifyuser = document.getElementById("modifyuser").value;
+    	var appl_ref_no = document.getElementById("gooom").value;
+    	
+    	if(entryuser === modifyuser){
+    		    $('#mypopup22verify').modal("toggle");
+		        $('#popupmsg_bodyverify').text("Same User Cannot Verify....");
+		        
+    	}
+    	else {
+    		$.ajax({
+    			type : 'get',
+    			url : 'CustMainVerify?appl_ref_no=' + appl_ref_no,
+    			success : function(response) {
+    				    $('#mypopup22verify').modal("toggle");
+    			        $('#popupmsg_bodyverify').text("Verified Successfully....");
+    			    
+    			}
+    		});
+    	}
+    }
+    
+   function backtoretail(){
+	   location.href = 'CustomerMaintenance?formmode=retailclick';
+   }
+    </script>
+</head>
+
+
+<body onload="calculateMonthlyRepayment();">
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------Approval List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Approval- List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="panel panel-primary filterable">
+
+						<div class="card w-100 border panel panel-primary filterable">
+							<div class="card-header">
+								<div class="float-left">
+									<h4>CUSTOMER MAINTENANCE</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="radio-container">
+									<label> <input type="radio" name="accountType"
+										value="retail" onclick="clkRetail()"> RETAIL
+									</label> <label> <input type="radio" name="accountType"
+										value="corporate" onclick="clkCorp()"> CORPORATE
+									</label>
+								</div>
+
+							</div>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="back()">Back</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='retailclick'">
+
+
+					<div class="panel panel-primary filterable">
+
+						<div class="card w-100 border panel panel-primary filterable">
+							<div class="card-header">
+								<!-- List Title -->
+								<div class="float-left">
+									<h4>CUSTOMER MAINTENANCE - LIST</h4>
+								</div>
+
+								<!-- Customer Type -->
+								<div style="font-size: 13px; color: #3C6EAC;">
+									<strong>CUSTOMER TYPE :</strong> <input type="text"
+										style="font-size: 13px; background-color: transparent; border: none; outline-style: none; box-shadow: none; width: 95px;"
+										id="acttype" value="RETAIL">
+								</div>
+
+								<!-- Filter Button -->
+								<div>
+									<button type="button"
+										class="custom-btn btn-filter">Filter</button>
+								</div>
+							</div>
+							<div class="card-body">
+
+								<div class="table-responsive">
+									<table class="table table-bordered  table-hover table-sm">
+										<thead class="table-header">
+											<tr class="filters">
+												<th style="width: 5%"><input type="text"
+													class="form-control font-weight-bold" placeholder="S.No"
+													disabled></th>
+												<th style="width: 7%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Cust Group    " disabled></th>
+												<th style="width: 10%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Account Type" disabled></th>
+												<th style="width: 10%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Cust Id"
+													disabled></th>
+												<th style="width: 23%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Cust Name" disabled></th>
+												<th style="width: 7%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Branch Id" disabled></th>
+												<th style="width: 7%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Mob No"
+													disabled></th>
+												<th style="width: 13%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Email Id" disabled></th>
+												<th style="width: 9%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Status"
+													disabled></th>
+												<th style="width: 7%; text-align: center;">Select</th>
+
+											</tr>
+										</thead>
+
+										<tbody id="CustCorp">
+
+											<tr th:each="customerrequest, iterator : ${customerRequest}"
+												class="userlist">
+												<td style="font-size: 14px" th:text="${iterator.index +1}"></td>
+												<td style="width: 125px; font-size: 14px"
+													th:text="${customerrequest.ca_customer_type}">456</td>
+												<td style="font-size: 14px"
+													th:text="${customerrequest.ca_acct_type}">l</td>
+												<td style="font-size: 14px" class="text-primary"
+													th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                       								 data-account_type = ${customerrequest?.ca_acct_type},
+                       								 data-rec_no = ${customerrequest?.rec_no}"
+													onclick="ClickCustType(this);"><span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.cif_id}">Individual</span> <span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_cif_id_1}">Joint
+														Account</span></td>
+
+												<td style="font-size: 14px"><span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_preferred_name}">Preferred
+														Name</span> <span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_full_name_1}">Full
+														Name</span></td>
+
+												<td style="font-size: 14px"
+													th:text="${customerrequest.ca_solid}">TEST</td>
+
+												<td style="font-size: 14px"><span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_mobile_number}"> </span> <span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_mobile_no_1}">Full
+														Name</span></td>
+
+												<td style="font-size: 14px"><span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_email_id}"> </span> <span
+													th:if="${customerrequest.ca_customer_type == 'RETAIL'}"
+													th:text="${customerrequest.ca_email_id_1}">Full Name</span></td>
+
+												<th:block th:switch="${customerrequest.status}">
+													<td th:case="'APPROVED'" align="left"
+														style="color: green; font-size: 12px; font-weight: bold;">
+														APPROVED</td>
+													<td th:case="*" align="left"
+														style="color: red; font-size: 12px; font-weight: bold;">NOT
+														APPROVED</td>
+												</th:block>
+												<td style="text-align: center;"><input type="radio"
+													th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                    data-account_type = ${customerrequest?.ca_acct_type},
+                    data-rec_no = ${customerrequest?.rec_no},
+                    data-status = ${customerrequest.status}"
+													onclick="buttonfnRetail(this)" autocomplete="off" /></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="back()">Back</button>
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='Corporateclick'">
+
+
+					<div class="panel panel-primary filterable">
+
+						<div class="card w-100 border panel panel-primary filterable">
+							<div class="card-header">
+								<div class="float-left">
+									<h4>CUSTOMER MAINTENANCE</h4>
+								</div>
+								<div
+									style="text-align: center; flex-grow: 1; display: flex; justify-content: center;">
+									<!-- First: Customer List -->
+									<font style="font-size: 13px; color: #3C6EAC;"><b>CUSTOMER
+											TYPE:</b></font> <input type="text"
+										style="font-size: 13px; background-color: transparent; border: none; outline-style: none; box-shadow: none; width: 95px;"
+										id="acttype" value="CORPORATE">
+								</div>
+								<div style="text-align: right;">
+									<!-- Third: Filter Button -->
+									<button type="button"
+										class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
+								</div>
+							</div>
+							<div class="card-body">
+
+
+								<div class="table-responsive mt-2">
+									<table class="table table-bordered  table-hover table-sm">
+										<thead class="table-header">
+											<tr class="filters">
+												<th style="width: 5%"><input type="text"
+													class="form-control font-weight-bold" placeholder="S.NO"
+													disabled></th>
+												<th style="width: 7%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Cust Group    " disabled></th>
+												<th style="width: 9%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Account Type" disabled></th>
+												<th style="width: 10%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Cust Id"
+													disabled></th>
+												<th style="width: 25%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Cust Name" disabled></th>
+												<th style="width: 8%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Branch Id" disabled></th>
+												<th style="width: 8%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Mob No"
+													disabled></th>
+												<th style="width: 11%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Email Id" disabled></th>
+												<th style="width: 8%"><input type="text"
+													class="form-control font-weight-bold" placeholder="BRN No"
+													disabled></th>
+												<th style="width: 8%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Status"
+													disabled></th>
+
+												<th style="font-weight: bold; font-size: 14px; width: 8%">SELECT</th>
+											</tr>
+										</thead>
+
+										<tbody id="CustCorp">
+
+											<tr th:each="customerrequest, iterator : ${customerRequest}"
+												class="userlist">
+												<td style="font-size: 14px" th:text="${iterator.index +1}"></td>
+												<td style="width: 125px; font-size: 14px"
+													th:text="${customerrequest.ca_customer_type}">456</td>
+												<td style="font-size: 14px"
+													th:text="${customerrequest.ca_acct_type}">l</td>
+												<td style="font-size: 14px" class="text-primary"
+													th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                       								 data-account_type = ${customerrequest?.ca_acct_type},
+                       								 data-rec_no = ${customerrequest?.rec_no}"
+													onclick="ClickCustType(this);"
+													th:text="${customerrequest.ca_cif_id_1}">
+												<td style="font-size: 14px"
+													th:text="${customerrequest.corporateName}"></td>
+
+												<td style="font-size: 14px"
+													th:text="${customerrequest.ca_solid}">TEST</td>
+
+												<td style="font-size: 14px"
+													th:text="${customerrequest.ca_mobile_no_1}"></td>
+
+												<td style="font-size: 14px"
+													th:text="${customerrequest.ca_email_id_1}"></td>
+
+												<td style="font-size: 14px"
+													th:text="${customerrequest.business_registration}">l</td>
+												<th:block th:switch="${customerrequest.status}">
+													<td th:case="'APPROVED'" align="center"
+														style="color: green; font-size: 12px; font-weight: bold;">
+														APPROVED</td>
+													<td th:case="*" align="center"
+														style="color: red; font-size: 12px; font-weight: bold;">NOT
+														APPROVED</td>
+												</th:block>
+												<td align="center"><input type="radio"
+													class="text-center"
+													th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                       								 data-account_type = ${customerrequest?.ca_acct_type},
+                       								 data-rec_no = ${customerrequest?.rec_no},
+                       								 data-status =${customerrequest.status}"
+													onclick="buttonfnCorporate(this)" autocomplete="off" /> <!-- <div class="dropdown">
+														<button class="btn btn-secondary dropdown-toggle"
+															type="button" id="dropdownMenuButton"
+															style="line-height: 0.7; width: 64px; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+															data-toggle="dropdown" aria-haspopup="true"
+															aria-expanded="false">Action</button>
+														<div class="dropdown-menu"
+															aria-labelledby="dropdownMenuButton"
+															style="background-color: #e3e3e4; color: #3a4550;">
+															<a class="dropdown-item" title="View"
+																th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                       								 data-account_type = ${customerrequest?.ca_acct_type},
+                       								 data-rec_no = ${customerrequest?.rec_no}"
+																style="cursor: pointer; height: 20px; width: 64px; color: #12161b; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																id="delete_value" onclick="Clickview(this)">View</a>
+
+															<div class="dropdown-divider"></div>
+															<a class="dropdown-item" title="Modify"
+																th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                       								 data-account_type = ${customerrequest?.ca_acct_type},
+                       								 data-rec_no = ${customerrequest?.rec_no}"
+																style="cursor: pointer; height: 20px; width: 64px; color: #12161b; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px; padding-bottom: 22px"
+																id="edit_value" onclick="ClickEdit(this)">Modify</a>
+
+															<div class="dropdown-divider"></div>
+															<a class="dropdown-item" title="Verify"
+																th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no},
+                       								 data-account_type = ${customerrequest?.ca_acct_type},
+                       								 data-rec_no = ${customerrequest?.rec_no}"
+																style="cursor: pointer; height: 20px; width: 64px; color: #12161b; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																id="delete_value" onclick="ClickVerify(this)">Verify</a>
+
+
+														</div>
+													</div> --></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="back()">Back</button>
+
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<!-- ------------------------------------VIEWCUST--------------------------------- -->
+				<div th:if="${formmode}=='viewCust'">
+
+					<div class="card">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>CUSTOMER MAINTENANCE - VIEW</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="#" th:object="${customerRequest}" method="post"
+								autocomplete="off" th:fragment="finuserapply">
+
+
+
+								<div class="tab row formline ml-3"
+									style="padding: 4px 4px; position: relative; font-size: 13px; width: 98%;">
+									<!-- Tab buttons -->
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<button class="tablinks active " id="smooth1"
+											style="width: 200px;" onclick="openTab(event, 'tab1')">Personal
+											Details</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth2" style="width: 200px;"
+											onclick="openTab(event, 'tab2')">Document Master</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth3" style="width: 200px;"
+											onclick="openTab(event, 'tab3')">Signature</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth4" style="width: 200px;"
+											onclick="openTab(event, 'tab4')">Transactions</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth5" style="width: 200px;"
+											onclick="openTab(event, 'tab5')">Account Details</button>
+									</div>
+								</div>
+								<div id="tab1" class="tabcontent" style="display: block;">
+									<div class="card ">
+										<div class="card-body ">
+											<div class="row formline ">
+												<input type="hidden" id="gooom"
+													th:value="${customerRequest?.appl_ref_no}"> <label
+													class="col-sm-2">Customer Type </label>
+												<div class="col-sm-2">
+													<input type="text" id="la_customer_type"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.la_customer_type}"
+														name="la_customer_type" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Cif Id </label>
+												<div class="col-sm-2">
+													<input type="text" id="cif_id"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.cif_id}" name="cif_id"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Primary Branch </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_solid"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_solid}" name="ca_solid"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Branch Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="branch_desc"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.branch_desc}"
+														name="branch_desc" autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Salutation </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_saluation"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_saluation}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this) "
+														name="ca_saluation" autocomplete="off" readonly> <span
+														id="merchant_corp_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">First Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_first_name"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_first_name}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this);"
+														name="ca_first_name" autocomplete="off" readonly>
+													<span id="merchant_corp_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Middle Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="mid_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.mid_name}" name="mid_name"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Last Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_last_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_last_name}"
+														name="ca_last_name" autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Full Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_first_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_first_name}"
+														name="ca_first_name" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Short Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_preferred_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}"
+														name="ca_preferred_name" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Occupation </label>
+												<div class="col-sm-2">
+													<input type="text" id="merchant_city"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_occupation1}"
+														name="merchant_city" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Gender </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_gender"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_gender}" name="ca_gender"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Marital Status </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_martial_staus"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_martial_staus}"
+														name="ca_martial_staus" autocomplete="off" readonly>
+													<span id="ca_martial_staus" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Date Of Birth </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_date_of_birth"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${#dates.format(customerRequest?.ca_date_of_birth, 'dd-MM-yyyy')}"
+														name="ca_date_of_birth" autocomplete="off" readonly>
+													<span id="merchant_addr_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Annual Income </label>
+												<div class="col-sm-2">
+													<input type="text" id="annual_income"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.annual_income}"
+														name="annual_income" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Monthly Income </label>
+												<div class="col-sm-2">
+													<input type="text" id="monthly_income"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.monthly_income}"
+														name="monthly_income" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Loan Obligations</label>
+												<div class="col-sm-2">
+													<input type="text" id="loan_obligations"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.loan_obligations}"
+														name="loan_obligations" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Family Maintenance</label>
+												<div class="col-sm-2">
+													<input type="text" id="family_maintenance"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.family_maintenance}"
+														name="family_maintenance" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Email ID </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_email_id"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														name="ca_email_id"
+														th:value="${customerRequest?.ca_email_id}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														autocomplete="off" readonly>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Mobile No </label>
+												<div class="col-sm-2">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<input type="text" id="ca_countrycode_1"
+																name="ca_countrycode_1"
+																th:value="${customerRequest?.ca_countrycode_1}"
+																class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+																value="+248" maxlength="5" style="width: 60px;"
+																readonly="readonly" />
+														</div>
+														<input type="number" id="mobno" name="ca_mobile_number"
+															autocomplete="off" maxlength="7"
+															th:value="${customerRequest?.ca_mobile_number}"
+															class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+															style="width: 100px;" readonly />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button class="btn btn-primary p-2" onclick="home();">Home</button>
+										<button class="btn btn-primary p-2" onclick="back();">Back</button>
+									</div>
+								</div>
+
+								<div id="tab2" class="tabcontent" style="display: none;">
+
+									<div class="card ">
+										<div class="card-body">
+
+											<div id="myModaldoc" class="modaldoc" style="display: none">
+												<div class="modal-contentdoc">
+													<span class="closedoc" id="closeModaldoc"
+														onclick=closeDoc(this)>&times;</span>
+													<div id="popup1" class="overlay "
+														style="z-index: 1001; display: flex; justify-content: center; align-items: center;">
+														<div class="popupw-img">
+															<a class="imageclosedoc" href="#"></a>
+															<div class="card-bodydoc">
+																<div id="imgCapture11"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div style="background-color: #eeeeee;">
+												<table class="table  table-bordered  table-hover table-sm"
+													style="table-layout: fixed; width: 100%; font-size: initial;">
+													<tr>
+														<td><b>Document Type</td>
+														<td><b>Document Code</b></td>
+														<td><b>Document Description</b></td>
+														<td><b>Place of issue</b></td>
+														<td><b>Unique Id</b></td>
+														<td><b>Issue Date</b></td>
+														<td><b>Expiry Date</b></td>
+														<td><b>Document View</b></td>
+													</tr>
+													<tbody id="dataTables">
+														<tr th:each="Doocument : ${DocumentList}">
+
+															<td th:text="${Doocument?.document_type}"
+																class="rowDataField" style="width: 150px;">Address
+															</td>
+															<td th:text="${Doocument?.document_code}"
+																class="rowDataField" style="width: 120px;">ADD001</td>
+															<td th:text="${Doocument?.document_type_desc}"
+																class="rowDataField" style="width: 160px;">Passport
+															</td>
+															<td th:text="${Doocument?.place_of_issue}"
+																class="rowDataField" style="width: 120px;">Madurai
+															</td>
+															<td th:text="${Doocument?.unique_id}"
+																class="rowDataField" style="width: 120px;">
+																D324234234</td>
+															<td th:text="${Doocument?.issue_date}"
+																class="rowDataField" style="width: 120px;">
+																18-JUN-2018</td>
+															<td th:text="${Doocument?.expiry_date}"
+																class="rowDataField" style="width: 120px;">
+																15-JUN-2023</td>
+															<td
+																th:if="${Doocument?.file_name != null && (Doocument.file_name.endsWith('.jpeg') || Doocument.file_name.endsWith('.jfif') || Doocument.file_name.endsWith('.jpg'))}">
+																<i class="fa fa-info-circle" aria-hidden="true"
+																onclick="show1(this)" id="openModaldoc"
+																th:attr="data-doc_type=${Doocument?.unique_id}"
+																style='font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px'
+																data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+															</td>
+															<td
+																th:if="${Doocument?.file_name == null || !(Doocument.file_name.endsWith('.jpeg') || Doocument.file_name.endsWith('.jfif') || Doocument.file_name.endsWith('.jpg'))}">
+																<a th:href="@{'/' + ${Doocument?.unique_id}}"
+																style="text-decoration: none; color: DodgerBlue;"> <i
+																	class="fa fa-info-circle" aria-hidden="true"
+																	style='font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px'></i>
+
+															</a>
+
+															</td>
+
+															<td th:text="${Doocument?.file_name}"
+																class="rowDataField" style="width: 100px;" hidden>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button class="custom-btn" onclick="home();">Home</button>
+										<button class="custom-btn" onclick="back()">Back</button>
+									</div>
+								</div>
+								<div id="tab3" class="tabcontent" style="display: none;">
+									<div class="card">
+										<div class="card-body">
+											<div class="p-2"
+												style="background-color: #eeeeee; overflow: auto; height: 180px">
+												<table>
+													<thead>
+														<tr>
+															<th></th>
+															<th style="width: 800px; text-align: center">NAME :</th>
+														</tr>
+													</thead>
+													<tbody id="sign">
+														<tr th:each="sign : ${SIGNATURE}">
+															<th></th>
+															<td th:text="${sign?.keyword}"
+																style="width: 800px; text-align: center"></td>
+
+															<td class="p-2">
+																<div id="photoCapture1"
+																	style="border: 1px solid #ccc; height: 60px; width: 100px;">
+																</div>
+															</td>
+															<td>
+																<div
+																	style="padding-left: 50px; height: 60px; width: 100px;"
+																	id="imgCapture1"></div>
+
+															</td>
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button class="custom-btn" onclick="home();">Home</button>
+										<button class="custom-btn" onclick="back()">Back</button>
+									</div>
+								</div>
+								<!--  start tab4-->
+
+								<div id="tab4" class="tabcontent panel panel-primary filterable"
+									style="display: none;">
+									<div class="card panel panel-primary filterable">
+
+										<div class="p-2">
+											<button type="button"
+												class="btn btn-xs btn-primary btns p-2 border btn-filter float-right">Filter</button>
+										</div>
+										<div class="customer-container" style="font-weight: 500;">
+											<div>
+												<label style="font-size: 13px">CUSTOEMER ID</label>
+												<div class="col-sm-2">
+													<input type="text"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.cif_id}" readonly>
+												</div>
+												<div class="col-sm-1"></div>
+												<label style="font-size: 13px">CUSTOEMER NAME</label>
+												<div class="col-sm-2">
+													<input type="text"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="table-responsive mt-2">
+											<table class="table table-bordered  table-hover table-sm">
+												<thead class="table-header">
+													<tr class="filters">
+														<th style="width: 8%"><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Tran Date" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Tran Id" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Part Tran Id" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Part Tran Type" disabled></th>
+														<th><input type="text" style="text-align: right"
+															class="form-control font-weight-bold"
+															placeholder="Amount" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold pl-3"
+															placeholder="Account No" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account Name" disabled></th>
+													</tr>
+												</thead>
+												<tbody id="approvaltbody" style="font-size: 15px">
+
+													<tr th:each="details : ${jour}">
+
+														<td
+															th:text="${details.tran_date != null ? #dates.format(details.tran_date,'dd-MM-yyyy') : ''}">
+														</td>
+
+														<td th:text="${details.tran_id}"></td>
+														<td th:text="${details.part_tran_id}"></td>
+														<td
+															th:text="${details.part_tran_type != null ? details.part_tran_type.toUpperCase() : ''}">
+														</td>
+
+														<td style="text-align: right;"
+															th:text="${details?.tran_amt == 0 ? '0.00' :#numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+														</td>
+														<td class="pl-3" th:text="${details.acct_num}"></td>
+														<td th:text="${details.acct_name}"></td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home();">Home</button>
+											<button class="custom-btn"
+												onclick="addFormSubmit(this)" id="addSubmitData">Submit</button>
+											<button class="custom-btn" onclick="back()">Back</button>
+										</div>
+									</div>
+								</div>
+								<!--tab4 end  -->
+								<!-- tab5 start -->
+								<div id="tab5" class="tabcontent panel panel-primary filterable"
+									style="display: none;">
+									<div class="card  panel panel-primary filterable">
+										<div class="">
+											<button type="button"
+												class="custom-btn btn-filter float-right mr-2 mt-2 mb-2">Filter</button>
+										</div>
+										<div class="customer-container" style="font-weight: 500;">
+											<div>
+												<label style="font-size: 13px">CUSTOEMER ID</label>
+												<div class="col-sm-2">
+													<input type="text"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.cif_id}" readonly>
+												</div>
+												<div class="col-sm-1"></div>
+												<label style="font-size: 13px">CUSTOEMER NAME</label>
+												<div class="col-sm-2">
+													<input type="text"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="table-responsive mt-2">
+											<table class="table table-bordered  table-hover table-sm"
+												style="table-layout: fixed; width: 100%;">
+												<thead class="table-header">
+													<tr class="filters">
+														<th style="width: 8%"><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Branch Id" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account No" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account Name" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Date of Opening" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account Balance" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Bal Ind" disabled></th>
+													</tr>
+												</thead>
+												<tbody id="approvaltbody" style="font-size: 15px">
+													<tr th:if="${getDDDetailsLa1.ca_schemetype == 'LA'}"
+														th:each="getDDDet : ${getDDDetailsLa}">
+														<td th:text="${getDDDet.branch_id}"></td>
+														<td th:text="${getDDDet.loan_accountno}"></td>
+														<td th:text="${getDDDet.customer_name}"></td>
+														<td
+															th:text="${getDDDet.date_of_loan != null ? #dates.format(getDDDet.date_of_loan,'dd-MM-yyyy') : ''}">
+														</td>
+														<td style="text-align: right;" th:text="${Chartacctbal}">
+														</td>
+														<td><span
+															th:switch="${ChartbalIndicator?.add_det_flg}"> <span
+																th:case="'C'">CREDIT</span> <span th:case="'N'">CREDIT</span>
+																<span th:case="'D'">DEBIT</span> <!-- Default case if no match -->
+														</span></td>
+													</tr>
+													<tr th:if="${getDDDetailsTd1.ca_schemetype == 'TD'}"
+														th:each="getDDDet : ${getDDDetailsTd}" id="TD">
+														<td th:text="${getDDDet.branch_id}"></td>
+														<td th:text="${getDDDet.depo_actno}"></td>
+														<td th:text="${getDDDet.cust_name}"></td>
+														<td
+															th:text="${getDDDet.deposit_date != null ? #dates.format(getDDDet.deposit_date,'dd-MM-yyyy') : ''}">
+														</td>
+														<td style="text-align: right;" th:text="${Chartacctbal}">
+														</td>
+														<td><span
+															th:switch="${ChartbalIndicator?.add_det_flg}"> <span
+																th:case="'C'">CREDIT</span> <span th:case="'N'">CREDIT</span>
+																<span th:case="'D'">DEBIT</span> <!-- Default case if no match -->
+														</span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home();">Home</button>
+											<button class="custom-btn" onclick="back()">Back</button>
+										</div>
+									</div>
+								</div>
+								<!-- tab 5 end -->
+							</form>
+						</div>
+
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="home();">Home</button>
+							<button class="custom-btn" onclick="back()">Back</button>
+						</div>
+						<div class="container-fluid card">
+							<div class="">
+								<div class="card-body text-center">
+									<div class="form-group ">
+										<div class="container-fluid">
+											<div class="row row-cols-2 row-cols-lg-3">
+												<div class="col-sm-2"
+													style="font-size: 15px; font-weight: 500; padding: 0px 0px 2px 0px;">
+													<label>Entry User:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text"
+														th:value="${customerRequest?.entry_user}"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" />
+												</div>
+												<div class="col-sm-2"
+													style="font-size: 15px; font-weight: 500; padding: 0px 0px 2px 0px;">
+													<label>Modify User:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text"
+														th:value="${customerRequest?.modify_user}"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" />
+												</div>
+
+												<div class="col-sm-2"
+													style="font-size: 15px; font-weight: 500; padding: 0px 0px 2px 0px;">
+													<label>Verify User:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text"
+														th:value="${customerRequest?.verify_user}"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" />
+												</div>
+											</div>
+
+											<div class="row row-cols-2 row-cols-lg-3">
+												<div class="col-sm-2"
+													style="font-size: 15px; font-weight: 500; padding: 0px 0px 2px 0px;">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="hidden"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" /> <input type="text"
+														th:value="${#dates.format(customerRequest?.entry_time, 'dd-MM-yyyy HH:mm:ss')}"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" />
+												</div>
+
+												<div class="col-sm-2"
+													style="font-size: 15px; font-weight: 500; padding: 0px 0px 2px 0px;">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text"
+														th:value="${#dates.format(customerRequest?.modify_time, 'dd-MM-yyyy HH:mm:ss')}"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" />
+												</div>
+
+												<div class="col-sm-2"
+													style="font-size: 15px; font-weight: 500; padding: 0px 0px 2px 0px;">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text"
+														th:value="${#dates.format(customerRequest?.verify_time, 'dd-MM-yyyy HH:mm:ss')}"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														autocomplete="off" />
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!------- EDITCUST ---------------->
+
+				<div th:if="${formmode}=='EditCust'">
+
+					<div class="card">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>CUSTOMER MAINTENANCE - MODIFY</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="#" th:object="${customerRequest}" method="post"
+								id="edit_forform" autocomplete="off" th:fragment="finuserapply">
+								<div class="tab row formline ml-3"
+									style="padding: 4px 4px; position: relative; font-size: 13px; width: 98%; display: flex; justify-content: space-between;">
+									<!-- Tab buttons -->
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<button class="tablinks active " id="smooth1"
+											style="width: 200px;" onclick="openTab(event, 'tab1')">Personal
+											Details</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth2" style="width: 200px;"
+											onclick="openTab(event, 'tab2')">Document Master</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth3" style="width: 200px;"
+											onclick="openTab(event, 'tab3')">Signature</button>
+									</div>
+								</div>
+								<div id="tab1" class="tabcontent" style="display: block;">
+
+									<div class="card ">
+										<div class="card-body ">
+
+											<div class="row formline ">
+												<input type="hidden" id="gooom"
+													th:value="${customerRequest?.appl_ref_no}"> <label
+													class="col-sm-2">Customer Type </label>
+												<div class="col-sm-2">
+													<input type="text" id="la_customer_type"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.la_customer_type}"
+														name="la_customer_type" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Cif Id </label>
+												<div class="col-sm-2">
+													<input type="text" id="cif_id"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.cif_id}" name="cif_id"
+														autocomplete="off" readonly></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Primary Branch </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_solid"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.ca_solid}" name="ca_solid"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Branch Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="branch_desc"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.branch_desc}"
+														name="branch_desc" autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Salutation </label>
+												<div class="col-sm-2">
+													<select id="imgaccesscode"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														style="font-size: 15px;"
+														th:value="${customerRequest?.ca_saluation}">
+														<option value="MR"
+															th:selected="${customerRequest?.ca_saluation == 'MR'}">MR</option>
+														<option value="MS"
+															th:selected="${customerRequest?.ca_saluation == 'MS'}">MS</option>
+
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">First Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_first_name"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.ca_first_name}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this) "
+														name="ca_first_name" autocomplete="off"> <span
+														id="merchant_corp_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Middle Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="mid_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.mid_name}" name="mid_name"
+														autocomplete="off"> <span id="merchant_name_vali"
+														class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Last Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_last_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.ca_last_name}"
+														name="ca_last_name" autocomplete="off"> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Full Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_preferred_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}"
+														name="ca_first_name" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Short Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_preferred_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}"
+														name="ca_preferred_name" autocomplete="off"> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Occupation </label>
+												<div class="col-sm-2">
+
+													<select
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														style="font-size: 15px;"
+														th:value="${customerRequest?.ca_occupation1}">
+														<option value="SELF EMPLOYED"
+															th:selected="${customerRequest?.ca_occupation1 == 'SELF EMPLOYED'}">SELF
+															EMPLOYED</option>
+														<option value="SALARIED"
+															th:selected="${customerRequest?.ca_occupation1 == 'SALARIED'}">SALARIED</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Gender </label>
+												<div class="col-sm-2">
+
+													<select
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														style="font-size: 15px;"
+														th:value="${customerRequest?.ca_gender}">
+														<option value="MALE"
+															th:selected="${customerRequest?.ca_gender == 'MALE'}">MALE</option>
+														<option value="FEMALE"
+															th:selected="${customerRequest?.ca_gender == 'FEMALE'}">FEMALE</option>
+													</select>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Marital Status </label>
+												<div class="col-sm-2">
+													<select
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														style="font-size: 15px;"
+														th:value="${customerRequest?.ca_martial_staus}">
+														<option value="MALE"
+															th:selected="${customerRequest?.ca_martial_staus == 'SINGLE'}">SINGLE</option>
+														<option value="FEMALE"
+															th:selected="${customerRequest?.ca_martial_staus == 'MARRIED'}">MARRIED</option>
+													</select>
+
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Date Of Birth </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_date_of_birth"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${#dates.format(customerRequest?.ca_date_of_birth, 'dd-MM-yyyy')}"
+														name="ca_date_of_birth" autocomplete="off"> <span
+														id="merchant_addr_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Annual Income </label>
+												<div class="col-sm-2">
+													<input type="text" id="annual_income"
+														onchange="formatAndSetValue(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.annual_income}"
+														name="annual_income" autocomplete="off"> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Monthly Income </label>
+												<div class="col-sm-2">
+													<input type="text" id="monthly_income"
+														onchange="formatAndSetValue(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.monthly_income}"
+														name="monthly_income" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Loan Obligations</label>
+												<div class="col-sm-2">
+													<input type="text" id="loan_obligations"
+														onchange="formatAndSetValue(this)"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.loan_obligations}"
+														name="loan_obligations" autocomplete="off"> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Family Maintenance</label>
+												<div class="col-sm-2">
+													<input type="text" id="family_maintenance"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.family_maintenance}"
+														name="family_maintenance" autocomplete="off"> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Email ID </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_email_id"
+														class="form-control form-control-sm bg-white border border-dark"
+														name="ca_email_id"
+														th:value="${customerRequest?.ca_email_id}"
+														autocomplete="off">
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Mobile No </label>
+												<div class="col-sm-2">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<input type="text" id="ca_countrycode_1"
+																name="ca_countrycode_1"
+																th:value="${customerRequest?.ca_countrycode_1}"
+																class="form-control form-control-sm bg-white border border-dark"
+																value="+248" maxlength="5" style="width: 60px;" readonly />
+														</div>
+														<input type="number" id="mobno" name="ca_mobile_number"
+															autocomplete="off" maxlength="7"
+															th:value="${customerRequest?.ca_mobile_number}"
+															class="form-control form-control-sm bg-white border border-dark"
+															style="width: 100px;" />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button class="custom-btn" onclick="home();">Home</button>
+										<button class="custom-btn"
+											onclick="PersonalDetilsForEdit(this)"
+											th:attr="data-refnumber=${appreNO}" id="addSubmitData">Submit</button>
+										<button class="custom-btn" onclick="back()">Back</button>
+									</div>
+								</div>
+
+								<div id="tab2" class="tabcontent" style="display: none;">
+
+									<div class="card ">
+										<div class="card-body">
+
+											<div id="myModaldoc" class="modaldoc" style="display: none">
+												<div class="modal-contentdoc">
+													<span class="closedoc" id="closeModaldoc"
+														onclick=closeDoc(this)>&times;</span>
+													<div id="popup1" class="overlay "
+														style="z-index: 1001; display: flex; justify-content: center; align-items: center;">
+														<div class="popupw-img">
+															<a class="imageclosedoc" href="#"></a>
+															<div class="card-bodydoc">
+																<div id="imgCapture11"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div style="background-color: #eeeeee;">
+												<table class="table  table-bordered  table-hover table-sm"
+													style="table-layout: fixed; width: 100%; font-size: initial;">
+													<tr>
+														<td><b>Document Type</b></td>
+														<td><b>Document Code</b></td>
+														<td><b>Document Description</b></td>
+
+														<td><b>Unique Id</b></td>
+														<td><b>Place of issue</b></td>
+														<td><b>Issue Date</b></td>
+														<td><b>Expiry Date</b></td>
+														<td><b>Document View</b></td>
+													</tr>
+													<tbody id="click1">
+														<tr th:each="Doocument : ${DocumentList}">
+
+															<td style="background-color: unset;"><input
+																type="text" id="document_type" name="document_type"
+																maxlength="10" autocomplete="off"
+																th:value="${Doocument?.document_type}" readonly /> <span
+																id="document_type" class="reqError"></span></td>
+
+															<td><input type="text" id="document_code"
+																name="document_code" maxlength="10" autocomplete="off"
+																th:value="${Doocument?.document_code}" readonly /> <span
+																id="document_code" class="reqError"></span></td>
+
+
+															<td><input type="text" id="document_type_desc"
+																name="document_type_desc" maxlength="10"
+																autocomplete="off"
+																th:value="${Doocument?.document_type_desc}" readonly />
+																<span id="document_type_desc" class="reqError"></span></td>
+															<td><input type="text" id="unique_id0"
+																name="unique_id" maxlength="10" autocomplete="off"
+																th:value="${Doocument?.unique_id}" readonly /> <span
+																id="unique_id" class="reqError"></span></td>
+
+															<td><input type="text" id="place_of_issue"
+																name="place_of_issue" maxlength="10" autocomplete="off"
+																th:value="${Doocument?.place_of_issue}" readonly /> <span
+																id="place_of_issue" class="reqError"></span></td>
+
+
+															<td><input type="date" id="issue_date"
+																style="width: 160px" name="issue_date" maxlength="10"
+																autocomplete="off" th:value="${Doocument?.issue_date}"
+																readonly /> <span id="issue_date" class="reqError"></span>
+															</td>
+
+															<td><input type="date" id="expiry_date"
+																style="width: 160px" name="expiry_date" maxlength="10"
+																autocomplete="off" th:value="${Doocument?.expiry_date}"
+																readonly /> <span id="expiry_date" class="reqError"></span>
+															</td>
+
+															<td
+																th:if="${Doocument?.file_name != null && (Doocument.file_name.endsWith('.jpeg') || Doocument.file_name.endsWith('.jfif') || Doocument.file_name.endsWith('.jpg'))}">
+																<i class="fa fa-info-circle" aria-hidden="true"
+																onclick="show1(this)" id="openModaldoc"
+																th:attr="data-doc_type=${Doocument?.unique_id}"
+																style='font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px'
+																data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+															</td>
+															<td
+																th:if="${Doocument?.file_name == null || !(Doocument.file_name.endsWith('.jpeg') || Doocument.file_name.endsWith('.jfif') || Doocument.file_name.endsWith('.jpg'))}">
+																<a th:href="@{'/' + ${Doocument?.unique_id}}"
+																style="text-decoration: none; color: DodgerBlue;"> <i
+																	class="fa fa-info-circle" aria-hidden="true"
+																	style='font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px'></i>
+
+															</a>
+
+															</td>
+
+															<td th:text="${Doocument?.file_name}"
+																class="rowDataField" style="width: 100px;" hidden>
+															</td>
+															<td class="text-center"><i class="fa fa-trash"
+																aria-hidden="true" id="deletefunction"
+																onclick="rowdelete(this);"></i></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="text-center card-footer">
+												<button class="custom-btn" type="button"
+													onclick="rowadd()">Add</button>
+												<button class="custom-btn" type="button"
+													th:attr="data-refnumber=${appreNO}"
+													onclick="submitfileForEdit(this)">Submit</button>
+												<input type="text" hidden id="rec_no_for_indi"
+													th:value="${customerRequest?.rec_no}" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div id="tab3" class="tabcontent" style="display: none;">
+									<div class="card">
+										<div class="card-body">
+											<table class="mt-4 table-bordered"
+												style="height: 200px; width: 100%">
+												<thead>
+													<tr>
+														<th class=""
+															style="text-align: left; vertical-align: 22px; margin-top: 12px; font-size: 15px; padding-left: 30px">
+															Image Access Group</th>
+														<th class=""
+															style="text-align: left; vertical-align: 22px; font-size: 15px; padding-left: 30px;">
+															Group</th>
+														<th class=""
+															style="text-align: left; vertical-align: 22px; font-size: 15px; padding-left: 30px;">
+															Keyword<span id="KEYWORD"
+															style="color: red; font-size: 20px;"> *</span>
+														</th>
+														<th class=""
+															style="text-align: left; vertical-align: 22px; font-size: 15px; padding-left: 68px;">
+															Photo<span id="pic_val"
+															style="color: red; font-size: 20px;"> *</span>
+														</th>
+														<th class=""
+															style="text-align: left; vertical-align: 22px; font-size: 15px; padding-left: 35px;">
+															Signature<span id="sign_val"
+															style="color: red; font-size: 20px;"> *</span>
+														</th>
+
+													</tr>
+												</thead>
+												<tbody id="signbody"
+													style="background-color: #eeeeee; overflow: auto; height: 200px">
+													<tr id="row0" th:each="sign : ${SIGNATURE}">
+														<td><input id="group" type="text" maxlength="10"
+															th:value="${sign[0]}" name="img_access_code" readonly
+															class="form-control form-control-sm bg-white border border-dark bg-white border border-dark "
+															style="margin-left: 30px; width: 200px"></td>
+														<td><input id="group" type="text" maxlength="10"
+															th:value="${sign[1]}" readonly name="img_group"
+															class="form-control form-control-sm bg-white border border-dark bg-white border border-dark "
+															style="margin-left: 30px; width: 200px"></td>
+														<td><input id="keyword" type="text" maxlength="10"
+															th:value="${sign[2]}" name="keyword" readonly
+															class="form-control form-control-sm bg-white border border-dark bg-white border border-dark "
+															style="margin-left: 30px; width: 200px"></td>
+														<td th:if="${sign[3] != null and sign[3] != ''}"><img
+															th:src="'data:image/png;base64,' + ${sign[3]}"
+															name="photo" alt="Photo"
+															style="max-width: 100px; max-height: 100px;"></td>
+														<td th:if="${sign[4] != null and sign[4] != ''}"><img
+															th:src="'data:image/png;base64,' + ${sign[4]}"
+															alt="Signature"
+															style="max-width: 100px; max-height: 100px; background-color: white;">
+														</td>
+														<td hidden><input id="srl_no" type="text"
+															maxlength="10" th:value="${sign[5]}" name="srl_no"
+															readonly
+															class="form-control form-control-sm bg-white border border-dark bg-white border border-dark "
+															style="margin-left: 30px; width: 200px"></td>
+
+														<td class="text-center h-50"><i
+															class="fa fa-trash custom-icon" aria-hidden="true"
+															id="deletefunction" onclick="rowdeletesignature(this);"></i></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home();">Home</button>
+											<button class="custom-btn" type="button"
+												onclick="addRowsignature()">Add</button>
+
+											<button class="custom-btn"
+												onclick="signsubmitcor(this);"
+												th:attr="data-refnumber=${appreNO}" id="addSubmitData">Submit</button>
+											<button class="custom-btn" onclick="back()">Back</button>
+										</div>
+									</div>
+								</div>
+
+								<div id="tab5" class="tabcontent" style="display: none;">
+									<div class="card">
+										<div class="float-right">
+											<button type="button"
+												class="btn btn-xs btn-primary btns p-2 border btn-filter float-right mr-2 mt-2 mb-2">Filter</button>
+										</div>
+										<div class="customer-container" style="font-weight: 500;">
+											<div>
+												<label style="font-size: 13px">CUSTOEMER ID</label>
+												<div class="col-sm-3">
+													<input type="text"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.cif_id}" readonly>
+												</div>
+												<div class="col-sm-1"></div>
+												<label style="font-size: 13px">CUSTOEMER NAME</label>
+												<div class="col-sm-3">
+													<input type="text"
+														class="form-control form-control-sm bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="table-responsive mt-2">
+											<table class="table table-bordered  table-hover table-sm"
+												style="table-layout: fixed; width: 100%;">
+												<thead class="table-header">
+													<tr class="filters">
+														<th style="width: 8%"><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Branch Id" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account No" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account Name" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Date of Opening" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Account Balance" disabled></th>
+														<th><input type="text"
+															class="form-control font-weight-bold"
+															placeholder="Bal Ind" disabled></th>
+													</tr>
+												</thead>
+												<tbody id="approvaltbody" style="font-size: 15px">
+													<tr th:if="${getDDDetailsLa1.ca_schemetype == 'LA'}"
+														th:each="getDDDet : ${getDDDetailsLa}">
+														<td th:text="${getDDDet.branch_id}"></td>
+														<td th:text="${getDDDet.loan_accountno}"></td>
+														<td th:text="${getDDDet.customer_name}"></td>
+														<td
+															th:text="${getDDDet.date_of_loan != null ? #dates.format(getDDDet.date_of_loan,'dd-MM-yyyy') : ''}">
+														</td>
+														<td style="text-align: right;" th:text="${Chartacctbal}">
+														</td>
+														<td><span
+															th:switch="${ChartbalIndicator?.add_det_flg}"> <span
+																th:case="'C'">CREDIT</span> <span th:case="'N'">CREDIT</span>
+																<span th:case="'D'">DEBIT</span> <!-- Default case if no match -->
+														</span></td>
+													</tr>
+													<tr th:if="${getDDDetailsTd1.ca_schemetype == 'TD'}"
+														th:each="getDDDet : ${getDDDetailsTd}" id="TD">
+														<td th:text="${getDDDet.branch_id}"></td>
+														<td th:text="${getDDDet.depo_actno}"></td>
+														<td th:text="${getDDDet.cust_name}"></td>
+														<td
+															th:text="${getDDDet.deposit_date != null ? #dates.format(getDDDet.deposit_date,'dd-MM-yyyy') : ''}">
+														</td>
+														<td style="text-align: right;" th:text="${Chartacctbal}">
+														</td>
+														<td><span
+															th:switch="${ChartbalIndicator?.add_det_flg}"> <span
+																th:case="'C'">CREDIT</span> <span th:case="'N'">CREDIT</span>
+																<span th:case="'D'">DEBIT</span> <!-- Default case if no match -->
+														</span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="home();">Home</button>
+							<button class="custom-btn" onclick="back()">Back</button>
+						</div>
+
+						<table
+							Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+							<tr>
+								<td class="col-sm-2" style="text-align: center;"><font
+									size="2"><B>Entry User :</B></font></td>
+								<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input
+									type="text" id="entryuser" th:value="${user}"
+									name="ub.entryuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly></td>
+								<td class="col-sm-2" style="text-align: center;"><font
+									size="2"><B>Modify User :</B></font></td>
+								<td class="col-sm-2" style="width: 112px;"><input
+									type="text" id="modifyuser" th:value="${user}"
+									name="ub.modifyuser" value="MMR"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly></td>
+								<td class="col-sm-2" style="text-align: center;"><font
+									size="2"><B>Verify User :</B></font></td>
+								<td class="col-sm-2" style="width: 112px;"><input
+									type="text" id="verifyuser" name="ub.verifyuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly></td>
+							</tr>
+							<tr>
+								<td style="text-align: center;"><font size="2"><B>Entry
+											Time :</B></font></td>
+								<td style="width: 112px"><input type="text" id="entrytime"
+									name="ub.entrytime"
+									th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+									readonly
+									style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+								</td>
+								<td style="text-align: center;"><font size="2"><B>Modify
+											Time :</B></font></td>
+								<td style="width: 112px"><input type="text" id="modifytime"
+									name="ub.modifytime"
+									th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+									readonly></td>
+								<td style="text-align: center; font-size: 15px;"><font
+									size="2"><B>Verify Time :</B></font></td>
+								<td style="width: 112px"><input type="text" id="verifytime"
+									name="ub.verifytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+									readonly></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<!--VERIFYCUST  -->
+
+				<div th:if="${formmode}=='VerifyCust'">
+
+					<div class="card">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>CUSTOMER MAINTENANCE - VERIFY</h4>
+							</div>
+
+
+
+						</div>
+						<div class="card-body">
+							<form action="#" th:object="${customerRequest}" method="post"
+								autocomplete="off" th:fragment="finuserapply">
+
+
+
+								<div class="tab row formline ml-3"
+									style="padding: 4px 4px; position: relative; font-size: 13px; width: 98%; display: flex; justify-content: space-between;">
+									<!-- Tab buttons -->
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<button class="tablinks active " id="smooth1"
+											style="width: 200px;" onclick="openTab(event, 'tab1')">Personal
+											Details</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth2" style="width: 200px;"
+											onclick="openTab(event, 'tab2')">Document Master</button>
+									</div>
+									<div class="col-sm-2">
+										<button class="tablinks" id="smooth3" style="width: 200px;"
+											onclick="openTab(event, 'tab3')">Signature</button>
+									</div>
+
+								</div>
+
+								<div id="tab1" class="tabcontent" style="display: block;">
+									<div class="card ">
+										<div class="card-body ">
+											<div class="row formline ">
+												<input type="hidden" id="gooom"
+													th:value="${customerRequest?.appl_ref_no}"> <label
+													class="col-sm-2">Customer Type </label>
+												<div class="col-sm-2">
+													<input type="text" id="la_customer_type"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.la_customer_type}"
+														name="la_customer_type" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Cif Id </label>
+												<div class="col-sm-2">
+													<input type="text" id="cif_id"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.cif_id}" name="cif_id"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Primary Branch </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_solid"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_solid}" name="ca_solid"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Branch Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="branch_desc"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.branch_desc}"
+														name="branch_desc" autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Salutation </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_saluation"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_saluation}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this) "
+														name="ca_saluation" autocomplete="off" readonly> <span
+														id="merchant_corp_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">First Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_first_name"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_first_name}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this) "
+														name="ca_first_name" autocomplete="off" readonly>
+													<span id="merchant_corp_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Middle Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="mid_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.mid_name}" name="mid_name"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Last Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_last_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_last_name}"
+														name="ca_last_name" autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Full Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_first_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_first_name}"
+														name="ca_first_name" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Short Name </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_preferred_name"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_preferred_name}"
+														name="ca_preferred_name" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Occupation </label>
+												<div class="col-sm-2">
+													<input type="text" id="merchant_city"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_occupation1}"
+														name="merchant_city" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Gender </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_gender"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_gender}" name="ca_gender"
+														autocomplete="off" readonly> <span
+														id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Marital Status </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_martial_staus"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.ca_martial_staus}"
+														name="ca_martial_staus" autocomplete="off" readonly>
+													<span id="ca_martial_staus" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Date Of Birth </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_date_of_birth"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${#dates.format(customerRequest?.ca_date_of_birth, 'dd-MM-yyyy')}"
+														name="ca_date_of_birth" autocomplete="off" readonly>
+													<span id="merchant_addr_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Annual Income </label>
+												<div class="col-sm-2">
+													<input type="text" id="annual_income"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.annual_income}"
+														name="annual_income" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Monthly Income </label>
+												<div class="col-sm-2">
+													<input type="text" id="monthly_income"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.monthly_income}"
+														name="monthly_income" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Loan Obligations</label>
+												<div class="col-sm-2">
+													<input type="text" id="loan_obligations"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.loan_obligations}"
+														name="loan_obligations" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Family Maintenance</label>
+												<div class="col-sm-2">
+													<input type="text" id="family_maintenance"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														th:value="${customerRequest?.family_maintenance}"
+														name="family_maintenance" autocomplete="off" readonly>
+													<span id="merchant_name_vali" class="reqError"></span>
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<label class="col-sm-2">Email ID </label>
+												<div class="col-sm-2">
+													<input type="text" id="ca_email_id"
+														class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+														name="ca_email_id"
+														th:value="${customerRequest?.ca_email_id}"
+														onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+														autocomplete="off" readonly>
+												</div>
+												<div class="col-sm-1"></div>
+												<label class="col-sm-2">Mobile No </label>
+												<div class="col-sm-2">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<input type="text" id="ca_countrycode_1"
+																name="ca_countrycode_1"
+																th:value="${customerRequest?.ca_countrycode_1}"
+																class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+																value="+248" maxlength="5" style="width: 60px;"
+																readonly="readonly" />
+														</div>
+														<input type="number" id="mobno" name="ca_mobile_number"
+															autocomplete="off" maxlength="7"
+															th:value="${customerRequest?.ca_mobile_number}"
+															class="form-control form-control-sm bg-white border border-dark bg-white border border-dark"
+															style="width: 100px;" readonly />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div id="tab2" class="tabcontent" style="display: none;">
+
+									<div class="card ">
+										<div class="card-body">
+
+											<div id="myModaldoc" class="modaldoc" style="display: none">
+												<div class="modal-contentdoc">
+													<span class="closedoc" id="closeModaldoc"
+														onclick=closeDoc(this)>&times;</span>
+													<div id="popup1" class="overlay "
+														style="z-index: 1001; display: flex; justify-content: center; align-items: center;">
+														<div class="popupw-img">
+															<a class="imageclosedoc" href="#"></a>
+															<div class="card-bodydoc">
+																<div id="imgCapture11"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div style="background-color: #eeeeee;">
+												<table class="table  table-bordered  table-hover table-sm"
+													style="table-layout: fixed; width: 100%; font-size: initial;">
+													<tr>
+														<td><b>Document Type</td>
+														<td><b>Document Code</b></td>
+														<td><b>Document Description</b></td>
+														<td><b>Place of issue</b></td>
+														<td><b>Unique Id</b></td>
+														<td><b>Issue Date</b></td>
+														<td><b>Expiry Date</b></td>
+														<td><b>Document View</b></td>
+													</tr>
+													<tbody id="dataTables">
+														<tr th:each="Doocument : ${DocumentList}">
+
+															<td th:text="${Doocument?.document_type}"
+																class="rowDataField" style="width: 150px;">Address</td>
+															<td th:text="${Doocument?.document_code}"
+																class="rowDataField" style="width: 120px;">ADD001</td>
+															<td th:text="${Doocument?.document_type_desc}"
+																class="rowDataField" style="width: 160px;">Passport</td>
+															<td th:text="${Doocument?.place_of_issue}"
+																class="rowDataField" style="width: 120px;">Madurai</td>
+															<td th:text="${Doocument?.unique_id}"
+																class="rowDataField" style="width: 120px;">D324234234</td>
+															<td th:text="${Doocument?.issue_date}"
+																class="rowDataField" style="width: 120px;">18-JUN-2018</td>
+															<td th:text="${Doocument?.expiry_date}"
+																class="rowDataField" style="width: 120px;">15-JUN-2023</td>
+															<td
+																th:if="${Doocument?.file_name != null && (Doocument.file_name.endsWith('.jpeg') || Doocument.file_name.endsWith('.jfif') || Doocument.file_name.endsWith('.jpg'))}">
+																<i class="fa fa-info-circle" aria-hidden="true"
+																onclick="show1(this)" id="openModaldoc"
+																th:attr="data-doc_type=${Doocument?.unique_id}"
+																style='font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px'
+																data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+															</td>
+															<td
+																th:if="${Doocument?.file_name == null || !(Doocument.file_name.endsWith('.jpeg') || Doocument.file_name.endsWith('.jfif') || Doocument.file_name.endsWith('.jpg'))}">
+																<a th:href="@{'/' + ${Doocument?.unique_id}}"
+																style="text-decoration: none; color: DodgerBlue;"> <i
+																	class="fa fa-info-circle" aria-hidden="true"
+																	style='font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px'></i>
+
+															</a>
+
+															</td>
+
+															<td th:text="${Doocument?.file_name}"
+																class="rowDataField" style="width: 100px;" hidden></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="tab3" class="tabcontent" style="display: none;">
+									<div class="card">
+										<div class="card-body">
+											<div class="p-2"
+												style="background-color: #eeeeee; overflow: auto; height: 180px">
+												<table>
+													<thead>
+														<tr>
+															<th></th>
+															<th style="width: 800px; text-align: center">NAME :</th>
+														</tr>
+													</thead>
+													<tbody id="sign">
+														<tr th:each="sign : ${SIGNATURE}">
+															<th></th>
+															<td th:text="${sign?.keyword}"
+																style="width: 800px; text-align: center"></td>
+
+															<td class="p-2">
+																<div id="photoCapture1"
+																	style="border: 1px solid #ccc; height: 60px; width: 100px;">
+																</div>
+															</td>
+															<td>
+																<div
+																	style="padding-left: 50px; height: 60px; width: 100px;"
+																	id="imgCapture1"></div>
+
+															</td>
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="home();">Home</button>
+							<button class="custom-btn"
+								onclick="addsubmitverify(event)">Verify</button>
+							<button class="custom-btn" onclick="back1()">Back</button>
+						</div>
+						<table
+							Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+							<tr>
+								<td class="col-sm-2" style="text-align: center;"><font
+									size="2"><B>Entry User :</B></font></td>
+								<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input
+									type="text" id="entryuser"
+									th:value="${customerRequest?.entry_user}"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly></td>
+								<td class="col-sm-2" style="text-align: center;"><font
+									size="2"><B>Modify User :</B></font></td>
+								<td class="col-sm-2" style="width: 112px;"><input
+									type="text" id="modifyuser"
+									th:value="${customerRequest?.modify_user}"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly></td>
+								<td class="col-sm-2" style="text-align: center;"><font
+									size="2"><B>Verify User :</B></font></td>
+								<td class="col-sm-2" style="width: 112px;"><input
+									th:value="${user}" type="text" id="verifyuser"
+									name="ub.verifyuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly></td>
+							</tr>
+							<tr>
+								<td style="text-align: center;"><font size="2"><B>Entry
+											Time :</B></font></td>
+								<td style="width: 112px"><input type="text" id="entrytime"
+									name="ub.entrytime"
+									th:value="${#dates.format(customerRequest?.entry_time, 'dd-MM-yyyy HH:mm:ss')}"
+									readonly
+									style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+								</td>
+								<td style="text-align: center;"><font size="2"><B>Modify
+											Time :</B></font></td>
+								<td style="width: 112px"><input type="text" id="modifytime"
+									name="ub.modifytime"
+									th:value="${#dates.format(customerRequest?.modify_time, 'dd-MM-yyyy HH:mm:ss')}"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+									readonly></td>
+								<td style="text-align: center; font-size: 15px;"><font
+									size="2"><B>Verify Time :</B></font></td>
+								<td style="width: 112px"><input type="text" id="verifytime"
+									name="ub.verifytime"
+									th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+									readonly></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!--END  -->
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		function showConfirmationModalreject() {
+			$('#confirmationModalreject').modal('show');
+		}
+
+		function RejectAcc() {
+			var hasError = false;
+			if ($("#reject_remarks").val() === "") {
+				showError($("#reject_remarks"), 'Required');
+				hasError = true;
+			} else {
+				hideError($("#reject_remarks"));
+			}
+
+			if (hasError) {
+				$('#myrequired').modal("toggle");
+				$('#myrequired .modal-body').text("Enter the Required fields...!");
+			} else {
+
+				var rec_no = document.getElementById('rec_no').value;
+				var ApprefNO = document.getElementById("gooom").value;
+				$.ajax({
+					type: 'POST',
+					url: '/BGLS/approvefuncs?formmode=Reject_acc&rec_no=' + rec_no
+						+ "&ApprefNO=" + ApprefNO,
+					success: function (response) {
+						var formattedResponse = response.message;
+						$("#mypopup22 .modal-body").html(formattedResponse);
+						$('#mypopup22').modal('show');
+					}
+				});
+				$('#confirmationModalreject').modal('hide'); // Hide confirmation modal after Confirm
+			}
+		}
+		function showError(element, message) {
+			var errorSpan = $('<span class="error-message"></span>').text(message);
+			errorSpan.css('color', 'red');
+			element.after(errorSpan);
+		}
+
+		function hideError(element) {
+			element.next('.error-message').remove();
+		}
+	</script>
+	<script>
+	function PersonalDetilsForEdit(a){
+		
+		event.preventDefault();
+		 var rec_no = document.getElementById('rec_no_for_indi').value;
+         var refnumber = a.getAttribute("data-refnumber");
+
+alert(rec_no);
+alert(refnumber);
+var dateInput = document.querySelector('input[name="ca_date_of_birth"]');
+var dateValue = dateInput.value;
+
+// Convert date from dd-MM-yyyy to yyyy-MM-dd
+var dateParts = dateValue.split("-");
+var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
+// Set the formatted date back to the input field
+dateInput.value = formattedDate;
+
+var formData = $("#edit_forform").serialize();
+        // If all validations pass, with the AJAX request
+        $.ajax({
+            type: "POST",
+            url: './personalDetailForEdit?refnumber=' + refnumber + "&rec_no=" + rec_no,
+            data: formData,
+            data: $("#edit_forform").serialize(),
+            success: function (response) { 
+            	  $("#mypopup_alertmsg").html(response); 
+                  $('#mypopup').modal('show');
+            }
+        });
+	}
+
+	</script>
+	<script>
+		function approveclick() {
+			event.preventDefault();
+			var rec_no = document.getElementById('rec_no').value;
+			var ApprefNO = document.getElementById("gooom").value;
+			var schmtypes = document.getElementById("ca_schemetype").value;
+			var schm_codes = document.getElementById("ca_customer_type").value;
+			var account_number = ''; // Initialize account_number with an empty string
+
+			console.log("rec_no:", rec_no);
+			console.log("ApprefNO:", ApprefNO);
+			console.log("schmtypes:", schmtypes);
+
+			if (schmtypes == "LA") {
+				account_number = document.getElementById("loan_accountno").value;
+				//alert("Loan Account Number: " + account_number);
+			} else if (schmtypes == "TD") {
+				account_number = document.getElementById("depo_actno").value;
+				//alert("Deposit Account Number: " + account_number);
+			} else {
+				alert("Invalid scheme type!");
+				return; // Stop execution if invalid scheme type
+			}
+
+			console.log("account_number:", account_number);
+
+			$.ajax({
+				type: 'POST',
+				url: '/BGLS/approvefuncs?formmode=approveAcc&rec_no=' + rec_no
+					+ "&ApprefNO=" + ApprefNO + "&schmtypes=" + schmtypes
+					+ "&AccountNO=" + account_number + "&schmcodes=" + schm_codes,
+				success: function (response) {
+					var tranId = response.tranId;
+					var message = response.message;
+
+					console.log("Transaction ID:", tranId);
+					console.log("Message:", message);
+
+					// Show message in the modal body and tranId as text
+					$("#mypopup .modal-body").html(message);
+					$('#mypopup').modal('show');
+
+					$("button[data-dismiss='modal']").attr("data-tranid", tranId);
+				}
+			});
+		}
+	</script>
+	<script th:inline="javascript">
+		function tranactionscreens(a) {
+			event.preventDefault();
+			var schmtypes = document.getElementById("ca_schemetype").value;
+			//alert(schmtypes);
+			var tranId = a.getAttribute("data-tranid");
+			var parttranid = 1;
+			//alert(tranId);
+			//alert(parttranid);
+			if (schmtypes == "LA") {
+				var account_number = document.getElementById("loan_accountno").value;
+				var loanamount = document.getElementById("loan_sanctioned").value.replace(/,/g, ''); // Remove commas
+				var accountname = document.getElementById("ca_first_name").value;
+				var schmtypes = document.getElementById("ca_schemetype").value;
+
+				console.log("Account Number:", account_number);
+				console.log("Loan Amount:", loanamount);
+				console.log("Account Name:", accountname);
+				console.log("Scheme Type:", schmtypes);
+
+				// Construct the URL with account_number, loanamount, accountname, and schm_type as query parameters
+				var url = 'accountLedgerPost?formmode=verify' +
+					'&acct_num=' + encodeURIComponent(account_number) +
+					'&tran_id=' + encodeURIComponent(tranId) +
+					'&part_tran_id=' + encodeURIComponent(parttranid);
+
+				// Redirect to the constructed URL
+				location.href = url;
+			} else if (schmtypes == "TD") {
+				var account_number = document.getElementById("depo_actno").value;
+				var loanamount = document.getElementById("deposit_amt").value.replace(/,/g, ''); // Remove commas
+				var accountname = document.getElementById("ca_first_name").value;
+				var schmtypes = document.getElementById("ca_schemetype").value;
+
+				console.log("Account Number:", account_number);
+				console.log("Loan Amount:", loanamount);
+				console.log("Account Name:", accountname);
+				console.log("Scheme Type:", schmtypes);
+
+				// Construct the URL with account_number, loanamount, accountname, and schm_type as query parameters
+				var url = 'accountLedgerPost?formmode=verify' +
+					'&acct_num=' + encodeURIComponent(account_number) +
+					'&tran_id=' + encodeURIComponent(tranId) +
+					'&part_tran_id=' + encodeURIComponent(parttranid);
+
+				location.href = url;
+			}
+		}
+	</script>
+
+
+	<script>
+		function toggleAccountFields() {
+			var schemeType = document.getElementById("ca_schemetype").value;
+			var termDepositDiv = document.getElementById("Acc_TermDeposit");
+			var leaseAccountDiv = document.getElementById("Acc_LeaseAccount");
+
+			if (schemeType === "TD") {
+				termDepositDiv.style.display = "block";
+				leaseAccountDiv.style.display = "none";
+			} else if (schemeType === "LA") {
+				leaseAccountDiv.style.display = "block";
+				termDepositDiv.style.display = "none";
+			} else {
+				// Hide both if scheme type is neither TD nor LA
+				termDepositDiv.style.display = "none";
+				leaseAccountDiv.style.display = "none";
+			}
+		}
+
+		// Call this function on page load to set the initial visibility
+		document.addEventListener("DOMContentLoaded", function () {
+			toggleAccountFields();
+		});
+	</script>
+
+
+
+
+
+
+
+
+
+</body>
+<script>
+	function depositflow(a) {
+		event.preventDefault();
+
+
+		var depotype = document.getElementById("deposit_type").value;
+		var depoactno = document.getElementById("depo_actno").value;
+		var depodate = document.getElementById("deposit_date").value;
+		var depoper = document.getElementById("deposit_period").value;
+		var depoamt = document.getElementById("deposit_amt").value;
+		var intrate = document.getElementById("rate_of_int").value;
+		var freq = document.getElementById("frequency").value;
+
+		console.log(depotype + " " + depoactno + " " + depodate + " " + depoper + " " + depoamt + " "
+			+ intrate + " " + freq);
+		$
+			.ajax({
+				type: "GET",
+				url: "./getDepositFlow?deposit_type=" + depotype
+					+ "&depo_actno=" + depoactno + "&deposit_date=" + depodate
+					+ "&deposit_period=" + depoper + "&deposit_amt=" + depoamt
+					+ "&rate_of_int=" + intrate + "&frequency="
+					+ freq,
+				success: function (response) {
+					console.log(response);
+					var trHTML = '';
+
+					$.each(response, function (index, entity) {
+						var flow_id = entity.flow_id;
+						var flow_code = entity.flow_code;
+						var flow_date = formatDate(entity.flow_date);
+						var flow_amount = formatNumber(entity.flow_amt);
+						var outstanding_balance = formatNumber(entity.clr_bal_amt);
+
+						trHTML += '<tr id="scheduleRow">'
+							+ '<td style="text-align: center;"><input type="text" class="border-0 text-center" name="flowId" readonly value="' + flow_id + '" /></td>'
+							+ '<td style="text-align: center;"><input type="text" class="border-0 text-center" name="flowCode" readonly value="' + flow_code + '" /></td>'
+							+ '<td style="text-align: center;"><input type="text" class="border-0 text-center" name="flowDate" readonly value="' + flow_date + '" /></td>'
+							+ '<td style="text-align: right;"><input type="text" class="border-0 text-right" name="flowAmount" readonly value="' + flow_amount + '" /></td>'
+							+ '<td style="text-align: right;"><input type="text" class="border-0 text-right" name="outstandingBalance" readonly value="' + outstanding_balance + '" /></td>'
+							+ '</tr>';
+					});
+
+					$('#depositflow').empty().append(trHTML);
+				},
+				error: function (error) {
+					console.error(error);
+				}
+			});
+	}
+	function formatDate(dateString) {
+
+		var date = new Date(dateString);
+
+
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+
+
+		if (day < 10) {
+			day = '0' + day;
+		}
+		if (month < 10) {
+			month = '0' + month;
+		}
+
+		return day + '-' + month + '-' + year;
+	}
+
+	function formatNumber(number) {
+		return Number(number).toLocaleString('en-US', {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2
+		});
+	}
+
+	function changeDateFormat(dateString) {
+
+		var parts = dateString.split('-');
+
+		return parts[2] + '-' + parts[1] + '-' + parts[0];
+	}
+</script>
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1"
+	role="dialog" aria-labelledby="confirmationModalLabel"
+	aria-hidden="true" data-backdrop="false">
+	<div class="modal-dialog modal-lg" role="document">
+		<!-- Added modal-lg for larger size -->
+
+		<div class="modal-content">
+			<div class="card">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmationModalLabel"
+						style="font-size: 14px; padding-top: 5px">HOLD CONFIRMATION</h5>
+					<!-- Removed close button -->
+				</div>
+				<div class="modal-body" style="height: auto; padding-top: 15px;">
+					<!-- Removed fixed height for flexibility -->
+					<div>
+						<!-- Centered the confirmation text -->
+						<label style="font-size: 14px;">Are you sure you want to
+							Hold this record?</label>
+					</div>
+					<div class="row formline" style="font-weight: 500; margin-top: 5px">
+						<label class="col-form-label ml-3" style="font-size: 14px;">
+							Hold Remarks </label>
+						<!-- Adjusted label to align -->
+						<div class="col-sm-6">
+							<!-- Increased input width for better alignment -->
+							<input type="text" id="hold_remarks" style="font-weight: 500"
+								onkeyup="this.value = this.value.toUpperCase();handleIn(this);"
+								class="form-control form-control-sm bg-white border border-dark"
+								name="hold_remarks" autocomplete="off">
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer mt-2">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onclick="back()">Cancel</button>
+					<button type="button" class="btn btn-primary" onclick="holdfin();">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModalreject" tabindex="-1"
+	role="dialog" aria-labelledby="confirmationModalLabel"
+	aria-hidden="true" data-backdrop="false">
+	<div class="modal-dialog modal-lg" role="document">
+		<!-- Added modal-lg for larger size -->
+
+		<div class="modal-content">
+			<div class="card">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmationModalLabel"
+						style="font-size: 14px; padding-top: 5px">REJECT CONFIRMATION</h5>
+					<!-- Removed close button -->
+				</div>
+				<div class="modal-body" style="height: auto; padding-top: 15px;">
+					<!-- Removed fixed height for flexibility -->
+					<div>
+						<!-- Centered the confirmation text -->
+						<label style="font-size: 14px;">Are you sure you want to
+							Reject this record?</label>
+					</div>
+					<div class="row formline" style="font-weight: 500; margin-top: 5px">
+						<label class="col-form-label ml-3" style="font-size: 14px;">
+							Reject Remarks </label>
+						<!-- Adjusted label to align -->
+						<div class="col-sm-6">
+							<!-- Increased input width for better alignment -->
+							<input type="text" id="reject_remarks" style="font-weight: 500"
+								onkeyup="this.value = this.value.toUpperCase();handleIn(this);"
+								class="form-control form-control-sm bg-white border border-dark"
+								name="reject_remarks" autocomplete="off">
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer mt-2">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onclick="back()">Cancel</button>
+					<button type="button" class="btn btn-primary"
+						onclick="RejectAcc();">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+	tabindex="-1" role="dialog" aria-hidden="true"
+	style="padding-left: 10%; padding-top: 20%" id="myrequired">
+	<div
+		class="modal-dialog modal-diaCap At Maturity ? log-centered modal-dialog-scrollable"
+		style="height: 20%">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center">
+				<p id="alertmsg"></p>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onclick="goBack()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+	tabindex="-1" role="dialog" aria-hidden="true"
+	style="padding-left: 10%" id="mypopup22">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+		style="height: 20%">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center">
+				<p id="popupmsg_body"></p>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onclick="back()">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+	tabindex="-1" role="dialog" aria-hidden="true"
+	style="padding-left: 10%" id="mypopup22verify">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+		style="height: 20%">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center">
+				<p id="popupmsg_bodyverify"></p>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onclick="backtoretail()">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div id="myModalsign" class="modal" style="display: none;">
+
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<h2 style="background-color: #BBC3CB;">put your signature</h2>
+
+			<div class="modal-footer">
+				<span class="close">&times;</span>
+			</div>
+		</div>
+		<div class="modal-body">
+			<canvas id="signature-pad" width="400" height="200"></canvas>
+			<button id="clear-button">Clear</button>
+			<button id="save-button">Save</button>
+			<p>please sign your signature</p>
+
+			<div class="modal-footer" style="padding: 16px 16px;"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+function goBack() {
+    $('#myrequired22').modal('hide'); // Close the modal
+}
+
+
+	function uploadImage() {
+		alert("1")
+		var input = document.getElementById('photoCapture1');
+		var file = input.files[0];
+		alert("2")
+		if (file) {
+			alert("3")
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				var imageData = e.target.result;
+
+				// Display the image preview
+				var imagePreview = document.getElementById('imagePreview');
+				imagePreview.src = imageData;
+				photo = imageData;
+				imagePreview.style.display = 'block';
+			};
+			alert("4")
+			reader.readAsDataURL(file);
+		} else {
+			alert('Please select an image.');
+		}
+	}
+</script>
+<script>
+	var modal = document.getElementById("myModalsign");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("Draw_signature");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks the button, open the modal 
+	btn.onclick = function () {
+		modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function () {
+		modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+</script>
+<script type="text/javascript">
+
+	function ClickCustType(a) {
+
+		var appl_ref_no = a.getAttribute("data-appl_ref_no");
+		//alert(appl_ref_no)
+		var account_type = a.getAttribute("data-account_type");
+		//alert(account_type)
+		var rec_no = a.getAttribute("data-rec_no");
+		//alert(rec_no)
+		if (account_type === 'CORPORATE') {
+			location.href = 'CustMaintCorp?formmode=viewCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+		} else if (account_type === 'JOINT ACCOUNT') {
+			location.href = 'CustMaintJoint?formmode=viewCust&appl_ref_no=' + appl_ref_no + '&rec_no=' + rec_no;
+		} else {
+			location.href = 'CustomerMaintenance?formmode=viewCust&appl_ref_no=' + appl_ref_no;
+		}
+
+
+	}
+</script>
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+	tabindex="-1" role="dialog" aria-hidden="true"
+	style="padding-right: 9px" id="DOCPOPUP">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+		style="height: 20%">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center">
+				<p id="alertmsgdoc"></p>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onclick="openTab(event, 'tab3');">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+	tabindex="-1" role="dialog" aria-hidden="true"
+	style="padding-right: 850px" id="mypopup">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+		style="height: 20%">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center">
+				<p id="mypopup_alertmsg"></p>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onclick="openTab(event, 'tab2')">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+function updateName() {
+    var firstName = document.getElementById('ca_first_name').value.trim();
+    var middleName = document.getElementById('mid_name').value.trim();
+    var lastName = document.getElementById('ca_last_name').value.trim();
+
+    // Convert all names to uppercase
+    var fullName = firstName.toUpperCase();
+
+    if (middleName) {
+        fullName += ' ' + middleName.toUpperCase();
+    }
+
+    if (lastName) {
+        fullName += ' ' + lastName.toUpperCase();
+    }
+
+    document.getElementById('ca_preferred_name').value = fullName;
+}
+
+// Add event listeners to the input fields
+document.getElementById('ca_first_name').addEventListener('input', updateName);
+document.getElementById('mid_name').addEventListener('input', updateName);
+document.getElementById('ca_last_name').addEventListener('input', updateName);
+
+function handleIn(input) {
+	// Remove special characters using regex
+	input.value = input.value.replace(/[^\w\s]/gi, '').toUpperCase();
+}
+function handleAddress(input) {
+	input.value = input.value.replace(/[^a-zA-Z0-9\s,]/g, '').toUpperCase();
+}
+</script>
+<script>
+$(function () {
+	$(
+		"#ca_date_of_birth")
+		.datepicker({
+			dateFormat: "dd-mm-yy"
+		});
+});
+</script>
+<script>
+    function calculateMonthlyIncome() {
+        var annualIncome = document.getElementById('annual_income').value;
+        console.log(annualIncome)
+        if (annualIncome) {
+        	var annualIncomeValue = parseFloat(annualIncome.replace(/,/g, ''));
+
+            // Calculate the monthly income
+            var monthlyIncome = (annualIncomeValue / 12).toFixed(2);
+           
+          console.log(monthlyIncome)
+          document.getElementById('monthly_income').value = (formatNumberWithIndianSeparationForOninput1(monthlyIncome));
+            
+        } else {
+            document.getElementById('monthly_income').value = ''; // Clear monthly income if annual income is empty
+        }
+    }
+    function formatNumberWithIndianSeparationForOninput1(value) {
+        if (!value && value !== 0) return ''; // Handle empty or null values
+
+        // Ensure the value is a string before calling split()
+        let valueStr = value.toString();
+
+        // Split integer and decimal parts
+        let [integerPart, decimalPart] = valueStr.split('.');
+
+        // Format the integer part with Indian number system
+        let lastThreeDigits = integerPart.slice(-3);
+        let otherDigits = integerPart.slice(0, -3);
+
+        if (otherDigits !== '') {
+            lastThreeDigits = ',' + lastThreeDigits;
+        }
+
+        let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+        // Return formatted value with decimal part if any
+        return decimalPart !== undefined ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+    	calculateMonthlyIncome();
+        document.getElementById('annual_income').addEventListener('input', calculateMonthlyIncome);
+
+    });
+    
+</script>
+<script>
+        // Function to format and set value
+        function formatAndSetValue(inputField) {
+            // Remove any commas from the value (for number input types only)
+            let rawValue = inputField.value.replace(/,/g, '');
+            // Ensure the value has decimal precision
+            let formattedValue = formatForNumbers(rawValue);
+
+            // If it's a number input, avoid commas in the input field value (parse as number)
+            if (inputField.type === 'number') {
+                inputField.value = parseFloat(formattedValue); // Assign the raw number value without commas
+            } else {
+                inputField.value = formatNumberWithIndianSeparationForOninput(formattedValue); // Apply Indian separation for text input
+            }
+        }
+
+        // Function to format number with Indian separation
+        function formatNumberWithIndianSeparationForOninput(value) {
+            if (!value) return '';
+
+            let [integerPart, decimalPart] = value.split('.');
+
+            let lastThreeDigits = integerPart.slice(-3);
+            let otherDigits = integerPart.slice(0, -3);
+
+            if (otherDigits !== '') {
+                lastThreeDigits = ',' + lastThreeDigits;
+            }
+
+            let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+            return decimalPart !== undefined ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
+        }
+
+        // Function to ensure the number has two decimal places
+        function formatForNumbers(value) {
+            let num = parseFloat(value);
+            return isNaN(num) ? '0.00' : num.toFixed(2); // Ensure two decimal places for consistent formatting
+        }
+        
+        
+    
+    </script>
+<script>
+	function imagecor() {
+		
+		var appl_ref_no = document.getElementById("gooom").value;
+		//alert(appl_ref_no);
+
+		$.ajax({
+			type : 'get',
+			url : '/BGLS/getimagesonecor?appl_ref_no=' + appl_ref_no,
+			success : function(response) {
+				//alert(response);
+
+				// Clear previous images
+				var element = document.getElementById("photoCapture1");
+				element.innerHTML = ''; // Clear previous images
+
+				// Iterate over the response array
+				response.forEach(function(base64String) {
+					// Handle the case where the response element is an error message
+					if (base64String.startsWith("No records found")
+							|| base64String
+									.startsWith("Photo content is null")) {
+					//	alert(base64String); // Alert the error message
+						return; // Skip to the next iteration
+					}
+
+					// Convert Base64 string to Blob
+					const uint8Array = base64ToUint8Array(base64String);
+					const blob = new Blob([ uint8Array ]);
+					const imageUrl = URL.createObjectURL(blob);
+
+					// Create an image element and set its properties
+					const img = document.createElement("img");
+					img.src = imageUrl;
+					img.style.width = "100px";
+					img.style.height = "70px";
+					img.style.marginBottom = "10px";
+					// Append the image to the element
+					element.appendChild(img);
+					console.log(img);
+				});
+			}
+		});
+	}
+	function onimagecorsign() {
+		var appl_ref_no = document.getElementById("gooom").value;
+		//alert(appl_ref_no + " sign");
+
+		$.ajax({
+			type : 'get',
+			url : '/BGLS/getimagescor?appl_ref_no='
+					+ encodeURIComponent(appl_ref_no),
+			success : function(response) {
+				console.log("AJAX Response:", response);
+			//	alert(response)// Log the entire response
+
+				// Clear previous images if needed
+				var element1 = document.getElementById("imgCapture1");
+				element1.innerHTML = '';
+
+				// Check if the response indicates no records found
+				if (response.length === 1
+						&& response[0].startsWith("No records found")) {
+					//alert(response[0]);
+					return; // Exit if no records found
+				}
+
+				// Iterate over each Base64 string in the response
+				response.forEach(function(base64String) {
+					// Validate the Base64 string format
+					if (base64String.startsWith("data:image/")) {
+						// Create image element
+						const imgelement = document.createElement("img");
+						imgelement.src = base64String;
+						imgelement.style.width = "200px"; // Set width
+						imgelement.style.height = "70px"; // Set height
+						imgelement.style.marginBottom = "10px";
+						imgelement.style.backgroundColor = "white";
+						// Append the image element to the container
+						element1.appendChild(imgelement);
+						console.log(imgelement); // Log the image element
+					} else {
+						console.error("Invalid base64 string received:",
+								base64String);
+					}
+				});
+			},
+			error : function(xhr, status, error) {
+				console.error("AJAX Error: ", status, error);
+				alert("Failed to load images. Please try again.");
+			}
+		});
+	}
+	
+	document.addEventListener("DOMContentLoaded", function() {
+
+	    imagecor();
+	    onimagecorsign();
+	});
+    
+    </script>
+
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+	tabindex="-1" role="dialog" aria-hidden="true"
+	style="padding-left: 10%; padding-top: 15%;" id="signature_pop">
+	<div
+		class="modal-dialog modal-diaCap At Maturity ? log-centered modal-dialog-scrollable"
+		style="height: 20%">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center">
+				<p id="alertmsgsig"></p>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onclick="gotocorporate()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

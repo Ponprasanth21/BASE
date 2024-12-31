@@ -1,0 +1,3077 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script class="jsbin"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<script src="js/bootstrap411.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.jsdelivr.net/npm/signature_pad/dist/signature-pad.css">
+<script src="https://cdn.jsdelivr.net/npm/signature_pad"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad"></script>
+<link rel="stylesheet" href="css/signature-pad.css">
+
+<style type="text/css">
+.signature-pad {
+	margin: auto;
+	height: auto;
+}
+
+.signature-pad--body {
+	min-height: 360px;
+}
+
+.signature-pad--actions {
+	overflow: hidden;
+}
+
+.signature-pad--actions>div:first-child {
+	float: left;
+}
+
+.signature-pad--actions>div:last-child {
+	float: right;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+canvas {
+	display: block;
+	position: relative;
+	border: 1px solid;
+}
+
+/*css style starts for the image*/
+.file-upload {
+	background-color: #ffffff;
+	width: 200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.file-upload-content {
+	display: none;
+	text-align: left;
+}
+
+.image-upload-wrap {
+	margin-top: 0px;
+	margin-left: 20px;
+	width: 150px;
+	height: 150px;
+	border: 1px dashed #000000;
+	position: relative;
+}
+
+.image-title-wrap {
+	padding: 0 15px 15px 15px;
+	color: #222;
+}
+
+.drag-text {
+	text-align: center;
+}
+
+.drag-text h3 {
+	font-weight: 100;
+	text-transform: uppercase;
+	color: #000000;
+	padding: 60px 0;
+}
+
+.file-upload-image {
+	max-height: 200px;
+	max-width: 200px;
+	margin: auto;
+	padding: 20px;
+}
+
+.remove-image {
+	width: 200px;
+	margin: 0;
+	color: #fff;
+	background: #cd4535;
+	border: none;
+	padding: 10px;
+	border-radius: 4px;
+	border-bottom: 4px solid #b02818;
+	transition: all .2s ease;
+	outline: none;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.remove-image:active {
+	border: 0;
+	transition: all .2s ease;
+}
+
+.file-upload-input {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.image-upload-wrapone {
+	margin-top: 30px;
+	width: 150px;
+	height: 150px;
+	border: 1px dashed #000000;
+	position: relative;
+}
+
+.image-dropping, .image-upload-wrap:hover {
+	background-color: #ffffff;
+	border: 4px dashed #ffffff;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+.input-group-append {
+	margin-top: 130px;
+	margin-left: 30px;
+}
+
+#CorporateDetail, #RetailDetail2, #fieldsOption3, #Joint_Account_Retail,
+	#Joint_Account_Corporate {
+	display: none;
+}
+
+#duplicate_Yes, #duplicate_No, #Blacklist_Yes, #Blacklist_No,
+	#Negativelist_No, #Negativelist_Yes {
+	display: none;
+}
+
+@
+keyframes blink { 50% {
+	color: transparent
+}
+
+}
+.loader__dot {
+	animation: 1s blink infinite
+}
+
+.loader__dot:nth-child(2) {
+	animation-delay: 250ms
+}
+
+.loader__dot:nth-child(3) {
+	animation-delay: 500ms
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.myModal {
+	position: absolute;
+	width: 50%;
+	height: 50%;
+	float: top;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+/* Add Animation */
+@
+-webkit-keyframes animatetop {from { top:-300px;
+	opacity: 0
+}
+
+to {
+	top: 0;
+	opacity: 1
+}
+
+}
+@
+keyframes animatetop {from { top:-300px;
+	opacity: 0
+}
+
+to {
+	top: 0;
+	opacity: 1
+}
+
+}
+
+/* align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}*/
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-header {
+	padding: 2px 16px;
+	background-color: #BBC3CB;
+	color: balck;
+}
+
+.modal-body {
+	padding: 2px 16px;
+}
+
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #BBC3CB;
+	color: black;
+}
+
+body {
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+}
+
+.flex-row {
+	display: flex;
+}
+
+.wrapper {
+	border: 1px solid #4b00ff;
+	border-right: 0;
+}
+
+canvas#signature-pad {
+	background: #fff;
+	width: 100%;
+	height: 100%;
+	cursor: crosshair;
+}
+
+button#clear {
+	height: 100%;
+	background: #4b00ff;
+	border: 1px solid transparent;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button#clear span {
+	transform: rotate(90deg);
+	display: block;
+}
+</style>
+
+
+
+
+<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function myFunction() {
+			var x = document.getElementById("noOfper").value;
+			document.getElementById("NOP").innerHTML = x;
+		}
+
+		var source = document.getElementById("noOfper").value;
+
+		source.onmessage = function (event) {
+			var x = document.getElementById("noOfper").value;
+			document.getElementById("NOP").innerHTML = x;
+		};
+
+		window.onload = function () {
+			document.getElementById('firstbutton').click();
+		}
+		function list() {
+			location.href = 'AuditInquiries?formmode=list';
+		}
+		function fnClick(a) {
+			var refnumber = a.getAttribute("data-refnumber")
+			location.href = 'AuditInquiries?formmode=edit&refnumber=' + refnumber
+		}
+		
+		function fndashboard(a) {
+			location.href = 'Dashboard'
+		}
+
+		function home() {
+			location.href = 'Dashboard'
+		}
+
+		function add() {
+			location.href = 'MiniData?formmode=add';
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+		function autofill() {
+			alert("here");
+			var first = document.getElementById("cust_name").value;
+			alert(first);
+			document.getElementById("cust_name").value = first;
+		}
+
+		function checkcust() {
+			if (sche_code == null) {
+				alert("validate the given fields");
+			} else {
+
+				document.getElementById("customerCheck").removeAttribute("hidden");
+				const natid = document.getElementById("national_id").value;
+				var duplicate_Yes = document.getElementById('duplicate_Yes');
+				var duplicate_No = document.getElementById('duplicate_No');
+				var Blacklist_Yes = document.getElementById('Blacklist_Yes');
+				var Blacklist_No = document.getElementById('Blacklist_No');
+				var Negativelist_Yes = document.getElementById('Negativelist_Yes');
+				var Negativelist_No = document.getElementById('Negativelist_No');
+				// Modals
+
+				var negmodal = document.getElementById("myModalNeg");
+				var blackmodal = document.getElementById("myModalblack");
+				var dedmodal = document.getElementById("myModalded");
+
+				//duplicate list check 
+
+				dedmodal.style.display = "block";
+
+				$.ajax({
+					type: 'GET',
+					url: "./api/CheckDuplicate?id=" + natid,
+					success: function (response) {
+
+						if (response != "clear") {
+
+							duplicate_Yes.style.display = 'block';
+
+						} else {
+
+							duplicate_No.style.display = 'block';
+						}
+
+					}
+				}, 200);
+
+				//Black list check 
+
+				$.ajax({
+					type: 'GET',
+					url: "./api/CheckBlackList?id=" + natid,
+					success: function (response) {
+
+						if (response != "clear") {
+
+							Blacklist_Yes.style.display = 'block';
+
+						} else {
+
+							Blacklist_No.style.display = 'block';
+						}
+
+					}
+				}, 200);
+
+				//Negative list check 
+
+				$.ajax({
+					type: 'GET',
+					url: "./api/CheckNegativeList?id=" + natid,
+					success: function (response) {
+
+						if (response != "clear") {
+
+							Negativelist_Yes.style.display = 'block';
+
+						} else {
+
+							Negativelist_No.style.display = 'block';
+						}
+						dedmodal.style.display = "none";
+					}
+				}, 200);
+				//dedmodal.style.display = "none";
+				document.getElementById("checkbuttons").style.visibility = 'hidden';
+				document.getElementById("proceed&Hold").removeAttribute("hidden");
+
+			}
+		}///Check customer ending place
+
+		function proceedclick() {
+			
+			var noofpersons=document.getElementById("noOfper").value;
+			//alert(noofpersons)
+			
+			/* $.ajax({
+				type: "POST",
+				url: "./ProceedSubmit",
+				data: $("#Proceedform").serialize(),
+				success: function (response) {
+					alert(Response);
+				}
+			}) */
+			location.href = 'MiniData?formmode=proceed&noofpersons=' + noofpersons;
+
+		}
+
+		function holdclick() {
+			alert("Hold click");
+			location.href = 'MiniData?formmode=hold';
+
+		}
+
+		function readURL(input) {
+			var Thisinput = $(input)
+			if (input.files && input.files[0]) {
+
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					Thisinput.closest('.file-uploadone').find('.image-upload-wrap')
+						.hide();
+
+					Thisinput.closest('.file-uploadone').find('.file-upload-image')
+						.attr('src', e.target.result);
+					Thisinput.closest('.file-uploadone').find('.file-upload-content')
+						.show();
+
+					Thisinput.closest('.file-uploadone').find('.image-title').html(
+						input.files[0].name);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+
+			} else {
+				removeUpload();
+			}
+		}
+
+		function rowadd() {
+
+		 
+
+					var table = document.getElementById("click1");
+
+		 
+
+					var row = table.insertRow();
+
+		 
+
+					//var cell1 = row.insertCell();
+
+		 
+
+					var cell2 = row.insertCell();
+
+		 
+
+					var cell3 = row.insertCell();
+
+		 
+
+					var cell4 = row.insertCell();
+
+		 
+
+					var cell5 = row.insertCell();
+
+		 
+
+					var cell6 = row.insertCell();
+
+		 
+
+					var cell7 = row.insertCell();
+
+		 
+
+					var cell8 = row.insertCell();
+
+		 
+
+					var cell9 = row.insertCell();
+
+		 
+
+					var mrowCount = 1;
+
+		 
+
+					//cell1.innerHTML = '<input type="checkbox"' + mrowCount + '">';
+
+		 
+
+					cell2.innerHTML = '<input  type="text" name="docType" id="docType1' + mrowCount + '">';
+
+		 
+
+					cell3.innerHTML = '<input type="text" name="docCode" id="docCode1' + mrowCount + '">';
+
+		 
+
+					cell4.innerHTML = '<input type="text" name="docDesc" id="docDesc1' + mrowCount + '">';
+
+		 
+
+					cell5.innerHTML = '<input type="text" name="uniqId" id="uniqId1' + mrowCount + '">';
+
+		 
+
+					cell6.innerHTML = '<input type="text" name="docIssPlace" id="docIssPlace1' + mrowCount + '">';
+
+		 
+
+					cell7.innerHTML = '<input type="text" name="docIssDate" id="docIssDate1' + mrowCount + '">';
+
+		 
+
+					cell8.innerHTML = '<input type="text" name="docExpDate" id="docExpDate1' + mrowCount + '">';
+
+		 
+
+					cell9.innerHTML = '<input type="file" name="docExpDate" id="file' + mrowCount + '">';
+
+					mrowCount++
+
+		 
+
+				}
+
+		 
+
+				function rowdelete(ele) {
+
+		 
+
+					var table = $('#click1')[0];
+
+		 
+
+					var rowCount = table.rows.length;
+
+		 
+
+					console.log(rowCount);
+
+		 
+
+					if (rowCount <= 1) {
+
+		 
+
+						alert("There is no row available to delete!");
+
+		 
+
+						return;
+
+		 
+
+					}
+
+		 
+
+					if (ele) {
+
+		 
+
+						$(ele).parent().parent().remove();
+
+		 
+
+					}
+
+		 
+
+					else {
+
+		 
+
+						table.deleteRow(rowCount - 1);
+
+		 
+
+					}
+
+		 
+
+				}
+
+
+		function custgrpclck() {
+
+			var grp = document.getElementById("cust_grp").value;
+			var type = document.getElementById("acc_type").value;
+
+			var fieldOption1 = document.getElementById('RetailDetail'); //	INDIVIDUAL
+			var fieldOption2 = document.getElementById('CorporateDetail');// INDIVIDUAL
+
+			var fieldOption3 = document.getElementById('Joint_Account_Retail');
+			var fieldOption4 = document.getElementById('Joint_Account_Corporate');
+			Joint_Account_Corporate
+			// fieldOption1.style.display = 'none';
+			fieldOption2.style.display = 'none';
+			//fieldOption3.style.display = 'none';
+			//fieldOption4.style.display = 'none';
+			if (grp == "RETAIL" && type == "INDIVIDUAL") {
+
+				fieldOption1.style.display = "block"
+				fieldOption2.style.display = "none"
+				fieldOption3.style.display = "none"
+				fieldOption4.style.display = "none"
+
+			} else if (grp == "CORPORATE CUSTOMER" && type == "INDIVIDUAL") {
+
+				fieldOption1.style.display = "none"
+				fieldOption2.style.display = "block"
+				fieldOption3.style.display = "none"
+				fieldOption4.style.display = "none"
+			} else if (grp == "RETAIL" && type == "JOINT ACCOUNT") {
+
+				fieldOption1.style.display = "none"
+				fieldOption2.style.display = "none"
+				fieldOption3.style.display = "block"
+				fieldOption4.style.display = "none"
+
+			} else if (grp == "CORPORATE CUSTOMER" && type == "JOINT ACCOUNT") {
+
+				fieldOption1.style.display = "none"
+				fieldOption2.style.display = "none"
+				fieldOption3.style.display = "none"
+				fieldOption4.style.display = "block"
+			}
+		}
+
+		function viewCorporate() {
+			alert("corporate")
+		}
+
+
+
+	// signature pad function starts
+	</script>
+
+
+<script>
+
+		function submitfile(value) {
+			if (($("#docType0").val()=="") || ($("#docCode0").val()=="") || ($("#docDesc0").val()=="") 
+					|| ($("#uniqId0").val()=="") || ($("#docIssPlace0").val()=="") || ($("#docIssDate0").val()=="")
+					|| ($("#docExpDate0").val()=="")){
+					alert("please file the required field");
+				} else {
+					var rec_no= document.getElementById('numberone').textContent;
+					//alert(rec_no)
+			var appl_ref_no = value.getAttribute("data-refnumber")
+		alert(appl_ref_no);
+
+			console.log(" ##### ", $("#dynamicTable"));
+
+			const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+
+			console.log(" table ", document.getElementById("dynamicTable"));
+
+			const rows = table.getElementsByTagName('tr');
+
+			const dynamicvalues = [];
+
+			const imageValues = [];
+
+			console.log(" rows ", rows);
+
+			console.log(rows.length);
+
+			for (let i = 0; i < rows.length; i++) {
+
+				console.log(" rows[i] ", rows[i]);
+
+				const row = rows[i];
+
+				const inputs = row.getElementsByTagName('input');
+
+		 
+
+				imageValues.push(inputs[7].files[0]);
+
+				//imageValues.push("C:/Users/user/Pictures/Screenshots/Screenshot (139).png");
+
+				const rowData = {
+
+					doctype: inputs[0].value,
+
+					doccode: inputs[1].value,
+
+					doctypesesc: inputs[2].value,
+
+					uniqueid: inputs[3].value,
+
+					placeofissue: inputs[4].value,
+
+					issuedate: inputs[5].value,
+
+					exprydate: inputs[6].value,
+
+					file: inputs[7].files[0]
+
+		 
+
+					// To get the file object
+
+				};
+
+		 
+
+				dynamicvalues.push(rowData);
+
+			}
+
+
+			console.log(JSON.stringify(imageValues));
+
+			// Loop through the file paths and convert them to Data URLs
+
+			for (var i = 0; i < imageValues.length; i++) {
+
+			  filePathToDataURL(imageValues[i], function(dataURL) {
+
+			    console.log(dataURL); // This will log the Data URL to the console
+
+			  });
+
+			}
+
+		//	alert(JSON.stringify(imageValues));
+
+		//	alert(JSON.stringify(dynamicvalues));
+
+			$.ajax({
+
+
+				url: 'api/multiline?appl_ref_no=' + appl_ref_no +  "&rec_no=" + rec_no,
+
+				data: JSON.stringify(dynamicvalues),
+
+				type: 'POST',
+
+				contentType: 'application/json',
+
+				success: function (data) {
+
+					imageuploadFunction(data, imageValues,appl_ref_no);;
+
+					openCity(event, 'india');
+
+				}
+
+			});
+
+			value.preventDefault();
+			
+
+		}
+
+		}
+
+		function imageuploadFunction(Responcedata, imageValues ,appl_ref_no) {
+			
+
+			var formData = new FormData();
+
+		 
+
+			for (var i = 0; i < imageValues.length; i++) {
+
+		 
+
+				formData.append("files", imageValues[i]);
+
+		 
+
+			}
+
+			formData.append("unique", Responcedata);
+
+			formData.append("appl_ref_no",appl_ref_no);
+
+			var formDataString = '';
+
+			formData.forEach(function (value, key) {
+
+			    formDataString += key + ': ' + value + '\n';
+
+			});
+
+		 
+
+		//	alert(formDataString);
+
+		 
+
+			$.ajax({
+
+		 
+
+				url: 'api/imageupload',
+
+		 
+
+				type: 'POST',
+
+		 
+
+				data: formData,
+
+		 
+
+				processData: false,
+
+		 
+
+				contentType: false,
+
+		 
+
+				success: function (data) {
+
+					alert(data);
+
+				}
+
+			});
+
+		
+		}
+
+		 
+
+		//Function to convert file path to Data URL
+
+		function filePathToDataURL(filePath, callback) {
+
+		  var xhr = new XMLHttpRequest();
+
+
+		  xhr.onload = function() {
+
+		    if (xhr.status === 200) {
+
+		      var blob = xhr.response;
+
+		      var reader = new FileReader();
+
+
+		      reader.onload = function() {
+
+		        callback(reader.result);
+
+		      };
+
+
+		      reader.readAsDataURL(blob);
+
+		    }
+
+		  };
+
+		 
+
+		  xhr.open("GET", filePath);
+
+		  xhr.responseType = "blob";
+
+		  xhr.send();
+
+		}
+
+		 
+
+		 
+
+		</script>
+
+
+<script>
+		$(document).ready(function () {
+
+
+
+			$("#btnrejet").click(function () {
+				$(".container1").modal('toggle');
+				$("#btnRsubmit").show();
+				$("#btnHsubmit").hide();
+				$("#remarks").focus();
+			});
+
+			$("#btnRsubmit").on("click", function () {
+				if (!$("#remarks").val()) {
+					alert("Please fill out remarks");
+					return false;
+				} else {
+					MinimalForm.action = "minimaldatarej.action?method=rejectMinimalData";
+					MinimalForm.submit();
+				}
+			});
+
+			$("#btnclose").on("click", function () {
+				$("#remarks").val("");
+				$('.container1').modal('toggle');
+			});
+
+		});
+
+	</script>
+<script>
+		$('#tabs').on('click', '.tablink,#prodTabs a', function (e) {
+			e.preventDefault();
+			var url = $(this).attr("data-url");
+
+			if (typeof url !== "undefined") {
+				var pane = $(this), href = this.hash;
+
+				// ajax load from data-url
+				$(href).load(url, function (result) {
+					pane.tab('show');
+				});
+			} else {
+				$(this).tab('show');
+			}
+		});
+
+		function removeUpload(input) {
+			Thisinput.closest('.file-upload').find('.file-upload-input')
+				.replaceWith($('.file-upload-input').clone());
+			Thisinput.closest('.file-upload').find('.file-upload-content').hide();
+			Thisinput.closest('.file-upload').find('.image-upload-wrap').show();
+		}
+
+		function submitdoc() {
+			alert("Hlo")
+			var name = document.getElementById("doc_type").value;
+			alert(name)
+
+			$.ajax({
+				url: './AddAlert',
+				data: $("#upon").serialize(),
+				type: 'POST',
+				success: function (data) {
+					alert("saved successfully");
+				}
+			});
+		}
+	</script>
+<style>
+</style>
+<script>
+		function personaldet() {
+			var vv = "333"
+			alert(vv);
+			$.ajax({
+				type: "POST",
+				url: "./AddAlert",
+				data: $("#Proceedform").serialize(),
+				success: function (response) {
+					alert(Response);
+				}
+			})
+		}
+	</script>
+
+<script>
+
+		function submite() {
+			var appl_ref_no = "ARN02031";
+			var signatureFile = document.getElementById("barathsign").files[0];
+			var photoFile = document.getElementById("barathphoto").files[0];
+			var sign = "barathsign";
+			var photo = "barathphoto";
+			alert(barathsign)
+			alert(barathphoto)// Replace with the actual value of the photo
+
+			var formData = new FormData();
+			formData.append("appl_ref_no", appl_ref_no);
+			formData.append("signatureFile", signatureFile);
+			formData.append("photoFile", photoFile); // Use "photoFile" for the photo
+			formData.append("sign", sign);
+			formData.append("photo", photo);
+
+			$.ajax({
+				type: 'POST',
+				url: './AddStudentss',
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function (response) {
+					alert(response);
+					console.log(response);
+					alert("Signature and photo uploaded successfully");
+				},
+				error: function (xhr, status, error) {
+					console.error("Error: " + error);
+					alert("Error uploading signature and photo");
+				}
+			});
+		}
+
+	</script>
+
+<script>
+	
+	function nextPage(){
+		
+
+		// const count = document.getElementById("counts11").value;
+		//alert(count)
+		
+		 const numberElement = document.getElementById("numberone");
+		 const currentElement = document.getElementById("numberone").textContent;
+		 const totalvalue = document.getElementById("totalvalue").textContent;
+		 alert(totalvalue)
+		 alert(currentElement)
+		if(currentElement==totalvalue){
+			alert("The value is same")
+		}else{
+		alert("next")
+		  if (currentPage < formPages.length - 1) {
+              saveFormData(); // Save the current form data
+              currentPage++;
+              updateFormFields();
+          }
+	        let currentNumber = currentElement;
+	            currentNumber++;
+	            numberElement.textContent = currentNumber;
+		}    
+			
+	}
+		
+	 function saveFormData() {
+         const pageData = formPages[currentPage];
+         pageData.ca_saluation = document.getElementById('ca_saluation').value;
+         pageData.firstname = document.getElementById('firstname').value;
+         pageData.middlename = document.getElementById('middlename').value;
+         pageData.shortname = document.getElementById('shortname').value;
+          pageData.lastname= document.getElementById('lastname').value ;
+          pageData.fullname= document.getElementById('fullname').value;
+          pageData.ca_occupation1=document.getElementById('ca_occupation1').value;
+          pageData.ca_gender=document.getElementById('ca_gender').value ;
+          pageData.ca_martial_staus= document.getElementById('ca_martial_staus').value;
+          pageData.DOB=document.getElementById('DOB').value;
+          pageData.ca_address_type=document.getElementById('ca_address_type').value;
+          pageData.houseno=document.getElementById('houseno').value;
+          pageData.streetno=document.getElementById('streetno').value;
+          pageData.streetname=document.getElementById('streetname').value;
+          pageData.ca_country=document.getElementById('ca_country').value;
+          pageData.ca_state=document.getElementById('ca_state').value;
+          pageData.ca_city=document.getElementById('ca_city').value;
+          pageData.postalcode=document.getElementById('postalcode').value;
+          pageData.addvalfrom=document.getElementById('addvalfrom').value;
+          pageData.ca_nationality=document.getElementById('ca_nationality').value;
+          pageData.ca_country_of_birth=document.getElementById('ca_country_of_birth').value;
+          pageData.emailid=document.getElementById('emailid').value;
+          pageData.mobno=document.getElementById('mobno').value;
+          pageData.phoneno=document.getElementById('phoneno').value;
+
+          pageData.schemetype= document.getElementById('schemetype').value;
+          pageData.schemecode=document.getElementById('schemecode').value;
+          pageData.currency=document.getElementById('currency').value;
+          pageData.glheadcode=document.getElementById('glheadcode').value;
+          pageData.prisolid=document.getElementById('prisolid').value;
+          pageData.nationalid=document.getElementById('nationalid').value ;
+          pageData.issuedate=document.getElementById('issuedate').value;
+          pageData.passno=document.getElementById('passno').value;
+          pageData.expdate=document.getElementById('expdate').value;
+          pageData.Nonresi=document.getElementById('Nonresi').value ;
+          pageData.Staffindi=document.getElementById('Staffindi').value;
+          pageData.trdfin=document.getElementById('trdfin').value ;
+          pageData.monindi= document.getElementById('monindi').value ;
+
+          pageData.docType0= document.getElementById('docType0').value ;
+          pageData.docCode0=document.getElementById('docCode0').value ;
+          pageData.docDesc0=document.getElementById('docDesc0').value ;
+          pageData.uniqId0=document.getElementById('uniqId0').value ;
+          pageData.docIssPlace0=document.getElementById('docIssPlace0').value ;
+          pageData.docIssDate0=document.getElementById('docIssDate0').value ;
+          pageData.docExpDate0=document.getElementById('docExpDate0').value ;
+          pageData.file0=document.getElementById('file0').value ;
+          pageData.docType1=document.getElementById('docType1').value;
+          pageData.docCode1=document.getElementById('docCode1').value ;
+          pageData.docDesc1=document.getElementById('docDesc1').value ;
+          pageData.uniqId1=document.getElementById('uniqId1').value;
+          pageData.docIssPlace1=document.getElementById('docIssPlace1').value;
+          pageData.docIssDate1=document.getElementById('docIssDate1').value ;
+          pageData.docExpDate1=document.getElementById('docExpDate1').value ;
+          pageData.file1=document.getElementById('file1').value;
+
+          pageData.imgaccesscode= document.getElementById('imgaccesscode').value ;
+          pageData.group=document.getElementById('group').value;
+          pageData.keyword=document.getElementById('keyword').value ;
+          pageData.signatureown=document.getElementById('signatureown').src ;
+          pageData.barathphoto=document.getElementById('barathphoto').src ;
+     }
+	 const form = document.getElementById('myForm');
+     const prevButton = document.getElementById('prevBtn');
+     const nextButton = document.getElementById('nextBtn');
+
+     let currentPage = 0;
+     const formPages = [
+         { ca_saluation: '', firstname: '', middlename: '', shortname: '',lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+             streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+             schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+             docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+             docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+             imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+         { ca_saluation: '', firstname: '', middlename: '', shortname: '',lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                 streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                 schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                 docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                 docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                 imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+         { ca_saluation: '', firstname: '', middlename: '', shortname: '' ,lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                     streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                     schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                     docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                     docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                     imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+          { ca_saluation: '', firstname: '', middlename: '', shortname: '' ,lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                         streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                         schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                         docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                         docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                         imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+         { ca_saluation: '', firstname: '', middlename: '', shortname: '' ,lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                             streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                             schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                             docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                             docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                             imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+        { ca_saluation: '', firstname: '', middlename: '', shortname: '' ,lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                                 streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                                 schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                                 docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                                 docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                                 imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+         { ca_saluation: '', firstname: '', middlename: '', shortname: '' ,lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                                     streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                                     schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                                     docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                                     docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                                     imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' },
+        { ca_saluation: '', firstname: '', middlename: '', shortname: '' ,lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+                                         streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+                                         schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+                                         docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+                                         docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+                                         imgaccesscode: '',group: '',keyword: '',signatureown: '',barathphoto: '' }
+     ];
+
+	 function updateFormFields() {
+         const pageData = formPages[currentPage];
+        /* 
+         lastname: '',fullname: '',ca_occupation1: '',ca_gender: '',ca_martial_staus: '',DOB: '', ca_address_type: '',houseno: '',streetno: '',
+         streetname: '',ca_country: '',ca_state: '',ca_city: '',postalcode: '',addvalfrom: '',ca_nationality: '',ca_country_of_birth: '',emailid: '',mobno: '',phoneno: '',
+         schemetype: '',schemecode: '',currency: '',glheadcode: '',prisolid: '',nationalid: '',issuedate: '',passno: '',expdate: '',Nonresi: '',Staffindi: '',trdfin: '',monindi: '',
+         docType0: '',docCode0: '',docDesc0: '',uniqId0: '',docIssPlace0: '',docIssDate0: '',docExpDate0: '',file0: '',
+         docType1: '',docCode1: '',docDesc1: '',uniqId1: '',docIssPlace1: '',docIssDate1: '',docExpDate1: '',file1: '',
+         imgaccesscode: '',group: '',keyword: '',photo: '',photo1: ''
+          */
+
+         document.getElementById('ca_saluation').value = pageData.ca_saluation;
+         document.getElementById('firstname').value = pageData.firstname;
+         document.getElementById('middlename').value = pageData.middlename;
+         document.getElementById('shortname').value = pageData.shortname;
+         document.getElementById('lastname').value = pageData.lastname;
+         document.getElementById('fullname').value = pageData.fullname;
+         document.getElementById('ca_occupation1').value = pageData.ca_occupation1;
+         document.getElementById('ca_gender').value = pageData.ca_gender;
+         document.getElementById('ca_martial_staus').value = pageData.ca_martial_staus;
+         document.getElementById('DOB').value = pageData.DOB;
+         document.getElementById('ca_address_type').value = pageData.ca_address_type;
+         document.getElementById('houseno').value = pageData.houseno;
+         document.getElementById('streetno').value = pageData.streetno;
+         document.getElementById('streetname').value = pageData.streetname;
+         document.getElementById('ca_country').value = pageData.ca_country;
+         document.getElementById('ca_state').value = pageData.ca_state;
+         document.getElementById('ca_city').value = pageData.ca_city;
+         document.getElementById('postalcode').value = pageData.postalcode;
+         document.getElementById('addvalfrom').value = pageData.addvalfrom;
+         document.getElementById('ca_nationality').value = pageData.ca_nationality;
+         document.getElementById('ca_country_of_birth').value = pageData.ca_country_of_birth;
+         document.getElementById('emailid').value = pageData.emailid;
+         document.getElementById('mobno').value = pageData.mobno;
+         document.getElementById('phoneno').value = pageData.phoneno;
+
+         document.getElementById('schemetype').value = pageData.schemetype;
+         document.getElementById('schemecode').value = pageData.schemecode;
+         document.getElementById('currency').value = pageData.currency;
+         document.getElementById('glheadcode').value = pageData.glheadcode;
+         document.getElementById('prisolid').value = pageData.prisolid;
+         document.getElementById('nationalid').value = pageData.nationalid;
+         document.getElementById('issuedate').value = pageData.issuedate;
+         document.getElementById('passno').value = pageData.passno;
+         document.getElementById('expdate').value = pageData.expdate;
+         document.getElementById('Nonresi').value = pageData.Nonresi;
+         document.getElementById('Staffindi').value = pageData.Staffindi;
+         document.getElementById('trdfin').value = pageData.trdfin;
+         document.getElementById('monindi').value = pageData.monindi;
+
+         document.getElementById('docType0').value = pageData.docType0;
+         document.getElementById('docCode0').value = pageData.docCode0;
+         document.getElementById('docDesc0').value = pageData.docDesc0;
+         document.getElementById('uniqId0').value = pageData.uniqId0;
+         document.getElementById('docIssPlace0').value = pageData.docIssPlace0;
+         document.getElementById('docIssDate0').value = pageData.docIssDate0;
+         document.getElementById('docExpDate0').value = pageData.docExpDate0;
+         document.getElementById('file0').value = pageData.file0;
+         document.getElementById('docType1').value = pageData.docType1;
+         document.getElementById('docCode1').value = pageData.docCode1;
+         document.getElementById('docDesc1').value = pageData.docDesc1;
+         document.getElementById('uniqId1').value = pageData.uniqId1;
+         document.getElementById('docIssPlace1').value = pageData.docIssPlace1;
+         document.getElementById('docIssDate1').value = pageData.docIssDate1;
+         document.getElementById('docExpDate1').value = pageData.docExpDate1;
+         document.getElementById('file1').value = pageData.file1;
+
+         document.getElementById('imgaccesscode').value = pageData.imgaccesscode;
+         document.getElementById('group').value = pageData.group;
+         document.getElementById('keyword').value = pageData.keyword;
+         document.getElementById('signatureown').src = pageData.signatureown;
+         document.getElementById('barathphoto').src = pageData.barathphoto;
+     }
+	 
+	 function prevPage() {
+		 
+
+		 const numberElement = document.getElementById("numberone");
+		 const currentElement = document.getElementById("numberone").textContent;
+		 alert(currentElement)
+			if(currentElement=="1"){
+				alert("The value is same")
+			}else{
+		 alert("back")
+         if (currentPage > 0) {
+             saveFormData(); // Save the current form data
+             currentPage--;
+             updateFormFields();
+         }
+	        let currentNumber = currentElement;
+	            currentNumber--;
+	            numberElement.textContent = currentNumber;
+		 
+		 
+     }
+	 }
+	</script>
+
+<script>
+	function personalDetailNxt(a){
+	 	
+	 	/*  if (($("#ca_saluation").val()=="") || ($("#firstname").val()=="") || ($("#middlename").val()=="") || 
+			($("#lastname").val()=="") || ($("#fullname").val()=="") || ($("#shortname").val()=="") || 
+			($("#ca_occupation1").val()=="") || ($("#ca_gender").val()=="") || ($("#ca_martial_staus").val()=="") || 
+			($("#DOB").val()=="") || ($("#ca_address_type").val()=="") || ($("#houseno").val()=="") || 
+			($("#streetno").val()=="") || ($("#streetname").val()=="") || ($("#ca_country").val()=="") || 
+			($("#ca_state").val()=="") || ($("#ca_city").val()=="") || ($("#postalcode").val()=="") || 
+			($("#addvalfrom").val()=="") || ($("#ca_nationality").val()=="") || ($("#ca_country_of_birth").val()=="") || 
+			($("#emailid").val()=="") || ($("#mobno").val()=="") ||  ($("#phoneno").val()=="") ){
+			alert("please file the required field");
+		} else {   */
+			 
+			var rec_no= document.getElementById('numberone').textContent;
+			alert(rec_no)
+		var refnumber = a.getAttribute("data-refnumber")
+		alert(refnumber)
+	 	
+		 $.ajax({
+			type: "POST",
+			url: './personalDetail?refnumber=' + refnumber + "&rec_no=" + rec_no,
+			data: $("#Londonone").serialize(),
+			success: function (response) {
+				alert(response);
+				
+			}
+		})   
+			
+		openCity(event, 'Paris');
+		
+	}
+	
+	
+	function AccountDetailNxt(a){
+		/* if (($("#schemetype").val()=="") || ($("#schemecode").val()=="") || ($("#currency").val()=="") || 
+				($("#glheadcode").val()=="") || ($("#prisolid").val()=="") || ($("#nationalid").val()=="") || 
+				($("#issuedate").val()=="") || ($("#passno").val()=="") || ($("#expdate").val()=="") ){
+				alert("please file the required field");
+			} else { */
+		var refnumber = a.getAttribute("data-refnumber")
+		alert(refnumber)
+		$.ajax({
+			type: "POST",
+			url: "./AccountDetailNxt?refnumber=" +refnumber,
+			data: $("#parisone").serialize(),
+			success: function (response) {
+				alert(response);
+			}
+		})
+			openCity(event, 'Tokyo');
+	}
+	</script>
+<script>
+	function  signsubmit(a){ 
+
+		const numberElement = document.getElementById("numberone").textContent;
+	//	alert(numberElement)
+		var imgaccesscode = document.getElementById("imgaccesscode").value;
+		var group = document.getElementById("group").value;
+		var keyword = document.getElementById("keyword").value;
+		var appl_ref_no = a.getAttribute("data-refnumber")
+		alert(appl_ref_no)
+		
+			if(numberElement=="1"){
+			var imgElement = document.getElementById("imagefile");
+			var Sign = document.querySelector('#vjImage'); // Select by ID
+		}else if (numberElement=="2") {
+			var imgElement = document.getElementById("imagefile1");
+			var Sign = document.querySelector('#vjImage1'); // Select by ID
+		}else if (numberElement=="3") {
+			var imgElement = document.getElementById("imagefile2");
+			var Sign = document.querySelector('#vjImage2'); // Select by ID
+		}else if (numberElement=="4") {
+			var imgElement = document.getElementById("imagefile3");
+			var Sign = document.querySelector('#vjImage3'); // Select by ID
+		}else if (numberElement=="5") {
+			var imgElement = document.getElementById("imagefile4");
+			var Sign = document.querySelector('#vjImage4'); // Select by ID
+		}else if (numberElement=="6") {
+			var imgElement = document.getElementById("imagefile5");
+			var Sign = document.querySelector('#vjImage5'); // Select by ID
+		}else if (numberElement=="7") {
+			var imgElement = document.getElementById("imagefile6");
+			var Sign = document.querySelector('#vjImage6'); // Select by ID
+		}else if (numberElement=="8") {
+			var imgElement = document.getElementById("imagefile7");
+			var Sign = document.querySelector('#vjImage7'); // Select by ID
+		}
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+			canvas.width = imgElement.width;
+			canvas.height = imgElement.height;
+			ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+			var dataURL = canvas.toDataURL('image/jpg'); 
+			//alert(dataURL);
+			
+			var srcURL = Sign.src;
+			//alert(srcURL);
+			
+		
+		var formData = new FormData();
+		formData.append("appl_ref_no", appl_ref_no);
+		formData.append("srcURL", srcURL);
+		formData.append("dataURL", dataURL);
+		formData.append("imgaccesscode", imgaccesscode);
+		formData.append("group", group);
+		formData.append("keyword", keyword);
+		formData.append("numberElement", numberElement);
+
+		$.ajax({
+			type: 'POST',
+			url: './AddStudentss',
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function (response) {
+				alert(response);
+				var count="88";
+				var refnumber =appl_ref_no;
+				alert(refnumber)
+				location.href = 'BacpMinimalData?formmode=view&count='	+ count + "&ApprefNO=" + refnumber;
+			}
+		}); 
+		
+	}
+	 
+	 
+	 </script>
+<script>
+var currentValue = localStorage.getItem("value") || 0;
+	function opennext(evt, cityName) {
+		const numberElement = document.getElementById("numberone");
+		 const currentElement = document.getElementById("numberone").textContent;
+		 const totalvalue = document.getElementById("totalvalue").textContent;
+		// alert(totalvalue)
+		//  alert(currentElement)
+		if(currentElement==totalvalue){
+			//alert("The value is same")
+			document.getElementById("counts1").style.display = "block";
+			document.getElementById("nextBtn1").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect1").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+		}else{
+			if(cityName!="counts1"){
+			let currentNumber = currentElement;
+            currentNumber++;
+            numberElement.textContent = currentNumber;
+			}
+		// alert(currentValue)
+		if(cityName=="counts1" && currentValue=="0" || currentValue=="1"){
+		
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			
+			document.getElementById("nextBtn1").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect1").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+			
+			
+			currentValue++;
+			
+			}
+		
+		if(cityName=="counts2" && currentValue=="2"){
+			
+		const noOfper = document.getElementById("noOfper");
+		var i = noOfper;
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("file-uploadone");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className
+				.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+		
+		document.getElementById("nextBtn2").style.display = "block";
+		document.getElementById("nextBtn1").style.display = "none";
+		document.getElementById("nextBtn3").style.display = "none";
+		document.getElementById("nextBtn4").style.display = "none";
+		document.getElementById("nextBtn5").style.display = "none";
+		document.getElementById("nextBtn6").style.display = "none";
+		document.getElementById("nextBtn7").style.display = "none";
+		document.getElementById("nextBtn8").style.display = "none";
+		
+		document.getElementById("collect2").style.display = "block";
+		document.getElementById("collect1").style.display = "none";
+		document.getElementById("collect3").style.display = "none";
+		document.getElementById("collect4").style.display = "none";
+		document.getElementById("collect5").style.display = "none";
+		document.getElementById("collect6").style.display = "none";
+		document.getElementById("collect7").style.display = "none";
+		document.getElementById("collect8").style.display = "none";
+		
+		currentValue++;
+		}
+		
+		if(cityName=="counts3" && currentValue=="3"){
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			document.getElementById("nextBtn3").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn1").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect3").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect1").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+			
+			currentValue++;
+			}
+		
+		if(cityName=="counts4" && currentValue=="4"){
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			
+			document.getElementById("nextBtn4").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn1").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect4").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect1").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+			
+			currentValue++;
+			}
+		if(cityName=="counts5" && currentValue=="5"){
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			
+			document.getElementById("nextBtn5").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn1").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect5").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect1").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+			
+			currentValue++;
+			}
+		
+		if(cityName=="counts6" && currentValue=="6"){
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			
+			document.getElementById("nextBtn6").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn1").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect6").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect1").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+			
+			currentValue++;
+			}
+		
+		if(cityName=="counts7" && currentValue=="7"){
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			
+			document.getElementById("nextBtn7").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn1").style.display = "none";
+			document.getElementById("nextBtn8").style.display = "none";
+			
+			document.getElementById("collect7").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect1").style.display = "none";
+			document.getElementById("collect8").style.display = "none";
+			
+			currentValue++;
+			}
+		
+		if(cityName=="counts8" && currentValue=="8"){
+			const noOfper = document.getElementById("noOfper");
+			var i = noOfper;
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("file-uploadone");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			
+			document.getElementById("nextBtn8").style.display = "block";
+			document.getElementById("nextBtn2").style.display = "none";
+			document.getElementById("nextBtn3").style.display = "none";
+			document.getElementById("nextBtn4").style.display = "none";
+			document.getElementById("nextBtn5").style.display = "none";
+			document.getElementById("nextBtn6").style.display = "none";
+			document.getElementById("nextBtn7").style.display = "none";
+			document.getElementById("nextBtn1").style.display = "none";
+			
+			document.getElementById("collect8").style.display = "block";
+			document.getElementById("collect2").style.display = "none";
+			document.getElementById("collect3").style.display = "none";
+			document.getElementById("collect4").style.display = "none";
+			document.getElementById("collect5").style.display = "none";
+			document.getElementById("collect6").style.display = "none";
+			document.getElementById("collect7").style.display = "none";
+			document.getElementById("collect1").style.display = "none";
+			
+			
+			currentValue++;
+			}
+		
+		}
+		
+	}
+</script>
+<style >
+
+.file-uploadone{
+
+	background-color: #ffffff;
+	width: 200px;
+	margin: 0 auto;
+	padding: 20px;
+	display: none;
+}
+
+</style>
+<script>
+function base64ToUint8Array(base64) {
+    
+	  const binaryString = window.atob(base64);
+		
+	  const length = binaryString.length;
+	 
+	  const uint8Array = new Uint8Array(length);
+
+	  for (let i = 0; i < length; i++) {
+	    uint8Array[i] = binaryString.charCodeAt(i);
+	  }
+
+	  return uint8Array;
+	}
+
+function onimagesone() {
+    var appl_ref_no = document.getElementById("gooom").value;
+	alert(appl_ref_no); 
+			$
+				.ajax({
+					type : 'get',
+					url : '/getimagesone?appl_ref_no=' + appl_ref_no,
+
+					success :  function(response) {
+						            //    alert(response); 
+ 	 const base64String =response;
+	 const uint8Array = base64ToUint8Array(base64String);
+	
+	const blob = new Blob([uint8Array]);
+	
+	const imageUrl = URL.createObjectURL(blob);
+	const img = document.createElement("img");
+	img.src = imageUrl;
+	img.style.width = "200px";
+	img.style.height = "200px";
+	var element = document.getElementById("photoCapture1");
+  element.appendChild(img); 
+ console.log(img);   
+	 	}
+	});  
+};
+
+
+function base64ToUint8Array(base64) {
+    
+	  const binaryString = window.atob(base64);
+		
+	  const length = binaryString.length;
+	 
+	  const uint8Array = new Uint8Array(length);
+
+	  for (let i = 0; i < length; i++) {
+	    uint8Array[i] = binaryString.charCodeAt(i);
+	  }
+
+	  return uint8Array;
+	}
+
+</script>
+<script>
+
+function onimageon() {
+    var appl_ref_no = document.getElementById("gooom").value;
+    //alert(appl_ref_no)
+    $.ajax({
+        type: 'get',
+        url: './api/getimages?appl_ref_no=' + appl_ref_no,
+        success: function (response) {
+		
+          // alert(response)
+                const base64String = response;
+
+                const uint8Array = base64ToUint8Array(base64String);
+
+                const blob = new Blob([uint8Array]);
+
+                const imageUrl = URL.createObjectURL(blob);
+                const imgelement = document.createElement("img");
+                imgelement.src = imageUrl;
+           
+                imgelement.style.width = "200px";
+                imgelement.style.height = "100px";
+                var element1 = document.getElementById("imgCapture1");
+                element1.appendChild(imgelement);
+               
+                console.log(img);
+            }
+         
+        
+    });
+ 
+
+};
+</script>
+
+<script >
+
+function submitfin(){
+	
+	var rec_no= document.getElementById('listsizecount').textContent;
+	//alert(rec_no)
+    var ApprefNO = document.getElementById("gooom").value;
+	alert(ApprefNO)
+	$.ajax({
+		type: 'POST',
+		url: './BacpMinisub?formmode=submitfin&rec_no='	+ rec_no + "&ApprefNO=" + ApprefNO,
+		success: function (response) {
+			alert(response);
+			alert("Reference No: "+ApprefNO+" has been moved for Approval ");
+			location.href = 'Dashboard';
+		}
+	}); 
+	}
+function holdfin(){
+	var rec_no= document.getElementById('listsizecount').textContent;
+	alert(rec_no)
+    var ApprefNO = document.getElementById("gooom").value;
+	alert(ApprefNO)
+	$.ajax({
+		type: 'POST',
+		url: './BacpMinisub?formmode=Holdfin&rec_no='	+ rec_no + "&ApprefNO=" + ApprefNO,
+		success: function (response) {
+			alert(response);
+
+			location.href = 'Dashboard';
+		}
+	}); 
+	
+}
+
+</script>
+
+
+</head>
+<title>BACP</title>
+
+<body onload=" onimageon(); onimagesone();" style="position: absolute; overflow-x: hidden;">
+	<div th:insert="BGLSHeaderMenu :: header"></div>
+	<div class="content-page" style="font-size: .7rem;">
+		<div class="content ">
+
+			<!-- Start Content-->
+			<div class="container-fluid">
+
+				
+
+		
+							<!-- -------------------------View start---------------------- -->
+<div class="container-fluid content"
+					th:if=" ${formmode}=='view'" style="margin-left: -100px">
+					<div class="row">
+						<div class="col-sm-12 finuserapply" style=" margin-left: 269px;">
+
+
+							<div class="card border-0" style="margin-left: 160px;width: 1000px">
+								<div class="card-header">
+									<div class="float-left">
+
+										<h3 th:if="${formmode}=='view'">Customer Summary</h3>
+									</div>
+								<div class="btn-group nav-buttons float-right">
+									<button type="button" class="btn btn-xs btn-primary btns" style=" height: 40px"
+										onclick="fndashboard(this);">Dashboard</button>
+								</div>
+
+								</div>
+								<br>
+
+							</div>
+							<form  class="form-horizontal" method="post" name="Customerview"  id="Customerview"
+								 style="width: 1085px;">
+								<div class="container" style="font-weight: 600; width: 1099px;">
+								<table style="float: right; margin-right: -350px;">
+										<tr>
+											<td rowspan="2" style="width: 200px; border: 1px;">
+											<div
+												id="photoCapture1" alt=""
+												style="border: 1px solid #ccc;  width:0px; "
+												 ></div> 
+												 <br> 
+															
+												<input type="file" id="file" style="margin-top: 130px; margin-right: -90px;" name="file" accept="image/png, image/jpeg" 
+												      th:if="${formmode}=='edit'"/>
+												<span
+												class=underline onclick="clickPhoto(this);" 
+												title="click to view Image" id="openUploadModal"></span>
+												
+												
+												</td>
+										</tr>
+									</table>
+									
+							<div style="float: right;margin-top: 6px;height: 10;font: -webkit-control;margin-right: -74px;">
+							<button th:if="${holdlistsize!=1}" id="showButtonback"  th:attr="data-count=${holdlistcount}" onclick="prevtwo(this);" style="background-color:#007bff">Prev</button>
+													
+							<input  id="showButtonbackdubliatetwo"  th:value="${holdlistcountdub}" style="background-color:blue; display:none;"/>
+											
+							Record No: <b id=listsizecount  th:text=${holdlistcount}></b>/<b id=listsize   th:text=${holdlistsize} ></b>
+											
+							<button th:if="${holdlistsize!=1}"  id="showButtonnext" th:attr="data-two=${holdlistcount},data-sizetwo=${holdlistsize}" onclick="nexttwo(this);" style="background-color:#007bff">Next</button>
+										
+									</div>
+									<input hidden th:value="${customerRequest?.appl_ref_no}" type="text"id="gooom"
+														name="gooom">
+									<div class="panel panel-default"
+										style="width: 1000px; margin-left: 147px; background-color: #eeeeee;">
+										<div class="panel-heading" id="addtitle"
+											style="height: 30px; background-color: #bbc3cb; font-size: 20px;padding-left: 20px">Minimal
+											Data </div>
+
+										<div class="card-body p-0">
+											<input autocomplete="false" name="hidden" type="text"
+												style="display: none;">
+											<!---------------------General Details form Starts-------------------------->
+
+
+
+											<div class="form-group mb-0" style="padding-left: 20px">
+												<label></label>
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectType">Customer Group</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_customer_type"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_customer_type}"
+															name="ca_customer_type" autocomplete="off" readonly /> 
+
+
+
+													</div>
+													<div class="col-sm-1"></div>
+
+													<div class="col-sm-2">
+														<label for="period">First Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_first_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_first_name}"
+															name="ca_first_name" autocomplete="off" readonly />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectType">Middle Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="mid_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.mid_name}" name="mid_name"
+															autocomplete="off" readonly /> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Last Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_last_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_last_name}"
+															name="ca_last_name" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectType">Short Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_preferred_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_preferred_name}"
+															name="ca_preferred_name" autocomplete="off" readonly />
+
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Full Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="full_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_first_name }"
+															name="full_name" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectType">Date of Birth</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_date_of_birth"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${#dates.format(customerRequest?.ca_date_of_birth, 'dd-MM-yyyy')}"
+															name="ca_date_of_birth" autocomplete="off" readonly /> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Mobile No</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_mobile_number"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_mobile_number}"
+															name="ca_mobile_number" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectType">Passport No</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_passport_number"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_passport_number}"
+															name="ca_passport_number" autocomplete="off" readonly />
+
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">National Id</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_idenditification_number"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_idenditification_number}"
+															name="ca_idenditification_number" autocomplete="off"
+															readonly /> 
+															
+											
+															
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br> <br>
+
+									<!---------------------Customer Details-------------------------->
+									<div class="panel panel-default"
+										style="width: 1000px; margin-left: 147px; background-color: #eeeeee;">
+										<div class="panel-heading" id="addtitle"
+											style="height: 30px; background-color: #bbc3cb; font-size: 16px;padding-left: 20px">Customer
+											Details</div>
+										<h5 style="padding-left: 20px">Personal Details</h5>
+										<div class="card-body p-0">
+											<input autocomplete="false" name="hidden" type="text"
+												style="display: none;">
+
+
+
+
+											<div class="form-group mb-0" style="padding-left: 20px">
+												<label></label>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="period">Salutation</label>
+													</div>
+
+
+													<div class="col-sm-3">
+														<select type="text" id="ca_saluation"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_saluation}"
+															name="ca_saluation" autocomplete="off" readonly>
+															<option value="">Select</option>
+															<option value="Mr"
+																th:selected="${customerRequest?.ca_saluation}=='Mr'">Mr</option>
+															<option value="Ms"
+																th:selected="${customerRequest?.ca_saluation}=='Ms'">Ms</option>
+														</select> 
+													</div>
+
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">First Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_first_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_first_name}"
+															name="ca_first_name" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Middle Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="mid_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.mid_name}" name="mid_name"
+															autocomplete="off" readonly />
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Last Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_last_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_last_name}"
+															name="ca_last_name" autocomplete="off" readonly />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Full Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_first_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_first_name}"
+															name="ca_first_name" autocomplete="off" readonly /> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Short Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_preferred_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_preferred_name}"
+															name="ca_preferred_name" autocomplete="off" readonly />
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Occupation</label>
+													</div>
+													<div class="col-sm-3">
+														<select type="text" id="ca_occupation1"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_occupation1}"
+															name="ca_occupation1" autocomplete="off" readonly>
+															<option value="">Select</option>
+															<option value="Salaried"
+																th:selected="${customerRequest?.ca_occupation1}=='Salaried'">Salaried</option>
+															<option value="Contract Based"
+																th:selected="${customerRequest?.ca_occupation1}=='Contract Based'">Contract
+																Based</option>
+															<option value="Sales/Commission based"
+																th:selected="${customerRequest?.ca_occupation1}=='Sales/Commission based'">Sales/Commission
+																based</option>
+															<option value="Student"
+																th:selected="${customerRequest?.ca_occupation1}=='Student'">Student</option>
+															<option value="Self Employed"
+																th:selected="${customerRequest?.ca_occupation1}=='Self Employed'">Self
+																Employed</option>
+															<option value="Unemployed"
+																th:selected="${customerRequest?.ca_occupation1}=='Unemployed'">Unemployed</option>
+														</select> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Gender</label>
+													</div>
+													<div class="col-sm-3">
+														<select type="text" id="ca_gender"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_gender}" name="ca_gender"
+															autocomplete="off" readonly>
+															<option value="">Select</option>
+															<option value="Male"
+																th:selected="${customerRequest?.ca_gender}=='Male'">Male</option>
+															<option value="Female"
+																th:selected="${customerRequest?.ca_gender}=='Female'">Female</option>
+															<option value="Transgender"
+																th:selected="${customerRequest?.ca_gender}=='Transgender'">Transgender</option>
+														</select> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Marital Status</label>
+													</div>
+													<div class="col-sm-3">
+														<select name="ca_martial_staus" type="text"
+															id="ca_martial_staus" th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_martial_staus}"
+															autocomplete="off" readonly>
+															<option value="">Select</option>
+
+															<option value="Single"
+																th:selected="${customerRequest?.ca_martial_staus}=='Single'">Single</option>
+															<option value="Married"
+																th:selected="${customerRequest?.ca_martial_staus}=='Married'">Married</option>
+
+															<option value="Seperated"
+																th:selected="${customerRequest?.ca_martial_staus}=='Seperated'">Seperated</option>
+															<option value="Widowed"
+																th:selected="${customerRequest?.ca_martial_staus}=='Widowed'">Widowed</option>
+														</select>
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Date of Birth</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_date_of_birth"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${#dates.format(customerRequest?.ca_date_of_birth, 'dd-MM-yyyy')}"
+															name="ca_date_of_birth" autocomplete="off" readonly /> 
+													</div>
+
+												</div>
+
+											</div>
+
+											<legend  style="padding-left: 20px;font-size: 20px;margin-top: 20px">Address Details</legend>
+											<div class="form-group" style="padding-left: 20px">
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Address Type</label>
+													</div>
+													<div class="col-sm-3">
+														<select type="text" id="ca_address_type"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_address_type}"
+															name="ca_address_type" readonly>
+															<option value="">Select</option>
+															<option value="Mailing"
+																th:selected="${customerRequest?.ca_address_type}=='Mailing'">Mailing</option>
+															<option value="Permanent"
+																th:selected="${customerRequest?.ca_address_type}=='Permanent'">Permanent</option>
+														</select> 
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">House no</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_house_no"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_house_no}"
+															name="ca_house_no" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Street No</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_street_no"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_street_no}"
+															name="ca_street_no" autocomplete="off" readonly /> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Street Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_street_name"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_street_name}"
+															name="ca_street_name" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Country</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_country"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_country}"
+															name="ca_country" autocomplete="off" readonly />
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">State</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_state"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_state}" name="ca_state"
+															readonly /> 
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">City</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_city"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_city}" name="ca_city"
+															autocomplete="off" readonly /> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Postal Code</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_postal_code"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_postal_code}"
+															name="ca_postal_code" autocomplete="off" readonly /> 
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Address Valid From</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_address_validation_form"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${#dates.format(customerRequest?.ca_address_validation_form, 'dd-MM-yyyy')}"
+															name="ca_address_validation_form" autocomplete="off"
+															readonly /> 
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="period">Nationality</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_nationality"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_nationality}"
+															name="ca_nationality" autocomplete="off" readonly />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="clientId">Country of Birth</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="ca_country_of_birth"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															th:value="${customerRequest?.ca_country_of_birth}"
+															name="ca_country_of_birth" autocomplete="off" readonly />
+
+													</div>
+												</div>
+
+												<legend  style="font-size: 20px;margin-top: 20px">Contact Details</legend>
+												<div class="form-group">
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">Email Id</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="email" id="ca_email_id"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_email_id}"
+																name="ca_email_id" autocomplete="off" readonly /> 
+
+
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="period">Mobile No</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_mobile_number"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_mobile_number}"
+																name="ca_mobile_number" autocomplete="off" readonly />
+																</div>
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">Phone No</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_phone_number"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_phone_number}"
+																name="ca_phone_number" autocomplete="off" readonly /> 
+														</div>
+
+													</div>
+												</div>
+												<legend style="font-size: 20px;">Account Details</legend>
+												<div class="form-group">
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">Scheme Type</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_schemetype"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_schemetype}"
+																name="ca_schemetype" autocomplete="off" readonly /> 
+
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="period">Scheme Code</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_scheme_code"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_scheme_code}"
+																name="ca_scheme_code" autocomplete="off" readonly /> 
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">Currency</label>
+														</div>
+														<div class="col-sm-3">
+															<select type="text" id="ca_currency"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_currency}"
+																name="ca_currency" readonly>
+																<option value="">Select</option>
+																<option value="BND"
+																	th:selected="${customerRequest?.ca_currency}=='BND'">BND</option>
+																<option value="MUR"
+																	th:selected="${customerRequest?.ca_currency}=='MUR'">MUR</option>
+																<option value="USD"
+																	th:selected="${customerRequest?.ca_currency}=='USD'">USD</option>
+																<option value="EUR"
+																	th:selected="${customerRequest?.ca_currency}=='EUR'">EUR</option>
+																<option value="INR"
+																	th:selected="${customerRequest?.ca_currency}=='INR'">INR</option>
+																<option value="GBP"
+																	th:selected="${customerRequest?.ca_currency}=='GBP'">GBP</option>
+
+
+															</select> 
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="period">GL Head Code</label>
+														</div>
+														<div class="col-sm-3">
+															<select type="text" id="ca_glcode"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_glcode}"
+																name="ca_glcode" readonly>
+																<option value="">Select</option>
+																<option value="1000"
+																	th:selected="${customerRequest?.ca_glcode}=='1000'">1000</option>
+																<option value="2000"
+																	th:selected="${customerRequest?.ca_glcode}=='2000'">2000</option>
+																<option value="3000"
+																	th:selected="${customerRequest?.ca_glcode}=='3000'">3000</option>
+																<option value="4000"
+																	th:selected="${customerRequest?.ca_glcode}=='4000'">4000</option>
+															</select> 
+														</div>
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">Primary Sol Id</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_solid"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_solid}" name="ca_solid"
+																autocomplete="off" readonly /> 
+														</div>
+
+													</div>
+												</div>
+
+												<legend style="font-size: 20px;">Identification</legend>
+												<div class="form-group">
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">National ID</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_idenditification_number"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_idenditification_number}"
+																name="ca_idenditification_number" autocomplete="off"
+																readonly /> 
+
+
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="period">Issue date</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_issue_date"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${#dates.format(customerRequest?.ca_issue_date, 'dd-MM-yyyy')}"
+																name="ca_issue_date" autocomplete="off" readonly /> 
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="clientId">Passport No</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_passport_number"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${customerRequest?.ca_passport_number}"
+																name="ca_passport_number" autocomplete="off" readonly />
+
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="period">Expiry date</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="ca_expiry_date"
+																th:if="${formmode}=='view'"
+																class="form-control form-control-sm"
+																th:value="${#dates.format(customerRequest?.ca_expiry_date, 'dd-MM-yyyy')}"
+																name="ca_expiry_date" autocomplete="off" readonly /> 
+														</div>
+													</div>
+
+
+												</div>
+												<legend style="font-size: 20px;">Other Details</legend>
+												<div class="form-group"  style="margin-left: -20px">
+													<div class="row col-sm-8 ret" >
+														<div class="form-group " >
+															<span class="col-sm-2 control-label"
+																style="color: black; font-size: 15px;">Non-Resident<span
+																style="color: red;" class="mant"></span>
+															</span> 
+																<input type="radio" id="ca_non_resident" style="margin-left: 20px"
+																th:value="${customerRequest?.ca_non_resident}"
+																name="ca_non_resident"> <font>Yes</font>
+																<input
+																type="radio" id="ca_non_resident" name="ca_non_resident"
+																th:value="${customerRequest?.ca_non_resident}" checked
+																style="margin-left: 20px;"><font>No</font>
+
+														</div>
+													</div>
+
+
+													<div class="row col-sm-8 ret">
+														<div class="form-group ">
+															<span class="col-sm-2 control-label"
+																style="color: black; font-size: 15px;">Staff
+																Indicator<span style="color: red;" class="mant"></span>
+															</span> <input type="radio" id="ca_staff_indicator" style="margin-left:19px"
+																th:value="${customerRequest?.ca_staff_indicator}"
+																name="ca_staff_indicator"><font>Yes</font><input
+																type="radio" id="ca_staff_indicator"
+																name="ca_staff_indicator"
+																th:value="${customerRequest?.ca_staff_indicator}"
+																checked style="margin-left: 20px;"><font>No</font>
+
+														</div>
+													</div>
+
+													<div class="row col-sm-8 ret">
+														<div class="form-group ">
+
+															<span class="col-sm-2 control-label"
+																style="color: black; font-size: 15px;">Trade
+																Finance<span style="color: red;" class="mant"></span>
+															</span> <input type="radio" id="ca_trdfin" style="margin-left: 20px"
+																th:value="${customerRequest?.ca_trdfin}"
+																name="ca_trdfin"><font>Yes</font><input
+																type="radio" id="ca_trdfin" name="ca_trdfin"
+																th:value="${customerRequest?.ca_trdfin}" checked
+																style="margin-left: 20px;"><font>No</font>
+
+														</div>
+													</div>
+
+													<div class="row col-sm-8 ret">
+														<div class="form-group ">
+															<span class="col-sm-2 control-label"
+																style="color: black; font-size: 15px;">Minor
+																Indicator<span style="color: red;" class="mant"></span>
+															</span> <input type="radio" id="ca_minor_indicator" style="margin-left: 13px"
+																th:value="${customerRequest?.ca_minor_indicator}"
+																name="ca_minor_indicator"><font>Yes</font><input
+																type="radio" id="ca_minor_indicator"
+																name="ca_minor_indicator"
+																th:value="${customerRequest?.ca_minor_indicator}"
+																checked style="margin-left: 20px;"><font>No</font>
+
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+
+										</div>
+
+
+									</div>
+								</div>
+								</form>
+						</div>
+					</div>
+
+
+
+					<!---------------------Document Details-------------------------->
+
+					 <div class="panel panel-default"
+						style="width: 1000px; margin-left: 431px; background-color: #eeeeee;">
+						<div class="panel-heading" id="addtitle"
+							style="height: 30px; background-color: #bbc3cb; font-size: 16px;padding-left: 20px">Document
+							Details
+					
+    </div>
+
+
+						<table class="table table-bordered" style="font-size: 10px;">
+							<tr>
+								<td style="font-size: 10px;">Document Type</td>
+								<td style="font-size: 10px;">Document Code</td>
+								<td style="font-size: 10px;">Document Description</td>
+								<td style="font-size: 10px;">Place of issue</td>
+								<td style="font-size: 10px;">Unique Id</td>
+								<td style="font-size: 10px;">Issue Date</td>
+								<td style="font-size: 10px;">Expiry Date</td>
+								<td style="font-size: 10px;">Document View</td>
+							</tr>
+							<tbody id="dataTables">
+    <tr th:each="Doocument : ${DocumentList}">
+      
+        <td th:text="${Doocument?.document_type}" class="rowDataField" style="width: 150px;">Address</td>
+        <td th:text="${Doocument?.document_code}" class="rowDataField" style="width: 120px;">ADD001</td>
+        <td th:text="${Doocument?.document_type_desc}" class="rowDataField" style="width: 160px;">Passport</td>
+        <td th:text="${Doocument?.place_of_issue}" class="rowDataField" style="width: 120px;">Madurai</td>
+        <td th:text="${Doocument?.unique_id}" class="rowDataField" style="width: 120px;">D324234234</td>
+        <td th:text="${Doocument?.issue_date}" class="rowDataField" style="width: 120px;">18-JUN-2018</td>
+        <td th:text="${Doocument?.expiry_date}" class="rowDataField" style="width: 120px;">15-JUN-2023</td>
+        <td>
+            <i class="fa fa-info-circle" aria-hidden="true" onclick="show1(this)" id="openModaldoc" th:attr="data-doc_type=${Doocument?.document_type}"
+                style='font-size:20px;color:DodgerBlue;width: 50px;margin-left: 30px' data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+        </td>
+        <td th:text="${Doocument?.file_name}" class="rowDataField" style="width: 100px;" hidden></td>
+    </tr>
+</tbody>
+						</table>
+					</div>
+
+
+
+					<!---------------------Signature Details-------------------------->
+
+					<div class="panel panel-default"
+						style="width: 1000px; margin-left: 431px; background-color: #eeeeee;">
+						<div class="panel-heading" id="addtitle"
+							style="height: 30px; background-color: #bbc3cb; font-size: 15px;padding-left: 20px">Signature
+							Details</div>
+							
+						<table class="" id="sign"
+							style="font-size: 10px; border: none; width: 100%">
+							<tr>
+								<td style="font-size: 10px; text-align: center;">Name: <input
+									type="text"
+									style="border: none; outline: none; background-color: transparent; margin-left: 20px; width: 150px;"
+									id="ca_first_name" th:value="${customerRequest?.ca_first_name}"
+									th:if="${formmode}=='view'" readonly />
+								</td>
+
+								<td rowspan="2" style="text-align: center">Signature: <div
+									id="imgCapture1" alt="" style="border: 1px solid #ccc; "
+									height="60" width="30" ></div>
+									<div style="display: none; margin-left: 55px;" id="signature">
+										<input id="sign" type="file" th:if="${formmode}=='view'"
+											readonly />
+									</div>
+								</td>
+
+
+							</tr>
+							<tr>
+								<!-- <td style="
+     text-align: center;">Date:<input type="text" style="border:none;outline:none;background-color:transparent;margin-left:20px;width:150px;" id="signdate" readonly /></td> -->
+							</tr>
+
+						</table>
+					</div>
+
+
+					<br>
+					<!---------------------Customer Check-------------------------->
+
+
+					<div class="panel panel-default"
+						style="width: 1000px; margin-left: 431px; background-color: #eeeeee;">
+						<div class="panel-heading" id="addtitle"
+							style="height: 30px; background-color: #bbc3cb; font-size: 16px;">Customer
+							Check</div>
+						<div class="card-body">
+							<div>
+								<div class="row formline"
+									style="font-size: 13px; font-weight: 500;">
+									<span>1.Duplicate List</span>
+
+								</div>
+								<div class="col-sm-2"></div>
+
+								<div class="row formline"
+									style="font-size: 13px; padding: 10px;">
+									<span>No Result found on Customer Check</span>
+
+								</div>
+							</div>
+
+							<div class="row formline"
+								style="font-size: 13px; font-weight: 500;">
+								<span>2.Black List</span>
+
+							</div>
+							<div class="col-sm-2"></div>
+
+							<div class="row formline" style="font-size: 13px; padding: 10px;">
+								<span>No Result found on Customer Check</span>
+
+							</div>
+
+
+							<div class="row formline"
+								style="font-size: 13px; font-weight: 500;">
+								<span>3.Negative List</span>
+
+							</div>
+							<div class="col-sm-2"></div>
+
+							<div class="row formline" style="font-size: 13px; padding: 10px;">
+								<span>No Result found on Customer Check</span>
+
+							</div>
+						</div>
+					</div>
+					<br>
+				<div class="col-sm-12 form-group"
+					style="width: 1000px; margin-left: 431px; background-color: #eeeeee;">
+					
+						<input type="checkbox" id="aofcheck" checked>&nbsp;&nbsp;Upload
+						Account Opening Form
+					</div>
+
+
+                                <div class="card-footer"
+					style="width: 1000px;margin-left: 431px;  background-color: #eeeeee; text-align: center;">
+					<!-- 	<button type="button" class="btn btn-primary btn-xs" id='btnsub'
+							onclick="onimageon(this)">View AOF</button> -->
+						<button type="button" class="btn btn-primary btn-xs" id='btnback' onclick="submitfin()" >Submit</button>
+								<button type="button" class="btn btn-primary btn-xs" id='btnhold' onclick="holdfin()">Hold</button>
+
+
+
+						<!-- ------ th:attr="data-appl_ref_no = ${customerrequest?.appl_ref_no}"
+																	onclick="listradioclick(this);"
+																	th:id="${customerrequest.appl_ref_no}" name="btnradio">View AOF</button> -->
+
+<!-- 
+
+						<button type="button"   form="Customeredit"
+							onclick="submitform(this);" class="btn btn-primary btn-xs"
+							id='btnsub'>Submit</button> -->
+						
+
+						
+			</div>
+<div class="row row-cols-2 row-cols-lg-1" style="margin-left: 431px;width: 1000px;background-color: #eeeeee;">
+					<label class="  col-4 col-lg-2  "
+						style="font-size: 15px; font-weight: 500;">Entry User</label> <input
+						th:value="${customerRequest?.entry_user}" type="text"
+						class=" col-sm-2 " style="width: 90px; margin-left: -40px" name="entry_user" id="entry_user"
+						readonly /> <label class="  col-sm-1 "></label> <label
+						class=" col-4 col-lg-2  "
+						style="font-size: 15px; font-weight: 500; margin-left: -80px">Modify User</label> <input
+						th:value="${customerRequest?.modify_user}" type="text"
+						class=" col-sm-2 control-label" name="modify_user"
+						id="modify_user" readonly /> <label class="  col-sm-1 "></label>
+					<label class="  col-4 col-lg-2 "
+						style="font-size: 15px; font-weight: 500;margin-left: -80px">Verify User</label> <input
+						type="text" class=" col-sm-2 control-label" name="verify_user"
+						th:value="${customerRequest?.verify_user}" id="verify_user"
+						readonly /><br>
+
+
+				</div>
+				
+				<div class="row row-cols-2 row-cols-lg-3"  style="margin-left: 431px;width: 1000px; background-color: #eeeeee;">
+					<label class=" col-6 col-lg-2  "
+						style="font-size: 15px; font-weight: 500;  ">Entry Time</label> <input
+						th:value="${#dates.format(customerRequest?.entry_time, 'dd-MM-yyyy')}"
+						type="text"  style="width: 90px; margin-left: -40px" class=" col-sm-2 control-label" name="entry_time"
+						id="entry_time" readonly /> <label class="  col-sm-1 "></label> <label
+						class="  col-4 col-lg-2  "
+						style="font-size: 15px; font-weight: 500; margin-left: -80px">Modify Time</label> <input
+						th:value="${#dates.format(customerRequest?.modify_time, 'dd-MM-yyyy')}"
+						type="text" class=" col-sm-2 control-label" name="modify_time"
+						id="modify_time" readonly /> <label class="  col-sm-1 "></label>
+					<label class="  col-4 col-lg-2  "
+						style="font-size: 15px; font-weight: 500; margin-left: -80px">Verify Time</label> <input
+						type="text" class=" col-sm-2 control-label" name="verify_time"
+						id="verify_time"
+						th:value="${#dates.format(customerRequest?.verify_time, 'dd-MM-yyyy')}"
+						readonly />
+						
+						
+
+
+				</div>
+	
+				</div>
+				
+			<!-- -------------------------View ends---------------------- -->
+			</div>
+
+		</div>
+
+		
+
+</body>
+
+
+
+</html>

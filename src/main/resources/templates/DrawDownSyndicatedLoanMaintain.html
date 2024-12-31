@@ -1,0 +1,4632 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 19-09-24
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+
+
+	<script src="js/bootstrap411.js"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+
+		.input-group-text {
+			cursor: pointer;
+		}
+
+		#eyeIcon {
+			font-size: 1.2rem;
+		}
+
+		input,
+		select {
+			width: 75% !important;
+			padding: 2px;
+		}
+
+		.mmdd {
+			height: 25px;
+			width: 35% !important;
+		}
+
+		.ml-2 {
+			margin-left: 1px;
+		}
+
+		button:focus {
+			outline: unset !important;
+			border: unset !important;
+		}
+
+		.borderRemove {
+			border: none;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+
+			font-family: Arial, sans-serif;
+
+		}
+
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			$('.dropdown-toggle').dropdown();
+		});
+	</script>
+
+	<script th:inline="javascript">
+		function openTab(evt, tabName) {
+			event.preventDefault();
+			let currentTab = 'tab1';
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].classList.remove("active");
+			}
+			evt.currentTarget.classList.add("active");
+			if (currentTab == 'tab1'
+				|| confirm("Complete the previous tab before moving on.")) {
+				hideAllTabs();
+				document.getElementById(tabName).style.display = 'block';
+				currentTab = tabName;
+			} else {
+				evt.preventDefault();
+			}
+		}
+		function hideAllTabs() {
+			const tabContents = document.getElementsByClassName('tabcontent');
+			for (let i = 0; i < tabContents.length; i++) {
+				tabContents[i].style.display = 'none';
+			}
+		}
+		hideAllTabs();
+		document.getElementById('tab1').style.display = 'block';
+
+		function home() {
+			location.href = 'LSDB/Dashboard';
+		}
+
+		function refreshPage1() {
+			location.href = 'LSDBDDNoticeDetails?formmode=list';
+		}
+
+
+	</script>
+	<script>
+		function back() {
+
+			event.preventDefault();
+			window.history.back();
+		}
+	</script>
+
+
+	<script>
+		function Addrow1(a) {
+			event.preventDefault();
+			var a = document.getElementById("clik1");
+			var INID = document.getElementById("inst_id").value;
+			var ISD = document.getElementById("inst_start_dt").value;
+			var IF = document.getElementById("inst_freq").value;
+			var NOI = document.getElementById("no_of_inst").value;
+			var INA = document.getElementById("inst_amount").value;
+			var RF = document.getElementById("record_flag").value;
+			var row = a.insertRow();
+			var cell1 = row.insertCell();
+			var cell2 = row.insertCell();
+			var cell3 = row.insertCell();
+			var cell4 = row.insertCell();
+			var cell5 = row.insertCell();
+			var cell6 = row.insertCell();
+			//var cell7 = row.insertCell();
+			cell6.setAttribute('hidden', 'hidden');
+			var mrowCount = 1;
+			cell1.innerHTML = '<input type="text" name="inst_id"  id="inst_id' + mrowCount + '" value="' + INID + '">';
+			cell2.innerHTML = '<input type="text" name="inst_start_dt"  id="inst_start_dt' + mrowCount + '" value="' + ISD + '" >';
+			cell3.innerHTML = '<input type="text" name="inst_freq"  id="inst_freq' + mrowCount + '" value="' + IF + '">';
+			cell4.innerHTML = '<input type="text" name="no_of_inst"  id="no_of_inst' + mrowCount + '" value="' + NOI + '">';
+			cell5.innerHTML = '<input type="text" name="inst_amount"  id="inst_amount' + mrowCount + '" value="' + INA + '">';
+			cell6.innerHTML = '<input type="text" name="record_flag"  id="record_flag'
+				+ mrowCount + '" value="' + (RF == 'Y' ? 'Y' : 'N') + '">';
+			/*cell7.innerHTML = '<i class="fa fa-minus-circle" aria-hidden="true" style=" font-size: 23px;color:red; " onclick="deleterow1(this)"></i>';*/
+			document.getElementById("inst_id").value = '';
+			document.getElementById("inst_start_dt").value = '';
+			document.getElementById("inst_freq").value = '';
+			document.getElementById("no_of_inst").value = '';
+			document.getElementById("inst_amount").value = '';
+			document.getElementById("record_flag").checked = false;
+		}
+		//Data hidden for only view purpose
+		/*function deleterow1(ele) {
+			event.preventDefault();
+			var table = document.getElementById('row1');
+			var rowCount = table.rows.length;
+			console.log(rowCount);
+			if (rowCount <= 1) {
+				alert("There is no row available to delete!");
+				return;
+			}
+			if (ele) {
+				var rowIndex = ele.parentNode.parentNode.rowIndex;
+				table.deleteRow(rowIndex);
+			} else {
+				table.deleteRow(rowCount - 1);
+			}
+		}*/
+
+		function Addrow2(a) {
+			event.preventDefault();
+			var b = document.getElementById("clik2");
+			var ISD1 = $("#inst_start_dt_1").val();
+			var IF1 = document.getElementById("inst_freq_1").value;
+			var NOI1 = document.getElementById("no_of_inst_1").value;
+			var INA1 = document.getElementById("inst_amount_1").value;
+			var IP1 = document.getElementById("inst_percent_1").value;
+			var RF1 = document.getElementById("record_flag_1").value;
+			var row = b.insertRow();
+			var cell1 = row.insertCell();
+			var cell2 = row.insertCell();
+			var cell3 = row.insertCell();
+			var cell4 = row.insertCell();
+			var cell5 = row.insertCell();
+			var cell6 = row.insertCell();
+			var cell7 = row.insertCell();
+			cell6.setAttribute('hidden', 'hidden');
+			var mrowCount = 1;
+			cell1.innerHTML = '<input type="text" name="inst_start_dt"  id="inst_start_dt' + mrowCount + '" value="' + ISD1 + '" >';
+			cell2.innerHTML = '<input type="text" name="inst_freq"  id="inst_freq' + mrowCount + '" value="' + IF1 + '">';
+			cell3.innerHTML = '<input type="text" name="no_of_inst"  id="no_of_inst' + mrowCount + '" value="' + NOI1 + '">';
+			cell4.innerHTML = '<input type="text" name="inst_amount"  id="inst_amount' + mrowCount + '" value="' + INA1 + '">';
+			cell5.innerHTML = '<input type="text" name="inst_percent"  id="inst_percent' + mrowCount + '" value="' + IP1 + '">';
+			cell6.innerHTML = '<input type="text" name="record_flag"  id="record_flag'
+				+ mrowCount + '" value="' + (RF1 == 'Y' ? 'Y' : 'N') + '">';
+			cell7.innerHTML = '<i class="fa fa-minus-circle" aria-hidden="true" style=" font-size: 23px;color:red; " onclick="deleterow2(this)"></i>';
+			document.getElementById("inst_start_dt_1").value = '';
+			document.getElementById("inst_freq_1").value = '';
+			document.getElementById("inst_percent_1").value = '';
+			document.getElementById("no_of_inst_1").value = '';
+			document.getElementById("inst_amount_1").value = '';
+			document.getElementById("record_flag_1").checked = false;
+		}
+		function deleterow2(ele) {
+			event.preventDefault();
+			var table = document.getElementById('row2');
+			var rowCount = table.rows.length;
+			console.log(rowCount);
+			if (rowCount <= 1) {
+				alert("There is no row available to delete!");
+				return;
+			}
+			if (ele) {
+				var rowIndex = ele.parentNode.parentNode.rowIndex;
+				table.deleteRow(rowIndex);
+			} else {
+				table.deleteRow(rowCount - 1);
+			}
+		}
+	</script>
+
+	<script>
+
+		//Next Tab 
+		function submitparam() {
+			event.preventDefault();
+
+			document.getElementById("tab1").style.display = "none";
+			document.getElementById("tab2").style.display = "block";
+			$("#smooth1").removeClass("active");
+			$("#smooth2").addClass("active");
+		}
+
+
+		function submitparam1() {
+			event.preventDefault();
+
+			document.getElementById("tab2").style.display = "none";
+			document.getElementById("tab3").style.display = "block";
+			$("#smooth2").removeClass("active");
+			$("#smooth3").addClass("active");
+		}
+
+
+		function submitparam2() {
+			event.preventDefault();
+
+			document.getElementById("tab3").style.display = "none";
+			document.getElementById("tab4").style.display = "block";
+			$("#smooth3").removeClass("active");
+			$("#smooth4").addClass("active");
+		}
+
+
+		function openSyncData(a) {
+			var syn_loan_ref = a.getAttribute("data-syn_loan_ref");
+			var borr_name = a.getAttribute("data-borr_name");
+			var cif_id = a.getAttribute("data-cif_id");
+			var ccy = a.getAttribute("data-ccy");
+			$("#synd_fac_ref").val(syn_loan_ref);
+			$("#borr_name").val(borr_name);
+			$("#sync_ref_num").val(syn_loan_ref);
+			$("#borrower_name").val(borr_name);
+			$("#cif_id").val(cif_id);
+			$("#ccy").val(ccy);
+			$
+				.ajax({
+					url: './LSDBTrancheeListbySycNo?syn_loan_ref='
+						+ syn_loan_ref,
+					type: 'GET',
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+									trHTML += "<tr onclick='getTrancheData(this);' value='"
+										+ entity.srl_no
+										+ "' data-trnc_desc='"
+										+ entity.trnc_desc
+										+ "' data-trnc_curr='"
+										+ entity.trnc_curr
+										+ "'>"
+										+ "<td>"
+										+ entity.syn_loan_ref
+										+ "</td>"
+										+ "<td>"
+										+ entity.trnc_desc
+										+ "</td>"
+										+ "<td>"
+										+ entity.borr_name
+										+ "</td>"
+										+ "<td><input type='radio' name='und_pct_radio' /></td>"
+										+ "</tr>";
+								});
+						$("#trancheDetList").empty().append(trHTML);
+					},
+					error: function (error) {
+						console.log("Error fetching data: ", error);
+					}
+				});
+			$("#showSyncRefDet").modal("hide");
+		}
+
+		function getTrancheData(a) {
+			var trnc_desc = a.getAttribute("data-trnc_desc");
+			var trnc_curr = a.getAttribute("data-trnc_curr");
+			$("#trnc_desc").val(trnc_desc);
+			$("#tranche_reff").val(trnc_desc);
+			$("#trnc_curr").val(trnc_curr);
+
+			var syncRef = $("#synd_fac_ref").val();
+
+			//ajax for intrest slab details
+
+			var tranRefChar = trnc_desc.split("MST");
+			$.ajax({
+				url: './getDDNMaxNum?syn_loan_ref=' + syncRef + '&tran_ref=' + trnc_desc,
+				type: 'GET',
+				success: function (data) {
+					console.log(data);
+					if (data.length > 0) {
+						var values = parseInt(data) + 1;
+						$("#dd_notice_ref").val("DDNR" + tranRefChar[1] + "00" + values);
+					} else {
+						$("#dd_notice_ref").val("DDNR" + tranRefChar[1] + "001");
+					}
+				},
+				error: function (error) {
+					console.log("Error fetching data: ", error);
+				}
+			});
+
+			$.ajax({
+				url: './GetInterestSlabDetails?trnc_desc=' + trnc_desc,
+				type: 'GET',
+				success: function (data) {
+					console.log(data);
+
+					$("#int_table_code").val(data.int_tbl_cd);
+					$("#int_rate_period").val(data.int_rt_prd);
+					$("#int_method").val(data.meth_intrp);
+					console.log(data.start_dt);
+					console.log(data.end_dt);
+					console.log(data.rev_slab_start_dt);
+					$("#start_dt").val(formatDateToYYYYMMDD(data.start_dt));
+					$("#end_dt").val(formatDateToYYYYMMDD(data.end_dt));
+					$("#min_int").val(data.min_int);
+					$("#max_int").val(data.max_int);
+					$("#margin").val(data.margin);
+					$("#spread").val(data.spread);
+					$("#norm_int_rate").val(data.norm_int_rt);
+					$("#comp_int").val(data.comp_int);
+					$("#int_overdue_princ").val(data.int_ovrdue_prn);
+					$("#penal_princ").val(data.pen_prn);
+					$("#penal_int_rate").val(data.pen_int_rt);
+					$("#int_pegged").val(data.int_pegged);
+					$("#pegging_freq").val(data.peg_freq);
+					$("#int_version_no").val(data.int_ver_no);
+					$("#review_slab_start_dt").val(
+						formatDateToYYYYMMDD(data.rev_slab_start_dt));
+					$("#reason_code").val(data.reason_cd);
+					if (data.int_plt_cur_hol == "Y") {
+						$("#int_polate_ch").prop("checked", true);
+					} else {
+						$("#int_polate_ch1").prop("checked", true);
+					}
+
+					if (data.int_pegged == "Y") {
+						$("#int_pegged").prop("checked", true);
+					} else {
+						$("#int_pegged1").prop("checked", true);
+					}
+
+				}
+			});
+
+			$
+				.ajax({
+					url: './GetInterestDetails?trnc_desc=' + trnc_desc,
+					type: 'GET',
+					success: function (data) {
+						tHTML = "";
+						$
+							.each(
+								data,
+								function (index, entity) {
+									var originalDate = new Date(
+										entity.inst_start_date);
+									var year = originalDate
+										.getFullYear();
+									var month = String(
+										originalDate.getMonth() + 1)
+										.padStart(2, '0');
+									var day = String(
+										originalDate.getDate())
+										.padStart(2, '0');
+									var formattedDate = `${day}-${month}-${year}`;
+									var inst_start_dt = formattedDate !== null ? formattedDate
+										: "";
+									var inst_freq = entity.inst_freq !== null ? entity.inst_freq
+										: "";
+									var no_of_inst = entity.no_of_inst !== null ? entity.no_of_inst
+										: "";
+									var inst_amt = entity.inst_amt !== null ? entity.inst_amt
+										: "";
+									//var inst_pct = entity.inst_pct !== null ? entity.inst_pct : "";
+									var record = entity.record !== null ? entity.record
+										: "";
+
+									var inst_id = entity.inst_id !== null ? entity.inst_id
+										: "";
+
+									var inst_pct = entity.inst_pct !== null ? entity.inst_pct
+										: "";
+									var inst_amt_spec = entity.inst_amt_spec !== null ? entity.inst_amt_spec
+										: "";
+									var maturity_flg = entity.maturity_flg !== null ? entity.maturity_flg
+										: "";
+									var interest_frequency = entity.interest_frequency !== null ? entity.interest_frequency
+										: "";
+									tHTML += "<tr>"
+										+ "<td><input type='text' name='inst_id' value='" + inst_id + "' /></td>"
+										+ "<td><input type='text' name='inst_start_dt' value='" + inst_start_dt + "' /></td>"
+										+ "<td><input type='text' name='inst_freq' value='" + inst_freq + "' /></td>"
+										+ "<td><input type='text' name='no_of_inst' value='" + no_of_inst + "' /></td>"
+										+ "<td><input type='text' name='inst_pct' value='" + inst_pct + "' /></td>"
+										+ "<td><input type='text' name='inst_amount' value='" + formatNumberWithCommas(inst_amt) + "' /></td>"
+										+ "<td style='display: none;'><input type='text' name='maturity_flg' value='" + maturity_flg + "' /></td>"
+										+ "<td style='display: none;'><input type='text' name='record_flag' value='" + record + "' /></td>"
+										+ "<td style='display: none;'><input type='text' name='inst_amt_spec' value='" + inst_amt_spec + "' /></td>"
+										+ "<td style='display: none;'><input type='text' name='interest_frequency' value='" + interest_frequency + "' /></td>"
+										+ "<td><input type='radio' onclick='paymentview1(this);' value='"
+										+ entity.srl_no
+										+ "' data-tran_desc='"
+										+ entity.tran_desc
+										+ "' data-srl_no='"
+										+ entity.srl_no
+										+ "' name='und_pct_radio' /></td>"
+										/*+ "<td><i class='fa fa-minus-circle' aria-hidden='true' style='font-size:23px;color:red;' onclick = 'deleterow1(this)' > </i ></td > "*/
+										+ "</tr>";
+								});
+						$("#clik1").empty().append(tHTML)
+					},
+					error: function (error) {
+						console.log("Error fetching data: ", error);
+					}
+				});
+
+			//ajax for draw down amount
+
+			$.ajax({
+				url: './TrancheGeneralDetails?tran_desc=' + trnc_desc,
+				type: 'GET',
+				success: function (data) {
+
+					console.log(data);
+
+					$("#dd_amount").val(formatNumberWithCommas(data.trnc_amt));
+
+				}
+			});
+
+			$("#showTrancheList").modal("hide");
+		}
+
+		function addFormSubmit(a) {
+			event.preventDefault();
+
+			if (commanValues() && tab1Value()) {
+				var button = document.getElementById('addSubmitData');
+				button.disabled = true;
+
+				//dd_notice_date
+
+				var originalDate = $("input[name='dd_notice_date']").val();
+
+				if (originalDate != "") {
+					var parts = originalDate.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_notice_date = year + "-" + month + "-" + day;
+				} else {
+					var dd_notice_date = "";
+				}
+
+				var originalDate1 = $("input[name='dd_value_date']").val();
+
+				if (originalDate1 != "") {
+					var parts = originalDate1.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_value_date = year + "-" + month + "-" + day;
+				} else {
+					var dd_value_date = "";
+				}
+
+				var originalDate2 = $("input[name='dd_notice_exp_date']").val();
+
+				if (originalDate2 != "") {
+					var parts = originalDate2.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_notice_exp_date = year + "-" + month + "-" + day;
+				} else {
+					var dd_notice_exp_date = "";
+				}
+
+				var formData = {
+					noticeDetailsGeneral0Entity: {
+						synd_fac_ref: $("input[name='synd_fac_ref']").val(),
+						borr_name: $("input[name='borr_name']").val(),
+						trnc_desc: $("input[name='trnc_desc']").val(),
+						dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+						trnc_curr: $("input[name='trnc_curr']").val(),
+						dd_notice_date: originalDate,
+						dd_value_date: originalDate1,
+						dd_amount: $("input[name='dd_amount']").val().replace(/,/g, ''),
+						dd_notice_exp_date: originalDate2,
+						loan_tenor: $("input[name='loan_tenor']").val(),
+						loan_tenor1: $("input[name='loan_tenor1']").val(),
+						notice_from_cust: $("input[name='notice_from_cust']")
+							.val(),
+						dd_int_pay: $("input[name='dd_int_pay']").val(),
+						tranche_ref_int_pay: $("input[name='tranche_ref_int_pay']")
+							.val(),
+						int_rate_ref_curr: $("input[name='int_rate_ref_curr']")
+							.val(),
+						msg_part_lenders: $("select[name='msg_part_lenders']")
+							.val(),
+						curr_holiday_treat: $("input[name='curr_holiday_treat']")
+							.val()
+
+					},
+					noticeDetailsSlabDetails0Entity: {
+						synd_fac_ref: $("input[name='synd_fac_ref']").val(),
+						borr_name: $("input[name='borr_name']").val(),
+						trnc_desc: $("input[name='trnc_desc']").val(),
+						dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+						trnc_curr: $("input[name='trnc_curr']").val(),
+						int_table_code: $("input[name='int_table_code']").val(),
+						int_rate_period: $("input[name='int_rate_period']").val(),
+						int_rate_period1: $("input[name='int_rate_period1']")
+							.val(),
+						int_polate_ch: $("input[name='int_polate_ch']").val(),
+						int_method: $("input[name='int_method']").val(),
+						start_dt: $("input[name='start_dt']").val(),
+						end_dt: $("input[name='end_dt']").val(),
+						min_int: $("input[name='min_int']").val(),
+						max_int: $("input[name='max_int']").val(),
+						margin: $("input[name='margin']").val(),
+						spread: $("input[name='spread']").val(),
+						norm_int_rate: $("input[name='norm_int_rate']").val(),
+						comp_int: $("input[name='comp_int']").val(),
+						int_overdue_princ: $("input[name='int_overdue_princ']")
+							.val(),
+						penal_princ: $("input[name='penal_princ']").val(),
+						penal_int: $("input[name='penal_int']").val(),
+						penal_int_rate: $("input[name='penal_int_rate']").val(),
+						int_pegged: $("input[name='int_pegged']").val(),
+						pegging_review_dt: $("input[name='pegging_review_dt']")
+							.val(),
+						pegging_freq: $("input[name='pegging_freq']").val(),
+						pegging_freq1: $("input[name='pegging_freq1']").val(),
+						int_version_no: $("input[name='int_version_no']").val(),
+						review_slab_start_dt: $(
+							"input[name='review_slab_start_dt']").val(),
+						reason_code: $("input[name='reason_code']").val(),
+					},
+					noticeDetailsPayment0Entity: [],
+				};
+
+				$("#row1 tbody tr").each(
+					function () {
+						var instStartDate = $(this).find("input[name='inst_start_dt']").val();
+						if (instStartDate != "") {
+							var parts = instStartDate.split("-");
+							var day = parts[0];
+							var month = parts[1];
+							var year = parts[2];
+							var InstStartDate = year + "-" + month + "-" + day;
+						} else {
+							var InstStartDate = "";
+						}
+						var row = {};
+						row.synd_fac_ref = $("input[name='synd_fac_ref']")
+							.val(), row.borr_name = $(
+								"input[name='borr_name']").val(),
+							row.trnc_desc = $("input[name='trnc_desc']")
+								.val(), row.dd_notice_ref = $(
+									"input[name='dd_notice_ref']").val(),
+							row.trnc_curr = $("input[name='trnc_curr']")
+								.val(), row.inst_id = $(this).find(
+									"input[name='inst_id']").val();
+						row.inst_start_dt = InstStartDate;
+						row.inst_freq = $(this).find("input[name='inst_freq']")
+							.val();
+						row.no_of_inst = $(this).find(
+							"input[name='no_of_inst']").val();
+						row.inst_amount = $(this).find(
+							"input[name='inst_amount']").val().replace(/,/g, '');
+						row.inst_pct = $(this).find(
+							"input[name='inst_pct']").val();
+						row.maturity_flg = $(this).find(
+							"input[name='maturity_flg']").val();
+						row.record_flag = $(this).find(
+							"input[name='record_flag']").val();
+						row.interest_frequency = $(this).find(
+							"input[name='interest_frequency']").val();
+						formData.noticeDetailsPayment0Entity.push(row);
+					});
+				console.log(formData);
+				$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "./addDrawDownDetails",
+					data: JSON.stringify(formData),
+					success: function (responseText, statusText, xhr, $form) {
+						$("#alertmsg").text(responseText);
+						$('#alert').modal("toggle");
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+
+
+			} else {
+				event.preventDefault();
+			}
+
+		}
+
+		function updateCheckboxValue() {
+			var checkbox = document.getElementById("record_flag");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function updateCheckboxValue1() {
+			var checkbox = document.getElementById("record_flag_1");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function refreshPage() {
+			window.location.reload();
+		}
+
+		function formatDateToYYYYMMDD(date) {
+			if (!date || !(date instanceof Date)) {
+				return '';
+			}
+			const year = date.getFullYear();
+			const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+			const day = ('0' + date.getDate()).slice(-2);
+			return `${day}-${month}-${year}`;
+		}
+	</script>
+	<script>
+		function addscreen() {
+			location.href = 'drawDownLoan?formmode=add';
+		}
+
+		function inquaryeditlistz(a) {
+			event.preventDefault();
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			var synd_fac_ref = a.getAttribute("data-synd_fac_ref");
+			location.href = 'drawDownLoanMaintanace?formmode=inquiry&dd_notice_ref='
+				+ dd_notice_ref;
+		}
+
+		function verifyeditlistz(a) {
+			event.preventDefault();
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			var synd_fac_ref = a.getAttribute("data-synd_fac_ref");
+			location.href = 'LSDBDDNoticeDetails?formmode=verify&dd_notice_ref='
+				+ dd_notice_ref + '&synd_fac_ref=' + synd_fac_ref;
+		}
+
+		function modifyeditview(a) {
+			event.preventDefault();
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			location.href = 'LSDBDDNoticeDetails?formmode=modify&dd_notice_ref='
+				+ dd_notice_ref;
+		}
+
+		function modifyeditview1(a) {
+			event.preventDefault();
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			location.href = 'LSDBDDNoticeDetails?formmode=modify1&dd_notice_ref='
+				+ dd_notice_ref;
+		}
+
+		//deleteUnverified (Praveen)
+		function deleteUnverified(a) {
+			var dd_notice_ref = a.getAttribute('data-dd_notice_ref');
+			//location.href = 'DrawDownSyndicatedLoan?formmode=view&drawDownId='+ drawId;
+			console.log(dd_notice_ref);
+			$.ajax({
+				url: './deleteUnverifiedRecordsDDN?dd_notice_ref=' + dd_notice_ref,
+				type: 'POST',
+				success: function (responseText, statusText, xhr, $form) {
+					console.log(responseText);
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				},
+				error: function (error) {
+					console.log("Error fetching data: ", error);
+				}
+
+			});
+
+		}
+
+		function paymentview(a) {
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			var srl_no = a.getAttribute("data-srl_no");
+
+			console.log(dd_notice_ref + srl_no);
+			$.ajax({
+				url: './getDDPayment?dd_notice_ref=' + dd_notice_ref
+					+ '&srl_no=' + srl_no,
+				type: 'GET',
+				success: function (data) {
+					console.log(data);
+					$("#inst_id").val(data.inst_id);
+					/* var originalDate = new Date(data.inst_start_dt);
+					originalDate.setDate(originalDate.getDate() + 1);
+					var formattedDate = originalDate.toISOString().split('T')[0];
+					$("#inst_start_dt").val(formattedDate); */
+					$("#srl_no").val(data.srl_no);
+					$("#inst_freq").val(data.inst_freq);
+					$("#no_of_inst").val(data.no_of_inst);
+					$("#inst_amount").val(formatNumberWithCommas(data.inst_amount));
+					$("#inst_pct").val(data.inst_pct);
+					// Assuming data.inst_start_dt contains the date in yyyy-MM-dd format
+					// Assuming data.inst_start_dt contains the date in yyyy-MM-dd format
+					var formattedDate = new Date(data.inst_start_dt).toLocaleDateString('en-GB', {day: '2-digit', month: '2-digit', year: 'numeric'}).replace(/\//g, '-');
+
+
+					$("#inst_start_dt").val(formattedDate);
+					if (data.record_flag == "Y") {
+						$("#record_flagp").prop("checked", true);
+					} else {
+						$("#record_flagp").prop("checked", false);
+					}
+
+					if (data.maturity_flg == "Y") {
+						$("#maturity_flg").prop("checked", true);
+					} else {
+						$("#maturity_flg1").prop("checked", true);
+					}
+
+					$("#interest_frequency").val(data.interest_frequency);
+
+					$("#paymentviewID").show();
+				}
+			});
+		}
+
+		function paymentview1(a) {
+			var tran_desc = a.getAttribute("data-tran_desc");
+			var srl_no = a.getAttribute("data-srl_no");
+			$.ajax({
+				url: './getTranchePaymentView?tran_desc=' + tran_desc + '&srl_no='
+					+ srl_no,
+				type: 'GET',
+				success: function (data) {
+					console.log(data);
+					$("#inst_id").val(data.inst_id);
+					var originalDate = new Date(data.inst_start_date);
+					originalDate.setDate(originalDate.getDate() + 1);
+					var formattedDate = originalDate.toISOString().split('T')[0];
+					$("#inst_start_dt").val(formattedDate);
+					//$("#srl_no").val(data.srl_no);
+					$("#inst_freq").val(data.inst_freq);
+					$("#no_of_inst").val(data.no_of_inst);
+					$("#inst_amount").val(formatNumberWithCommas(data.inst_amt));
+					let cleanedString = data.inst_pct.replace("%", "");
+					$("#inst_pct").val(cleanedString);
+					if (data.record_flag == "Y") {
+						$("#record_flag").prop("checked", true);
+					} else {
+						$("#record_flag").prop("checked", true);
+					}
+
+					if (data.maturity_flg == "Y") {
+						$("#maturity_flg").prop("checked", true);
+					} else {
+						$("#maturity_flg1").prop("checked", true);
+					}
+
+					$("#interest_frequency").val(data.interest_frequency);
+
+					$("#paymentviewID").show();
+				}
+			});
+		}
+
+		function interestSlabview(a) {
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			var srl_no = a.getAttribute("data-srl_no");
+			$.ajax({
+				url: './getDDInterestSlabDetails?dd_notice_ref=' + dd_notice_ref
+					+ '&srl_no=' + srl_no,
+				type: 'GET',
+				success: function (data) {
+					console.log(data);
+					var originalDate = new Date(data.inst_start_dt);
+					originalDate.setDate(originalDate.getDate() + 1);
+					var formattedDate = originalDate.toISOString().split('T')[0];
+					$("#inst_start_dt_1").val(formattedDate);
+					$("#inst_freq_1").val(data.inst_freq);
+					$("#srl_no_1").val(data.srl_no);
+					$("#no_of_inst_1").val(data.no_of_inst);
+					$("#inst_amount_1").val(data.inst_amount);
+					$("#inst_percent_1").val(data.inst_percent);
+
+					if (data.record_flag == "Y") {
+						$("#record_flag_1").prop("checked", true);
+					} else {
+						$("#record_flag_1").prop("checked", false);
+					}
+					$("#interestSlabviewId").show();
+				}
+			});
+		}
+
+		function ModifySubmit(a) {
+			event.preventDefault();
+			if ($("#drawDownDetailsAdd").valid()) {
+
+				var originalDate = $("input[name='dd_notice_date']").val();
+
+				if (originalDate != "") {
+					var parts = originalDate.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_notice_date = day + "-" + month + "-" + year;
+				} else {
+					var dd_notice_date = "";
+				}
+
+				var originalDate1 = $("input[name='dd_value_date']").val();
+
+				if (originalDate1 != "") {
+					var parts = originalDate1.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_value_date = day + "-" + month + "-" + year;
+				} else {
+					var dd_value_date = "";
+				}
+
+				var originalDate2 = $("input[name='dd_notice_exp_date']").val();
+
+				if (originalDate2 != "") {
+					var parts = originalDate2.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_notice_exp_date = day + "-" + month + "-" + year;
+				} else {
+					var dd_notice_exp_date = "";
+				}
+				var formData = {
+					noticeDetailsGeneral0Entity: {
+						synd_fac_ref: $("input[name='synd_fac_ref']").val(),
+						borr_name: $("input[name='borr_name']").val(),
+						trnc_desc: $("input[name='trnc_desc']").val(),
+						dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+						trnc_curr: $("input[name='trnc_curr']").val(),
+						dd_notice_date: dd_notice_date,
+						dd_value_date: dd_value_date,
+						dd_amount: $("input[name='dd_amount']").val().replace(/,/g, ''),
+						dd_notice_exp_date: dd_notice_exp_date,
+						loan_tenor: $("input[name='loan_tenor']").val(),
+						loan_tenor1: $("input[name='loan_tenor1']").val(),
+						notice_from_cust: $("input[name='notice_from_cust']")
+							.val(),
+						dd_int_pay: $("input[name='dd_int_pay']").val(),
+						tranche_ref_int_pay: $("input[name='tranche_ref_int_pay']")
+							.val(),
+						rate_code_conv: $("input[name='rate_code_conv']").val(),
+						proj_curr: $("input[name='proj_curr']").val(),
+						int_rate_ref_curr: $("input[name='int_rate_ref_curr']")
+							.val(),
+						msg_part_lenders: $("#msg_part_lenders").val(),
+						curr_holiday_treat: $("input[name='curr_holiday_treat']")
+							.val(),
+						dd_proc_branch: $("input[name='dd_proc_branch']").val(),
+						verify_flg: $("input[name='verify_flg']").val(),
+						entity_flg: $("input[name='entity_flg']").val(),
+						modify_flg: $("input[name='modify_flg']").val(),
+						del_flg: $("input[name='del_flg']").val(),
+						ver_tm: $("input[name='ver_tm']").val(),
+						entry_tm: $("input[name='entry_tm']").val(),
+						mod_tm: $("input[name='mod_tm']").val(),
+						ver_usr: $("input[name='ver_usr']").val(),
+						entry_usr: $("input[name='entry_usr']").val(),
+						mod_usr: $("input[name='mod_usr']").val(),
+					},
+					noticeDetailsSlabDetails0Entity: {
+						synd_fac_ref: $("input[name='synd_fac_ref']").val(),
+						borr_name: $("input[name='borr_name']").val(),
+						trnc_desc: $("input[name='trnc_desc']").val(),
+						dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+						trnc_curr: $("input[name='trnc_curr']").val(),
+						int_table_code: $("input[name='int_table_code']").val(),
+						int_rate_period: $("input[name='int_rate_period']").val(),
+						int_rate_period1: $("input[name='int_rate_period1']")
+							.val(),
+						int_polate_ch: $("input[name='int_polate_ch']").val(),
+						int_method: $("input[name='int_method']").val(),
+						start_dt: $("input[name='start_dt']").val(),
+						end_dt: $("input[name='end_dt']").val(),
+						min_int: $("input[name='min_int']").val(),
+						max_int: $("input[name='max_int']").val(),
+						margin: $("input[name='margin']").val(),
+						spread: $("input[name='spread']").val(),
+						norm_int_rate: $("input[name='norm_int_rate']").val(),
+						comp_int: $("input[name='comp_int']").val(),
+						int_overdue_princ: $("input[name='int_overdue_princ']")
+							.val(),
+						penal_princ: $("input[name='penal_princ']").val(),
+						penal_int: $("input[name='penal_int']").val(),
+						penal_int_rate: $("input[name='penal_int_rate']").val(),
+						int_pegged: $("input[name='int_pegged']").val(),
+						pegging_review_dt: $("input[name='pegging_review_dt']")
+							.val(),
+						pegging_freq: $("input[name='pegging_freq']").val(),
+						pegging_freq1: $("input[name='pegging_freq1']").val(),
+						int_version_no: $("input[name='int_version_no']").val(),
+						review_slab_start_dt: $(
+							"input[name='review_slab_start_dt']").val(),
+						reason_code: $("input[name='reason_code']").val(),
+						verify_flg: $("input[name='verify_flg']").val(),
+						entity_flg: $("input[name='entity_flg']").val(),
+						modify_flg: $("input[name='modify_flg']").val(),
+						del_flg: $("input[name='del_flg']").val(),
+						ver_tm: $("input[name='ver_tm']").val(),
+						entry_tm: $("input[name='entry_tm']").val(),
+						mod_tm: $("input[name='mod_tm']").val(),
+						ver_usr: $("input[name='ver_usr']").val(),
+						entry_usr: $("input[name='entry_usr']").val(),
+						mod_usr: $("input[name='mod_usr']").val(),
+					},
+					noticeDetailsPayment0Entity: [],
+					/*noticeDetailsIntrestSlab0Entity : []*/
+				};
+
+				$("#row1 tbody tr").each(
+					function () {
+						var row = {};
+						row.verify_flg = $("input[name='verify_flg']").val(),
+							row.entity_flg = $("input[name='entity_flg']")
+								.val(), row.modify_flg = $(
+									"input[name='modify_flg']").val(),
+							row.del_flg = $("input[name='del_flg']").val(),
+							row.ver_tm = $("input[name='ver_tm']").val(),
+							row.entry_tm = $("input[name='entry_tm']")
+								.val(), row.mod_tm = $(
+									"input[name='mod_tm']").val(),
+							row.ver_usr = $("input[name='ver_usr']").val(),
+							row.entry_usr = $("input[name='entry_usr']")
+								.val(), row.mod_usr = $(
+									"input[name='mod_usr']").val(),
+							row.synd_fac_ref = $(
+								"input[name='synd_fac_ref']").val(),
+							row.borr_name = $("input[name='borr_name']")
+								.val(), row.trnc_desc = $(
+									"input[name='trnc_desc']").val(),
+							row.dd_notice_ref = $(
+								"input[name='dd_notice_ref']").val(),
+							row.trnc_curr = $("input[name='trnc_curr']")
+								.val(), row.inst_id = $(this).find(
+									"input[name='inst_id']").val(),
+							row.inst_start_dt = $(this).find(
+								"input[name='inst_start_dt']").val(),
+							row.inst_freq = $(this).find(
+								"input[name='inst_freq']").val(),
+							row.interest_frequency = $(this).find(
+								"input[name='interest_frequency']").val(),
+							row.no_of_inst = $(this).find(
+								"input[name='no_of_inst']").val(),
+							row.inst_amount = $(this).find(
+								"input[name='inst_amount']").val().replace(/,/g, ''),
+							row.maturity_flg = $(this).find(
+								"input[name='maturity_flg']").val(),
+							row.record_flag = $(this).find(
+								"input[name='record_flag']").val(),
+							row.srl_no = $(this).find(
+								"input[name='srl_no']").val(),
+							formData.noticeDetailsPayment0Entity.push(row);
+					});
+
+				/*$("#row2 tbody tr").each(
+						function() {
+							var row = {};
+							row.verify_flg = $("input[name='verify_flg']").val(),
+									row.entity_flg = $("input[name='entity_flg']")
+											.val(), row.modify_flg = $(
+											"input[name='modify_flg']").val(),
+									row.del_flg = $("input[name='del_flg']").val(),
+									row.ver_tm = $("input[name='ver_tm']").val(),
+									row.entry_tm = $("input[name='entry_tm']")
+											.val(), row.mod_tm = $(
+											"input[name='mod_tm']").val(),
+									row.ver_usr = $("input[name='ver_usr']").val(),
+									row.entry_usr = $("input[name='entry_usr']")
+											.val(), row.mod_usr = $(
+											"input[name='mod_usr']").val(),
+									row.synd_fac_ref = $(
+											"input[name='synd_fac_ref']").val(),
+									row.borr_name = $("input[name='borr_name']")
+											.val(), row.trnc_desc = $(
+											"input[name='trnc_desc']").val(),
+									row.dd_notice_ref = $(
+											"input[name='dd_notice_ref']").val(),
+									row.trnc_curr = $("input[name='trnc_curr']")
+											.val(), row.inst_start_dt = $(this)
+											.find("input[name='inst_start_dt']")
+											.val(), row.inst_freq = $(this).find(
+											"input[name='inst_freq']").val(),
+									row.no_of_inst = $(this).find(
+											"input[name='no_of_inst']").val(),
+									row.inst_amount = $(this).find(
+											"input[name='inst_amount']").val(),
+									row.inst_percent = $(this).find(
+											"input[name='inst_percent']").val(),
+									row.record_flag = $(this).find(
+											"input[name='record_flag']").val(),
+									row.srl_no = $(this).find(
+											"input[name='srl_no']").val();
+							formData.noticeDetailsIntrestSlab0Entity.push(row);
+						});*/
+				console.log(formData);
+				$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "./modifyDDNoticeDetails",
+					data: JSON.stringify(formData),
+					success: function (responseText, statusText, xhr, $form) {
+						console.log(responseText);
+						$("#alertmsg").text(responseText);
+						$('#alert').modal("toggle");
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+			}
+		}
+
+
+		function ModifySubmit1(a) {
+			event.preventDefault();
+			if ($("#drawDownDetailsAdd").valid()) {
+
+				var originalDate = $("input[name='dd_notice_date']").val();
+
+				if (originalDate != "") {
+					var parts = originalDate.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_notice_date = day + "-" + month + "-" + year;
+				} else {
+					var dd_notice_date = "";
+				}
+
+				var originalDate1 = $("input[name='dd_value_date']").val();
+
+				if (originalDate1 != "") {
+					var parts = originalDate1.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_value_date = day + "-" + month + "-" + year;
+				} else {
+					var dd_value_date = "";
+				}
+
+				var originalDate2 = $("input[name='dd_notice_exp_date']").val();
+
+				if (originalDate2 != "") {
+					var parts = originalDate2.split(" ");
+					var datePart = parts[0];
+					var dateParts = datePart.split("-");
+					var day = dateParts[0];
+					var month = dateParts[1];
+					var year = dateParts[2];
+					var dd_notice_exp_date = day + "-" + month + "-" + year;
+				} else {
+					var dd_notice_exp_date = "";
+				}
+				var formData = {
+					noticeDetailsGeneral0Entity: {
+						synd_fac_ref: $("input[name='synd_fac_ref']").val(),
+						borr_name: $("input[name='borr_name']").val(),
+						trnc_desc: $("input[name='trnc_desc']").val(),
+						dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+						trnc_curr: $("input[name='trnc_curr']").val(),
+						dd_notice_date: dd_notice_date,
+						dd_value_date: dd_value_date,
+						dd_amount: $("input[name='dd_amount']").val().replace(/,/g, ''),
+						dd_notice_exp_date: dd_notice_exp_date,
+						loan_tenor: $("input[name='loan_tenor']").val(),
+						loan_tenor1: $("input[name='loan_tenor1']").val(),
+						notice_from_cust: $("input[name='notice_from_cust']")
+							.val(),
+						dd_int_pay: $("input[name='dd_int_pay']").val(),
+						tranche_ref_int_pay: $("input[name='tranche_ref_int_pay']")
+							.val(),
+						rate_code_conv: $("input[name='rate_code_conv']").val(),
+						proj_curr: $("input[name='proj_curr']").val(),
+						int_rate_ref_curr: $("input[name='int_rate_ref_curr']")
+							.val(),
+						msg_part_lenders: $("#msg_part_lenders").val(),
+						curr_holiday_treat: $("input[name='curr_holiday_treat']")
+							.val(),
+						dd_proc_branch: $("input[name='dd_proc_branch']").val(),
+						verify_flg: $("input[name='verify_flg']").val(),
+						entity_flg: $("input[name='entity_flg']").val(),
+						modify_flg: $("input[name='modify_flg']").val(),
+						del_flg: $("input[name='del_flg']").val(),
+						ver_tm: $("input[name='ver_tm']").val(),
+						entry_tm: $("input[name='entry_tm']").val(),
+						mod_tm: $("input[name='mod_tm']").val(),
+						ver_usr: $("input[name='ver_usr']").val(),
+						entry_usr: $("input[name='entry_usr']").val(),
+						mod_usr: $("input[name='mod_usr']").val(),
+					},
+					noticeDetailsSlabDetails0Entity: {
+						synd_fac_ref: $("input[name='synd_fac_ref']").val(),
+						borr_name: $("input[name='borr_name']").val(),
+						trnc_desc: $("input[name='trnc_desc']").val(),
+						dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+						trnc_curr: $("input[name='trnc_curr']").val(),
+						int_table_code: $("input[name='int_table_code']").val(),
+						int_rate_period: $("input[name='int_rate_period']").val(),
+						int_rate_period1: $("input[name='int_rate_period1']")
+							.val(),
+						int_polate_ch: $("input[name='int_polate_ch']").val(),
+						int_method: $("input[name='int_method']").val(),
+						start_dt: $("input[name='start_dt']").val(),
+						end_dt: $("input[name='end_dt']").val(),
+						min_int: $("input[name='min_int']").val(),
+						max_int: $("input[name='max_int']").val(),
+						margin: $("input[name='margin']").val(),
+						spread: $("input[name='spread']").val(),
+						norm_int_rate: $("input[name='norm_int_rate']").val(),
+						comp_int: $("input[name='comp_int']").val(),
+						int_overdue_princ: $("input[name='int_overdue_princ']")
+							.val(),
+						penal_princ: $("input[name='penal_princ']").val(),
+						penal_int: $("input[name='penal_int']").val(),
+						penal_int_rate: $("input[name='penal_int_rate']").val(),
+						int_pegged: $("input[name='int_pegged']").val(),
+						pegging_review_dt: $("input[name='pegging_review_dt']")
+							.val(),
+						pegging_freq: $("input[name='pegging_freq']").val(),
+						pegging_freq1: $("input[name='pegging_freq1']").val(),
+						int_version_no: $("input[name='int_version_no']").val(),
+						review_slab_start_dt: $(
+							"input[name='review_slab_start_dt']").val(),
+						reason_code: $("input[name='reason_code']").val(),
+						verify_flg: $("input[name='verify_flg']").val(),
+						entity_flg: $("input[name='entity_flg']").val(),
+						modify_flg: $("input[name='modify_flg']").val(),
+						del_flg: $("input[name='del_flg']").val(),
+						ver_tm: $("input[name='ver_tm']").val(),
+						entry_tm: $("input[name='entry_tm']").val(),
+						mod_tm: $("input[name='mod_tm']").val(),
+						ver_usr: $("input[name='ver_usr']").val(),
+						entry_usr: $("input[name='entry_usr']").val(),
+						mod_usr: $("input[name='mod_usr']").val(),
+					},
+					noticeDetailsPayment0Entity: [],
+					/*noticeDetailsIntrestSlab0Entity : []*/
+				};
+
+				$("#row1 tbody tr").each(
+					function () {
+						var row = {};
+						row.verify_flg = $("input[name='verify_flg']").val(),
+							row.entity_flg = $("input[name='entity_flg']")
+								.val(), row.modify_flg = $(
+									"input[name='modify_flg']").val(),
+							row.del_flg = $("input[name='del_flg']").val(),
+							row.ver_tm = $("input[name='ver_tm']").val(),
+							row.entry_tm = $("input[name='entry_tm']")
+								.val(), row.mod_tm = $(
+									"input[name='mod_tm']").val(),
+							row.ver_usr = $("input[name='ver_usr']").val(),
+							row.entry_usr = $("input[name='entry_usr']")
+								.val(), row.mod_usr = $(
+									"input[name='mod_usr']").val(),
+							row.synd_fac_ref = $(
+								"input[name='synd_fac_ref']").val(),
+							row.borr_name = $("input[name='borr_name']")
+								.val(), row.trnc_desc = $(
+									"input[name='trnc_desc']").val(),
+							row.dd_notice_ref = $(
+								"input[name='dd_notice_ref']").val(),
+							row.trnc_curr = $("input[name='trnc_curr']")
+								.val(), row.inst_id = $(this).find(
+									"input[name='inst_id']").val(),
+							row.inst_start_dt = $(this).find(
+								"input[name='inst_start_dt']").val(),
+							row.inst_freq = $(this).find(
+								"input[name='inst_freq']").val(),
+							row.interest_frequency = $(this).find(
+								"input[name='interest_frequency']").val(),
+							row.no_of_inst = $(this).find(
+								"input[name='no_of_inst']").val(),
+							row.inst_amount = $(this).find(
+								"input[name='inst_amount']").val().replace(/,/g, ''),
+							row.record_flag = $(this).find(
+								"input[name='record_flag']").val(),
+							row.srl_no = $(this).find(
+								"input[name='srl_no']").val(),
+							formData.noticeDetailsPayment0Entity.push(row);
+					});
+
+				/*$("#row2 tbody tr").each(
+						function() {
+							var row = {};
+							row.verify_flg = $("input[name='verify_flg']").val(),
+									row.entity_flg = $("input[name='entity_flg']")
+											.val(), row.modify_flg = $(
+											"input[name='modify_flg']").val(),
+									row.del_flg = $("input[name='del_flg']").val(),
+									row.ver_tm = $("input[name='ver_tm']").val(),
+									row.entry_tm = $("input[name='entry_tm']")
+											.val(), row.mod_tm = $(
+											"input[name='mod_tm']").val(),
+									row.ver_usr = $("input[name='ver_usr']").val(),
+									row.entry_usr = $("input[name='entry_usr']")
+											.val(), row.mod_usr = $(
+											"input[name='mod_usr']").val(),
+									row.synd_fac_ref = $(
+											"input[name='synd_fac_ref']").val(),
+									row.borr_name = $("input[name='borr_name']")
+											.val(), row.trnc_desc = $(
+											"input[name='trnc_desc']").val(),
+									row.dd_notice_ref = $(
+											"input[name='dd_notice_ref']").val(),
+									row.trnc_curr = $("input[name='trnc_curr']")
+											.val(), row.inst_start_dt = $(this)
+											.find("input[name='inst_start_dt']")
+											.val(), row.inst_freq = $(this).find(
+											"input[name='inst_freq']").val(),
+									row.no_of_inst = $(this).find(
+											"input[name='no_of_inst']").val(),
+									row.inst_amount = $(this).find(
+											"input[name='inst_amount']").val(),
+									row.inst_percent = $(this).find(
+											"input[name='inst_percent']").val(),
+									row.record_flag = $(this).find(
+											"input[name='record_flag']").val(),
+									row.srl_no = $(this).find(
+											"input[name='srl_no']").val();
+							formData.noticeDetailsIntrestSlab0Entity.push(row);
+						});*/
+				console.log(JSON.stringify(formData));
+				/*$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "./modifyDDNoticeDetails",
+					data: JSON.stringify(formData),
+					success: function (responseText, statusText, xhr, $form) {
+						console.log(responseText);
+						$("#alertmsg").text(responseText);
+						$('#alert').modal("toggle");
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});*/
+			}
+		}
+
+		// Modify 
+
+		function ModifyPayment(a) {
+			var srl_no = document.getElementById('srl_no').value;
+			var inst_id_11 = document.getElementById('inst_id').value;
+			var inst_start_dt_11 = document.getElementById('inst_start_dt').value;
+			var inst_freq_11 = document.getElementById('inst_freq').value;
+			var no_of_inst_11 = document.getElementById('no_of_inst').value;
+			var inst_amount_11 = document.getElementById('inst_amount').value;
+			var record_flag_11 = document.getElementById('record_flag').value;
+			var rowToUpdate = $("#clik1").find("tr[data-srl_no='" + srl_no + "']");
+			rowToUpdate.find("td:nth-child(1) input").val(inst_id_11);
+			rowToUpdate.find("td:nth-child(2) input").val(inst_start_dt_11);
+			rowToUpdate.find("td:nth-child(3) input").val(inst_freq_11);
+			rowToUpdate.find("td:nth-child(4) input").val(no_of_inst_11);
+			rowToUpdate.find("td:nth-child(5) input").val(inst_amount_11);
+			rowToUpdate.find("td:nth-child(6) input").val(
+				record_flag_11 ? 'Y' : 'N');
+		}
+
+		function ModifyInterestSlab(a) {
+			var srl_no = document.getElementById('srl_no_1').value;
+			var inst_start_dt_11 = document.getElementById('inst_start_dt_1').value;
+			var inst_freq_11 = document.getElementById('inst_freq_1').value;
+			var no_of_inst_11 = document.getElementById('no_of_inst_1').value;
+			var inst_amount_11 = document.getElementById('inst_amount_1').value;
+			var inst_percent_11 = document.getElementById('inst_percent_1').value;
+			var record_flag_11 = document.getElementById('record_flag_1').value;
+			var rowToUpdate = $("#clik2").find("tr[data-srl_no='" + srl_no + "']");
+			rowToUpdate.find("td:nth-child(1) input").val(inst_start_dt_11);
+			rowToUpdate.find("td:nth-child(2) input").val(inst_freq_11);
+			rowToUpdate.find("td:nth-child(3) input").val(no_of_inst_11);
+			rowToUpdate.find("td:nth-child(4) input").val(inst_amount_11);
+			rowToUpdate.find("td:nth-child(5) input").val(inst_amount_11);
+			rowToUpdate.find("td:nth-child(5) input").val(inst_percent_11);
+			rowToUpdate.find("td:nth-child(6) input").val(
+				record_flag_11 ? 'Y' : 'N');
+		}
+
+		function getRepaymentDetails() {
+
+			var INID = document.getElementById("inst_id").value;
+			var ISD = document.getElementById("inst_start_dt").value;
+			var IF = document.getElementById("inst_freq").value;
+			var NOI = document.getElementById("no_of_inst").value;
+			var INA = document.getElementById("inst_amount").value.replace(/,/g, '');
+
+			var IAS = "Fixed";
+
+			var DDA = document.getElementById("dd_amount").value.replace(/,/g, '');
+
+			var IPR = document.getElementById("inst_pct").value;
+
+			let maturity_flg = $('#maturity_flg').prop('checked') ? 'Y' : 'N';
+
+			var interest_freq = document.getElementById("interest_frequency").value;
+
+			console.log(INID + " " + ISD + " " + IF + " " + NOI + " " + INA + " "
+				+ IAS + " " + DDA + " " + IPR + " " + maturity_flg + " " + interest_freq);
+			$
+				.ajax({
+					type: "GET",
+					url: "./calculateRepayment?inst_id=" + INID
+						+ "&inst_start_dt=" + ISD + "&inst_freq=" + IF
+						+ "&no_of_inst=" + NOI + "&inst_amount=" + INA
+						+ "&inst_amt_spec=" + IAS + "&principalAmount="
+						+ DDA + "&inst_pct=" + IPR + "&maturity_flg=" + maturity_flg + "&interest_frequency=" + interest_freq,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+									var formattedDate1 = formatDate(entity.originalDemandDate);
+
+									var formattedDate2 = formatDate(entity.demandDate);
+									var pp = entity.demandType = "P" ? "Principal"
+										: "";
+
+									if (entity.demandAmount > 0) {
+										trHTML += '<tr id="sechduleRow">'
+											+ '<td><input type="text" name="scheduleNo" readonly value="' + entity.scheduleNo + '" /></td>'
+											+ '<td><input type="text" name="originalDemandDate" readonly value="' + formattedDate1 + '" /></td>'
+											+ '<td><input type="text" name="demandDate" readonly value="' + formattedDate2 + '" /></td>'
+											+ '<td><input type="text" name="demandType" readonly value="' + pp + '" /></td>'
+											+ '<td><input type="text" name="demandId" readonly value="' + entity.demandId + '" /></td>'
+											+ '<td><input class="text-right" type="text" readonly name="demandAmount" value="'
+											+ formatNumber(entity.demandAmount)
+											+ '" /></td>'
+											+ '<td><input type="text" name="installmentNo" readonly value="' + entity.installmentNo + '" /></td>'
+											+ '<td><input type="text" name="remarks" readonly value="' + entity.remarks + '" /></td>'
+											+ '</tr>';
+									}
+								});
+						$('#repaymentDet').empty().append(trHTML);
+						$('#scheduleModal').modal('show');
+						$(".modal-backdrop").css({
+							'display': 'none'
+						});
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+		function updateCheckboxValue() {
+			var checkbox = document.getElementById("record_flag");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function updateCheckboxValue1() {
+			var checkbox = document.getElementById("record_flag_1");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function refreshPage() {
+			window.location.reload();
+		}
+
+
+	</script>
+	<script>
+		function SubmitVerify(a) {
+
+			event.preventDefault();
+			var button = document.getElementById('verifyButton');
+			button.disabled = true;
+
+
+			// To check if the object is assigned correctly
+			var dd_notice_ref = a.getAttribute("dd_notice_ref");
+			$.ajax({
+				url: './verifyDDNoticeDetails?dd_notice_ref=' + dd_notice_ref,
+				type: 'POST',
+				success: function (responseText, statusText, xhr, $form) {
+					console.log(responseText);
+
+					var date3 = $("#dd_value_date").val();
+					// Split the input value into day, month, and year
+					var parts = date3.split('-');
+					var day3 = parts[0];
+					var month3 = parts[1];
+					var year3 = parts[2];
+					var formattedDate = `${day3}-${month3}-${year3}`;
+					console.log(formattedDate);
+
+					var DrawDownData = {
+						acid: $("#cif_id").val(),
+						dmd_flw_id: "DISBD",
+						dmd_dt: formattedDate,
+						dmd_amt: $("#dd_amount").val().replace(/,/g, ''),
+						bank_id: $("#bankId").val(),
+						dmd_ccy_cd: $("#ccy").val(),
+						rev_dmd_dt: formattedDate,
+						dd_ref: $("#dd_notice_ref").val(),
+					};
+					console.log(JSON.stringify(DrawDownData));
+
+					//Draw Down Sechdule 
+					$.ajax({
+						type: "POST",
+						url: "./DrawDownSubmit",
+						contentType: 'application/json',
+						data: JSON.stringify(DrawDownData),
+						success: function (data) {
+							console.log("DiSBT " + data);
+							var cif_id = $("#cif_id").val();
+							console.log(cif_id);
+							$
+								.ajax({
+									type: "GET",
+									url: "./bankId?cif_id=" + cif_id,
+									success: function (data) {
+										console.log(data);
+
+
+										var bankId = data;
+
+										var DDA = document.getElementById("dd_amount").value.replace(/,/g, '');
+
+										console.log(cif_id + " "
+											+ bankId + " " + DDA);
+
+										var sechduleData = []; // Initialize as an empty array
+
+										var row1 = $("#row1 tbody tr"); // Select the row directly
+
+										if (row1.length > 0) { // Check if the row exists
+											var instStartDate = row1.find("input[name='inst_start_dt']").val();
+											var InstStartDate = "";
+
+											if (instStartDate != "") {
+												var parts = instStartDate.split("-");
+												var day = parts[0];
+												var month = parts[1];
+												var year = parts[2];
+												InstStartDate = year + "-" + month + "-" + day;
+											}
+
+											var row = {
+
+												dd_notice_ref: $("input[name='dd_notice_ref']").val(),
+												trnc_curr: $("input[name='trnc_curr']").val(),
+												inst_id: row1.find("input[name='inst_id']").val(),
+												inst_start_dt: InstStartDate,
+												inst_freq: row1.find("input[name='inst_freq']").val(),
+												no_of_inst: row1.find("input[name='no_of_inst']").val(),
+												inst_amount: row1.find("input[name='inst_amount']").val().replace(/,/g, ''),
+												inst_amt_spec: "Fixed",
+												inst_pct: row1.find("input[name='inst_pct']").val(),
+												maturity_flg: row1.find("input[name='maturity_flg']").val(),
+												interest_frequency: row1.find("input[name='interest_frequency']").val()
+
+											};
+
+											// Assign the row directly to noticeDetailsPayment0Entity
+											sechduleData = row;
+										}
+										console.log(sechduleData);
+
+
+										$.ajax({
+											type: "POST",
+											url: "./sechduleSubmitFromVerify?acid=" + cif_id + "&bankId="
+												+ bankId + "&principalAmount=" + DDA,
+											contentType: 'application/json',
+											data: JSON.stringify(sechduleData),
+											success: function (data) {
+												console.log("DMD TABLE " + data);
+												$("#alertmsg").text(responseText);
+												$('#alert').modal("toggle");
+
+											},
+											error: function (error) {
+												console.error(error);
+											}
+										});
+
+									},
+									error: function (error) {
+										console.error(error);
+									}
+								});
+
+						},
+						error: function (error) {
+							console.error(error);
+						}
+					});
+
+
+
+				}
+			});
+
+
+
+		}
+
+		function formatNumber(number) {
+			return Number(number).toLocaleString('en-US', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+		}
+
+		// filter
+
+		function filterSyncRec() {
+			var filterInputSyncNo = document.getElementById("filterInputSyncNo").value
+				.toUpperCase();
+			var filterInputBorrName = document
+				.getElementById("filterInputBorrName").value.toUpperCase();
+			var table = document.getElementById("usertableSyncTab");
+			var tr = table.getElementsByTagName("tr");
+			for (var i = 0; i < tr.length; i++) {
+				var tdSyncNo = tr[i].getElementsByTagName("td")[0];
+				var tdCustomerName = tr[i].getElementsByTagName("td")[1];
+				if (tdSyncNo && tdCustomerName) {
+					var cifIdMatches = tdSyncNo.textContent.toUpperCase().indexOf(
+						filterInputSyncNo) > -1;
+					var customerNameMatches = tdCustomerName.textContent
+						.toUpperCase().indexOf(filterInputBorrName) > -1;
+					if (cifIdMatches && customerNameMatches) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+
+		function filterTranRec() {
+			var filterInputSyncNo = document.getElementById("filterInputSynNum").value
+				.toUpperCase();
+			var filterInputBorrName = document
+				.getElementById("filterInputBorrName").value.toUpperCase();
+			var filterInputTranRef = document.getElementById("filterInputTranRef").value
+				.toUpperCase();
+			var table = document.getElementById("usertableTranDet");
+			var tr = table.getElementsByTagName("tr");
+			for (var i = 0; i < tr.length; i++) {
+				var tdSyncNo = tr[i].getElementsByTagName("td")[0];
+				var tdTran = tr[i].getElementsByTagName("td")[1];
+				var tdCustomerName = tr[i].getElementsByTagName("td")[2];
+				if (tdSyncNo && tdTran && tdCustomerName) {
+					var syncMatch = tdSyncNo.textContent.toUpperCase().indexOf(
+						filterInputSyncNo) > -1;
+					var BorNameMatch = tdCustomerName.textContent.toUpperCase()
+						.indexOf(filterInputBorrName) > -1;
+					var tranMatch = tdTran.textContent.toUpperCase().indexOf(
+						filterInputTranRef) > -1;
+					if (syncMatch && BorNameMatch && tranMatch) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+	</script>
+	<!-- <script>
+		$(function () {
+			$("#end_dt, #start_dt").datepicker(
+				{
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					numberOfMonths: 1,
+					gotoCurrent: true,
+					onClose: function (selectedDate, inst) {
+						var id = inst.id;
+						if (id === "start_dt") {
+							// If start date is selected, set minDate for end date
+							var startDate = $.datepicker.parseDate("dd-mm-yy",
+								selectedDate);
+							startDate.setDate(startDate.getDate() + 1);
+							$("#end_dt").datepicker("option", "minDate",
+								startDate);
+						} else if (id === "end_dt") {
+							// If end date is selected, set maxDate for start date
+							$("#start_dt").datepicker("option", "maxDate",
+								selectedDate);
+						}
+					}
+				});
+		});
+
+		$(function () {
+			$("#review_slab_start_dt").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				numberOfMonths: 1,
+				gotoCurrent: true,
+				minDate: new Date(),
+				// maxDate: "+1y",
+				onClose: function (selectedDate) {
+					$("#toDate").datepicker("option", "minDate", selectedDate);
+				}
+			});
+			var currentDate = getCurrentDate();
+			$("#trnc_cr_dt").val(currentDate);
+		});
+
+		$(function () {
+			var currentDate = new Date(); // Get current date
+			$("#dd_notice_date").datepicker(
+				{
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					numberOfMonths: 1,
+					gotoCurrent: true,
+					defaultDate: currentDate, // Set default date to current date
+					onClose: function (selectedDate, inst) {
+						$("#dd_value_date").datepicker("option", "minDate",
+							selectedDate); // Set minDate for dd_value_date
+					}
+				});
+
+			$("#dd_value_date").datepicker(
+				{
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					numberOfMonths: 1,
+					gotoCurrent: true,
+					onClose: function (selectedDate, inst) {
+						$("#dd_notice_exp_date").datepicker("option",
+							"minDate", selectedDate); // Set minDate for dd_notice_exp_date
+					}
+				});
+
+			$("#dd_notice_exp_date").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				numberOfMonths: 1,
+				gotoCurrent: true
+			});
+		});
+	</script> -->
+	<script>
+		//synDetails
+		function synDetails() {
+
+			$("#showSyncRefDet").modal("show");
+			$("#filterInputSyncNo").val("");
+			$("#filterInputBorrName").val("");
+			$("#usertableSyncTab tbody tr").show();
+
+		}
+		//trancheDetails
+		function trancheDetails() {
+			var syn_loan_ref = $("#synd_fac_ref").val();
+			console.log(syn_loan_ref);
+			$
+				.ajax({
+					url: './LSDBTrancheeListbySycNo?syn_loan_ref='
+						+ syn_loan_ref,
+					type: 'GET',
+					success: function (data) {
+						console.log(data);
+						if (data.length > 0) {
+							$("#showTrancheList").modal("show");
+							$("#filterInputSynNum").val("");
+							$("#filterInputTranRef").val("");
+							$("#filterInputBorrName").val("");
+
+							$("#usertableTranDet tbody tr").show();
+						} else {
+							$("#Normalalertmsg").text("Already DrawDown Created For This Tranche");
+							$('#normalAlert').modal("show");
+						}
+					},
+					error: function (error) {
+						console.log("Error fetching data: ", error);
+					}
+				});
+
+
+
+		}
+
+		//trancheCcy
+		function trancheCcy() {
+			$("#tableModalCurrency").modal("show");
+			$("#filterInput1").val("");
+			$("#ccytable tbody tr").show();
+		}
+
+		function crncycode(a) {
+			var cr_code = a.getAttribute("data-ccy");
+
+			$("#int_rate_ref_curr").val(cr_code);
+
+
+
+			$("#tableModalCurrency").modal("hide");
+
+		}
+		function downloadFile() {
+			alert("cc");
+			$.ajax({
+				type: "POST",
+				url: "./downloadFile",
+				success: function (data) {
+					console.log(data);
+				}
+			})
+		}
+	</script>
+	<script>
+		//sechduleSubmit
+
+		function sechduleSubmit() {
+
+			var cif_id = $("#cif_id").val();
+			$
+				.ajax({
+					type: "GET",
+					url: "./bankId?cif_id=" + cif_id,
+					success: function (data) {
+						console.log(data);
+						$("#bankId").val(data);
+						console.log($("#bankId").val(data));
+
+						var IF = document.getElementById("inst_freq").value;
+
+						var ccy = $("#ccy").val();
+						var bankId = $("#bankId").val();
+						var dd_ref = $("#dd_notice_ref").val();
+						console.log(IF + " " + cif_id + " " + ccy + " "
+							+ bankId + " " + dd_ref);
+
+						var sechduleArray = [];
+						$('#repaymentDet tr')
+							.each(
+								function () {
+									var row = {};
+
+									var date = new Date(
+										$(this)
+											.find(
+												"input[name='originalDemandDate']")
+											.val());
+
+									var year = date.getFullYear();
+									var month = ('0' + (date.getMonth() + 1))
+										.slice(-2);
+									var day = ('0' + date.getDate())
+										.slice(-2);
+									var date1 = `${year}-${month}-${day}`;
+
+									var date2 = new Date($(this).find(
+										"input[name='demandDate']")
+										.val());
+
+									var year1 = date2.getFullYear();
+									var month1 = ('0' + (date2
+										.getMonth() + 1)).slice(-2);
+									var day1 = ('0' + date2.getDate())
+										.slice(-2);
+									var date3 = `${year1}-${month1}-${day1}`;
+
+									console
+										.log($(this)
+											.find(
+												"input[name='demandAmount']")
+											.val());
+									var demandAmt = parseFloat($(this)
+										.find(
+											"input[name='demandAmount']")
+										.val().replace(/,/g, ''));
+									console.log(date1);
+									console.log(date3);
+									console.log(demandAmt);
+
+									row.scheduleNo = $(this)
+										.find(
+											"input[name='scheduleNo']")
+										.val(),
+										row.originalDemandDate = date1,
+										row.demandDate = date3,
+										row.demandType = $(this)
+											.find(
+												"input[name='demandType']")
+											.val(),
+										row.demandId = $(this)
+											.find(
+												"input[name='demandId']")
+											.val(),
+										row.demandAmount = demandAmt,
+										row.installmentNo = $(this)
+											.find(
+												"input[name='installmentNo']")
+											.val(),
+										row.remarks = $(this)
+											.find(
+												"input[name='remarks']")
+											.val(),
+										sechduleArray.push(row);
+								});
+
+						$.ajax({
+							type: "POST",
+							url: "./sechduleSubmit?freq_type=" + IF + "&acid="
+								+ cif_id + "&ccy=" + ccy + "&bankId="
+								+ bankId + "&dd_ref=" + dd_ref,
+							contentType: 'application/json',
+							data: JSON.stringify(sechduleArray),
+							success: function (data) {
+								console.log(data);
+								$('#scheduleModal').modal('hide');
+							},
+							error: function (error) {
+								console.error(error);
+							}
+						});
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+
+		}
+	</script>
+
+	<script type="text/javascript">
+		//validations 
+
+		function numberAndLetters(inputElement) {
+			inputElement.value = inputElement.value.replace(/[^0-9a-zA-Z]/g, '')
+				.toUpperCase();
+		}
+
+		function numberOnly(inputElement) {
+			inputElement.value = inputElement.value.replace(/\D/g, '');
+		}
+	</script>
+	<script>
+		function changeDateFormat(dateString) {
+
+			var parts = dateString.split('-');
+
+			return parts[2] + '-' + parts[1] + '-' + parts[0];
+		}
+
+		function formatDate(dateString) {
+
+			var date = new Date(dateString);
+
+
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		//number input
+		function formatNumberWithCommas(number) {
+
+			if (!number && number !== 0) return '';
+			console.log("number : " + number);
+			let numberString = number.toString();
+			console.log("numberString : " + numberString);
+
+			let [integerPart, decimalPart] = numberString.split('.');
+
+			let lastThreeDigits = integerPart.slice(-3);
+			let otherDigits = integerPart.slice(0, -3);
+
+			if (otherDigits !== '') {
+				lastThreeDigits = ',' + lastThreeDigits;
+			}
+
+			let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+			if (!decimalPart) {
+				decimalPart = '00';
+			}
+			let formattedNumber = formattedIntegerPart + '.' + decimalPart;
+			console.log("formattedIntegerPart : " + formattedIntegerPart);
+			console.log("decimalPart : " + decimalPart);
+
+			return formattedNumber;
+		}
+	</script>
+
+	<script>
+		//Sehdule View
+		function sechduleView(a) {
+
+			var INID = document.getElementById("inst_id").value;
+			var ISD = changeDateFormat(document.getElementById("inst_start_dt").value);
+			var IF = document.getElementById("inst_freq").value;
+			var NOI = document.getElementById("no_of_inst").value;
+			var INA = document.getElementById("inst_amount").value.replace(/,/g, '');
+
+			var IAS = "Fixed";
+
+			var DDA = document.getElementById("dd_amount").value.replace(/,/g, '');
+
+			var IPR = document.getElementById("inst_pct").value;
+
+			let maturity_flg = $('#maturity_flg').prop('checked') ? 'Y' : 'N';
+
+			var interest_freq = document.getElementById("interest_frequency").value;
+
+			console.log(INID + " " + ISD + " " + IF + " " + NOI + " " + INA + " "
+				+ IAS + " " + DDA + " " + IPR + " " + maturity_flg + " " + interest_freq);
+			$
+				.ajax({
+					type: "GET",
+					url: "./calculateRepayment?inst_id=" + INID
+						+ "&inst_start_dt=" + ISD + "&inst_freq=" + IF
+						+ "&no_of_inst=" + NOI + "&inst_amount=" + INA
+						+ "&inst_amt_spec=" + IAS + "&principalAmount="
+						+ DDA + "&inst_pct=" + IPR + "&maturity_flg=" + maturity_flg + "&interest_frequency=" + interest_freq,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+									var formattedDate1 = formatDate(entity.originalDemandDate);
+
+									var formattedDate2 = formatDate(entity.demandDate);
+									var pp = entity.demandType = "P" ? "Principle"
+										: "";
+									if (entity.demandAmount > 0) {
+										trHTML += '<tr id="sechduleRow">'
+											+ '<td><input type="text" class="borderRemove" name="scheduleNo" readonly value="' + entity.scheduleNo + '" /></td>'
+											+ '<td><input type="text" class="borderRemove" name="originalDemandDate" readonly value="' + formattedDate1 + '" /></td>'
+											+ '<td><input type="text" class="borderRemove" name="demandDate" readonly value="' + formattedDate2 + '" /></td>'
+											+ '<td><input type="text" class="borderRemove" name="demandType" readonly value="' + pp + '" /></td>'
+											+ '<td><input type="text" class="borderRemove" name="demandId" readonly value="' + entity.demandId + '" /></td>'
+											+ '<td><input class="text-right borderRemove" type="text" readonly name="demandAmount" value="'
+											+ formatNumber(entity.demandAmount)
+											+ '" /></td>'
+											+ '<td><input type="text" class="borderRemove" name="installmentNo" readonly value="' + entity.installmentNo + '" /></td>'
+											+ '<td><input type="text" class="borderRemove" name="remarks" readonly value="' + entity.remarks + '" /></td>'
+											+ '</tr>';
+									}
+								});
+						$('#sehduleViewDetails').empty().append(trHTML);
+						$('#scheduleModalView').modal('show');
+						$(".modal-backdrop").css({
+							'display': 'none'
+						});
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+		// Old Schedule View For Reference
+		/*function sechduleView(a) {
+			var inst_Id = $("#inst_id").val();
+			var dd_ref = $("#dd_notice_ref").val();
+			console.log("DD_Ref : " + dd_ref + "Inst_Id : " + inst_Id);
+
+			$
+				.ajax({
+					type: "GET",
+					url: "./sehduleViewForDDN?dd_ref=" + dd_ref
+						+ "&inst_Id=" + inst_Id,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+									var originalDemandDate = new Date(
+										entity.dmd_dt);
+									originalDemandDate
+										.setDate(originalDemandDate
+											.getDate() + 1);
+									var formattedDate1 = originalDemandDate
+										.toISOString().split('T')[0];
+									var demandDate = new Date(
+										entity.rev_dmd_dt);
+									demandDate.setDate(demandDate
+										.getDate() + 1);
+									var formattedDate2 = demandDate
+										.toISOString().split('T')[0];
+
+									trHTML += '<tr id="sechduleRowView">'
+										+ '<td><input type="text" name="scheduleNo" class="borderRemove" readonly value="' + entity.shdl_id + '" /></td>'
+										+ '<td><input type="text" name="originalDemandDate" class="borderRemove" readonly value="' + formattedDate1 + '" /></td>'
+										+ '<td><input type="text" name="demandDate" class="borderRemove" readonly value="' + formattedDate2 + '" /></td>'
+
+										+ '<td><input type="text" name="demandId" class="borderRemove" readonly value="' + entity.dmd_flw_id + '" /></td>'
+										+ '<td><input class="text-right borderRemove" type="text"  readonly name="demandAmount" value="'
+										+ formatNumber(entity.dmd_amt)
+										+ '" /></td>'
+										+ '<td><input type="text" name="installmentNo" class="borderRemove" readonly value="' + entity.dmd_srl_num + '" /></td>'
+
+										+ '</tr>';
+								});
+						$('#sehduleViewDetails').empty().append(trHTML);
+						$('#scheduleModalView').modal('show');
+						$(".modal-backdrop").css({
+							'display': 'none'
+						});
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}*/
+	</script>
+	<script>
+		//Mandatory Fields Working (Praveen)
+		function commanValues() {
+			console.log("common values check");
+
+			var syn_fac_ref = $('#synd_fac_ref').val();
+			var tran_ref = $('#trnc_desc').val();
+			var notice_ref = $('#dd_notice_ref').val();
+
+			var value;
+
+			if (syn_fac_ref === "") {
+				$("#Normalalertmsg").text("Fill Syndication ref");
+				$('#normalAlert').modal("toggle");
+				value = false;
+			}
+			else if (tran_ref === "") {
+				$("#Normalalertmsg").text("Fill Tranche Ref ");
+				$('#normalAlert').modal("toggle");
+				value = false;
+			}
+			else if (notice_ref === "") {
+				$("#Normalalertmsg").text("Fill Draw Down Ref ");
+				$('#normalAlert').modal("toggle");
+				value = false;
+			}
+			else {
+				value = true;
+			}
+
+			return value;
+
+		}
+
+
+		function tab1Value() {
+
+			console.log("tab1 values check");
+
+			var notice_date = $('#dd_notice_date').val();
+			var value_date = $('#dd_value_date').val();
+			var expiry_date = $('#dd_notice_exp_date').val();
+
+
+			var value;
+
+			if (notice_date === "") {
+				$("#Normalalertmsg").text("Fill Tranche Reference");
+				$('#normalAlert').modal("toggle");
+				value = false;
+				openTab(event, 'tab1');
+			}
+			else if (value_date === "") {
+				$("#Normalalertmsg").text("Fill Role");
+				$('#normalAlert').modal("toggle");
+				value = false;
+				openTab(event, 'tab1');
+			}
+			else if (expiry_date === "") {
+				$("#Normalalertmsg").text("Fill Tranche Creation Date");
+				$('#normalAlert').modal("toggle");
+				value = false;
+				openTab(event, 'tab1');
+			}
+			else {
+				value = true;
+			}
+			return value;
+		}
+
+		function Schedulerecord() {
+			var loanAccount = $('#dd_notice_ref').val();
+
+			if (loanAccount) {
+				location.href = './accountLedgerLoan?formmode=schedule&loanAccount='
+					+ loanAccount;
+			} else {
+				$("#Normalalertmsg").text("Choose loan Account");
+				$('#normalAlerts').modal("toggle");
+			}
+		}
+
+
+
+
+	</script>
+</head>
+<title>BGLS</title>
+
+<body>
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<div class="container-manager">
+		<div class="row">
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+				<div th:if="${formmode}=='list'" class="mt-5">
+					<div class="card">
+
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem;">LEASE LOAN - LIST </h6>
+							</div>
+							<!--<div class="btn-group nav-buttons float-right">
+								<button type="button" class="btn btn-primary p-2" id="btnAdd"
+									onclick="addscreen();">ADD</button>
+
+							</div>-->
+
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+
+
+
+
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead class="thead-light">
+										<tr class="filters">
+											<th class="pl-3">LOAN ACCT NUM </th>
+											<th>LOAN REF</th>
+											<th>BORROWER NAME</th>
+
+
+											<th>Status</th>
+											<th><b>Action</b></th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="getDDDet : ${getDDDetails}" style="cursor: pointer;">
+											<td class="pl-3" th:text="${getDDDet.dd_notice_ref}"></td>
+											<td style="width: 60px;" th:text="${getDDDet.trnc_desc}"></td>
+											<td style="width: 60px;" th:text="${getDDDet.borr_name}"></td>
+
+
+											<td th:style="${getDDDet?.verify_flg == 'Y' ? 'color: green;' : 'color: red;'}"
+												th:text="${getDDDet?.verify_flg == 'Y' ? 'Verified' : 'UnVerified'}">
+											</td>
+											<td>
+												<div class="dropdown" th:if="${getDDDet?.verify_flg == 'Y'}">
+													<button class="btn btn-secondary dropdown-toggle" type="button"
+														id="dropdownMenuButton" title="Action"
+														style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">Action</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+														style="background-color: #e3e3e4; color: #3a4550;">
+														<a th:attr="data-dd_notice_ref = ${getDDDet.dd_notice_ref}"
+															class="dropdown-item" title=" Modify"
+															style="cursor: pointer;" onclick="modifyeditview(this)"
+															th:if="${workClass} == 'M'">Modify</a>
+														<div class="dropdown-divider"></div>
+														<a th:attr="data-dd_notice_ref = ${getDDDet.dd_notice_ref},data-synd_fac_ref = ${getDDDet.synd_fac_ref}"
+															class="dropdown-item" title="verify"
+															style="cursor: pointer;" onclick="inquaryeditlistz(this)"
+															id="verify_btn">Inquiry </a>
+														<div class="dropdown-divider"></div>
+													</div>
+												</div>
+												<div class="dropdown" th:if="${getDDDet?.verify_flg != 'Y'}">
+													<button class="btn btn-secondary dropdown-toggle" type="button"
+														id="dropdownMenuButton" title="Action"
+														style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">Action</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+														style="background-color: #e3e3e4; color: #3a4550;">
+														<a th:attr="data-dd_notice_ref = ${getDDDet.dd_notice_ref},data-synd_fac_ref = ${getDDDet.synd_fac_ref}"
+															class="dropdown-item" title="View" style="cursor: pointer"
+															onclick="verifyeditlistz(this)" id="view_btn">Verify </a>
+														<div class="dropdown-divider"></div>
+														<a th:attr="data-dd_notice_ref = ${getDDDet.dd_notice_ref},data-synd_fac_ref = ${getDDDet.synd_fac_ref}"
+															class="dropdown-item" title="verify"
+															style="cursor: pointer;" onclick="inquaryeditlistz(this)"
+															id="verify_btn">Inquiry </a>
+														<div class="dropdown-divider"></div>
+														<a th:attr="data-dd_notice_ref = ${getDDDet.dd_notice_ref},data-synd_fac_ref = ${getDDDet.synd_fac_ref}"
+															class="dropdown-item" title="Modify"
+															style="cursor: pointer;"
+															onclick="modifyeditview1(this)">Modify
+														</a>
+														<div class="dropdown-divider"></div>
+														<a th:attr="data-dd_notice_ref = ${getDDDet.dd_notice_ref},data-synd_fac_ref = ${getDDDet.synd_fac_ref}"
+															class="dropdown-item" title="Delete"
+															style="cursor: pointer;"
+															onclick="deleteUnverified(this)">Delete
+														</a>
+														<div class="dropdown-divider"></div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							<button class="btn btn-primary p-2" id="btnHome" onclick=" home();">Home</button>
+							<button class="btn btn-primary p-2" id="btnBack" onclick="back();">Back</button>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='add'" class="mt-5">
+					<input type="text" id="cif_id" style="display: none" readonly>
+					<input type="text" id="ccy" style="display: none" readonly>
+					<input type="text" id="bankId" style="display: none" readonly>
+					<div class="card">
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem;" class="ml-3">LEASE LOAN - ADD </h6>
+							</div>
+
+
+
+						</div>
+						<div class="card-body">
+							<form action="#" th:object="${drawDownDetails}" method="post" id="drawDownDetailsAdd"
+								autocomplete="off" name="drawDownDetailsData" th:fragment="finuserapply">
+
+
+
+								<!--<div class="row formline mt-3 ml-3">
+									<div class="col-sm-2">Function:</div>
+									<div class="col-sm-2">
+										<input type="text" value="Add" readonly />
+									</div>
+									<div class="col-sm-2 d-flex">Loan Acct No<span style="color: red;">*</span>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" name="synd_fac_ref" id="synd_fac_ref" readonly> <a
+											role="button" onclick="synDetails()" style="margin-left: -12px;"
+											class="btn btn-filters  fa fa-search"></a>
+									</div>
+									<div class="col-sm-2">Loan Ref:<span style="color: red;">*</span></div>
+									<div class="col-sm-2 ">
+										<input type="text" id="trnc_desc" name="trnc_desc" readonly />
+										<a role="button" onclick="trancheDetails()" style="margin-left: -12px;"
+											class="btn btn-filters  fa fa-search"></a>
+									</div>
+								</div>
+								<div class="row formline mb-3 ml-3">
+
+									<div class="col-sm-2">Borrower Name:</div>
+									<div class="col-sm-2 ">
+										<input type="text" name="borr_name" id="borr_name" readonly />
+									</div>
+									<div class="col-sm-2">Currency:</div>
+									<div class="col-sm-2 ">
+										<input type="text" id="trnc_curr" name="trnc_curr" readonly />
+									</div>
+								</div>-->
+
+								<div class="tab row formline ml-3"
+									style="padding: 4px 4px; position: relative; font-size: 13px;width:98%;">
+									<!-- Tab buttons -->
+									<div class="col-sm-1"></div>
+									<div class="col-sm-3">
+										<button class="tablinks active " id="smooth1" style="width: 200px;"
+											onclick="openTab(event, 'tab1')">Loan
+											Details</button>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-3">
+										<button class="tablinks" id="smooth2" style="width: 200px;"
+											onclick="openTab(event, 'tab2')">Repayment Details</button>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-3">
+										<button class="tablinks" id="smooth3" style="width: 200px;"
+											onclick="openTab(event, 'tab3')">Interest Slab
+											Details</button>
+									</div>
+								</div>
+								<div class="">
+									<div id="tab1" class="tabcontent" style="display: block;">
+										<div class="row formline mt-2  ml-2">
+
+											<div class="col-sm-2">
+												<label>Branch Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="dd_notice_date" id="dd_notice_date" />
+											</div>
+											<div class="col-sm-2">
+												<label>Barnch Des</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="dd_value_date" id="dd_value_date" />
+											</div>
+											<div class="col-sm-2">
+												<label>Loan Type</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="dd_amount" name="dd_amount"
+													oninput="numberOnly(this)">
+											</div>
+										</div>
+										<div class="row formline  ml-2 mt-1">
+											<div class="col-sm-2">
+												<label>Customer Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="dd_notice_exp_date" id="dd_notice_exp_date" />
+											</div>
+											<div class="col-sm-2">
+												<label>Customer Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_tenor" id="loan_tenor" />
+											</div>
+											<div class="col-sm-2">
+												<label> Date Of loan</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_tenor" id="loan_tenor" />
+											</div>
+										</div>
+										<div class="row formline  ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Loan Acct No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_tenor" id="loan_tenor" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Loan Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="tranche_ref_int_pay"
+													id="tranche_ref_int_pay" />
+											</div>
+											<div class="col-sm-2">
+												<label>Purpose Of loan</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+
+											</div>
+										</div>
+										<div class="row formline ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Amt Santioned</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Margin limit</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="msg_part_lenders" name="msg_part_lenders" />
+											</div>
+											<div class="col-sm-2">
+												<label>Drawing Limit</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+
+											</div>
+										</div>
+										<div class="row formline ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Disbursement</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Loan Outstanding</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="msg_part_lenders" name="msg_part_lenders" />
+											</div>
+											<div class="col-sm-2">
+												<label>Loan Period</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+
+											</div>
+										</div>
+										<div class="row formline ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Expiry Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Repayment terms</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="msg_part_lenders" name="msg_part_lenders" />
+											</div>
+											<div class="col-sm-2">
+												<label>Recovery Method</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr" />
+
+											</div>
+										</div>
+										<div class="card-footer text-center mt-2">
+											<button class="btn btn-primary p-2" onclick="home();">Home</button>
+											<button class="btn btn-primary p-2" onclick="submitparam()">Submit</button>
+											<button class="btn btn-primary p-2" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab2" class="tabcontent" style="display: none;">
+										<div class="table-responsive mt-2">
+											<table id="row3" class="table table-bordered">
+												<thead style="background-color: #f1f1f1">
+													<tr>
+														<td><b style="font-size: 15px;">Installment ID</b></td>
+														<td><b style="font-size: 15px;">Installment Start
+																Date</b></td>
+														<td><b style="font-size: 15px;">Principal Installment
+																Freq</b></td>
+														<td><b style="font-size: 15px;">No Of Installments</b></td>
+														<td><b style="font-size: 15px;">Installment Amt</b></td>
+														<td><b style="font-size: 15px;">Installment %</b></td>
+
+														<td><button class="btn btn-primary p-2"
+																th:attr="data-formmode=${formmode}"
+																th:if="${formmode}=='add'"
+																onclick="AddPaymentDet();">Add</button>
+														</td>
+													</tr>
+												<tbody id="clik3"></tbody>
+											</table>
+										</div>
+										<br>
+										<div class="row formline mt-2" style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Installment ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" id="inst_id" value="1" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment Start Date</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_start_date" />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment Amt Specified</label>
+											</div>
+											<div class="col-sm-2">
+												<label> <input type="radio" value="Fixed" id="inst_amt_spec1"
+														class="inst_amt_specFixed mr-2" name="inst_amt_spec"
+														style="width: unset !important" disabled>Fixed
+												</label> <label> <input type="radio" value="Percentage"
+														id="inst_amt_spec" class="inst_amt_specPct ml-2 mr-2"
+														name="inst_amt_spec" style="width: unset !important"
+														disabled>Percentage
+												</label>
+											</div>
+										</div>
+										<div class="row formline mt-2" style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Cap At Maturity ?</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<label> <input type="radio" value="Y" id="maturity_flg1"
+														name="maturity_flg" style="width: unset !important"
+														onclick="updateInterestFreq();"> Yes
+												</label> <label> <input type="radio" value="N" id="maturity_flg"
+														name="maturity_flg" style="width: unset !important"
+														onclick="updateInterestFreq();"> No
+												</label>
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Principal Installment Freq</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<select id="inst_freq1">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>
+
+
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<label for="tranche_amt">Interest Installment Freq</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<select id="interest_freq">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>
+
+												</select>
+											</div>
+
+										</div>
+										<div class="row formline mt-2" style="padding: 1px 0px 10px 35px;">
+											<div class="col-sm-2">
+												<label for="">No of Installment</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" id="no_of_inst" oninput="calculatePercentage()" />
+											</div>
+											<div class="col-sm-2">
+												<label for="tranche_amt">Installment Amount </label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" oninput="validateInput(this)" id="inst_amt" />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment (%)</label><span style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_pct" autocomplete="off" />
+											</div>
+
+
+
+										</div>
+										<div class="row formline mt-2" style="padding: 1px 0px 10px 35px;">
+											<div class="col-sm-2">
+												<label for="tranche_amt">Record </label>
+											</div>
+											<div class="col-sm-2">
+												<label for="delete"> <input type="checkbox" id="record"
+														style="width: unset !important" class="mr-2">Delete
+												</label>
+											</div>
+										</div>
+										<div class="card-footer text-center">
+											<button class="btn btn-primary" id="btnHome"
+												onclick="window.location.href='/.Dashboard';">Home</button>
+											<!-- <button class="btn btn-primary"
+										th:if="${formmode}=='modify' OR ${formmode}=='add' ">Validate</button> -->
+											<button type="button" class="btn btn-primary p-2"
+												onclick="getRepaymentDetails()">Schedule</button>
+											<button class="btn btn-primary" onclick="submitparam2();"
+												th:attr="data-formmode=${formmode}" id="detsubmit"
+												th:if="${formmode}=='modify' OR ${formmode}=='add' ">Submit</button>
+											<button class="btn btn-primary" id="btnBack"
+												onclick="generalback()">Back</button>
+										</div>
+									</div>
+									<div id="tab3" class="tabcontent" style="display: none;">
+										<div class="row formline mt-3 ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Interest Table Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_table_code" id="int_table_code" />
+												<!--	<div type="button" id="searchbutton"
+														class=" btn btn-filters fa fa-search " data-toggle="modal"
+														data-target="#tableModal2" style="margin-left: -12px;"></div>  -->
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Rate Period(MM/DD)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_period" id="int_rate_period"
+													class="mmdd" oninput="numberOnly(this)" /> <input type="text"
+													name="int_rate_period1" class="mmdd ml-2" id="int_rate_period1"
+													oninput="numberOnly(this)" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Polate for Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<label><input class="mr-2" type="radio" name="int_polate_ch"
+														id="int_polate_ch" value='Y'
+														style="width: unset !important" />Yes</label> <label><input
+														class="mr-2 ml-2" type="radio" name="int_polate_ch"
+														id="int_polate_ch1" value='N'
+														style="width: unset !important" />No</label>
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Method of Interpolation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_method" id="int_method" />
+											</div>
+											<div class="col-sm-2">
+												<label>Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="start_dt" id="start_dt" />
+											</div>
+
+											<div class="col-sm-2">
+												<label> End Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="end_dt" id="end_dt" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Min Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="min_int" id="min_int" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Max Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="max_int" id="max_int" />
+											</div>
+											<div class="col-sm-2">
+												<label>Margin (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="margin" id="margin" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Spread (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="spread" id="spread" />
+											</div>
+											<div class="col-sm-2">
+												<label>Normal Interest Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="norm_int_rate" id="norm_int_rate" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Compound Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="comp_int" id="comp_int" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Interest on Overdue Principal</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_overdue_princ" id="int_overdue_princ" />
+											</div>
+											<div class="col-sm-2">
+												<label>Penalty on Principal</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="penal_princ" id="penal_princ" />
+											</div>
+											<div class="col-sm-2">
+												<label>Penalty on Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="penal_int" id="penal_int" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Penal Interest Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="penal_int_rate" id="penal_int_rate" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Pegged</label>
+											</div>
+											<div class="col-sm-2">
+												<label><input class="mr-2" type="radio" name="int_pegged"
+														id="int_pegged" value='Y'
+														style="width: unset !important" />Yes</label> <label><input
+														class="mr-2 ml-2" type="radio" name="int_pegged"
+														id="int_pegged1" value='N'
+														style="width: unset !important" />No</label>
+											</div>
+											<div class="col-sm-2">
+												<label>Pegging Review Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="pegging_review_dt" id="pegging_review_dt" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Pegging Frequency(MM/DD)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="pegging_freq" id="pegging_freq" class="mmdd "
+													oninput="numberOnly(this)" /> <input type="text"
+													name="pegging_freq1" id="pegging_freq1" class="mmdd ml-2"
+													oninput="numberOnly(this)" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Version No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_version_no" id="int_version_no" />
+											</div>
+											<div class="col-sm-2">
+												<label>Review on Slab Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="review_slab_start_dt"
+													id="review_slab_start_dt" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Reason Code</label>
+											</div>
+											<div class="col-sm-2 mb-3">
+												<input type="text" name="reason_code" id="reason_code" />
+											</div>
+										</div>
+										<div class="card-footer text-center">
+											<button class="btn btn-primary p-2" onclick="home();">Home</button>
+											<button class="btn btn-primary p-2" onclick="addFormSubmit(this)"
+												id="addSubmitData">Submit</button>
+											<button class="btn btn-primary p-2" onclick="back();">Back</button>
+										</div>
+									</div>
+								</div>
+								<table
+									Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+									<tr>
+										<td class="col-sm-2" style="text-align: center;">
+											<font size="2"><B>Entry User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input
+												type="text" id="entryuser" th:value="${session.USERNAME}"
+												name="ub.entryuser"
+												style=" border: none; outline: none; background-color: transparent; font-size: 12px;"
+												readonly>
+										</td>
+										<td class="col-sm-2" style="text-align: center;">
+											<font size="2"><B>Modify User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px;"><input type="text" id="modifyuser"
+												th:value="${session.USERNAME}" name="ub.modifyuser" value="MMR"
+												style=" border: none; outline: none; background-color: transparent; font-size: 12px;"
+												readonly>
+										</td>
+										<td class="col-sm-2" style="text-align: center;">
+											<font size="2"><B>Verify User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px;"><input type="text" id="verifyuser"
+												name="ub.verifyuser"
+												style=" border: none; outline: none; background-color: transparent; font-size: 12px;"
+												readonly>
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align: center;">
+											<font size="2"><B>Entry
+													Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="entrytime" name="ub.entrytime"
+												style=" border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+										<td style="text-align: center;">
+											<font size="2"><B>Modify
+													Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="modifytime" name="ub.modifytime"
+												style=" border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+												readonly>
+										</td>
+										<td style="text-align: center; font-size: 15px;">
+											<font size="2"><B>Verify Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="verifytime" name="ub.verifytime"
+												style=" border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+												readonly>
+										</td>
+									</tr>
+								</table>
+
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='inquiry' or ${formmode}=='verify'" class="mt-5">
+					<div class="card">
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 th:if="${formmode}=='verify'" style="font-size: 1.2rem;" class="ml-3">LEASE LOAN -
+									VERIFY </h6>
+								<h6 th:if="${formmode}=='inquiry'" style="font-size: 1.2rem;" class="ml-3">LEASE LOAN -
+									VIEW
+								</h6>
+							</div>
+
+							<div class="float-right">
+								
+								<button class="btn btn-primary" id="btnSubmit" onclick="Schedulerecord(this)">Demand
+									Schedule</button>
+							</div>
+
+
+
+						</div>
+
+						<div class="card-body">
+
+							<!--<div class="row formline mt-2 ml-2">
+								<div class="col-sm-2" font-size=10px>Function:</div>
+								<div class="col-sm-2">
+									<input type="text" value="Inquiry" readonly th:if="${formmode}=='inquiry'" />
+									<input type="text" value="Verify" readonly th:if="${formmode}=='verify'" />
+								</div>
+								<div class="col-sm-2">Loan Acct NO</div>
+								<div class="col-sm-2">
+									<input type="text" th:value="${getGeneralDetails?.synd_fac_ref}" readonly />
+								</div>
+								<div class="col-sm-2">Loan Ref</div>
+								<div class="col-sm-2">
+									<input type="text" id="trnc_desc" name="trnc_desc"
+										th:value="${getGeneralDetails?.trnc_desc}" readonly />
+								</div>
+							</div>-->
+							<input type="text" id="cif_id" style="display: none" readonly
+								th:value="${getFacilityDetails?.cif_id}"> <input type="text" id="ccy"
+								style="display: none" readonly th:value="${getFacilityDetails?.ccy}">
+							<!--<div class="row formline mb-3 ml-2 mt-2">
+
+								<div class="col-sm-2">Borrower Name:</div>
+								<div class="col-sm-2 ">
+									<input type="text" th:value="${getGeneralDetails?.borr_name}" readonly />
+								</div>
+								<div class="col-sm-2"> Currency</div>
+								<div class="col-sm-2 ">
+									<input type="text" id="trnc_curr" name="trnc_curr"
+										th:value="${getGeneralDetails?.trnc_curr}" readonly />
+								</div>
+							</div>-->
+
+							<div class="tab row formline ml-3"
+								style="padding: 4px 4px; position: relative; font-size: 13px;width:98%;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-3">
+									<button class="tablinks active" id="smooth1" style="width: 200px;"
+										onclick="openTab(event, 'tab1')">Loan
+										Details</button>
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-3">
+									<button class="tablinks" id="smooth2" style="width: 200px;"
+										onclick="openTab(event, 'tab2')">Repayment Details</button>
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-3">
+									<button class="tablinks" id="smooth3" style="width: 200px;"
+										onclick="openTab(event, 'tab3')">Interest Slab
+										Details</button>
+								</div>
+							</div>
+							<div>
+								<div id="tab1" class="tabcontent" style="display: block;">
+									<div class="row formline mt-2  ml-2">
+
+										<div class="col-sm-2">
+											<label>Branch Id</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="dd_notice_date" id="dd_notice_date" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Barnch Des</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="dd_value_date" id="dd_value_date" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Loan Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="" name="dd_amount" oninput="numberOnly(this)"
+												readonly>
+										</div>
+									</div>
+									<div class="row formline  ml-2 mt-1">
+										<div class="col-sm-2">
+											<label>Customer Id</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="dd_notice_exp_date" id="dd_notice_exp_date"
+												readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Customer Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="loan_tenor" id="loan_tenor" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label> Date Of loan</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="loan_tenor" id="loan_tenor" readonly />
+										</div>
+									</div>
+									<div class="row formline  ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Loan Acct No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="loan_tenor" id="dd_notice_ref"
+												th:value="${getGeneralDetails?.dd_notice_ref}" readonly />
+										</div>
+
+										<div class="col-sm-2">
+											<label>Loan Currency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="tranche_ref_int_pay" id="tranche_ref_int_pay"
+												readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Purpose Of loan</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+												readonly />
+
+										</div>
+									</div>
+									<div class="row formline ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Amt Santioned</label>
+										</div>
+										<div class="col-sm-2">
+											<input readonly type="text" name="int_rate_ref_curr" id="dd_amount"
+												th:value="${getGeneralDetails?.dd_amount == 0 ? '0.00' :#numbers.formatDecimal(getGeneralDetails?.dd_amount, 0, 'COMMA', 2, 'POINT')}" />
+										</div>
+										<div class="col-sm-2 ">
+											<label>Margin limit</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="msg_part_lenders" name="msg_part_lenders" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Drawing Limit</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+												readonly />
+
+										</div>
+									</div>
+									<div class="row formline ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Disbursement</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+												readonly />
+										</div>
+										<div class="col-sm-2 ">
+											<label>Loan Outstanding</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="msg_part_lenders" name="msg_part_lenders" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Loan Period</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+												readonly />
+
+										</div>
+									</div>
+									<div class="row formline ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+												readonly />
+										</div>
+										<div class="col-sm-2 ">
+											<label>Repayment terms</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="msg_part_lenders" name="msg_part_lenders" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Recovery Method</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+												readonly />
+
+										</div>
+									</div>
+									<div class="card-footer text-center mt-2">
+										<button class="btn btn-primary p-2" onclick="home();">Home</button>
+										<button class="btn btn-primary p-2" onclick="submitparam()">Submit</button>
+										<button class="btn btn-primary p-2" onclick="back();">Back</button>
+									</div>
+								</div>
+
+								<div id="tab2" class="tabcontent" style="display: none;">
+									<div class="table-responsive mt-2 ml-3 scroll">
+										<table id="row1" class="table table-bordered" style="width: 100%;">
+											<thead style="background-color: #f1f1f1">
+												<tr>
+													<td><b style="font-size: 15px;">Installment Id</b></td>
+													<td><b style="font-size: 15px;">Installment start
+															Date</b></td>
+													<td><b style="font-size: 15px;">Principal Installment
+															Freq</b></td>
+													<td><b style="font-size: 15px;">No Of Installment</b></td>
+													<td><b style="font-size: 15px;">Installment
+															Amount</b></td>
+													<td><b style="font-size: 15px;">Select</b></td>
+												</tr>
+											</thead>
+											<tbody id="clik1">
+												<tr th:each="getPaymentDet : ${getPaymentDetails}">
+													<td><input type="text" name="inst_id"
+															th:value="${getPaymentDet?.inst_id}" class="borderRemove"
+															readonly /></td>
+													<td><input type="text" name="inst_start_dt"
+															th:value="${#dates.format(getPaymentDet?.inst_start_dt, 'dd-MM-yyyy')}"
+															class="borderRemove" readonly />
+													</td>
+													<td><input type="text" name="inst_freq"
+															th:value="${getPaymentDet?.inst_freq}" class="borderRemove"
+															readonly /></td>
+													<td><input type="text" name="no_of_inst"
+															th:value="${getPaymentDet?.no_of_inst}" class="borderRemove"
+															readonly /></td>
+
+													<td><input type="text" name="inst_amount"
+															th:value="${getPaymentDet?.inst_amount == 0 ? '0.00' :#numbers.formatDecimal(getPaymentDet?.inst_amount, 0, 'COMMA', 2, 'POINT')}"
+															class="borderRemove" readonly /></td>
+
+													<td hidden><input type="text" name="inst_pct"
+															th:value="${getPaymentDet?.inst_pct}" class="borderRemove"
+															readonly /></td>
+													<td hidden><input type="text" name="maturity_flg"
+															th:value="${getPaymentDet?.maturity_flg}"
+															class="borderRemove" readonly /></td>
+													<td hidden><input type="text" name="interest_frequency"
+															th:value="${getPaymentDet?.interest_frequency}"
+															class="borderRemove" readonly /></td>
+													<td><input type="radio" id="btnclick" name="btnradio"
+															th:attr="data-dd_notice_ref = ${getPaymentDet.dd_notice_ref},data-srl_no = ${getPaymentDet.srl_no}"
+															onclick="paymentview(this);" /></td>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<hr>
+
+									<div id="paymentviewID" style="display: none;">
+										<div class="row formline mb-2 ml-2">
+											<div class="col-sm-2">
+												<label>Installment Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_id" readonly>
+											</div>
+
+											<div class="col-sm-2">
+												<label>Installment Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_start_dt" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Instalment Amt Specifiedin </label>
+											</div>
+											<div class="col-sm-2">
+												<label><input type="radio" value="Fixed" id="inst_amt_spec"
+														class="inst_amt_specFixed mr-2" name="inst_amt_spec"
+														style="width: unset !important" disabled>Fixed</label>
+												<label><input type="radio" value="Percentage" id="inst_amt_spec1"
+														class="inst_amt_specPct mr-2 ml-2" name="inst_amt_spec"
+														style="width: unset !important" disabled>Percentage</label>
+											</div>
+
+										</div>
+										<div class="row formline mb-2 ml-2">
+											<div class="col-sm-2">
+												<label>Cap At Maturity?</label>
+											</div>
+											<div class="col-sm-2">
+												<label> <input style="width: unset !important" class="mr-2 ml-2"
+														type="radio" id="maturity_flg" name="maturity_flg" disabled>Yes
+												</label> <label> <input style="width: unset !important"
+														class="mr-2 ml-2" type="radio" id="maturity_flg1"
+														name="maturity_flg" disabled>No
+												</label>
+											</div>
+
+
+											<div class="col-sm-2">
+												<label>Principal Installment Freq</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_freq" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Installment Freq</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="interest_frequency" readonly />
+											</div>
+
+
+										</div>
+										<div class="row formline mb-2 ml-2">
+											<div class="col-sm-2">
+												<label>No of Installment</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="no_of_inst" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Installment Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_amount" readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label for="">Instalment (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_pct" readonly />
+											</div>
+
+										</div>
+										<div class="row formline mb-2 ml-2">
+											<div class="col-sm-2">
+												<label>Record</label>
+											</div>
+											<div class="col-sm-2">
+												<input style="width: unset !important" type="checkbox" class="mr-2"
+													id="record_flagp" readonly />Delete
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button class="btn btn-primary p-2" onclick="home2();">Home</button>
+										<button class="btn btn-primary p-2" onclick="SubmitVerify(this)"
+											th:attr="dd_notice_ref = ${getGeneralDetails?.dd_notice_ref}"
+											th:if="${formmode}=='verify'">Verify</button>
+										<button class="btn btn-primary p-2"
+											onclick="sechduleView(this);">Schedule</button>
+										<button class="btn btn-primary p-2" onclick="back();">Back</button>
+									</div>
+								</div>
+								<div id="tab3" class="tabcontent" style="display: none;">
+									<div class="row formline ml-2 mb-2 mt-2">
+										<div class="col-sm-2">
+											<label>Interest Table Code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_table_code" name="int_table_code"
+												th:value="${getSlabInterestDetails?.int_table_code}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Interest Rate Period(MM/DD)</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_rate_period" name="int_rate_period"
+												th:value="${getSlabInterestDetails?.int_rate_period}" readonly
+												class="mmdd " /> <input type="text" id="int_rate_period1"
+												name="int_rate_period1"
+												th:value="${getSlabInterestDetails?.int_rate_period1}" readonly
+												class="mmdd ml-2" />
+										</div>
+										<!-- Other form elements -->
+										<div class="col-sm-2">
+											<label>Interest Polate</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_polate_ch" name="int_polate_ch"
+												th:value="${getSlabInterestDetails?.int_polate_ch}" readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Method of Interpolation</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_method" name="int_method"
+												th:value="${getSlabInterestDetails?.int_method}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Start Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="date" id="start_dt" name="start_dt"
+												th:value="${#dates.format(getSlabInterestDetails?.start_dt, 'yyyy-MM-dd')}"
+												readonly />
+										</div>
+
+										<div class="col-sm-2">
+											<label> End Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="date" id="end_dt"
+												th:value="${#dates.format(getSlabInterestDetails?.end_dt, 'yyyy-MM-dd')}"
+												readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Min Interest</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="min_int"
+												th:value="${getSlabInterestDetails?.min_int}" name="min_int" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Max Interest</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="max_int"
+												th:value="${getSlabInterestDetails?.max_int}" name="max_int" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Margin (%)</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="margin" th:value="${getSlabInterestDetails?.margin}"
+												name="margin" readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Spread (%)</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="spread" th:value="${getSlabInterestDetails?.spread}"
+												name="spread" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Normal Interest Rate</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="norm_int_rate"
+												th:value="${getSlabInterestDetails?.norm_int_rate}" name="norm_int_rate"
+												readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Compound Interest</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="comp_int"
+												th:value="${getSlabInterestDetails?.comp_int}" name="comp_int"
+												readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Interest on Overdue Principal</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_overdue_princ"
+												th:value="${getSlabInterestDetails?.int_overdue_princ}"
+												name="int_overdue_princ" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Penalty on Principal</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="penal_princ"
+												th:value="${getSlabInterestDetails?.penal_princ}" name="penal_princ"
+												readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Penalty on Interest</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="penal_int"
+												th:value="${getSlabInterestDetails?.penal_int}" name="penal_int"
+												readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Penal Interest Rate</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="penal_int_rate"
+												th:value="${getSlabInterestDetails?.penal_int_rate}"
+												name="penal_int_rate" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Interest Pegged</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_pegged" name="int_pegged"
+												th:value="${getSlabInterestDetails?.int_pegged}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Pegging Review Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="date" id="pegging_review_dt" name="pegging_review_dt"
+												th:value="${#dates.format(getSlabInterestDetails?.pegging_review_dt, 'yyyy-MM-dd')}"
+												readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Pegging Frequency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="pegging_freq" name="pegging_freq"
+												th:value="${getSlabInterestDetails?.pegging_freq}" readonly
+												class="mmdd" />
+											<input type="text" id="pegging_freq1" name="pegging_freq1"
+												th:value="${getSlabInterestDetails?.pegging_freq1}" readonly
+												class="mmdd ml-2" />
+										</div>
+										<div class="col-sm-2">
+											<label>Interest Version No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="int_version_no" name="int_version_no"
+												th:value="${getSlabInterestDetails?.int_version_no}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Review on Slab Start Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="date" id="review_slab_start_dt" name="review_slab_start_dt"
+												th:value="${#dates.format(getSlabInterestDetails?.review_slab_start_dt, 'yyyy-MM-dd')}"
+												readonly />
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">
+											<label>Reason Code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="reason_code" name="reason_code"
+												th:value="${getSlabInterestDetails?.reason_code}" readonly />
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button class="btn btn-primary p-2" onclick="home4();">Home</button>
+										<button class="btn btn-primary p-2" onclick="SubmitVerify(this)"
+											th:attr="dd_notice_ref = ${getGeneralDetails?.dd_notice_ref}"
+											th:if="${formmode}=='verify'" id="verifyButton">Verify</button>
+										<button class="btn btn-primary p-2" onclick="back();">Back</button>
+									</div>
+								</div>
+								<table
+									Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+									<tr>
+										<td class="col-sm-2" style="text-align: center;">
+											<font size="2"><B>Entry User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input readonly
+												type="text" id="entryuser" th:value="${getGeneralDetails?.entry_usr}"
+												name="ub.entryuser"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+										<td class="col-sm-2" style="text-align: center;">
+											<font size="2"><B>Modify User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px;"><input type="text" id="modifyuser"
+												readonly th:value="${getGeneralDetails?.entry_usr}" name="ub.modifyuser"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+										<td class="col-sm-2" style="text-align: center;">
+											<font size="2"><B>Verify User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px;"><input type="text" id="verifyuser"
+												readonly name="ub.verifyuser" th:value="${getGeneralDetails?.ver_usr}"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align: center;">
+											<font size="2"><B>Entry
+													Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="entrytime" name="ub.entrytime"
+												th:value="${#dates.format(getGeneralDetails?.entry_tm, 'dd-MM-yyyy HH:mm:ss')}"
+												readonly
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+										<td style="text-align: center;">
+											<font size="2"><B>Modify
+													Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="modifytime" name="ub.modifytime"
+												th:value="${#dates.format(getGeneralDetails?.entry_tm, 'dd-MM-yyyy HH:mm:ss')}"
+												readonly
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+										<td style="text-align: center; font-size: 15px;">
+											<font size="2"><B>Verify Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="verifytime" name="ub.verifytime"
+												readonly
+												th:value="${#dates.format(getGeneralDetails?.ver_tm, 'dd-MM-yyyy HH:mm:ss')}"
+												style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+									</tr>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='modify' or ${formmode}=='modify1'" class="mt-5">
+					<form action="#" th:object="${drawDownDetails}" method="post" id="drawDownDetailsAdd"
+						autocomplete="off" name="drawDownDetailsData" th:fragment="finuserapply">
+
+						<!-- Hidden values -->
+
+
+
+						<input type="text" name="verify_flg" th:value="${getGeneralDetails?.verify_flg}" hidden />
+						<input type="text" name="entity_flg" th:value="${getGeneralDetails?.entity_flg}" hidden />
+						<input type="text" name="modify_flg" th:value="${getGeneralDetails?.modify_flg}" hidden />
+						<input type="text" name="del_flg" th:value="${getGeneralDetails?.del_flg}" hidden /> <input
+							type="text" name="ver_usr" th:value="${getGeneralDetails?.ver_usr}" hidden /> <input
+							type="text" name="entry_usr" th:value="${getGeneralDetails?.entry_usr}" hidden /> <input
+							type="text" name="mod_usr" th:value="${getGeneralDetails?.mod_usr}" hidden /> <input
+							type="date" name="ver_tm" hidden
+							th:value="${#dates.format(getGeneralDetails?.ver_tm, 'yyyy-MM-dd')}" />
+						<input type="date" name="entry_tm" hidden
+							th:value="${#dates.format(getGeneralDetails?.entry_tm, 'yyyy-MM-dd')}" />
+						<input type="date" name="mod_tm" hidden
+							th:value="${#dates.format(getGeneralDetails?.mod_tm, 'yyyy-MM-dd')}" />
+
+						<!-- End Hidden values -->
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card" style="width: 95%;">
+									<hr style="margin: 0; padding: 0;">
+									<div class="row formline"
+										style="padding: 5px 0px 0px 65px; background-color: #d3d3d3; margin-left: 0px; margin-right: 0px;">
+										<div class="col-sm-4"></div>
+										<h6
+											style="color: black; margin-left: 20px; font-size: 16px; height: 50px; padding: 20px;">
+											DRAWDOWN NOTICE DETAILS</h6>
+									</div>
+									<hr style="margin: 0; padding: 0;">
+									<div class="row formline mt-2 ml-2 mb-2">
+										<div class="col-sm-2" font-size=10px>Function:</div>
+										<div class="col-sm-2">
+											<input type="text" value="Modify" readonly />
+										</div>
+										<div class="col-sm-2">Syndicated Facility Ref:</div>
+										<div class="col-sm-2">
+											<input type="text" name="synd_fac_ref"
+												th:value="${getGeneralDetails?.synd_fac_ref}" /> <a role="button"
+												onclick="synDetails()" style="margin-left: -12px;"
+												class="btn btn-filters  fa fa-search"></a>
+										</div>
+										<div class="col-sm-2">Tranche Ref:</div>
+										<div class="col-sm-2 ">
+											<input type="text" id="trnc_desc" name="trnc_desc"
+												th:value="${getGeneralDetails?.trnc_desc}" /> <a role="button"
+												onclick="trancheDetails()" style="margin-left: -12px;"
+												class="btn btn-filters  fa fa-search"></a>
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">Draw Down Notice Ref:</div>
+										<div class="col-sm-2">
+											<input type="text" id="dd_notice_ref" name="dd_notice_ref"
+												th:value="${getGeneralDetails?.dd_notice_ref}" readonly />
+										</div>
+										<div class="col-sm-2">Borrower Name:</div>
+										<div class="col-sm-2 ">
+											<input type="text" name="borr_name"
+												th:value="${getGeneralDetails?.borr_name}" />
+										</div>
+										<div class="col-sm-2">Tranche Currency:</div>
+										<div class="col-sm-2 ">
+											<input type="text" id="trnc_curr" name="trnc_curr"
+												th:value="${getGeneralDetails?.trnc_curr}" />
+										</div>
+									</div>
+
+									<div class="tab row formline ml-3"
+										style="padding: 4px 4px; position: relative; font-size: 13px;width:98%;">
+										<!-- Tab buttons -->
+										<div class="col-sm-1"></div>
+										<div class="col-sm-3">
+											<button class="tablinks active" id="smooth1" style="width: 200px;"
+												onclick="openTab(event, 'tab1')">General
+												Details</button>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-3">
+											<button class="tablinks" id="smooth2" style="width: 200px;"
+												onclick="openTab(event, 'tab2')">Payment Details</button>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-3">
+											<button class="tablinks" id="smooth3" style="width: 200px;"
+												onclick="openTab(event, 'tab3')">Interest Slab
+												Details</button>
+										</div>
+									</div>
+									<div id="tab1" class="tabcontent" style="display: block;">
+										<div class="row formline ml-2 mb-2 mt-2">
+											<div class="col-sm-2 ">
+												<label>Draw Down Notice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="dd_notice_date" id="dd_notice_date"
+													th:value="${#dates.format(getGeneralDetails?.dd_notice_date, 'yyyy-MM-dd')}" />
+											</div>
+
+											<div class="col-sm-2 ">
+												<label>Draw Down Value Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="dd_value_date" id="dd_value_date"
+													style="width: 65%;"
+													th:value="${#dates.format(getGeneralDetails?.dd_value_date, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Draw Down Amount</label>
+											</div>
+											<div class="col-sm-2">
+
+												<input type="text" id="dd_amount" name="dd_amount"
+													th:value="${getGeneralDetails?.dd_amount == 0 ? '0.00' :#numbers.formatDecimal(getGeneralDetails?.dd_amount, 0, 'COMMA', 2, 'POINT')}">
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2 ">
+												<label>Draw Down Expiry Dt</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="dd_notice_exp_date" id="dd_notice_exp_date"
+													th:value="${#dates.format(getGeneralDetails?.dd_notice_exp_date, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Loan Tenor(MM/DD)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_tenor" id="loan_tenor" class="mmdd"
+													th:value="${getGeneralDetails?.loan_tenor}" />
+												<input type="text" name="loan_tenor1" id="loan_tenor1" class="mmdd ml-2"
+													th:value="${getGeneralDetails?.loan_tenor1}" />
+											</div>
+											<div class="col-sm-2">
+												<label> Notice Rec from Cus</label>
+											</div>
+											<div class="col-sm-2">
+												<label> <input style="width: unset !important" type="radio"
+														id="notice_from_cust" class="mr-1"
+														th:checked="${getGeneralDetails?.notice_from_cust}=='Y'"
+														name="notice_from_cust"> Yes
+												</label> <label> <input style="width: unset !important" type="radio"
+														id="notice_from_cust"
+														th:checked="${getGeneralDetails?.notice_from_cust}=='N'"
+														class="mr-1 ml-2" name="notice_from_cust"> No
+
+												</label>
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2 ">
+												<label>Draw Down-Int Payment</label>
+											</div>
+											<div class="col-sm-2">
+												<label><input type="radio" name="dd_int_pay"
+														style="width: unset !important"
+														th:checked="${getGeneralDetails?.dd_int_pay=='Y'}"
+														id="dd_int_pay" class="mr-2 ml-2" />Yes</label> <label><input
+														type="radio" name="dd_int_pay"
+														th:checked="${getGeneralDetails?.dd_int_pay=='N'}"
+														id="dd_int_pay" style="width: unset !important"
+														class="mr-2 ml-2" checked />No</label>
+											</div>
+											<div class="col-sm-2 ">
+												<label>Tranche Ref-Int Payment</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="tranche_ref_int_pay" id="tranche_ref_int_pay"
+													th:value="${getGeneralDetails?.tranche_ref_int_pay}" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Rate Ref Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr" id="int_rate_ref_curr"
+													th:value="${getGeneralDetails?.int_rate_ref_curr}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2 ">
+												<label>Currency Holiday Treatment</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="curr_holiday_treat"
+													th:value="${getGeneralDetails?.curr_holiday_treat}"
+													name="curr_holiday_treat">
+											</div>
+
+											<div class="col-sm-2">
+												<label>Msg to Participate Lenders</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="msg_part_lenders"
+													th:value="${getGeneralDetails?.msg_part_lenders}" readonly />
+											</div>
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="btn btn-primary p-2" onclick="home1();">Home</button>
+											<button class="btn btn-primary p-2" onclick="submitparam()">Submit</button>
+											<button class="btn btn-primary p-2" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab2" class="tabcontent" style="display: none;">
+										<div class="table-responsive mt-2 ml-3 scroll">
+											<table id="row1" class="table table-bordered"
+												style="width: 90%; margin-left: 35px;">
+												<thead style="background-color: #f1f1f1">
+													<tr>
+														<td><b style="font-size: 15px;">Installment Id</b></td>
+														<td><b style="font-size: 15px;">Installment start
+																Date</b></td>
+														<td><b style="font-size: 15px;">Principal Installment
+																Freq</b></td>
+														<td><b style="font-size: 15px;">No Of Installment</b></td>
+														<td><b style="font-size: 15px;">Installment
+																Amount</b></td>
+														<td><b style="font-size: 15px;">Select</b></td>
+														<!--<td><b style="font-size: 15px;">Save</b></td>-->
+													</tr>
+												</thead>
+												<tbody id="clik1">
+
+													<tr th:each="getPaymentDet : ${getPaymentDetails}"
+														th:attr="data-srl_no=${getPaymentDet.srl_no}">
+														<td><input type="text" name="inst_id" id="inst_id_11"
+																th:value="${getPaymentDet?.inst_id}" readonly /></td>
+														<td><input type="text" name="inst_start_dt"
+																id="inst_start_dt_11"
+																th:value="${#dates.format(getPaymentDet?.inst_start_dt, 'yyyy-MM-dd')}"
+																readonly /></td>
+														<td><input type="text" name="inst_freq" id="inst_freq_11"
+																th:value="${getPaymentDet?.inst_freq}" readonly /></td>
+														<td><input type="text" name="no_of_inst" id="no_of_inst_11"
+																th:value="${getPaymentDet?.no_of_inst}" readonly /></td>
+
+														<td><input type="text" name="inst_amount" id="inst_amount_11"
+																th:value="${getPaymentDet?.inst_amount == 0 ? '0.00' :#numbers.formatDecimal(getPaymentDet?.inst_amount, 0, 'COMMA', 2, 'POINT')}"
+																readonly />
+														</td>
+														<td hidden><input type="text" name="maturity_flg"
+																id="maturity_flg1"
+																th:value="${getPaymentDet?.maturity_flg}" readonly />
+														<td hidden><input type="text" name="record_flag"
+																id="record_flag_11"
+																th:value="${getPaymentDet?.record_flag}" readonly />
+														</td>
+														<td hidden><input type="text" name="srl_no" id="srl_no_11"
+																th:value="${getPaymentDet?.srl_no}" readonly /></td>
+														<td hidden><input type="text" name="interest_frequency"
+																id="interest_frequency1"
+																th:value="${getPaymentDet?.interest_frequency}"
+																readonly />
+														<td><input type="radio" id="btnclick" name="btnradio"
+																th:attr="data-dd_notice_ref = ${getPaymentDet.dd_notice_ref},data-srl_no = ${getPaymentDet.srl_no}"
+																onclick="paymentview(this);" /></td>
+														</td>
+														<!--<td><input type="button"
+																class="btn btn-filters save-button btn-primary p-2 p-0"
+																onclick="ModifyPayment(this);" value="Save"></td>-->
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<hr>
+
+										<div id="paymentviewID" style="display: none;">
+											<input type="text" id="srl_no" hidden>
+											<div class="row formline mb-2 ml-2">
+												<div class="col-sm-2">
+													<label>Installment Id</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_id" readonly>
+												</div>
+
+												<div class="col-sm-2">
+													<label>Installment Start Date</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_start_dt" readonly />
+												</div>
+												<div class="col-sm-2">
+													<label for="">Instalment Amt Specifiedin </label>
+												</div>
+												<div class="col-sm-2">
+													<label><input type="radio" value="Fixed" id="inst_amt_spec"
+															class="inst_amt_specFixed mr-2" name="inst_amt_spec"
+															style="width: unset !important" disabled>Fixed</label>
+													<label><input type="radio" value="Percentage" id="inst_amt_spec1"
+															class="inst_amt_specPct mr-2 ml-2" name="inst_amt_spec"
+															style="width: unset !important" disabled>Percentage</label>
+												</div>
+
+											</div>
+											<div class="row formline ml-2 mb-2">
+												<div class="col-sm-2">
+													<label>Cap At Maturity?</label>
+												</div>
+												<div class="col-sm-2">
+													<label> <input style="width: unset !important" class="mr-2 ml-2"
+															type="radio" id="maturity_flg" name="maturity_flg"
+															disabled>Yes
+													</label> <label> <input style="width: unset !important"
+															class="mr-2 ml-2" type="radio" id="maturity_flg1"
+															name="maturity_flg" disabled>No
+													</label>
+												</div>
+												<div class="col-sm-2">
+													<label>Principal Installment Freq</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_freq" readonly />
+
+												</div>
+
+												<div class="col-sm-2">
+													<label>Interest Installment Freq</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="interest_frequency" readonly />
+
+												</div>
+
+
+											</div>
+											<div class="row formline ml-2 mb-2">
+												<div class="col-sm-2">
+													<label>No of Installment</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="no_of_inst" readonly />
+												</div>
+												<div class="col-sm-2">
+													<label>Installment Amount</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_amount" readonly />
+												</div>
+												<div class="col-sm-2">
+													<label for="">Instalment (%)</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_pct" readonly />
+												</div>
+
+
+											</div>
+											<div class="row formline ml-2 mb-2">
+												<div class="col-sm-2">
+													<label>Record</label>
+												</div>
+												<div class="col-sm-2">
+													<input style="width: unset !important" type="checkbox" class="mr-2"
+														id="record_flag" onclick="updateCheckboxValue()"
+														disabled />Delete
+												</div>
+											</div>
+
+										</div>
+										<div class="card-footer text-center">
+											<button class="btn btn-primary p-2" onclick="home2();">Home</button>
+											<button class="btn btn-primary p-2" onclick="submitparam1()">Submit</button>
+											<button class="btn btn-primary p-2" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab3" class="tabcontent" style="display: none;">
+										<div class="row formline ml-2 mb-2 mt-2">
+											<div class="col-sm-2">
+												<label>Interest Table Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_table_code" name="int_table_code"
+													th:value="${getSlabInterestDetails?.int_table_code}" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Interest Rate Period(MM/DD)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_rate_period" name="int_rate_period"
+													th:value="${getSlabInterestDetails?.int_rate_period}" class="mmdd "
+													oninput="numberOnly(this)" /> <input type="text"
+													id="int_rate_period1" name="int_rate_period1"
+													th:value="${getSlabInterestDetails?.int_rate_period1}"
+													class="mmdd ml-2" oninput="numberOnly(this)" />
+											</div>
+											<!-- Other form elements -->
+											<div class="col-sm-2">
+												<label>Interest Polate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_polate_ch" name="int_polate_ch"
+													th:value="${getSlabInterestDetails?.int_polate_ch}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Method of Interpolation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_method" name="int_method"
+													th:value="${getSlabInterestDetails?.int_method}" />
+											</div>
+											<div class="col-sm-2">
+												<label>Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="start_dt" name="start_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.start_dt, 'yyyy-MM-dd')}" />
+											</div>
+
+											<div class="col-sm-2">
+												<label> End Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="end_dt" name="end_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.end_dt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Min Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="min_int"
+													th:value="${getSlabInterestDetails?.min_int}" name="min_int" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Max Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="max_int"
+													th:value="${getSlabInterestDetails?.max_int}" name="max_int" />
+											</div>
+											<div class="col-sm-2">
+												<label>Margin (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="margin"
+													th:value="${getSlabInterestDetails?.margin}" name="margin" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Spread (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="spread"
+													th:value="${getSlabInterestDetails?.spread}" name="spread" />
+											</div>
+											<div class="col-sm-2">
+												<label>Normal Interest Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="norm_int_rate"
+													th:value="${getSlabInterestDetails?.norm_int_rate}"
+													name="norm_int_rate" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Compound Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="comp_int"
+													th:value="${getSlabInterestDetails?.comp_int}" name="comp_int" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Interest on Overdue Principal</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_overdue_princ"
+													th:value="${getSlabInterestDetails?.int_overdue_princ}"
+													name="int_overdue_princ" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Penalty on Principal</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="penal_princ"
+													th:value="${getSlabInterestDetails?.penal_princ}"
+													name="penal_princ" />
+											</div>
+											<div class="col-sm-2">
+												<label>Penalty on Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="penal_int"
+													th:value="${getSlabInterestDetails?.penal_int}" name="penal_int" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Penal Interest Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="penal_int_rate"
+													th:value="${getSlabInterestDetails?.penal_int_rate}"
+													name="penal_int_rate" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Pegged</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_pegged" name="int_pegged"
+													th:value="${getSlabInterestDetails?.int_pegged}" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Pegging Review Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="pegging_review_dt" name="pegging_review_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.pegging_review_dt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Pegging Frequency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="pegging_freq" name="pegging_freq"
+													th:value="${getSlabInterestDetails?.pegging_freq}" class="mmdd "
+													oninput="numberOnly(this)" /> <input type="text" id="pegging_freq1"
+													name="pegging_freq1"
+													th:value="${getSlabInterestDetails?.pegging_freq1}"
+													class="mmdd ml-2" oninput="numberOnly(this)" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Interest Version No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_version_no" name="int_version_no"
+													th:value="${getSlabInterestDetails?.int_version_no}" />
+											</div>
+											<div class="col-sm-2">
+												<label>Review on Slab Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="review_slab_start_dt" name="review_slab_start_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.review_slab_start_dt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Reason Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="reason_code" name="reason_code"
+													th:value="${getSlabInterestDetails?.reason_code}" />
+											</div>
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="btn btn-primary p-2" onclick="home4();">Home</button>
+											<button class="btn btn-primary p-2" th:if="${formmode}=='modify'"
+												th:attr="dd_notice_ref = ${getGeneralDetails?.dd_notice_ref}"
+												onclick="ModifySubmit(this)">Submit</button>
+											<button class="btn btn-primary p-2" th:if="${formmode}=='modify1'"
+												th:attr="dd_notice_ref = ${getGeneralDetails?.dd_notice_ref}"
+												onclick="ModifySubmit1(this)">Submit</button>
+											<button class="btn btn-primary p-2" onclick="back();">Back</button>
+										</div>
+									</div>
+									<table
+										Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+										<tr>
+											<td class="col-sm-2" style="text-align: center;">
+												<font size="2"><B>Entry User :</B></font>
+											</td>
+											<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input
+													type="text" id="entryuser" th:value="${session.USERNAME}"
+													name="ub.entryuser"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+											</td>
+											<td class="col-sm-2" style="text-align: center;">
+												<font size="2"><B>Modify User :</B></font>
+											</td>
+											<td class="col-sm-2" style="width: 112px;"><input type="text"
+													id="modifyuser" th:value="${session.USERNAME}" name="ub.modifyuser"
+													value="MMR"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+											</td>
+											<td class="col-sm-2" style="text-align: center;">
+												<font size="2"><B>Verify User :</B></font>
+											</td>
+											<td class="col-sm-2" style="width: 112px;"><input type="text"
+													id="verifyuser" name="ub.verifyuser"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+											</td>
+										</tr>
+										<tr>
+											<td style="text-align: center;">
+												<font size="2"><B>Entry
+														Time :</B></font>
+											</td>
+											<td style="width: 112px"><input type="text" id="entrytime"
+													name="ub.entrytime"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+											</td>
+											<td style="text-align: center;">
+												<font size="2"><B>Modify
+														Time :</B></font>
+											</td>
+											<td style="width: 112px"><input type="text" id="modifytime"
+													name="ub.modifytime"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+											</td>
+											<td style="text-align: center; font-size: 15px;">
+												<font size="2"><B>Verify Time :</B></font>
+											</td>
+											<td style="width: 112px"><input type="text" id="verifytime"
+													name="ub.verifytime"
+													style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Model Boxes -->
+
+
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="alert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<p id="alertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="refreshPage1()">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Get Normal Alerts -->
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="normalAlert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<p id="Normalalertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="$('#normalAlert').modal('hide');">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="scheduleModal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content" style="width: 1300px; margin-left: -190px;">
+				<div class="modal-header">
+					<h5 class="modal-title" style="text-align: center;">SCHEDULE
+						PAYMENT DETAILS</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+						onclick="$('#scheduleModal').modal('hide');">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-flex mt-2 mb-2">
+						<div>
+							<label style="font-size: 13px; font-weight: 500;">SYNDICATION
+								REF NO</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="sync_ref_num" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">TRANCHE
+								REF</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="tranche_reff" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">BORROWER
+								NAME</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="borrower_name" readonly />
+						</div>
+					</div>
+
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="white-space: nowrap; width: 100px;">SCHEDULE NO</th>
+									<th style="white-space: nowrap; width: 100px;">ORIGINAL
+										DEMAND DATE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND DATE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND TYPE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND ID</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND
+										AMOUNT</th>
+									<th style="white-space: nowrap; width: 100px;">INSTALMENT
+										NO</th>
+									<th style="white-space: nowrap; width: 100px;">REMARKS</th>
+
+								</tr>
+							</thead>
+							<tbody id="repaymentDet">
+
+								<!-- More rows can be added similarly -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+					<!--<button type="button" class="btn btn-primary active" onclick="sechduleSubmit();">Submit</button>-->
+					<button type="button" class="btn btn-primary active"
+						onclick="$('#scheduleModal').modal('hide');">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sechdule Modal view -->
+	<div id="scheduleModalView" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1"
+		role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content" style="width: 1300px; margin-left: -400px;">
+				<div class="modal-header">
+					<h5 class="modal-title" style="text-align: center;">SCHEDULE
+						PAYMENT DETAILS</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+						onclick="$('#scheduleModalView').modal('hide');">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!--<div class="d-flex mt-2 mb-2">
+						<div>
+							<label style="font-size: 13px; font-weight: 500;">SYNDICATION
+								REF NO</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="sync_ref_num" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">TRANCHE
+								REF</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="tranche_reff" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">BORROWER
+								NAME</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="borrower_name" readonly />
+						</div>
+					</div>-->
+
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="white-space: nowrap; width: 100px;">SCHEDULE NO</th>
+									<th style="white-space: nowrap; width: 100px;">ORIGINAL
+										DEMAND DATE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND DATE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND TYPE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND ID</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND
+										AMOUNT</th>
+									<th style="white-space: nowrap; width: 100px;">INSTALMENT
+										NO</th>
+									<th style="white-space: nowrap; width: 100px;">REMARKS</th>
+								</tr>
+							</thead>
+							<tbody id="sehduleViewDetails">
+
+								<!-- More rows can be added similarly -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+
+					<button type="button" class="btn btn-primary active"
+						onclick="$('#scheduleModalView').modal('hide');">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Syndicate Reference  -->
+	<div class="modal" data-backdrop="static" data-keyboard="false" id="showSyncRefDet" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">Faclity Account
+						Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+						onclick="$('#showSyncRefDet').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="height: 70vh; overflow-y: auto;">
+					<table class="table  table-bordered  table-hover table-sm" id="usertableSyncTab">
+						<thead>
+							<tr class="filters">
+								<th><input oninput="filterSyncRec()" type="text" placeholder="Syn Loan Ref"
+										class="form-control font-weight-bold" id="filterInputSyncNo"
+										style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th><input oninput="filterSyncRec()" type="text" placeholder="Borrower Name"
+										class="form-control font-weight-bold" id="filterInputBorrName"
+										style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody id="filterhower">
+							<tr th:each="getReportListss11 : ${getFacilityDetails}"
+								th:attr="data-syn_loan_ref=${getReportListss11.syn_loan_ref}, data-borr_name=${getReportListss11.borr_name},data-cif_id=${getReportListss11.cif_id},data-ccy=${getReportListss11.ccy}"
+								onclick="openSyncData(this)" style="cursor: pointer;">
+								<td th:text="${getReportListss11?.syn_loan_ref}">456</td>
+								<td th:text="${getReportListss11?.borr_name}">456</td>
+								<td><input type="radio" id="btnclick" name="btnradio" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Tranche reference  -->
+	<div class="modal" data-backdrop="static" data-keyboard="false" id="showTrancheList" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">Tranche Account
+						Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+						onclick="$('#showTrancheList').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="height: 70vh; overflow-y: auto;">
+					<table class="table  table-bordered  table-hover table-sm" id="usertableTranDet">
+						<thead>
+							<tr class="filters">
+								<th><input oninput="filterTranRec()" type="text" placeholder="Syn Loan Ref"
+										class="form-control font-weight-bold" id="filterInputSynNum"
+										style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th><input oninput="filterTranRec()" type="text" placeholder="Tranche Ref"
+										class="form-control font-weight-bold" id="filterInputTranRef"
+										style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th><input oninput="filterTranRec()" type="text" placeholder="Borrower Name"
+										class="form-control font-weight-bold" id="filterInputBorrName"
+										style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody id="trancheDetList">
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- tranche currency -->
+	<div class="modal" data-backdrop="static" data-keyboard="false" id="tableModalCurrency" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">Currency List</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+						onclick="$('#tableModalCurrency').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="height: 70vh; overflow-y: auto;">
+					<table class="table table-bordered table-hover table-sm" id="ccytable">
+						<thead>
+							<tr class="filters">
+								<th class="col-md-6"><input type="text" placeholder="Currency Code"
+										class="form-control font-weight-bold" id="filterInput1">
+								</th>
+								<th class="col-md-6"><input type="text" placeholder="Select"
+										class="form-control font-weight-bold"></th>
+							</tr>
+						</thead>
+						<tbody id="filterhower">
+							<tr th:each="CcyDetail : ${CcyDetails}" style="cursor: pointer;">
+								<td th:text="${CcyDetail?.crncy_code}">456</td>
+								<td><input type="radio" id="btnclick" name="btnradio"
+										th:attr="data-ccy=${CcyDetail.crncy_code}" th:id="${CcyDetail.crncy_code}"
+										onclick="crncycode(this);" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

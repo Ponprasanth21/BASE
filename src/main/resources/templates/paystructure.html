@@ -1,0 +1,984 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif; /* Using a more common font */
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+	
+	function adduser(a) {
+
+		location.href = 'payStructure?formmode=add';
+
+	}
+</script>
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+				<div th:if="${formmode}=='list'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card w-100 border">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>PAY STRUCTURE LIST</h4>
+									</div>
+									<div class="float-right">
+										<button type="button" class="btn btn-xs btn-primary btns"
+											id="btnadd" style="text-align: center;"
+											onclick="adduser(this);">Add</button>
+									</div>
+								</div>
+								<div class="card-body"
+									style="margin-top: -21px; margin-left: -21px; margin-right: -20px;">
+									<div class="table-responsive">
+										<table class="table  table-bordered  table-hover table-sm"
+											style="margin-bottom: 0px; font-size: initial;"
+											id="usertable">
+											<thead class="thead-light">
+												<tr
+													style="white-space: nowrap; overflow: hidden; text-align: center"
+													class="align-bottom">
+													<th>Emp id</th>
+													<th>Employee Name</th>
+													<th>Gross Salary</th>
+													<th>Deductions</th>
+													<th>Net Salary</th>
+													<th>Status</th>
+													<th>Eff Date</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="placelist">
+												<tr th:each="salpay : ${salarypay}"
+													style="white-space: nowrap; overflow: hidden">
+													<td th:text="${salpay?.emp_no}"></td>
+													<td th:text="${salpay?.emp_name}" style="width:20%"></td>
+													<td
+														th:text="${#numbers.formatDecimal(salpay?.gross_salary	,1,'COMMA',2,'POINT')}"
+														align="right"></td>
+													<td
+														th:text="${#numbers.formatDecimal(salpay?.total_deductions	,1,'COMMA',2,'POINT')}"
+														align="right"></td>
+													<td
+														th:text="${#numbers.formatDecimal(salpay?.net_salary ,1,'COMMA',2,'POINT')}"
+														align="right"></td>
+													<th:block th:switch="${salpay.entity_flg}">
+														<td th:case="'Y'" style="color: green;">Verified</td>
+														<td th:case="'N'" style="color: red;">UnVerified</td>
+													</th:block>
+													<td
+														th:text="${#dates.format(salpay?.ctc_eff_date,'dd-MM-yyyy')}">
+													</td>
+													<td style="text-align:center">
+														<div class="dropdown">
+															<button class="btn btn-xs btn-info btns" type="button"
+																id="dropdownMenuButton" data-toggle="dropdown"
+																aria-haspopup="true" aria-expanded="false">
+																Action</button>
+															<div class="dropdown-menu"
+																aria-labelledby="dropdownMenuButton">
+																<button type="button" class="dropdown-item"
+																	id="btnmodify" th:attr="data-attr=${salpay?.emp_no}"
+																	style="text-align: center;" onclick="modifyuser(this);">Modify</button>
+																<div class="dropdown-divider"></div>
+																<button type="button" class="dropdown-item"
+																	id="btndelete"
+																	th:attr="data-attribute=${salpay?.emp_no}"
+																	style="text-align: center;" onclick="deleteuser(this);">Delete</button>
+																<div class="dropdown-divider"></div>
+																<button type="button" class="dropdown-item"
+																	id="btnEnquiry" th:attr="data-attr=${chrgbck?.srlno}"
+																	style="text-align: center;"
+																	onclick="enquiryuser(this);">Enquiry</button>
+																<div class="dropdown-divider"></div>
+															</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div
+									class="card-footer text-center d-flex m-auto bg-white border-top-0">
+									<button type="button" class="btn btn-xs btn-primary mr-2"
+										id="btnHome" onclick="home();">Home</button>
+									<button type="button" class="btn btn-xs btn-primary ml-2"
+										id="btnBack" onclick="back();">Back</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div th:if="${formmode}=='add'">
+						<div class="row">
+							<div class="col-sm-12">
+								<form class=" border border-secondary" action="#" id="stp" method="post">
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='add'">PAY STRUCTURE-ADD</h5>
+												</div>
+											</div>
+										</div>
+										<div class="card-body">
+											
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Type </label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_type" name="record_type"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="record_date">Record Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_date" name="record_date"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="" name="" class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option1">Active</option>
+														</select>
+													</div>
+
+<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Delete Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="" name="" class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option1">N</option>
+															<option value="option1">Y</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_no" name="emp_no"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="salary_month">Salary Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="salary_month" name="salary_month"
+															class="form-control form-control-sm datepicker1"
+															placeholder="Month-Year">
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee Name</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_name" name="emp_name"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>No Of Days</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="no_of_days" name="no_of_days"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Designation</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_desig" name="emp_desig"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option1">DIR</option>
+															<option value="option1">CEO</option>
+															<option value="option1">SPM</option>
+															<option value="option1">PM</option>
+															<option value="option1">CON</option>
+															<option value="option1">PL</option>
+															<option value="option1">TL</option>
+															<option value="option1">TA</option>
+															<option value="option1">BA</option>
+															<option value="option1">TRA</option>
+															<option value="option1">TR</option>
+															<option value="option1">AT</option>
+															<option value="option1">PC</option>
+															<option value="option1">AN</option>
+															<option value="option1">COO</option>
+															<option value="option1">AN</option>
+															<option value="option1">SE</option>
+															<option value="option1">AE</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Days Paid</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="days_paid" name="days_paid"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="mti_3">Group</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_group" name="emp_group"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option2">A</option>
+															<option value="option2">B</option>
+															<option value="option2">C</option>
+															<option value="option2">D</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Lop</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="loss_of_pay" name="loss_of_pay"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Division</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_division" name="emp_division"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option2">OTR</option>
+															<option value="option2">PRD</option>
+															<option value="option2">SER</option>
+															<option value="option2">PRJ</option>
+															<option value="option2">OTR</option>
+															<option value="option2">RES</option>
+															<option value="option2">OTR</option>
+															<option value="option2">MG</option>
+															<option value="option2">BORN</option>
+															<option value="option2">TALENT</option>
+															<option value="option2">WHITE</option>
+															<option value="option2">TRG</option>
+															<option value="option2">OTR</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Mode</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="payment_mode" name="payment_mode"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option2">Bank</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Payment</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_pay"
+															placeholder="dd/mm/yyyy" name="date_of_pay"
+															class="form-control form-control-sm datepicker" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="pay_status" name="pay_status"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option2">Payable</option>
+															<option value="option2">Paid</option>
+															<option value="option2">Hold</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Birth</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_birth"
+															placeholder="dd/mm/yyyy" name="date_of_birth"
+															class="form-control form-control-sm datepicker" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="bank_name" name="bank_name"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option2">HDFC</option>
+															<option value="option2">SBI</option>
+															<option value="option2">CB</option>
+															<option value="option2">ICICI</option>
+															<option value="option2">AXIS</option>
+															<option value="option2">KVB</option>
+															<option value="option2">IDBI</option>
+															<option value="option2">IB</option>
+															<option value="option2">CITI</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Joining</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_joining"
+															placeholder="dd/mm/yyyy" name="date_of_joining"
+															class="form-control form-control-sm datepicker" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="bank_acct_no" name="bank_acct_no"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Bank Ifsc CodeNo</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ifsc_code" name="ifsc_code"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Remarks</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>PF Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf_acct_no" name="spf_acct_no"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>URN Number</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="urn_no" name="urn_no"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>CTC</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_amt" name="ctc_amt"
+															class="form-control form-control-sm bg-white border border-dark"
+															th:onchange="calculateBasic()" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>CTC Effective From</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_eff_date"
+															placeholder="dd/mm/yyyy" name="ctc_eff_date"
+															class="form-control form-control-sm datepicker" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Mobile No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="mobile_no" name="mobile_no"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>E-Mail Id</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="email_id" name="email_id"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>EARNINGS</b></label>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 300px;">
+														<label><b>DEDUCTIONS</b></label>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Basic</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="basic_pay" name="basic_pay"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Staff Provident Fund</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf" name="spf"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>House Rent Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="hra" name="hra"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Income Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tds" name="tds"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Special Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spl_allow" name="spl_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Profession Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="prof_tax" name="prof_tax"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Medical Reibursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="medi_reimb" name="medi_reimb"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Employees State Insurance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="esi" name="esi"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Conveyance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="conv_allow" name="conv_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Recoveries</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="recovery" name="recovery"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Lunch Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="lunch_allow" name="lunch_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Other Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_ded" name="otr_ded"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Education Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="edu_allow" name="edu_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code">Business
+															Attire Reimbursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="buss_attire" name="buss_attire"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Car Maintenance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="car_maint" name="car_maint"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Leave Travel Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="leave_travel_allow"
+															name="leave_travel_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Outstation Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="outstn_allow" name="outstn_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Annual Loyalty Bonus</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="annual_loyal_bonus"
+															name="annual_loyal_bonus"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Other Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_allow" name="otr_allow"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Gross Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="gross_salary" name="gross_salary"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Total Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="total_deductions"
+															name="total_deductions"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code">Net
+															Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="net_salary" name="net_salary"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>INCOME TAX</b></label>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Provisional Tax FY</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Deducted Current Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="maucas_cps_received_date">Cumulative
+															Tax Deducted</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="additional_data">Tax Per Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tax_per_month" name="tax_per_month"
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+												<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Balance Tax Due</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm bg-white border border-dark" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2" style="margin-left: 50px;">
+														<label>Declaration Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="decl_status" name="decl_status"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="option1">Select</option>
+															<option value="option2">Submitted</option>
+															<option value="option2">Yet To Submitted</option>
+														</select>
+													</div>
+												</div>
+											
+										</div>
+										<div
+											class="card-footer text-center d-flex m-auto bg-white border-top-0">
+
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="stp" th:attr="data-formmode=${stp}"
+												onclick="addsubmit(this);">SUBMIT</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

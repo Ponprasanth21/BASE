@@ -1,0 +1,1459 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif; /* Using a more common font */
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+	
+	function add() {
+
+		location.href = './assosiateProfile?formmode=add';
+	}
+</script>
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">LIST OF EMPLOYEES</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary p-2" onclick="add();">Add</button>
+
+								<button class="btn btn-primary p-2" onclick=""
+									style="margin-left: 10px; display: none;">Filter</button>
+
+
+
+							</div>
+
+						</div>
+
+
+						<table class="table table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;"
+							id="AssosiateTable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th>SRL NO</th>
+									<th>RESOURCE ID</th>
+									<th>NAME</th>
+									<th>DESIGNATION</th>
+									<th>CATEGORY</th>
+									<th>MOBILE</th>
+									<th>EMAIL</th>
+									<th>PROFILE STATUS</th>
+									<th>SELECT</th>
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+
+								<tr th:each="assosiateData,iterator : ${AssosiateList}">
+
+									<td th:text="${iterator.index +1}" style="width:5%"></td>
+									<td th:text="${assosiateData?.resource_id}"></td>
+									<td th:text="${assosiateData?.resource_name}"></td>
+									<td th:text="${assosiateData?.design}"></td>
+									<td th:text="${assosiateData?.category}"></td>
+									<td th:text="${assosiateData?.mobile}"></td>
+									<td th:text="${assosiateData?.email}"></td>
+									<th:block th:switch="${assosiateData?.entity_flg}">
+										<td th:case="Y" style="color: lightgreen;">Verified</td>
+										<td th:case="N" style="color: red;">UnVerified</td>
+									</th:block>
+
+									<td style="text-align: center">
+										<div class="dropdown">
+
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4; color: #3a4550;">
+
+												<a class="dropdown-item" title=" Verify"
+													th:if="${assosiateData?.entity_flg == 'N'}"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													id="edit_value" onclick="assosiateVerify(this)">Verify</a>
+												<div class="dropdown-divider"
+													th:if="${assosiateData?.entity_flg == 'N'}"></div>
+
+												<a class="dropdown-item" title="View"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													onclick="assosiateView(this)" id="view_btn">View </a>
+												<div class="dropdown-divider"></div>
+
+												<a class="dropdown-item" title=" Modify"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													id="edit_value" onclick="assosiateModify(this)">Modify</a>
+												<div class="dropdown-divider"></div>
+
+
+												<a class="dropdown-item" title=" Delete"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													id="delete" onclick="assosiateDelete(this)">Delete</a>
+
+
+
+											</div>
+
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef;">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+				</div>
+				
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">Associate
+									Profile-ADD</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary p-2" onclick="openModal1();">Upload</button>
+
+
+								<button class="btn btn-primary p-2" onclick="openModal();"
+									style="margin-left: 10px">Upload Document</button>
+
+								<button class="btn btn-primary p-2" onclick=""
+									style="margin-left: 10px">Reset Password</button>
+								<button class="btn btn-primary p-2" onclick=""
+									style="margin-left: 10px">Disable</button>
+								<button class="btn btn-primary p-2" onclick="list()"
+									style="margin-left: 10px">List</button>
+
+
+
+							</div>
+							
+												
+												<div id="myModal1" class="modal">
+								<div class="modal-content">
+									<div class="close text-right" onclick="closeModal()">&times;</div>
+									<form class=" border border-secondary" id="uploadexcel" method="post" enctype="multipart/form-data" autocomplete="off">
+									
+									
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										
+										<div class="col-sm-1"></div>
+											<div class="col-sm-2">demo</div>
+
+
+											<div class="col-sm-2">
+												
+									<input type="text" id="demo"  name="demo"    class="form-control form-control-sm bg-white border border-dark" 
+										 >
+
+											</div>
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Choosefile</div>
+
+
+											<div class="col-sm-2">
+												
+									<input type="file" id="excel"  name="excel"  accept=".xlsx,.xls,.csv"  class="form-control form-control-sm bg-white border border-dark" 
+										 >
+
+											</div>
+
+											
+										</div>
+								
+						
+							
+								
+
+										<div class="text-center">
+
+
+											<button class="btn btn-primary p-2" onclick="submitexcel(this);">Submit</button>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+							<div id="myModal" class="modal">
+								<div class="modal-content">
+									<div class="close text-right" onclick="closeModal()">&times;</div>
+									<form class=" border border-secondary" id="uploadForm1" method="post" autocomplete="off">
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Resource Id</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="emp_id" id="resource_id1" readonly
+													class="form-control form-control-sm bg-white border border-dark" required />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Resource Name</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="emp_name" id="resource_name1"
+													readonly class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document REF NO</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_ref_no" id="doc_ref_no"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document ID</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_id" id="doc_id"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Name</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_name" id="doc_name"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Description</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_desc" id="doc_desc"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Type</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_type" id="doc_type"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Group</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_group" id="doc_group"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Access Type</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="access_type" id="access_type"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Access Group</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="access_group" id="access_group"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Prepared By</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_owner" id="doc_owner"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Approved By</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_approver" id="doc_approver"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Uploaded By</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_uploader" id="doc_uploader"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Verified By</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_verifier" id="doc_verifier"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Select File</div>
+
+
+											<div class="col-sm-2">
+												<input type="file" name="" id="document"
+													accept="application/pdf, image/jpeg, image/png"
+													class="form-control form-control-sm bg-white border border-dark" />
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Select Image</div>
+
+
+											<div class="col-sm-2">
+												<input type="file" name="" id="doc_image" multiple
+													accept="image/jpeg, image/png"
+													class="form-control form-control-sm bg-white border border-dark" />
+
+											</div>
+
+										</div>
+
+										<div class="text-center">
+
+
+											<button class="btn btn-primary p-2" onclick="submitForm();">Submit</button>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<form class=" border border-secondary" action="#" method="post" id="assosiateForm"
+								autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Organization Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="organisation" id="organisation"
+											value="Bornfire Innovations" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Category</div>
+									<div class="col-sm-2">
+
+										<select id="category" onchange="" name="category"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="CON">CON</option>
+											<option value="MGR">MGR</option>
+											<option value="LEA">LEA</option>
+											<option value="SES">SES</option>
+											<option value="SYS">SYS</option>
+											<option value="PLA">PLA</option>
+											<option value="TRG">TRG</option>
+											<option value="FUN">FUN</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="resource_id" id="resource_id"
+											class="form-control form-control-sm bg-white border border-dark" required />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="resource_name" id="resource_name"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">First Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="first_name" id="first_name"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Middle Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="middle_name" id="middle_name"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Last Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="last_name" id="last_name"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Short Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="short_name" id="short_name"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Employee Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="employee_id" id="employee_id"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IFSC</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ifsc" id="ifsc"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Bank Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="bank" id="bank"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Number</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Joining</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											id="doj" class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Birth</div>
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											id="dob" class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Group</div>
+
+
+									<div class="col-sm-2">
+										<select id="group" onchange="" name="groups"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="OTR">OTR</option>
+											<option value="PRD">PRD</option>
+											<option value="PRJ">PRJ</option>
+											<option value="RES">RES</option>
+											<option value="SER">SER</option>
+											<option value="TRG">TRG</option>
+											<option value="MG">MG</option>
+											<option value="BORN">BORN</option>
+											<option value="WHITE">WHITE</option>
+											<option value="TALENT">TALENT</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Team</div>
+									<div class="col-sm-2">
+										<select id="team" onchange="" name="team"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="BLRS">BLRS</option>
+											<option value="BTM">BTM</option>
+											<option value="BIS">BIS</option>
+											<option value="BTG">BTG</option>
+											<option value="BAM">BAM</option>
+											<option value="BBRF">BBRF</option>
+											<option value="INFY">INFY</option>
+											<option value="BROJ">BROJ</option>
+											<option value="MGM">MGM</option>
+											<option value="BCS">BCS</option>
+											<option value="DEV">DEV</option>
+											<option value="BAJ">BAJ</option>
+											<option value="BOM">BOM</option>
+											<option value="TEST">TEST</option>
+											<option value="MOB">MOB</option>
+											<option value="BACP">BACP</option>
+											<option value="BXBRL">BXBRL</option>
+											<option value="PRJ">PRJ</option>
+											<option value="PLA">PLA</option>
+											<option value="OTR">OTR</option>
+											<option value="BRBS">BRBS</option>
+											<option value="BRECON">BRECON</option>
+											<option value="BDMS">BDMS</option>
+											<option value="BKIOSK">BKIOSK</option>
+											<option value="BHMS">BHMS</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="report_mgr_id" id="report_mgr_id"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="report_mgr_name" id="report_mgr_name"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+
+
+									<div class="col-sm-2">
+										<select id="designation" onchange="" name="design"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="DIR">DIR</option>
+											<option value="CEO">CEO</option>
+											<option value="PM">PM</option>
+											<option value="SPM">SPM</option>
+											<option value="CON">CON</option>
+											<option value="PL">PL</option>
+											<option value="TL">TL</option>
+											<option value="TA">TA</option>
+											<option value="BA">BA</option>
+											<option value="TRA">TRA</option>
+											<option value="TR">TR</option>
+											<option value="AT">AT</option>
+											<option value="PC">PC</option>
+											<option value="AN">AN</option>
+											<option value="COO">COO</option>
+											<option value="AN">AN</option>
+											<option value="SE">SE</option>
+											<option value="AE">AE</option>
+
+										</select>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Role</div>
+									<div class="col-sm-2">
+										<select id="role" onchange="" name="role"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="ADM">ADM</option>
+											<option value="OPR">OPR</option>
+											<option value="INQ">INQ</option>
+											<option value="RPT">RPT</option>
+											<option value="SER">SER</option>
+											<option value="GEN">GEN</option>
+											<option value="RES">RES</option>
+											<option value="MGR">MGR</option>
+											<option value="SWE">SWE</option>
+											<option value="MNT">MNT</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Qualification</div>
+
+
+									<div class="col-sm-2">
+										<select id="qualification" onchange="" name="qual"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="B.COM">B.COM</option>
+											<option value="B.E">B.E</option>
+											<option value="B.B.A">B.B.A</option>
+											<option value="B.TECH">B.TECH</option>
+											<option value="B.C.A">B.C.A</option>
+											<option value="B.Sc">B.Sc</option>
+											<option value="B.A">B.A</option>
+											<option value="M.C.A">M.C.A</option>
+											<option value="M.B.A">M.B.A</option>
+											<option value="M.COM">M.COM</option>
+											<option value="M.E">M.E</option>
+											<option value="M.A">M.A</option>
+											<option value="M.Sc">M.Sc</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Qualification</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Skill Set</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="skill_set" id="skill_set"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Expertise</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="expertise" id="expertise"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PAN NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="pancard" id="pancard"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">ADDHAR NO</div>
+									<div class="col-sm-2">
+										<input type="text" name="aadhar" id="aadhar"
+											class="form-control form-control-sm bg-white border border-dark" minlength="12"
+											maxlength="12" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PASSPORT</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="passport" id="passport"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Driving License</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="driving_license" id="driving_license"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Gender</div>
+
+
+									<div class="col-sm-2">
+										<select id="gender" onchange="" name="gender"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+											<option value="other">Other</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Blood Group</div>
+									<div class="col-sm-2">
+										<select id="bloodGroup" onchange="" name="blood_group"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="A+">A+</option>
+											<option value="A-">A-</option>
+											<option value="B+">B+</option>
+											<option value="B-">B-</option>
+											<option value="AB+">AB+</option>
+											<option value="AB-">AB-</option>
+											<option value="O+">O+</option>
+											<option value="O-">O-</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Marital Status</div>
+
+
+									<div class="col-sm-2">
+										<select id="maritalStatus" onchange="" name="marital_status"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="single">Single</option>
+											<option value="married">Married</option>
+											<option value="divorced">Divorced</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Dependants</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dependants" id="dependants"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="mobile" id="mobile"
+											class="form-control form-control-sm bg-white border border-dark" minlength="10"
+											onkeypress="return isNumberKey(event)" maxlength="10" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Alternate Mobile NO</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="alt_mobile" id="alt_mobile"
+											class="form-control form-control-sm bg-white border border-dark" minlength="10"
+											onkeypress="return isNumberKey(event)" maxlength="10" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Access ID</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="access_id" id="access_id"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Email</div>
+									<div class="col-sm-2">
+
+										<input type="email" name="email" id="email"
+											class="form-control form-control-sm bg-white border border-dark" />
+										<div class="password-info">
+											<p>Email must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-end with (@gamil.com,@.in)</li>
+
+											</ul>
+										</div>
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="addr1" id="addr1"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addr2" id="addr2"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="state" id="state"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country" onchange="" name="country"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="AF">Afghanistan</option>
+											<option value="AL">Albania</option>
+											<option value="DZ">Algeria</option>
+											<option value="AR">Argentina</option>
+											<option value="AU">Australia</option>
+											<option value="BR">Brazil</option>
+											<option value="CA">Canada</option>
+											<option value="CN">China</option>
+											<option value="DE">Germany</option>
+											<option value="FR">France</option>
+											<option value="IN">India</option>
+											<option value="IT">Italy</option>
+											<option value="JP">Japan</option>
+											<option value="MX">Mexico</option>
+											<option value="NG">Nigeria</option>
+											<option value="RU">Russia</option>
+											<option value="SA">Saudi Arabia</option>
+											<option value="GB">United Kingdom</option>
+											<option value="US">United States</option>
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="postal_code" id="postal_code"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_addr1" id="loc_addr1"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_addr2" id="loc_addr2"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_city" id="loc_city"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_state" id="loc_state"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country1" onchange="" name="loc_country"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="AF">Afghanistan</option>
+											<option value="AL">Albania</option>
+											<option value="DZ">Algeria</option>
+											<option value="AR">Argentina</option>
+											<option value="AU">Australia</option>
+											<option value="BR">Brazil</option>
+											<option value="CA">Canada</option>
+											<option value="CN">China</option>
+											<option value="DE">Germany</option>
+											<option value="FR">France</option>
+											<option value="IN">India</option>
+											<option value="IT">Italy</option>
+											<option value="JP">Japan</option>
+											<option value="MX">Mexico</option>
+											<option value="NG">Nigeria</option>
+											<option value="RU">Russia</option>
+											<option value="SA">Saudi Arabia</option>
+											<option value="GB">United Kingdom</option>
+											<option value="US">United States</option>
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_postal_code" id="loc_postal_code"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact Person</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_cont_person"
+											id="user_cont_person" class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person_no" id="cont_person_no"
+											class="form-control form-control-sm bg-white border border-dark" minlength="10"
+											maxlength="10" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="password" id="password1"
+											class="form-control form-control-sm bg-white border border-dark" />
+										<div class="password-info">
+											<p>Password must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-At least 8 characters long</li>
+												<li>-Contain at least one Uppercase letter(A-Z)</li>
+												<li>-Contain at least one Lowercase letter(a-z)</li>
+												<li>-Contain at least one Number(1,2,...)</li>
+												<li>-Contain at least one special character (@,#,$)</li>
+											</ul>
+										</div>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Life of Password</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="life_of_pw" id="life_of_pw"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Expiry date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_expy_date" id="aed"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password Expiry Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pw_expy_date" id="ped"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Remarks</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_remarks" id="user_remarks"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Flag</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="disable_flg" id="disable_flg"
+											class="form-control form-control-sm bg-white border border-dark" value="N" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Start date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="dis_start_date" id="dsd"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable End Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dis_end_date" id="ded"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time Low</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="login_low" id="login_low"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time High</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_high" id="login_high"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Virtual Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="virtual_flg" id="virtual_flg"
+											class="form-control form-control-sm bg-white border border-dark" value="N" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Status</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_status" id="login_status"
+											class="form-control form-control-sm bg-white border border-dark" value="N" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Channel</div>
+
+
+									<div class="col-sm-2">
+										<select id="channel_id" onchange="" name="channel_id"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="All">All</option>
+											<option value="MOB">MOB</option>
+											<option value="WEB">WEB</option>
+
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Locked</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="locked_flg" id="locked_flg"
+											class="form-control form-control-sm bg-white border border-dark" value="N" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IMEI</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="imei" id="imei"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+							
+							</form>
+
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="assosiateAdd(event);"
+										type="submit">Submit</button>
+
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+
+
+					</div>
+					
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

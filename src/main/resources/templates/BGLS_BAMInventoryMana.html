@@ -1,0 +1,4327 @@
+
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!-- 
+	CREATED BY : ARANGULAVAN RAJENDRAN
+	USED FOR :Document Master -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.card-header {
+	padding: 0.65rem 1.25rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+.tablinks {
+	background-color: #f1f1f1;
+	/* Default background color */
+	border: none;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.tablinks.active {
+	background-color: #2084a9;
+	color: white;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f2f2f2;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 56px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 20px;
+	border-top: 1px solid #ccc;
+}
+</style>
+
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+}
+
+th, td {
+	border: 1px solid #dcdcdc;
+}
+
+td {
+	border-top: 1px solid #dcdcdc;
+}
+</style>
+<style>
+/* Hide the dropdown initially */
+.dropdown-list {
+	display: none;
+	position: absolute;
+	background-color: white;
+	border: 1px solid #ccc;
+	max-height: 150px;
+	overflow-y: auto;
+	z-index: 1000;
+	width: 100%;
+}
+
+/* Style the list items */
+.dropdown-list div {
+	padding: 8px;
+	cursor: pointer;
+}
+
+/* Highlight the list item on hover */
+.dropdown-list div:hover {
+	background-color: #f1f1f1;
+}
+</style>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+	
+		$(function() {
+	
+			$("#disableStartDate,#disableEndDate").datepicker({
+				minDate : new Date(),
+				changeMonth : true,
+				changeYear : true,
+				gotoCurrent : true,
+				dateFormat : "dd-mm-yy"
+			});
+	
+		});
+	
+		function home() {
+			location.href = 'Dashboard'
+		}
+	
+		function back() {
+			window.history.back();
+		}
+	
+		function list() {
+			location.href = 'InventoryMaster1';
+		}
+		function Headcode(a) {
+			var headcode = a.getAttribute('data-id');
+			//alert(headcode)
+			location.href = 'InventoryMaster1?formmode=edit&headcode='+headcode;
+		}
+		
+		function Headcode1(a) {
+			var headcode = a.getAttribute('data-id');
+			//alert(headcode)
+			location.href = 'InventoryMaster1?formmode=verify&headcode='+headcode;
+		}
+		function Headcode2(a) {
+			var headcode = a.getAttribute('data-id');
+		//	alert(headcode)
+			location.href = 'InventoryMaster1?formmode=view&headcode='+headcode;
+		}
+		
+		function codeadd() {
+	
+			location.href = 'InventoryMaster1?formmode=add';
+		}
+		
+	
+		/*]]>*/
+	</script>
+<script>
+		$(function() {
+			$("#dob,#doj,#disableEndDate,#disableStartDate").datepicker({
+				dateFormat : "dd-mm-yy",
+				changeMonth : true,
+				numberOfMonths : 1,
+				gotoCurrent : true
+	
+			});
+	
+			$(".checkToModify").on(
+					'click',
+					function() {
+	
+						$(this).prop('checked', true);
+	
+						var formMode = "edit";
+	
+						var resId = $(this).val();
+	
+						location.href = 'MtAssociateProfile?formmode=' + formMode
+								+ '&resId=' + resId;
+	
+					});
+	
+		});
+	
+		function submiteditform(a) {
+
+		    var depr_method = document.getElementById('depr_method').value || null;
+		    var depr_percent = document.getElementById('depr_percent').value;
+			if ($("#BAMInventorymaster").valid()) {
+				//$("#loader1").modal("toggle");
+				var formmode = 'edit';
+				var Invtype='InvMastadd';
+				//alert("Modify");
+				var url = "./InvMastadd?formmode=" + formmode+"&Invtype="+Invtype +"&de_m="+depr_method + "&depr_percent=" + depr_percent;
+				
+				$("#BAMInventorymaster").attr('action', url);
+	
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+	
+				$("#BAMInventorymaster").ajaxSubmit(options);
+	
+				function showResponse(responseText, statusText, xhr, $form) {
+				//	$("#loader1").hide();
+					$("#alertmsg").text(responseText);
+	
+					$('#alert').modal("toggle");
+	
+				};
+	
+			}
+			
+		}
+		
+		function submitverifyform(a) {
+			
+			if ($("#BAMInventorymaster").valid()) {
+				//$("#loader1").modal("toggle");
+				var verifyuser= document.getElementById('verifyuser1').value 
+				//alert(verifyuser)
+				 var depr_method = document.getElementById('depr_method').value || null;
+				var formmode = 'verify';
+				var Invtype = 'InvMastadd';
+				//alert(formmode);
+				var url = "./InvMastadd?formmode=" + formmode+"&Invtype="+Invtype +"&de_m="+depr_method;
+	
+				$("#BAMInventorymaster").attr('action', url);
+	
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+	
+				$("#BAMInventorymaster").ajaxSubmit(options);
+	
+				function showResponse(responseText, statusText, xhr, $form) {
+				//	$("#loader1").hide();
+					$("#alertmsg").text(responseText);
+	
+					$('#alert').modal("toggle");
+	
+				};
+	
+			}
+			
+		}
+		
+		
+	
+		/* 
+		function submiteditform(a) {
+			
+			if ($("#BAMInventorymaster").valid()) {
+			//	$("#loader1").modal("toggle");
+				var formmode = 'edit';
+				var Invtype = 'InvMastadd';
+				alert(formmode);
+				var url = "./InvMastadd?formmode=" + formmode+"&Invtype="+Invtype;
+	
+				$("#BAMInventorymaster").attr('action', url);
+	
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+	
+				$("#BAMInventorymaster").ajaxSubmit(options);
+	
+				function showResponse(responseText, statusText, xhr, $form) {
+				//	$("#loader1").hide();
+					$("#alertmsg").text(responseText);
+	
+					$('#alert').modal("toggle");
+	
+				};
+	
+			}
+			
+		} */
+		//Filter Table
+	
+		$(document)
+				.ready(
+						function() {
+	
+							$('.filterable .btn-filter')
+									.click(
+											function(event) {
+												event.preventDefault();
+												var $panel = $(this).parents(
+														'.filterable'), $filters = $panel
+														.find('.filters input'), $tbody = $panel
+														.find('.table tbody');
+												if ($filters.prop('disabled') == true) {
+													$filters
+															.prop('disabled', false);
+													$filters.first().focus();
+												} else {
+													$filters.val('').prop(
+															'disabled', true);
+													$tbody.find('.no-result')
+															.remove();
+													$tbody.find('tr').show();
+												}
+											});
+	
+							$('.filterable .filters input')
+									.keyup(
+											function(e) {
+												/* Ignore tab key */
+												var code = e.keyCode || e.which;
+												if (code == '9')
+													return;
+												/* Useful DOM data and selectors */
+												var $input = $(this), inputContent = $input
+														.val().toLowerCase(), $panel = $input
+														.parents('.filterable'), column = $panel
+														.find('.filters th')
+														.index($input.parents('th')), $table = $panel
+														.find('.table'), $rows = $table
+														.find('tbody tr');
+												/* Dirtiest filter function ever ;) */
+												var $filteredRows = $rows
+														.filter(function() {
+															var value = $(this)
+																	.find('td').eq(
+																			column)
+																	.text()
+																	.toLowerCase();
+															return value
+																	.indexOf(inputContent) === -1;
+														});
+												/* Clean previous no-result if exist */
+												$table.find('tbody .no-result')
+														.remove();
+												/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+												$rows.show();
+												$filteredRows.hide();
+												/* Prepend no-result row if all rows are filtered */
+												if ($filteredRows.length === $rows.length) {
+													$table
+															.find('tbody')
+															.prepend(
+																	$('<tr class="no-result text-center"><td colspan="'
+																			+ $table
+																					.find('.filters th').length
+																			+ '">No result found</td></tr>'));
+												}
+											});
+	
+						});
+	</script>
+<script type="text/javascript">
+
+
+function handleSelectChange() {
+    var asset_code = document.getElementById('asset_category').value;
+    var asset_category = asset_code.split(' - ')[0];
+   // alert(asset_category)
+    if (asset_category) {
+        $.ajax({
+            type: 'GET',
+            url: "./get_serial_main",
+            data: { asset_category: asset_category },
+            success: function(response) {
+                console.log("Response from server:", response);
+                
+                var deprFlag = document.getElementById('depr_flag').value;
+               
+                   
+                    //document.getElementById('depr_percent').value = response.depreciation_percentage || '';
+                    //document.getElementById('sol_id').value = response.solid || '';
+                    //document.getElementById('loc_type').value = response.location || '';
+                    document.getElementById('category_desc').value = response.category_description || '';
+                    //document.getElementById('asset_category').value = response.head_description || '';
+                    if (deprFlag === "N" || deprFlag === "") {
+                   //	 alert("empty")
+                       deprMethod.value = ""; // Clear the selection
+                       deprMethod.disabled = true; // Disable the select element
+                   } else{ 
+                	   //alert(deprFlag)
+                   	 //document.getElementById('depr_method').value = response.depreciation_method || '';
+                       deprMethod.disabled = false; // Enable the select element
+                   }
+               
+            },
+            error: function(error) {
+                console.error("Error fetching asset details:", error);
+              
+            }
+        });
+    } 
+}
+
+</script>
+<script>
+$(document).ready(function() {
+    // Function to update the expiry date
+    function updateExpiryDate() {
+        const purchaseDate = new Date(document.getElementById('date_of_purchase').value);
+        const lifespan = parseInt(document.getElementById('life_span_mth').value);
+
+        if (!isNaN(purchaseDate.getTime()) && lifespan > 0) {
+            const expiryDate = new Date(purchaseDate);
+            // Adding lifespan years to the purchase date
+            expiryDate.setFullYear(expiryDate.getFullYear() + lifespan);
+            // Subtract one day from the expiry date
+            expiryDate.setDate(expiryDate.getDate() - 1);
+            // Setting the expiry date in the desired format (YYYY-MM-DD)
+            document.getElementById('asst_exp_date').value = expiryDate.toISOString().split('T')[0];
+        }
+    }
+
+    // Adding event listeners to both inputs
+    document.getElementById('life_span_mth').addEventListener('input', updateExpiryDate);
+    document.getElementById('date_of_purchase').addEventListener('input', updateExpiryDate);
+});
+</script>
+<script>
+
+
+$(document).ready(function() {
+	  const deprFlag = document.getElementById('depr_flag').value; // Get the value of depr_flag
+      const deprMethod = document.getElementById('depr_method');
+      const depr_freq = document.getElementById('depr_freq');
+      const depr_percent = document.getElementById('depr_percent');
+      const acc_depr = document.getElementById('acc_depr');
+      const date_of_last_depr = document.getElementById('date_of_last_depr');
+      const nom_depr_amt = document.getElementById('nom_depr_amt');
+      const depr_rmks = document.getElementById('depr_rmks');
+
+      if (deprFlag === "N" || deprFlag === "") {
+          deprMethod.value = ""; // Clear the selection
+          deprMethod.disabled = true; // Disable the select element
+          depr_freq.value = ""; // Clear the selection
+          depr_freq.disabled = true; // Disable the select element
+          
+          depr_percent.value = ""; // Clear the selection
+          depr_percent.disabled = true; // Disable the select element
+          acc_depr.value = ""; // Clear the selection
+          acc_depr.disabled = true; // Disable the select element
+          date_of_last_depr.value = ""; // Clear the selection
+          date_of_last_depr.disabled = true; // Disable the select element
+          nom_depr_amt.value = ""; // Clear the selection
+          nom_depr_amt.disabled = true; // Disable the select element
+          depr_rmks.value = ""; // Clear the selection
+          depr_rmks.disabled = true; // Disable the select element
+          
+      } else if (deprFlag === "Y") {
+      	deprMethod.disabled=false;
+      	depr_freq.disabled = false; // Enable the select element
+      	depr_percent.disabled = false; 
+      	acc_depr.disabled = false; 
+      	date_of_last_depr.disabled = false; 
+      	nom_depr_amt.disabled = false; 
+      	depr_rmks.disabled = false; 
+      }
+	
+	
+});
+
+
+
+$(document).ready(function() {
+    function update_depr_flag(event) {
+        const deprFlag = event.target.value; // Get the value of depr_flag
+        const deprMethod = document.getElementById('depr_method');
+        const depr_freq = document.getElementById('depr_freq');
+        const depr_percent = document.getElementById('depr_percent');
+        const acc_depr = document.getElementById('acc_depr');
+        const date_of_last_depr = document.getElementById('date_of_last_depr');
+        const nom_depr_amt = document.getElementById('nom_depr_amt');
+        const depr_rmks = document.getElementById('depr_rmks');
+
+        if (deprFlag === "N" || deprFlag === "") {
+            deprMethod.value = ""; // Clear the selection
+            deprMethod.disabled = true; // Disable the select element
+            depr_freq.value = ""; // Clear the selection
+            depr_freq.disabled = true; // Disable the select element
+            
+            depr_percent.value = ""; // Clear the selection
+            depr_percent.disabled = true; // Disable the select element
+            acc_depr.value = ""; // Clear the selection
+            acc_depr.disabled = true; // Disable the select element
+            date_of_last_depr.value = ""; // Clear the selection
+            date_of_last_depr.disabled = true; // Disable the select element
+            nom_depr_amt.value = ""; // Clear the selection
+            nom_depr_amt.disabled = true; // Disable the select element
+            depr_rmks.value = ""; // Clear the selection
+            depr_rmks.disabled = true; // Disable the select element
+            
+        } else if (deprFlag === "Y") {
+        	//handleSelectChange();
+        	deprMethod.disabled=false;
+        	depr_freq.disabled = false; // Enable the select element
+        	depr_percent.disabled = false; 
+        	acc_depr.disabled = false; 
+        	date_of_last_depr.disabled = false; 
+        	nom_depr_amt.disabled = false; 
+        	depr_rmks.disabled = false; 
+        }
+    }
+
+    document.getElementById('depr_flag').addEventListener('input', update_depr_flag);
+    
+});
+</script>
+<script>
+
+
+function submitaddform(a) {
+	
+	 var asset = document.getElementById('asset_category').value;
+	    var asset_category = asset.split(' - ')[0]; 
+	   // alert(asset_category)
+	    if (asset_category) {
+	        $.ajax({
+	            type: 'GET',
+	            url: "./get_serial_main",
+	            data: { asset_category: asset_category },
+	            success: function(response) {
+	                console.log("Response from server:", response);
+	                
+	                   
+	                    var headcode = response.head_code || '';
+	                    var category_code = response.category_code || '';
+	                    var  sub_category_code= response.sub_category_code || '';
+	
+	//alert(headcode);alert(category_code);alert(sub_category_code);
+	
+
+    var depr_method = document.getElementById('depr_method').value;
+    var depr_percent = document.getElementById('depr_percent').value;
+    
+	if ($("#BAMInventorymaster").valid()) {
+		//$("#loader1").modal("toggle");
+		var formmode = 'add';
+		var Invtype = 'InvMastadd';
+		//alert(formmode);alert(Invtype);
+		var url = "./InvMastadd?formmode=" + formmode+"&Invtype="+Invtype +"&de_m=" + depr_method + "&depr_percent=" + depr_percent
+		+ "&headcode=" + headcode+ "&category_code=" + category_code+ "&sub_category_code=" + sub_category_code;
+
+		$("#BAMInventorymaster").attr('action', url);
+
+		var options = {
+			success : showResponse
+		// post-submit callback 
+		};
+
+		$("#BAMInventorymaster").ajaxSubmit(options);
+
+		function showResponse(responseText, statusText, xhr, $form) {
+			//$("#loader1").hide();
+			$("#alertmsg").text(responseText);
+
+			$('#alert').modal("toggle");
+
+		};
+
+	}
+	
+}
+	        });
+	    }
+}
+// Default values
+let defaultDepreciationRate = 2;  // Depreciation rate in percentage
+let defaultAssetValue = 1000;  // Example asset value, replace with actual value if needed
+
+// Function to calculate years between two dates
+function getYearsBetweenDates(startDate, endDate) {
+    const yearDiff = endDate.getFullYear() - startDate.getFullYear();
+    const monthDiff = endDate.getMonth() - startDate.getMonth();
+    const dayDiff = endDate.getDate() - startDate.getDate();
+
+    // Adjust the year difference based on the month and day differences
+    let years = yearDiff;
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        years -= 1;
+    }
+
+    // Return at least 1 year if the period is less than a year
+    return years > 0 ? years : 1;
+}
+
+// Function to update accumulated depreciation dynamically
+function updateDepreciation() {
+    const assetValueInput = document.getElementById('org_cost'); // Asset value input
+    const depreciationInput = document.getElementById('depr_percent'); // Depreciation rate input
+    const purchaseDateInput = document.getElementById('year_of_purchase'); // Purchase date input
+    const lastDepreciationDateInput = document.getElementById('date_of_last_depr'); // Last depreciation date input
+    const accDeprInput = document.getElementById('acc_depr'); // Accumulated depreciation output
+
+    // Get values from inputs
+    const assetValue = parseFloat(assetValueInput.value) || defaultAssetValue;
+    const depreciationRate = parseFloat(depreciationInput.value) || defaultDepreciationRate;
+    const purchaseDate = new Date(purchaseDateInput.value);
+    const lastDepreciationDate = new Date(lastDepreciationDateInput.value);
+
+    // Check for valid inputs
+    if (!isNaN(depreciationRate) && !isNaN(assetValue) && !isNaN(purchaseDate.getTime()) && !isNaN(lastDepreciationDate.getTime())) {
+        const years = getYearsBetweenDates(purchaseDate, lastDepreciationDate);
+        const depreciationAmount = (assetValue * (depreciationRate / 100)) * years;
+
+        // Update the accumulated depreciation
+        accDeprInput.value = depreciationAmount.toFixed(2);
+
+        // Debugging output
+        console.log(`Asset Value: ${assetValue}, Depreciation Rate: ${depreciationRate}, Years: ${years}, Accumulated Depreciation: ${depreciationAmount}`);
+    } else {
+       // alert('Please enter valid asset value, depreciation rate, and dates.');
+    }
+}
+
+// Set initial value of accumulated depreciation and attach event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const accDeprInput = document.getElementById('acc_depr');
+
+    // Initialize the accumulated depreciation value
+    accDeprInput.value = '0.00'; // Initial value, can be updated with server value if needed
+
+    // Attach event listeners to update calculation whenever inputs change
+    document.getElementById('org_cost').addEventListener('input', updateDepreciation);
+    document.getElementById('depr_percent').addEventListener('input', updateDepreciation);
+    document.getElementById('year_of_purchase').addEventListener('change', updateDepreciation);
+    document.getElementById('date_of_last_depr').addEventListener('change', updateDepreciation);
+});
+
+
+$(document).ready(function() {
+    const gteeAmt = $('#gtee_amt'); // Get the Guarantee Amount Flag select element
+    const gteeAmtPercent = $('#gtee_amt_percent1'); // Get the Guarantee Amount Percentage input field
+
+    // Function to handle enabling/disabling the Guarantee Amount Percentage field
+    function updateGteeAmtPercent() {
+        const gteeAmtValue = gteeAmt.val(); // Get the current value of gtee_amt
+
+        if (gteeAmtValue === "N" || gteeAmtValue === "") {
+            gteeAmtPercent.val(''); // Clear the field value
+            gteeAmtPercent.prop('readonly', true); // Make the field read-only
+        } else if (gteeAmtValue === "Y") {
+            gteeAmtPercent.prop('readonly', false); // Make the field editable
+        }
+    }
+
+    // Call the function on page load to set the correct state
+    updateGteeAmtPercent();
+
+    // Add event listener to the select field to update the state when the value changes
+    gteeAmt.change(function() {
+        updateGteeAmtPercent();
+    });
+});
+
+//for locaton type handling
+$(document).ready(function() {
+    const loctype = $('#loc_type'); 
+    const empid = $('#emp_id1'); 
+    const deptdivname = $('#dept_div_name'); 
+    const loca_addr = $('#loca_addr'); 
+
+    function updateempid() {
+        const loctypeValue = loctype.val(); 
+
+        if (loctypeValue === "QUA") {
+            empid.prop('readonly', false); // Make the field editable
+            loca_addr.prop('readonly', false); // Make the field editable
+            deptdivname.prop('readonly', true); // Make other fields read-only if necessary
+            deptdivname.removeAttr('required'); 
+            
+        } else if (loctypeValue === "OFF") {
+            deptdivname.prop('readonly', false); // Make the field editable
+            empid.prop('readonly', true); // Make other fields read-only if necessary
+            loca_addr.prop('readonly', true); // Make other fields read-only if necessary
+            loca_addr.removeAttr('required'); 
+            empid.removeAttr('required'); 
+            
+        } else {
+            empid.val(''); // Clear the value if not matching any condition
+            empid.prop('readonly', true); // Make the field read-only
+            loca_addr.val(''); // Clear the value if not matching any condition
+            loca_addr.prop('readonly', true); // Make the field read-only
+            deptdivname.val(''); // Clear the value if not matching any condition
+            deptdivname.prop('readonly', true); // Make the field read-only
+        } 
+    }
+
+    // Call the function on page load to set the correct state
+    updateempid();
+
+    // Add event listener to the select field to update the state when the value changes
+    loctype.change(function() {
+        updateempid();
+    });
+});
+
+
+
+
+</script>
+<script>
+function openTab(evt, tabName) {
+	let currentTab = 'tab1';
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].classList.remove("active");
+	}
+	evt.currentTarget.classList.add("active");
+	if (currentTab == 'tab1'
+		|| confirm("Complete the previous tab before moving on.")) {
+		hideAllTabs();
+		document.getElementById(tabName).style.display = 'block';
+		currentTab = tabName;
+	} else {
+		evt.preventDefault();
+	}
+}
+
+function hideAllTabs() {
+	const tabContents = document.getElementsByClassName('tabcontent');
+	for (let i = 0; i < tabContents.length; i++) {
+		tabContents[i].style.display = 'none';
+	}
+}
+
+function nextTab(nextTabName) {
+    // Find the tab button for the next tab and simulate a click
+    var nextTabLink = document.querySelector(`button[onclick="openTab(event, '${nextTabName}')"]`);
+    if (nextTabLink) {
+        nextTabLink.click();
+    }
+}
+</script>
+<script>
+    // Function to show the dropdown when the input is clicked
+   function showDropdown() {
+        const dropdown = document.getElementById("asset_serial_no_list");
+        dropdown.style.display = "block"; // Show the dropdown
+    }
+
+    // Function to set the input value based on dropdown selection
+    function handleSelectChange(value) {
+        const input = document.getElementById("asst_srl_no");
+
+        // Set the input field value to the selected option
+        input.value = value;
+
+        // Hide the dropdown after selection
+        document.getElementById("asset_serial_no_list").style.display = "none";
+    }
+
+    // Hide the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('#asst_srl_no')) {
+            document.getElementById("asset_serial_no_list").style.display = "none";
+        }
+    }
+    function handleSelectChange(element) {
+        const value = element.getAttribute("data-value");
+        const input = document.getElementById("asst_srl_no");
+
+        // Set the input field value to the selected option
+        input.value = value;
+
+        // Hide the dropdown after selection
+        document.getElementById("asset_serial_no_list").style.display = "none";
+    }
+    
+    
+    function handleSelectChangeasset(element) {
+       
+        const value = element.getAttribute("data-value");
+     //   alert(value );
+       // var b = BGLS_BamAssert
+        const input = document.getElementById("asst_srl_no");
+
+        // Set the input field value to the selected serial number
+        input.value = value;
+
+        // Hide the dropdown after selection
+        document.getElementById("asset_serial_no_list").style.display = "none";
+        
+        location.href = "BGLS_BamAssert_collatral?serialNo=" + value;
+
+    
+        // Call assetpage with the selected serial number
+      
+    }
+
+  
+    
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var assetSerialNumber = document.getElementById('asst_srl_no').value; 
+   // alert(assetSerialNumber)        // Get value from the input field
+    if (assetSerialNumber) {
+        
+    }
+});
+function formatDate(date) {
+	var datelive = new Date(); //
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var hours = datelive.getHours();
+    var minutes = datelive.getMinutes();
+
+    // Ensure two digits for day, month, hours, and minutes
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    return day + '-' + month + '-' + year;
+}
+function calculateFlowStartDates(acquisitionDate) {
+    var flowStartDates = [];
+    var currentYear = acquisitionDate.getFullYear();
+
+    // Loop through subsequent years until 2027-03-31
+    while (currentYear <= 3027) {
+        var startDate = new Date(currentYear, 2, 31); // March 31st of each year
+        flowStartDates.push(startDate);
+        currentYear++;
+    }
+
+    return flowStartDates;
+}
+
+function getMonthDayDifference(startDate, endDate) {
+    // Convert input strings to Date objects
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Calculate the difference in years, months, and days
+    let yearsDiff = end.getFullYear() - start.getFullYear();
+    let monthsDiff = end.getMonth() - start.getMonth();
+    let daysDiff = end.getDate() - start.getDate();
+
+    // Adjust for negative day difference by borrowing a month
+    if (daysDiff < 0) {
+        monthsDiff--;
+        const previousMonth = new Date(end.getFullYear(), end.getMonth(), 0).getDate(); // Last day of the previous month
+        daysDiff += previousMonth;
+    }
+
+    // Adjust for negative month difference by borrowing a year
+    if (monthsDiff < 0) {
+        yearsDiff--;
+        monthsDiff += 12;
+    }
+
+    // Combine years and months into total months
+    let totalMonths = (yearsDiff * 12) + monthsDiff;
+
+    // Ensure both totalMonths and daysDiff are positive by taking absolute values
+    totalMonths = Math.abs(totalMonths);
+    daysDiff = Math.abs(daysDiff);
+
+    // Format result as "months.days" (e.g., "6.28")
+    return `${totalMonths}.${daysDiff}`;
+}
+
+
+function parseDateString(dateString) {
+    // Expected format: dd-MM-yyyy
+    let parts = dateString.split("-");
+    if (parts.length !== 3) {
+        console.error("Invalid date format:", dateString);
+        return null;
+    }
+
+    let day = parseInt(parts[0], 10);
+    let month = parseInt(parts[1], 10) - 1; // JavaScript months are zero-based
+    let year = parseInt(parts[2], 10);
+
+    // Create a Date object
+    let date = new Date(year, month, day);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+        console.error("Invalid date:", dateString);
+        return null;
+    }
+
+    return date;
+}
+
+function deef(acquisitionDateInput){
+	
+	var datelive = new Date(); 
+const date = new Date(acquisitionDateInput);
+
+const pad = (num) => num.toString().padStart(2, '0');
+
+const month = pad(date.getDate());
+const  day = pad(date.getMonth() + 1); // Months are zero-based
+const year = date.getFullYear();
+const hours = pad(datelive.getHours());
+const minutes = pad(datelive.getMinutes());
+
+const formattedDate = `${day}-${month}-${year}`;
+console.log(formattedDate); // "01-08-2024 00:00"
+
+return formattedDate;
+}
+ 
+function genflows() { 
+//alert("hihi")
+    var dep = document.getElementById('dep_method1').value;
+	//alert(dep);
+	
+	if(dep=='SLM'){
+	//alert('SLM')
+    // Get the number of years input
+    var yearsInput = document.getElementById('lifeofyear1').value;
+    var years = parseInt(yearsInput);
+   
+    var acquisitionDateInput = document.getElementById('DATE_OF_ACQN1').value;
+    //alert(acquisitionDateInput)
+   // let acquisitionDate = new Date(acquisitionDateInput);
+    let acquisitionDate = parseDateString(acquisitionDateInput);
+   // alert(acquisitionDate)
+    
+    
+    var dep_method = document.getElementById('dep_method1').value;
+     var flowStartDates = calculateFlowStartDates(acquisitionDate);
+     //alert(flowStartDates[0]);
+     var result = getMonthDayDifference(acquisitionDate,flowStartDates[0] );
+     var deppercent = document.getElementById('dep_percentge1').value;
+     var percent = parseInt(deppercent);
+     var original_cost = document.getElementById('original_cost1').value;
+     var cur_book = document.getElementById('current_book_value1').value;
+
+ 	var rm=original_cost;
+ 	
+
+    // Show the fieldset
+    var fieldset = document.getElementById('tableset');
+    fieldset.style.display = 'block';
+    
+    // Get the table body
+    var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+    // Clear any existing rows
+    tbody.innerHTML = '';
+
+    // Generate rows based on the number of years
+    for (var i = 0; i <= years; i++) {
+        var row = document.createElement('tr');
+
+        // Create 13 columns for each row
+        for (var j = 0; j < 13; j++) {
+            var cell = document.createElement('td');
+            // Create an input element for each cell
+            var input = document.createElement('input');
+            input.type = 'text';
+            
+            // Set the text content for the first column only
+            if (j === 0) {
+                input.value = i + 1; // Display the row number
+                input.readOnly = true; // Make it read-only
+            }
+            // Set the year value in the second column
+            if (j === 1) {
+                input.value = "DEPR"; // Display the year
+                input.readOnly = true; // Make it read-only
+            }
+         // Set the acquisition date in the third column first cell
+             if (j === 1 && i === 0) {
+                input.value = "ACQN";
+                input.readOnly = true;
+            }
+            // Set the flow start dates in the third column
+             if (j === 2 && i < flowStartDates.length) {
+                input.value = formatDate(flowStartDates[i]);
+                input.readOnly = true;
+                if (j === 2 && i === 0) {
+                	//alert(acquisitionDateInput)
+                    input.value = acquisitionDateInput;
+                    input.readOnly = true;
+                }
+            }
+            
+             if (j === 3 && i===0) {
+        	 var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Remaining months including current month
+
+     	    // Add the months from January to March of the next year
+     	    var monthsInNextYearUntilMarch = 3; // Jan to Mar
+
+     	    // Total remaining months from acquisition month to March next year
+     	    var totalRemainingMonths = monthsInFirstYear + monthsInNextYearUntilMarch;
+
+     	    // Display the total remaining months
+     	    console.log('Remaining months until March next year:', totalRemainingMonths);
+
+     	    input.value = totalRemainingMonths + " MONTHS"; 
+          input.readOnly = true; // Make it read-only
+        }
+            
+            
+             if (j === 3 && i>0) {
+                 input.value = "YEARLY"; // Display the year
+                 input.readOnly = true; // Make it read-only
+             }
+            if (j === 4) {
+                input.value = dep_method; // Display the year
+                input.readOnly = true; // Make it read-only
+            }
+             if (j === 5) {
+                 input.value = deppercent; // Display the year
+                 input.readOnly = true; // Make it read-only
+             }
+             if (j === 6) {
+                 input.value = original_cost; // Display the year
+                 input.readOnly = true; 
+                 input.style.textAlign = 'right';
+             }
+             //Depretiation
+             if (j === 7 && i === 0) {
+// Calculate monthly depreciation
+var monthlyDepreciation = (original_cost * (percent / 100)) / 12;
+
+// Calculate the remaining months in the acquisition year
+var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Inclusive of the current month
+
+// Calculate depreciation for the remaining months of the acquisition year
+var firstYearDepreciation = monthlyDepreciation * monthsInFirstYear;
+
+// Calculate depreciation for January to March of the next year
+var monthsInNextYearUntilMarch = 3; // Jan to Mar
+var nextYearDepreciationUntilMarch = monthlyDepreciation * monthsInNextYearUntilMarch;
+
+// Total depreciation from acquisition month to March of the next year
+var totalDepreciationUntilNextMarch = firstYearDepreciation + nextYearDepreciationUntilMarch;
+
+// Set the depreciation value in the input field
+input.value = totalDepreciationUntilNextMarch.toFixed(2);
+input.readOnly = true;
+input.style.textAlign = 'right';
+}
+             if (j === 7 && i===1) {
+
+            	var cl=original_cost * (percent / 100);
+            	 input.value=cl/12*result;
+            	 var dp=input.value;
+                 input.readOnly = true;// Make it read-only
+                 input.style.textAlign = 'right';
+             }
+             
+             if (j === 7 && i>1) {
+
+            	 input.value = original_cost * (percent / 100);
+            	 var dp=input.value;
+                 input.readOnly = true;// Make it read-only
+                 input.style.textAlign = 'right';
+             }
+             
+             
+             //For Book value
+             if (j === 8 && i === 0) {
+                 input.value = original_cost;
+                 input.readOnly = true;
+                 input.style.textAlign = 'right';
+             }
+             if (j === 8 && i>0) {
+            	 if(remainingValue!=null){
+            	 rm=remainingValue;
+            	 	}
+             var remainingValue = rm-dp;
+             input.value = remainingValue; 
+             input.readOnly = true; 
+             input.style.textAlign = 'right';
+             
+        }
+         // Set id and class for input cells
+            input.id = 'input_' + i + '_' + j; // Example: input_1_2
+            input.name = 'input_rows' + j;  
+         //   input.classList.add('form-control');
+
+            
+            
+            // Append the input element to the cell
+            cell.appendChild(input);
+            // Append the cell to the row
+            row.appendChild(cell);
+        }
+
+        // Append the row to the table body
+        tbody.appendChild(row);
+    }
+}
+	
+	
+	if(dep=='WDV'){
+//alert('WDV')
+	    // Get the number of years input
+	    var yearsInput = document.getElementById('lifeofyear1').value;
+	    var years = parseInt(yearsInput);
+	   
+	    var acquisitionDateInput = document.getElementById('DATE_OF_ACQN1').value;
+	   // var acquisitionDate = new Date(acquisitionDateInput);  
+	    let acquisitionDate = parseDateString(acquisitionDateInput);
+	    
+	    var dep_method = document.getElementById('dep_method1').value;
+	     var flowStartDates = calculateFlowStartDates(acquisitionDate);
+	     var result = getMonthDayDifference(acquisitionDate,flowStartDates[0] );
+	     var deppercent = document.getElementById('dep_percentge1').value;
+	     var percent = parseInt(deppercent);
+	     var original_cost = document.getElementById('original_cost1').value;
+	     var cur_book = document.getElementById('current_book_value1').value;
+	 	var rm=original_cost;
+	 	
+	 	
+
+	    // Show the fieldset
+	    var fieldset = document.getElementById('tableset');
+	    fieldset.style.display = 'block';
+	    
+	    // Get the table body
+	    var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+	    // Clear any existing rows
+	    tbody.innerHTML = '';
+
+	    // Generate rows based on the number of years
+	    for (var i = 0; i <= years; i++) {
+	        var row = document.createElement('tr');
+
+	        // Create 13 columns for each row
+	        for (var j = 0; j < 13; j++) {
+	            var cell = document.createElement('td');
+	            // Create an input element for each cell
+	            var input = document.createElement('input');
+	            input.type = 'text';
+	            
+	            // Set the text content for the first column only
+	            if (j === 0) {
+	                input.value = i + 1; // Display the row number
+	                input.readOnly = true; // Make it read-only
+	            }
+	            // Set the year value in the second column
+	            if (j === 1) {
+	                input.value = "DEPR"; // Display the year
+	                input.readOnly = true; // Make it read-only
+	            }
+	         // Set the acquisition date in the third column first cell
+	             if (j === 1 && i === 0) {
+	                input.value = "ACQN";
+	                input.readOnly = true;
+	            }
+	            // Set the flow start dates in the third column
+	             if (j === 2 && i < flowStartDates.length) {
+                input.value = formatDate(flowStartDates[i]);
+                input.readOnly = true;
+                if (j === 2 && i === 0) {
+                    input.value = acquisitionDateInput;
+                    input.readOnly = true;
+                }
+            }
+	             if (j === 3 && i===0) {
+	            	 var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Remaining months including current month
+
+	         	    // Add the months from January to March of the next year
+	         	    var monthsInNextYearUntilMarch = 3; // Jan to Mar
+
+	         	    // Total remaining months from acquisition month to March next year
+	         	    var totalRemainingMonths = monthsInFirstYear + monthsInNextYearUntilMarch;
+
+	         	    // Display the total remaining months
+	         	    console.log('Remaining months until March next year:', totalRemainingMonths);
+
+	         	    input.value = totalRemainingMonths + " MONTHS"; 
+	              input.readOnly = true; // Make it read-only
+	            }
+	                
+	                
+	                 if (j === 3 && i>0) {
+	                 input.value = "YEARLY"; // Display the year
+	                 input.readOnly = true; // Make it read-only
+	             }
+	            if (j === 4) {
+	                input.value = dep_method; // Display the year
+	                input.readOnly = true; // Make it read-only
+	            }
+	             if (j === 5) {
+	                 input.value = deppercent; // Display the year
+	                 input.readOnly = true; // Make it read-only
+	             }
+	             if (j === 6) {
+	                 input.value = original_cost; // Display the year
+	                 input.readOnly = true; 
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             //Depretiation
+	             
+	               //Depretiation
+	              if (j === 7 && i === 0) {
+    // Calculate monthly depreciation
+    var monthlyDepreciation = (original_cost * (percent / 100)) / 12;
+    
+    // Calculate the remaining months in the acquisition year
+    var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Inclusive of the current month
+    
+    // Calculate depreciation for the remaining months of the acquisition year
+    var firstYearDepreciation = monthlyDepreciation * monthsInFirstYear;
+
+    // Calculate depreciation for January to March of the next year
+    var monthsInNextYearUntilMarch = 3; // Jan to Mar
+    var nextYearDepreciationUntilMarch = monthlyDepreciation * monthsInNextYearUntilMarch;
+    
+    // Total depreciation from acquisition month to March of the next year
+    var totalDepreciationUntilNextMarch = firstYearDepreciation + nextYearDepreciationUntilMarch;
+    
+    // Set the depreciation value in the input field
+    input.value = totalDepreciationUntilNextMarch.toFixed(2);
+    input.readOnly = true;
+    input.style.textAlign = 'right';
+}
+	             if (j === 7 && i===1) {
+	            	 
+	            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+	                 if (prevBookValueElement) {
+	                     var prevBookValue = parseFloat(prevBookValueElement.value);
+	                    // alert(prevBookValue)
+	                     cl= (prevBookValue * (percent / 100)).toFixed(2);
+	                     input.value=cl/12*result;
+	                    var dp= input.value
+	                 input.readOnly = true;// Make it read-only
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             }
+	             
+					if (j === 7 && i>1) {
+	            	 
+	            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+	                 if (prevBookValueElement) {
+	                     var prevBookValue = parseFloat(prevBookValueElement.value);
+	                    // alert(prevBookValue)
+	                     input.value=(prevBookValue * (percent / 100)).toFixed(2);
+	                    var dp= input.value
+	                 input.readOnly = true;// Make it read-only
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             }
+	             //For Book value
+	             if (j === 8 && i === 0) {
+	                 input.value = original_cost;
+	                 input.readOnly = true;
+	                 input.style.textAlign = 'right';
+	             }
+	             if (j === 8 && i>0) {
+	            	 if(remainingValue!=null){
+	            	 rm=remainingValue;
+	            	 }
+	             var remainingValue = rm-dp;
+	             input.value = remainingValue; 
+	             input.readOnly = true; 
+	             input.style.textAlign = 'right';
+	             
+	        }
+	             if (j === 9 && i === 0) {
+	                input.value = acquisitionDateInput;
+	                 input.readOnly = true;
+	             }
+	             if (j === 10 && i === 0) {
+		                input.value = '124/1';
+		                 input.readOnly = true;
+		             }
+	             if (j === 11 && i === 0) {
+		                input.value = original_cost;
+		                 input.readOnly = true;
+		             }
+	             
+	             
+	             input.id = 'input_' + i + '_' + j;
+	             input.name = 'input_rows' + j;  // Set the name attribute
+
+	            
+	            
+	            // Append the input element to the cell
+	            cell.appendChild(input);
+	            // Append the cell to the row
+	            row.appendChild(cell);
+	        }
+
+	        // Append the row to the table body
+	        tbody.appendChild(row);
+	    }
+		
+		
+		
+	}
+}
+function addSubmit() {
+	
+	var value = $('#input_0_1').val();
+
+	if (!value) {
+		alert("Please Generate the flow !!!");
+	} else {
+		
+		var assetflowslist = [];
+
+	    var assetserialno1 =  $("#asst_srl_no1").val();
+	    //alert(assetserialno1+"assetserialno1")
+	    var dep_method1 = $("#dep_method1").val();
+	  // alert(dep_method1+"dep_method1")
+
+	    var assetName1 = $("#asset_name1").val();
+	  // alert(assetName1+"assetName1")
+
+	    var asset_currency1 = $("#asset_currency1").val();
+	 //   alert(asset_currency1+"asset_currency1")
+
+	    var date_of_purchase1 = $("#date_of_purchase1").val();
+	   //alert(date_of_purchase1+"date_of_purchase1")
+	  /*   var year_of_purchase1 = $("#year_of_purchase1").val();
+	    alert(year_of_purchase1+"year_of_purchase1") */
+	    var year_of_purchase1 = $("#year_of_purchase1").val();
+	  // alert(year_of_purchase1);
+
+	    if (year_of_purchase1) {
+	        var year = year_of_purchase1.split('-')[0]; // Extract the year part (e.g., "2024")
+	       // alert(year + " - Extracted year");
+	    }
+	    
+
+	    var asst_exp_date1 = $("#asst_exp_date1").val();
+	 //   alert(asst_exp_date1+"asst_exp_date1")
+
+	    var acquis_date1 = $("#DATE_OF_ACQN1").val();
+	  //  alert(acquis_date1+"acquis_date1")
+
+	    var life_span_months1 = $("#lifeofyear1").val();
+	//   alert(life_span_months1+"life_span_months1")
+
+	    var depreciation_start_date1 = $("#depreciation_start_date1").val();
+	//    alert(depreciation_start_date1+"depreciation_start_date1")
+
+	    var asset_type1 = $("#asset_type1").val();
+	//    alert(asset_type1+"asset_type1")
+
+	    var original_cost1 = $("#original_cost1").val();
+	//    alert(original_cost1+"original_cost1")
+
+	    var accum_depres1 = $("#accum_depres1").val();
+	//    alert(accum_depres1+"accum_depres1")
+
+	    var curr_book_value1 = $("#current_book_value1").val();
+	//   alert(curr_book_value1+"curr_book_value1")
+
+	    var depreciation_flg1 = $("#depreciation_flg1").val();
+	//    alert(depreciation_flg1+"depreciation_flg1")
+
+	    var depreciation_method1 = $("#dep_method1").val();
+	 //  alert(depreciation_method1+"depreciation_method1")
+
+	    var depreciation_percentage1 = $("#dep_percentge1").val();
+	 //  alert(depreciation_percentage1+"dep_percentge1")
+
+	    var depreciation_frequency1 = $("#depreciation_frequency1").val();
+	 //  alert(depreciation_frequency1+"depreciation_frequency1")
+
+	    var date_of_last_depreciation1 = $("#date_of_last_depreciation1").val();
+	//   alert(date_of_last_depreciation1+"date_of_last_depreciation1")
+
+	    
+	    
+	    
+	    
+	    $('#flowsTable tbody tr').each(function(index) {
+
+var row = $(this);
+
+var input_rows0 = row.find('input[name="input_rows0"]').val() || 0;
+// alert(input_rows0);
+var input_rows1 = row.find('input[name="input_rows1"]').val() || 0;
+var input_rows2 = row.find('input[name="input_rows2"]').val() || 0;
+var input_rows3 = row.find('input[name="input_rows3"]').val() || 0;
+var input_rows4 = row.find('input[name="input_rows4"]').val() || 0;
+var input_rows5 = row.find('input[name="input_rows5"]').val() || 0;
+var input_rows6 = row.find('input[name="input_rows6"]').val() || 0;
+var input_rows7 = row.find('input[name="input_rows7"]').val() || 0;
+var input_rows8 = row.find('input[name="input_rows8"]').val() || 0;
+var input_rows9 = row.find('input[name="input_rows9"]').val() || 0;
+var input_rows10 = row.find('input[name="input_rows10"]').val() || 0;
+var input_rows11 = row.find('input[name="input_rows11"]').val() || 0;
+var input_rows12 = row.find('input[name="input_rows12"]').val() || "NA";
+
+if (input_rows0) {
+    var taxtable = {
+        gen_roll_no: input_rows0,
+        gen_flow_id: input_rows1,
+        gen_flow_strt_date: input_rows2,
+        gen_frequncy: input_rows3,
+        gen_method: input_rows4,
+        gen_percentage: input_rows5,
+        gen_original_cost: input_rows6,
+        gen_depreciation: input_rows7,
+        gen_book_value: input_rows8,
+        gen_tran_date: input_rows9,
+        gen_tran_id: input_rows10,
+        gen_amount: input_rows11,
+        gen_remarks: input_rows12,
+        
+        asset_serial_no : assetserialno1,
+        dep_method : dep_method1,
+        asset_name : assetName1,
+        asset_currency : asset_currency1,
+        date_of_purchase : date_of_purchase1,
+        year_of_purchase : year,
+        asst_exp_date : asst_exp_date1,
+        acquis_date : acquis_date1,
+        life_span_months : life_span_months1,
+        depreciation_start_date : depreciation_start_date1,
+        asset_type : asset_type1,
+        original_cost : original_cost1,
+        accum_depres : accum_depres1,
+        curr_book_value : curr_book_value1,
+        depreciation_flg : depreciation_flg1,
+        depreciation_method : depreciation_method1,
+        depreciation_percentage : depreciation_percentage1,
+        depreciation_frequency : depreciation_frequency1,
+        date_of_last_depreciation : date_of_last_depreciation1
+        
+    };
+
+    assetflowslist.push(taxtable);
+    console.log(taxtable)
+} else {
+    console.warn("Row " + index + " is missing data and will be skipped.");
+}
+});
+
+	   // console.log("Final assetflowslist:", assetflowslist);
+	   if (assetflowslist.length > 0) {
+		    $.ajax({
+		        type: 'POST',
+		        url: './addAssets?formmode=add',
+		        contentType: 'application/json',
+		        data: JSON.stringify(assetflowslist),
+		        success: function(response) {
+		          // alert(response)
+		            $("#alertmsg").text(response);
+		            $('#alert').modal("toggle");
+
+		            // Redirect to the "assets_flows" page after successful submission
+		            //location.href = "assets_flows";
+		        },
+		        error: function(xhr, status, error) {
+		            console.error("AJAX error:", status, error);
+		            alert("An error occurred while sending the data.");
+		        }
+		    });
+		} else {
+		    alert("No data to send.");
+		}
+
+		
+	}
+
+}
+
+function depreciationmodel(){
+	//alert("hi")
+	location.href = "assets_flows";
+}
+function addSubmitdemo() {
+
+    var value = $('#input_0_1').val();
+
+    if (!value) {
+        alert("Please Generate the flow !!!");
+    } else {
+        var assetflowslist = [];
+
+        var assetserialno1 = $("#asst_srl_no1").val();
+        alert(assetserialno1 + " assetserialno1");
+
+        var dep_method1 = $("#dep_method1").val();
+        alert(dep_method1 + " dep_method1");
+
+        var assetName1 = $("#asset_name1").val();
+        alert(assetName1 + " assetName1");
+
+        var asset_currency1 = $("#asset_currency1").val();
+        alert(asset_currency1 + " asset_currency1");
+
+        var date_of_purchase1 = $("#date_of_purchase1").val();
+        if (!isValidDate(date_of_purchase1)) {
+            alert("Invalid date for date_of_purchase1");
+            return; // Stop if the date is invalid
+        }
+        alert(date_of_purchase1 + " date_of_purchase1");
+
+        var year_of_purchase1 = $("#year_of_purchase1").val();
+        alert(year_of_purchase1);
+
+        var year = "";
+        if (year_of_purchase1) {
+            year = year_of_purchase1.split('-')[0]; // Extract the year part
+            alert(year + " - Extracted year");
+        }
+
+        var asst_exp_date1 = $("#asst_exp_date1").val();
+        if (!isValidDate(asst_exp_date1)) {
+            alert("Invalid date for asst_exp_date1");
+            return;
+        }
+        alert(asst_exp_date1 + " asst_exp_date1");
+
+        var acquis_date1 = $("#DATE_OF_ACQN1").val();
+        if (!isValidDate(acquis_date1)) {
+            alert("Invalid date for acquis_date1");
+            return;
+        }
+        alert(acquis_date1 + " acquis_date1");
+
+        var life_span_months1 = $("#lifeofyear1").val();
+        alert(life_span_months1 + " life_span_months1");
+
+        var depreciation_start_date1 = $("#depreciation_start_date1").val();
+        if (!isValidDate(depreciation_start_date1)) {
+            alert("Invalid date for depreciation_start_date1");
+            return;
+        }
+        alert(depreciation_start_date1 + " depreciation_start_date1");
+
+        var asset_type1 = $("#asset_type1").val();
+        alert(asset_type1 + " asset_type1");
+
+        var original_cost1 = $("#original_cost1").val();
+        alert(original_cost1 + " original_cost1");
+
+        var accum_depres1 = $("#accum_depres1").val();
+        alert(accum_depres1 + " accum_depres1");
+
+        var curr_book_value1 = $("#current_book_value1").val();
+        alert(curr_book_value1 + " curr_book_value1");
+
+        var depreciation_flg1 = $("#depreciation_flg1").val();
+        alert(depreciation_flg1 + " depreciation_flg1");
+
+        var depreciation_method1 = $("#dep_method1").val();
+        alert(depreciation_method1 + " depreciation_method1");
+
+        var depreciation_percentage1 = $("#dep_percentge1").val();
+        alert(depreciation_percentage1 + " depreciation_percentage1");
+
+        var depreciation_frequency1 = $("#depreciation_frequency1").val();
+        alert(depreciation_frequency1 + " depreciation_frequency1");
+
+        var date_of_last_depreciation1 = $("#date_of_last_depreciation1").val();
+        if (!isValidDate(date_of_last_depreciation1)) {
+            alert("Invalid date for date_of_last_depreciation1");
+            return;
+        }
+        alert(date_of_last_depreciation1 + " date_of_last_depreciation1");
+
+        $('#flowsTable tbody tr').each(function(index) {
+            var row = $(this);
+
+            var input_rows0 = row.find('input[name="input_rows0"]').val() || 0;
+            var input_rows1 = row.find('input[name="input_rows1"]').val() || 0;
+            var input_rows2 = row.find('input[name="input_rows2"]').val() || 0;
+            var input_rows3 = row.find('input[name="input_rows3"]').val() || 0;
+            var input_rows4 = row.find('input[name="input_rows4"]').val() || 0;
+            var input_rows5 = row.find('input[name="input_rows5"]').val() || 0;
+            var input_rows6 = row.find('input[name="input_rows6"]').val() || 0;
+            var input_rows7 = row.find('input[name="input_rows7"]').val() || 0;
+            var input_rows8 = row.find('input[name="input_rows8"]').val() || 0;
+            var input_rows9 = row.find('input[name="input_rows9"]').val() || 0;
+            var input_rows10 = row.find('input[name="input_rows10"]').val() || 0;
+            var input_rows11 = row.find('input[name="input_rows11"]').val() || 0;
+            var input_rows12 = row.find('input[name="input_rows12"]').val() || "NA";
+
+            if (input_rows0) {
+                var taxtable = {
+                    gen_roll_no: input_rows0,
+                    gen_flow_id: input_rows1,
+                    gen_flow_strt_date: input_rows2,
+                    gen_frequncy: input_rows3,
+                    gen_method: input_rows4,
+                    gen_percentage: input_rows5,
+                    gen_original_cost: input_rows6,
+                    gen_depreciation: input_rows7,
+                    gen_book_value: input_rows8,
+                    gen_tran_date: input_rows9,
+                    gen_tran_id: input_rows10,
+                    gen_amount: input_rows11,
+                    gen_remarks: input_rows12,
+
+                    asset_serial_no: assetserialno1,
+                    dep_method: dep_method1,
+                    asset_name: assetName1,
+                    asset_currency: asset_currency1,
+                    date_of_purchase: date_of_purchase1,
+                    year_of_purchase: year,
+                    asst_exp_date: asst_exp_date1,
+                    acquis_date: acquis_date1,
+                    life_span_months: life_span_months1,
+                    depreciation_start_date: depreciation_start_date1,
+                    asset_type: asset_type1,
+                    original_cost: original_cost1,
+                    accum_depres: accum_depres1,
+                    curr_book_value: curr_book_value1,
+                    depreciation_flg: depreciation_flg1,
+                    depreciation_method: depreciation_method1,
+                    depreciation_percentage: depreciation_percentage1,
+                    depreciation_frequency: depreciation_frequency1,
+                    date_of_last_depreciation: date_of_last_depreciation1
+                };
+
+                assetflowslist.push(taxtable);
+                console.log(taxtable);
+            } else {
+                console.warn("Row " + index + " is missing data and will be skipped.");
+            }
+        });
+
+        if (assetflowslist.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: './addAssets?formmode=add',
+                contentType: 'application/json',
+                data: JSON.stringify(assetflowslist),
+                success: function(response) {
+                    $("#alertmsg").text(response);
+                    $('#alert').modal("toggle");
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error:", status, error);
+                    alert("An error occurred while sending the data.");
+                }
+            });
+        } else {
+            alert("No data to send.");
+        }
+    }
+}
+
+// Helper function to validate date format (can customize this as needed)
+function isValidDate(dateString) {
+    // Check if date is empty
+    if (!dateString) return false;
+
+    // Simple check for valid date format (yyyy-mm-dd or similar)
+    var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    return dateRegex.test(dateString);
+}
+
+</script>
+</head>
+<title>BGLS</title>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BGLSHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid content" th:if="${formmode} == 'list'">
+					<div class="row">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+
+								<div class="card-header ">
+									<div class="float-left">
+										<h4>COLLETRAL - LIST</h4>
+									</div>
+									<div class=" float-right">
+										<button type="button" class="custom-btn"
+											id="btnAdd" onclick="codeadd();" th:if="${formmode}=='list'">Add</button>
+										<!-- <button type="button" class="btn btn-xs btn-primary btns"
+											id="btnAdd" onclick="list();"
+											style="font-size: 15px; width: -70px; size: 100px;">List</button>	 -->
+									</div>
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class="table-header">
+												<tr>
+													<th rowspan="2">Collateral Srl Num</th>
+													<th rowspan="2">Collateral Name</th>
+													<!-- <th rowspan="2">Account Number</th> -->
+													<th rowspan="2">Category</th>
+													<th rowspan="2">Employee Id</th>
+													<th rowspan="2">Current Book Value</th>
+													<th rowspan="2">Market Value</th>
+													<th rowspan="2">Verification Status</th>
+													<th rowspan="2">Select</th>
+												</tr>
+											</thead>
+											<tbody id="associatemonthly">
+
+												<tr th:each="Bamdocmana : ${BAMInventorymaster}">
+													<td th:text="${Bamdocmana?.asst_srl_no}"></td>
+													<td th:text="${Bamdocmana?.asst_name}"></td>
+													<!-- <td th:text="${Bamdocmana?.acc_number}" style="text-align: left;"></td> -->
+													<td th:text="${Bamdocmana?.asset_category}"></td>
+													<td th:text="${Bamdocmana?.emp_id}"></td>
+													<td
+														th:text="${#numbers.formatDecimal(Bamdocmana?.cur_book_value, 1, 'COMMA', 2, 'POINT')}"
+														style="text-align: right;"></td>
+
+													<td
+														th:text="${#numbers.formatDecimal(Bamdocmana?.mkt_value, 1, 'COMMA', 2, 'POINT')}"
+														style="text-align: right;"></td>
+													<th:block th:switch="${Bamdocmana?.verify_flg}">
+														<td th:case="'Y'"
+															style="color: green; text-align: center;">Verified</td>
+														<td th:case="'N'" style="color: red; text-align: center;">Unverified</td>
+														<td th:case="null" style="color: red; text-align: center;">Unknown</td>
+													</th:block>
+
+													<th:block th:switch="${Bamdocmana?.verify_flg}">
+														<td>
+															<div class="dropdown">
+																<button class="btn btn-secondary dropdown-toggle"
+																	type="button" th:id="${Bamdocmana?.asst_srl_no}"
+																	title="Action"
+																	style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																	data-toggle="dropdown" aria-haspopup="true"
+																	aria-expanded="false">Actions</button>
+																<div class="dropdown-menu"
+																	th:attr="aria-labelledby=${Bamdocmana?.asst_srl_no}">
+																	<th:block th:case="'N'">
+																		<a class="dropdown-item" href="#"
+																			th:attr="data-id=${Bamdocmana?.asst_srl_no}"
+																			onclick="Headcode1(this)">Verify</a>
+																		<a class="dropdown-item" href="#"
+																			th:attr="data-id=${Bamdocmana?.asst_srl_no}"
+																			onclick="Headcode(this)">Modify</a>
+
+																		<a class="dropdown-item" href="#"
+																			th:attr="data-id=${Bamdocmana?.asst_srl_no}"
+																			onclick="Headcode2(this)">View</a>
+																	</th:block>
+																	<th:block th:case="'Y'">
+																		<a class="dropdown-item" href="#"
+																			th:attr="data-id=${Bamdocmana?.asst_srl_no}"
+																			onclick="Headcode(this)">Modify</a>
+																		<a class="dropdown-item" href="#"
+																			th:attr="data-id=${Bamdocmana?.asst_srl_no}"
+																			onclick="Headcode2(this)">View</a>
+																	</th:block>
+																</div>
+															</div>
+														</td>
+													</th:block>
+
+
+
+
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="card-footer text-center">
+									<button type="button" class="custom-btn" id="btnHome"
+										onclick="home()">Home</button>
+									<!-- <button type="button" class="btn btn-primary" id="btnHome"
+											onclick="codeadd()">Add</button> -->
+
+									<button type="button" class="custom-btn" id="btnBack"
+										onclick="back()">Back</button>
+
+								</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="container-fluid content" th:if="${formmode}=='add'">
+					<div class="row">
+
+						<form action="#" th:object="${BAMInventorymaster}" class="w-100"
+							method="post" autocomplete="off" id="BAMInventorymaster">
+
+							<div class="associateProfileList mt-4">
+								<div class="card">
+									<div class="card-header border-bottom-0">
+										<div class="float-left">
+											<h4>INVENTORY MASTER - ADD</h4>
+										</div>
+										<div class="btn-group nav-buttons float-right">
+											<button type="button" class="custom-btn"
+												id="btnAdd" onclick="codeadd();" th:if="${formmode}=='list'"
+												style="font-size: 15px; width: -70px; size: 100px;">Add</button>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="branch_id">Collateral Serial Number</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" id="asst_srl_no"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asst_srl_no" readonly />
+													<!-- <select id="asst_srl_no" name="asst_srl_no" style="width: 100%"
+														class="form-control form-control-sm" required onchange="handleSelectChange()">
+														        <option value="">SELECT</option>
+       									 <th:block th:each="asset : ${assetsrlno}">
+         						   <option th:value="${asset.sl_no}" th:text="${asset.sl_no}"></option>
+       										 </th:block>
+													</select> -->
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="branch_name">Collateral Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_name} " id="asst_name"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asst_name" required="required" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asset_category">Collateral Category</label>
+												</div>
+
+												<div class="col-sm-3">
+													<!-- <input type="text"
+														id="asset_category" class="form-control form-control-sm"
+														name="asset_category" autocomplete="off" readonly/> -->
+
+													<select id="asset_category" name="asset_category"
+														style="width: 100%" class="form-control form-control-sm"
+														required onchange="handleSelectChange()">
+														<option value="">SELECT</option>
+														<th:block th:each="asset : ${assetsrlno}">
+															<option
+																th:value="${asset.asset_code} + ' - ' + ${asset.head_description}"
+																th:text="${asset.asset_code} + ' - ' + ${asset.head_description}"></option>
+														</th:block>
+
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="category_desc">Description</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="category_desc"
+														class="form-control form-control-sm" name="category_desc"
+														autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asset_type">Collateral Type</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="asset_type" name="asset_type"
+														style="width: 100%" th:field="*{asset_type}"
+														th:value="${BAMInventorymaster?.asset_type}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Tangible">Tangible</option>
+														<option value="Depreciable">Intangible</option>
+														<option value="Others">Others</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asst_crncy">Collateral Currency</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_crncy}"
+														id="asst_crncy" class="form-control form-control-sm"
+														name="asst_crncy" autocomplete="off" required="required" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="date_of_purchase">Date of Purchase</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="date"
+														th:value="${BAMInventorymaster.date_of_purchase}"
+														id="date_of_purchase" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_purchase" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="year_of_purchase">Year Of Purchase</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="date"
+														th:value="${BAMInventorymaster.year_of_purchase}"
+														id="year_of_purchase" class="form-control form-control-sm"
+														autocomplete="off" name="year_of_purchase" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="org_cost">Original Cost</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="number"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster.org_cost}" id="org_cost"
+														class="form-control form-control-sm" name="org_cost"
+														autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="life_span_mth">Life Span (Years)</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.life_span_mth}"
+														id="life_span_mth" class="form-control form-control-sm"
+														autocomplete="off" name="life_span_mth" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asst_exp_date">Collateral Expiry date</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="date" id="asst_exp_date"
+														class="form-control form-control-sm" name="asst_exp_date"
+														autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asst_rmks">Collateral Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.asst_rmks}" id="asst_rmks"
+														class="form-control form-control-sm" name="asst_rmks"
+														autocomplete="off" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asst_exp_date">Vendor Name</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.vender_name}"
+														id="vender_name" class="form-control form-control-sm"
+														name="vender_name" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asst_rmks">Purchase Details</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.purchase_details}"
+														id="purchase_det" class="form-control form-control-sm"
+														name="purchase_det" autocomplete="off" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depr_flag">Depreciation Flag</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="depr_flag" name="depr_flag" style="width: 100%"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depr_freq">Depreciation Frequency</label>
+												</div>
+												<div class="col-sm-3">
+													<select id="depr_freq" name="depr_freq" style="width: 100%"
+														th:field="*{depr_freq}"
+														th:value="${BAMInventorymaster?.depr_freq}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Yearly">Yearly</option>
+														<option value="Monthly">Monthly</option>
+														<option value="Quarterly">Quarterly</option>
+														<option value="Daily">Daily</option>
+													</select>
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depr_method">Depreciation Method</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="depr_method" name="depr_method"
+														style="width: 100%" class="form-control form-control-sm"
+														required>
+														<option value="">SELECT</option>
+														<option value="SLM">SLM</option>
+														<option value="WDV">WDV</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depr_percent">Depreciation Percentage</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number"
+														th:value="${BAMInventorymaster?.depr_percent}"
+														id="depr_percent" class="form-control form-control-sm"
+														name="depr_percent" autocomplete="off" required="required"
+														disabled />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="acc_depr">Accumulated Depreciation</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.acc_depr}" id="acc_depr"
+														class="form-control form-control-sm" name="acc_depr"
+														autocomplete="off" required="required" readonly /> <input
+														type="hidden" id="server_acc_depr"
+														th:value="${BAMInventorymaster.acc_depr}" />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="date_of_last_depr">Date of Last
+														Depreciation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_last_depr, 'yyyy-MM-dd')}"
+														id="date_of_last_depr"
+														class="form-control form-control-sm" autocomplete="off"
+														name="date_of_last_depr" required />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="date_of_acqn">Date of Acquisition</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="date"
+														th:value="${BAMInventorymaster?.date_of_acqn}"
+														id="date_of_acqn" class="form-control form-control-sm"
+														name="date_of_acqn" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="date_of_last_tfr">Date of Last Transfer</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="date"
+														th:value="${BAMInventorymaster?.date_of_last_tfr}"
+														id="date_of_last_tfr" class="form-control form-control-sm"
+														name="date_of_last_tfr" autocomplete="off" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="cur_book_value">Current Book Value</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="number"
+														th:value="${BAMInventorymaster?.cur_book_value}"
+														id="cur_book_value" class="form-control form-control-sm"
+														name="cur_book_value" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="mkt_value">Market Value</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number"
+														th:value="${BAMInventorymaster?.mkt_value}" id="mkt_value"
+														class="form-control form-control-sm" name="mkt_value"
+														autocomplete="off" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="loc_type">Location Type</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="loc_type" name="loc_type" style="width: 100%"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="OFF">Office</option>
+														<option value="BRN">Branch</option>
+														<option value="QUA">Quarters</option>
+														<option value="General">General</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="sol_id">Sol Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${BAMInventorymaster?.sol_id}"
+														id="sol_id" class="form-control form-control-sm"
+														name="sol_id" autocomplete="off" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="emp_id">Employee Id</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${BAMInventorymaster?.emp_id}"
+														id="emp_id" class="form-control form-control-sm"
+														name="emp_id" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="dept_div_name">Department/Division Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.dept_div_name}"
+														id="dept_div_name" class="form-control form-control-sm"
+														name="dept_div_name" autocomplete="off" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="loca_addr">Location Address</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.loca_addr}" id="loca_addr"
+														class="form-control form-control-sm" name="loca_addr"
+														autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="loc_rmks">Location Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.loc_rmks}" id="loc_rmks"
+														class="form-control form-control-sm" name="loc_rmks"
+														autocomplete="off" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="gtee_amt">Guarantee Amount Flag</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="gtee_amt" name="gtee_amt" style="width: 100%"
+														th:field="*{gtee_amt}"
+														th:value="${BAMInventorymaster?.gtee_amt}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select>
+
+													<!--													<input type="number"-->
+													<!--														th:value="${BAMInventorymaster?.gtee_amt}"-->
+													<!--														id="gtee_amt"-->
+													<!--														class="form-control form-control-sm"-->
+													<!--														name="gtee_amt" autocomplete="off" required="required"/>-->
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="gtee_amt_percent">Guarantee Amount
+														Percentage</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster?.gtee_amt_percent}"
+														id="gtee_amt_percent" class="form-control form-control-sm"
+														name="gtee_amt_percent" autocomplete="off"
+														required="required" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="nom_depr_amt">Nominal Depreciation
+														Amount</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster?.nom_depr_amt}"
+														id="nom_depr_amt" class="form-control form-control-sm"
+														name="nom_depr_amt" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depr_rmks">Depreciation Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.depr_rmks}" id="depr_rmks"
+														class="form-control form-control-sm" name="depr_rmks"
+														autocomplete="off" />
+												</div>
+											</div>
+
+
+										</div>
+
+									</div>
+									<div class="card-footer text-center">
+
+										<button type="button" class="custom-btn" id="btnHome"
+											onclick="home();">Home</button>
+
+
+
+										<button th:if="${formmode}=='add'" type="button"
+											class="custom-btn" onclick="submitaddform(this);"
+											form="BAMInventorymaster" id="btnSubmit"
+											th:attr="data-formmode='edit'">Submit</button>
+
+										<button type="button" class="custom-btn" id="btnBack"
+											onclick="back();">Back</button>
+
+									</div>
+									<div class="table-responsive">
+										<table class="table  table-bordered  table-hover table-sm"
+											style="margin-bottom: 0px; font-size: initial;">
+											<tr>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Entry User :</B></font></td>
+												<td class="col-sm-2"
+													style="width: 112px; margin-right: 20px;"><input
+													type="text" id="entryuser" name="entry_user"
+													th:value="${user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B> Modify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="modifyuser" name="modify_user"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Verify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="verifyuser" name="verify_user"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><font size="2"><B>Entry
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="entrytime" name="entry_time"
+													th:value="${#dates.format(currentDate, 'dd-MM-yyyy ')}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>
+															Modify Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="modifytime" name="modify_time"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Verify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="verifytime" name="verify_time"
+													style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+				<!-- **************************edit********************************* -->
+
+
+				<div class="container-fluid content"
+					th:if="${formmode}=='edit' OR ${formmode}=='verify'">
+					<div class="row">
+
+						<form action="#" th:object="${BAMInventorymaster}" class="w-100"
+							method="post" autocomplete="off" id="BAMInventorymaster">
+
+							<div class="associateProfileList mt-4">
+								<div class="card">
+									<div class="card-header border-bottom-0">
+										<div class="float-left">
+											<h4 th:if="${formmode}=='edit'">COLLETRAL- EDIT</h4>
+											<h4 th:if="${formmode}=='verify'">COLLETRAL - VERIFY</h4>
+
+
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="branch_id">Collateral Serial Number</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_srl_no}"
+														id="asst_srl_no" class="form-control form-control-sm"
+														autocomplete="off" name="asst_srl_no" readonly />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_srl_no}"
+														id="asst_srl_no" class="form-control form-control-sm"
+														autocomplete="off" name="asst_srl_no" readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="branch_name">Collateral Name</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_name} " id="asst_name"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asst_name" required="required" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_name} " id="asst_name"
+														class="form-control form-control-sm" autocomplete="off"
+														name="asst_name" readonly="readonly" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asset_category">Collateral Category</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asset_category}"
+														id="asset_category" class="form-control form-control-sm"
+														name="asset_category" autocomplete="off" readonly />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asset_category}"
+														id="asset_category" class="form-control form-control-sm"
+														name="asset_category" autocomplete="off" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="category_desc">Description</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.category_desc}"
+														id="category_desc" class="form-control form-control-sm"
+														name="category_desc" autocomplete="off" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.category_desc}"
+														id="category_desc" class="form-control form-control-sm"
+														name="category_desc" autocomplete="off"
+														readonly="readonly" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asset_type">Collateral Type</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<select id="asset_type" name="asset_type"
+														style="width: 100%" th:field="*{asset_type}"
+														th:value="${BAMInventorymaster?.asset_type}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Tangible">Tangible</option>
+														<option value="Depreciable">Intangible</option>
+														<option value="Others">Others</option>
+													</select>
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<select id="asset_type" name="asset_type"
+														style="width: 100%" th:field="*{asset_type}"
+														th:value="${BAMInventorymaster?.asset_type}"
+														class="form-control form-control-sm">
+														<option value="">SELECT</option>
+														<option value="Tangible">Tangible</option>
+														<option value="Depreciable">Depreciable</option>
+														<option value="Others">Others</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asst_crncy">Collateral Currency</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_crncy}"
+														id="asst_crncy" class="form-control form-control-sm"
+														name="asst_crncy" autocomplete="off" required="required" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.asst_crncy}"
+														id="asst_crncy" class="form-control form-control-sm"
+														name="asst_crncy" autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="date_of_purchase">Date of Purchase</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_purchase, 'yyyy-MM-dd')}"
+														id="date_of_purchase" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_purchase" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_purchase, 'yyyy-MM-dd')}"
+														id="date_of_purchase" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_purchase" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="year_of_purchase">Year Of Purchase</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.year_of_purchase, 'yyyy-MM-dd')}"
+														id="year_of_purchase" class="form-control form-control-sm"
+														autocomplete="off" name="year_of_purchase" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.year_of_purchase, 'yyyy-MM-dd')}"
+														id="year_of_purchase" class="form-control form-control-sm"
+														autocomplete="off" name="year_of_purchase" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="org_cost">Original Cost</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.org_cost}" id="org_cost"
+														class="form-control form-control-sm" name="org_cost"
+														autocomplete="off" required="required" />
+												</div>
+
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.org_cost}" id="org_cost"
+														class="form-control form-control-sm" name="org_cost"
+														autocomplete="off" readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="life_span_mth">Life Span (Years)</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="number"
+														th:value="${BAMInventorymaster.life_span_mth}"
+														id="life_span_mth" class="form-control form-control-sm"
+														autocomplete="off" name="life_span_mth"
+														required="required" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster.life_span_mth}"
+														id="life_span_mth" class="form-control form-control-sm"
+														autocomplete="off" name="life_span_mth"
+														readonly="readonly" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="asst_exp_date">Collateral Expiry date</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.asst_exp_date, 'yyyy-MM-dd')}"
+														id="asst_exp_date" class="form-control form-control-sm"
+														autocomplete="off" name="asst_exp_date" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.asst_exp_date, 'yyyy-MM-dd')}"
+														id="asst_exp_date" class="form-control form-control-sm"
+														autocomplete="off" name="asst_exp_date" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="asst_rmks">Collateral Remarks</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.asst_rmks}" id="asst_rmks"
+														class="form-control form-control-sm" name="asst_rmks"
+														autocomplete="off" required="required" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.asst_rmks}" id="asst_rmks"
+														class="form-control form-control-sm" name="asst_rmks"
+														autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depr_flag">Depreciation Flag</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<select id="depr_flagS" name="depr_flag"
+														style="width: 100%" class="form-control form-control-sm"
+														required>
+														<option th:text="${BAMInventorymaster?.depr_flag}"></option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select>
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<select id="depr_flagS" name="depr_flag"
+														style="width: 100%" th:readonly="${formmode}=='verify'"
+														class="form-control form-control-sm">
+														<option th:text="${BAMInventorymaster?.depr_flag}"></option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depr_freq">Depreciation Frequency</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<select id="depr_freq" name="depr_freq" style="width: 100%"
+														class="form-control form-control-sm" required>
+														<option th:text="${BAMInventorymaster?.depr_freq}"></option>
+														<option value="Yearly">Yearly</option>
+														<option value="Monthly">Monthly</option>
+														<option value="Quarterly">Quarterly</option>
+														<option value="Daily">Daily</option>
+													</select>
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<select id="depr_freq" name="depr_freq" style="width: 100%"
+														th:readonly="${formmode}=='verify'"
+														class="form-control form-control-sm">
+														<option th:text="${BAMInventorymaster?.depr_freq}"></option>
+														<option value="Yearly">Yearly</option>
+														<option value="Monthly">Monthly</option>
+														<option value="Quarterly">Quarterly</option>
+														<option value="Daily">Daily</option>
+													</select>
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="depr_method">Depreciation Method</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<select id="depr_method" name="depr_method"
+														style="width: 100%" class="form-control form-control-sm"
+														required>
+														<option th:text="${BAMInventorymaster?.depr_method}"></option>
+														<option value="">SELECT</option>
+														<option value="SLM">SLM</option>
+														<option value="WDV">WDV</option>
+													</select>
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<select id="depr_method" name="depr_method"
+														style="width: 100%" th:readonly="${formmode}=='verify'"
+														class="form-control form-control-sm">
+														<option th:text="${BAMInventorymaster?.depr_method}"></option>
+														<option value="">SELECT</option>
+														<option value="SLM">SLM</option>
+														<option value="WDV">WDV</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depr_percent">Depreciation Percentage</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.depr_percent}"
+														id="depr_percent" class="form-control form-control-sm"
+														name="depr_percent" autocomplete="off" required="required" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.depr_percent}"
+														id="depr_percent" class="form-control form-control-sm"
+														name="depr_percent" autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="acc_depr">Accumulated Depreciation</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.acc_depr}" id="acc_depr"
+														class="form-control form-control-sm" name="acc_depr"
+														autocomplete="off" required="required" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.acc_depr}" id="acc_depr"
+														class="form-control form-control-sm" name="acc_depr"
+														autocomplete="off" readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="date_of_last_depr">Date of Last
+														Depreciation</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_last_depr, 'yyyy-MM-dd')}"
+														id="date_of_last_depr"
+														class="form-control form-control-sm" autocomplete="off"
+														name="date_of_last_depr" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_last_depr, 'yyyy-MM-dd')}"
+														id="date_of_last_depr"
+														class="form-control form-control-sm" autocomplete="off"
+														name="date_of_last_depr" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="date_of_acqn">Date of Acquisition</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_acqn, 'yyyy-MM-dd')}"
+														id="date_of_acqn" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_acqn" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_acqn, 'yyyy-MM-dd')}"
+														id="date_of_acqn" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_acqn" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="date_of_last_tfr">Date of Last Transfer</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_last_tfr, 'yyyy-MM-dd')}"
+														id="date_of_last_tfr" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_last_tfr" />
+												</div>
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="date"
+														th:value="${#dates.format(BAMInventorymaster.date_of_last_tfr, 'yyyy-MM-dd')}"
+														id="date_of_last_tfr" class="form-control form-control-sm"
+														autocomplete="off" name="date_of_last_tfr" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="cur_book_value">Current Book Value</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="number"
+														th:value="${BAMInventorymaster?.cur_book_value}"
+														id="cur_book_value" class="form-control form-control-sm"
+														name="cur_book_value" autocomplete="off"
+														required="required" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.cur_book_value}"
+														id="cur_book_value" class="form-control form-control-sm"
+														name="cur_book_value" autocomplete="off"
+														readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="mkt_value">Market Value</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="number"
+														th:value="${BAMInventorymaster?.mkt_value}" id="mkt_value"
+														class="form-control form-control-sm" name="mkt_value"
+														autocomplete="off" required="required" />
+
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.mkt_value}" id="mkt_value"
+														class="form-control form-control-sm" name="mkt_value"
+														autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="loc_type">Location Type</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<select id="loc_type" name="loc_type" style="width: 100%"
+														class="form-control form-control-sm" required>
+														<option th:text="${BAMInventorymaster?.loc_type}"></option>
+														<option value="OFF">Office</option>
+														<option value="BRN">Branch</option>
+														<option value="QUA">Quarters</option>
+														<option value="GEN">General</option>
+													</select>
+												</div>
+
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<select id="loc_type" name="loc_type" style="width: 100%"
+														th:readonly="${formmode}=='verify'"
+														class="form-control form-control-sm">
+														<option th:text="${BAMInventorymaster?.loc_type}"></option>
+														<option value="OFF">Office</option>
+														<option value="BRN">Branch</option>
+														<option value="QUA">Quarters</option>
+														<option value="GEN">General</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="sol_id">Sol Id</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text" th:value="${BAMInventorymaster?.sol_id}"
+														id="sol_id" class="form-control form-control-sm"
+														name="sol_id" autocomplete="off" readonly="readonly" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text" th:value="${BAMInventorymaster?.sol_id}"
+														id="sol_id" class="form-control form-control-sm"
+														name="sol_id" autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="emp_id">Employee Id</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text" th:value="${BAMInventorymaster?.emp_id}"
+														id="emp_id" class="form-control form-control-sm"
+														name="emp_id" autocomplete="off" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text" th:value="${BAMInventorymaster?.emp_id}"
+														id="emp_id" class="form-control form-control-sm"
+														name="emp_id" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="dept_div_name">Department/Division Name</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.dept_div_name}"
+														id="dept_div_name" class="form-control form-control-sm"
+														name="dept_div_name" autocomplete="off" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.dept_div_name}"
+														id="dept_div_name" class="form-control form-control-sm"
+														name="dept_div_name" autocomplete="off"
+														readonly="readonly" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="loca_addr">Location Address</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.loca_addr}" id="loca_addr"
+														class="form-control form-control-sm" name="loca_addr"
+														autocomplete="off" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.loca_addr}" id="loca_addr"
+														class="form-control form-control-sm" name="loca_addr"
+														autocomplete="off" readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="loc_rmks">Location Remarks</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.loc_rmks}" id="loc_rmks"
+														class="form-control form-control-sm" name="loc_rmks"
+														autocomplete="off" required="required" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.loc_rmks}" id="loc_rmks"
+														class="form-control form-control-sm" name="loc_rmks"
+														autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="gtee_amt">Guarantee Amount Flag</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<!-- <select id="gtee_amt" name="gtee_amt" style="width: 100%"
+														th:field="*{gtee_amt}"
+														th:value="${BAMInventorymaster?.gtee_amt}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select> -->
+
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster?.gtee_amt}" id="gtee_amt"
+														class="form-control form-control-sm" name="gtee_amt"
+														autocomplete="off" readonly="readonly" />
+												</div>
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<!-- <select id="gtee_amt" name="gtee_amt" style="width: 100%"
+														th:field="*{gtee_amt}"
+														th:value="${BAMInventorymaster?.gtee_amt}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select> -->
+
+													<input type="text"
+														th:value="${BAMInventorymaster?.gtee_amt}" id="gtee_amt"
+														class="form-control form-control-sm" name="gtee_amt"
+														autocomplete="off" readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="gtee_amt_percent">Guarantee Amount
+														Percentage</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster?.gtee_amt_percent}"
+														id="gtee_amt_percent" class="form-control form-control-sm"
+														name="gtee_amt_percent" autocomplete="off"
+														readonly="readonly" />
+												</div>
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.gtee_amt_percent}"
+														id="gtee_amt_percent" class="form-control form-control-sm"
+														name="gtee_amt_percent" autocomplete="off"
+														readonly="readonly" />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="nom_depr_amt">Nominal Depreciation
+														Amount</label>
+												</div>
+
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster?.nom_depr_amt}"
+														id="nom_depr_amt" class="form-control form-control-sm"
+														name="nom_depr_amt" autocomplete="off" />
+												</div>
+
+
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.nom_depr_amt}"
+														id="nom_depr_amt" class="form-control form-control-sm"
+														name="nom_depr_amt" autocomplete="off" readonly="readonly" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="depr_rmks">Depreciation Remarks</label>
+												</div>
+												<div th:if="${formmode}=='edit'" class="col-sm-3">
+													<input type="text"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${BAMInventorymaster?.depr_rmks}" id="depr_rmks"
+														class="form-control form-control-sm" name="depr_rmks"
+														autocomplete="off" />
+												</div>
+
+
+
+
+												<div th:if="${formmode}=='verify'" class="col-sm-3">
+													<input type="text"
+														th:value="${BAMInventorymaster?.depr_rmks}" id="depr_rmks"
+														class="form-control form-control-sm" name="depr_rmks"
+														autocomplete="off" readonly="readonly" />
+												</div>
+											</div>
+
+
+										</div>
+
+									</div>
+									<div class="card-footer text-center">
+
+										<button type="button" class="custom-btn" id="btnHome"
+											onclick="home();">Home</button>
+
+
+
+										<button th:if="${formmode}=='edit'" type="button"
+											class="custom-btn"
+											onclick="submiteditform(this);" form="BAMInventorymaster"
+											id="btnSubmit" th:attr="data-formmode='edit'">Submit</button>
+
+										<button th:if="${formmode}=='verify'" type="button"
+											class="custom-btn"
+											onclick="submitverifyform(this);" form="BAMInventorymaster"
+											id="btnSubmit" th:attr="data-formmode='edit'">Submit</button>
+
+										<button type="button" class="custom-btn" id="btnBack"
+											onclick="back();">Back</button>
+
+									</div>
+									<!-- Conditionally display the table based on formmode edit -->
+									<div class="table-responsive" th:if="${formmode == 'edit'}">
+										<table class="table  table-bordered  table-hover table-sm"
+											style="margin-bottom: 0px; font-size: initial;">
+											<tr>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Entry User :</B></font></td>
+												<td class="col-sm-2"
+													style="width: 112px; margin-right: 20px;"><input
+													type="text" id="entryuser" name="entry_user"
+													th:value="${BAMInventorymaster?.entry_user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Modify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="modifyuser" name="modify_user"
+													th:value="${BAMInventorymaster?.modify_user ?: user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Verify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="verifyuser" name="verify_user"
+													th:value="${BAMInventorymaster?.verify_user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><font size="2"><B>Entry
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="entrytime" name="entry_time"
+													th:value="${BAMInventorymaster?.entry_time}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Modify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="modifytime" name="modify_time"
+													th:value="${BAMInventorymaster?.modify_time ?: #dates.format(currentDate, 'dd-MM-yyyy')}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Verify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="verifytime" name="verify_time"
+													th:value="${BAMInventorymaster?.verify_time}"
+													style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+										</table>
+									</div>
+									<!-- Conditionally display the table based on formmode verify -->
+									<div class="table-responsive" th:if="${formmode == 'verify'}">
+										<table class="table  table-bordered  table-hover table-sm"
+											style="margin-bottom: 0px; font-size: initial;">
+											<tr>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Entry User :</B></font></td>
+												<td class="col-sm-2"
+													style="width: 112px; margin-right: 20px;"><input
+													type="text" id="entryuser" name="entry_user"
+													th:value="${BAMInventorymaster?.entry_user ?: user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Modify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="modifyuser" name="modify_user"
+													th:value="${BAMInventorymaster?.modify_user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Verify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="verifyuser1" name="verify_user"
+													th:value="${BAMInventorymaster?.verify_user ?: user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><font size="2"><B>Entry
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="entrytime" name="entry_time"
+													th:value="${BAMInventorymaster?.entry_time}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Modify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="modifytime" name="modify_time"
+													th:value="${BAMInventorymaster?.modify_time}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Verify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="verifytime" name="verify_time"
+													th:value="${BAMInventorymaster?.verify_time ?: #dates.format(currentDate, 'dd-MM-yyyy')}"
+													style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+										</table>
+									</div>
+
+
+
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+
+				<!--------------------------- view-------------------------------------------------------------------------------------------------------- -->
+
+
+
+				<div class="container-fluid content" th:if="${formmode}=='view'">
+					<div class="row">
+
+						<form action="#" th:object="${BAMInventorymaster}" class="w-100"
+							method="post" autocomplete="off" id="BAMInventorymaster">
+
+							<div class="associateProfileList mt-4">
+								<div class="card">
+									<div class="card-header border-bottom-0">
+										<div class="float-left">
+
+											<h4 th:if="${formmode}=='view'">COLLETRAL-VIEW</h4>
+
+										</div>
+
+									</div>
+									<div>
+										<div class="tab mt-2"
+											style="padding: 8px 8px; position: relative; display: flex; justify-content: space-around; margin-top: 15px; width: 100%">
+											<!-- Tab buttons -->
+											<button type="button" class="tablinks active"
+												onclick="openTab(event, 'tab1')">Collateral-View</button>
+											<button type="button" class="tablinks"
+												onclick="openTab(event, 'tab2')">Depreciation</button>
+
+
+										</div>
+
+										<div id="tab1" class="tabcontent" style="display: block;">
+											<div class="card-body">
+												<div class="form-group">
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="branch_id">Collateral Serial Number</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster.asst_srl_no}"
+																id="asst_srl_no" class="form-control form-control-sm"
+																autocomplete="off" name="asst_srl_no" readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="branch_name">Collateral Name</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster.asst_name} "
+																id="asst_name" class="form-control form-control-sm"
+																autocomplete="off" name="asst_name" required="required" />
+														</div>
+
+
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="asset_category">Collateral Category</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster.asset_category}"
+																id="asset_category" class="form-control form-control-sm"
+																name="asset_category" autocomplete="off" readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="category_desc">Description</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster.category_desc}"
+																id="category_desc" class="form-control form-control-sm"
+																name="category_desc" autocomplete="off" />
+														</div>
+
+
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="asset_type">Collateral Type</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+
+
+															<input type="text" id="asset_type"
+																th:value="${BAMInventorymaster?.asset_type}"
+																class="form-control form-control-sm" name="asset_type"
+																autocomplete="off" readonly="readonly" />
+
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="asst_crncy">Collateral Currency</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster.asst_crncy}"
+																id="asst_crncy" class="form-control form-control-sm"
+																name="asst_crncy" autocomplete="off" required="required" />
+														</div>
+
+
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="date_of_purchase">Date of Purchase</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="date"
+																th:value="${#dates.format(BAMInventorymaster.date_of_purchase, 'yyyy-MM-dd')}"
+																id="date_of_purchase"
+																class="form-control form-control-sm" autocomplete="off"
+																name="date_of_purchase" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="year_of_purchase">Year Of Purchase</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="date"
+																th:value="${#dates.format(BAMInventorymaster.year_of_purchase, 'yyyy-MM-dd')}"
+																id="year_of_purchase"
+																class="form-control form-control-sm" autocomplete="off"
+																name="year_of_purchase" />
+														</div>
+
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="org_cost">Original Cost</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster.org_cost}" id="org_cost"
+																class="form-control form-control-sm" name="org_cost"
+																autocomplete="off" required="required" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="life_span_mth">Life Span (Years)</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="number"
+																th:value="${BAMInventorymaster.life_span_mth}"
+																id="life_span_mth" class="form-control form-control-sm"
+																autocomplete="off" name="life_span_mth"
+																required="required" />
+														</div>
+
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="asst_exp_date">Collateral Expiry date</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="date"
+																th:value="${#dates.format(BAMInventorymaster.asst_exp_date, 'yyyy-MM-dd')}"
+																id="asst_exp_date" class="form-control form-control-sm"
+																autocomplete="off" name="asst_exp_date" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="asst_rmks">Collateral Remarks</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.asst_rmks}"
+																id="asst_rmks" class="form-control form-control-sm"
+																name="asst_rmks" autocomplete="off" required="required" />
+														</div>
+
+
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="depr_flag">Depreciation Flag</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+
+															<input type="text"
+																th:value="${BAMInventorymaster?.depr_flag}"
+																id="depr_flags" class="form-control form-control-sm"
+																name="depr_flag" autocomplete="off" required="required" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="depr_freq">Depreciation Frequency</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+
+
+															<input type="text"
+																th:value="${BAMInventorymaster?.depr_freq}"
+																id="depr_freq" class="form-control form-control-sm"
+																name="depr_freq" autocomplete="off" required="required" />
+
+														</div>
+
+
+													</div>
+
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="depr_method">Depreciation Method</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+
+															<input type="text"
+																th:value="${BAMInventorymaster?.depr_method}"
+																id="depr_method" class="form-control form-control-sm"
+																name="depr_method" autocomplete="off"
+																required="required" />
+
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="depr_percent">Depreciation Percentage</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.depr_percent}"
+																id="depr_percent" class="form-control form-control-sm"
+																name="depr_percent" autocomplete="off"
+																required="required" />
+														</div>
+
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="acc_depr">Accumulated Depreciation</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.acc_depr}" id="acc_depr"
+																class="form-control form-control-sm" name="acc_depr"
+																autocomplete="off" required="required" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="date_of_last_depr">Date of Last
+																Depreciation</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="date"
+																th:value="${#dates.format(BAMInventorymaster.date_of_last_depr, 'yyyy-MM-dd')}"
+																id="date_of_last_depr"
+																class="form-control form-control-sm" autocomplete="off"
+																name="date_of_last_depr" />
+														</div>
+
+
+													</div>
+
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="date_of_acqn">Date of Acquisition</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="date"
+																th:value="${#dates.format(BAMInventorymaster.date_of_acqn, 'yyyy-MM-dd')}"
+																id="date_of_acqn" class="form-control form-control-sm"
+																autocomplete="off" name="date_of_acqn" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="date_of_last_tfr">Date of Last
+																Transfer</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="date"
+																th:value="${#dates.format(BAMInventorymaster.date_of_last_tfr, 'yyyy-MM-dd')}"
+																id="date_of_last_tfr"
+																class="form-control form-control-sm" autocomplete="off"
+																name="date_of_last_tfr" />
+														</div>
+
+													</div>
+
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="cur_book_value">Current Book Value</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.cur_book_value}"
+																id="cur_book_value" class="form-control form-control-sm"
+																name="cur_book_value" autocomplete="off"
+																required="required" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="mkt_value">Market Value</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="number"
+																th:value="${BAMInventorymaster?.mkt_value}"
+																id="mkt_value" class="form-control form-control-sm"
+																name="mkt_value" autocomplete="off" required="required" />
+														</div>
+
+
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="loc_type">Location Type</label>
+														</div>
+
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+
+															<input type="text"
+																th:value="${BAMInventorymaster?.loc_type}" id="loc_type"
+																class="form-control form-control-sm" name="loc_type"
+																autocomplete="off" readonly="readonly" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="sol_id">Sol Id</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.sol_id}" id="sol_id"
+																class="form-control form-control-sm" name="sol_id"
+																autocomplete="off" readonly="readonly" />
+														</div>
+
+
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="emp_id">Employee Id</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.emp_id}" id="emp_id"
+																class="form-control form-control-sm" name="emp_id"
+																autocomplete="off" required="required"
+																readonly="readonly" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="dept_div_name">Department/Division
+																Name</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.dept_div_name}"
+																id="dept_div_name" class="form-control form-control-sm"
+																name="dept_div_name" autocomplete="off" />
+														</div>
+
+
+													</div>
+
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="loca_addr">Location Address</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.loca_addr}"
+																id="loca_addr" class="form-control form-control-sm"
+																name="loca_addr" autocomplete="off" />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="loc_rmks">Location Remarks</label>
+														</div>
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																th:value="${BAMInventorymaster?.loc_rmks}" id="loc_rmks"
+																class="form-control form-control-sm" name="loc_rmks"
+																autocomplete="off" required="required" />
+														</div>
+
+
+
+													</div>
+
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="gtee_amt">Guarantee Amount Flag</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<!-- <select id="gtee_amt" name="gtee_amt" style="width: 100%"
+														th:field="*{gtee_amt}"
+														th:value="${BAMInventorymaster?.gtee_amt}"
+														class="form-control form-control-sm" required>
+														<option value="">SELECT</option>
+														<option value="Y">Y</option>
+														<option value="N">N</option>
+													</select> -->
+
+															<input type="text"
+																oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+																th:value="${BAMInventorymaster?.gtee_amt}" id="gtee_amt"
+																class="form-control form-control-sm" name="gtee_amt"
+																autocomplete="off" readonly="readonly" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="gtee_amt_percent">Guarantee Amount
+																Percentage</label>
+														</div>
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+																th:value="${BAMInventorymaster?.gtee_amt_percent}"
+																id="gtee_amt_percent"
+																class="form-control form-control-sm"
+																name="gtee_amt_percent" autocomplete="off"
+																readonly="readonly" />
+														</div>
+
+
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label for="nom_depr_amt">Nominal Depreciation
+																Amount</label>
+														</div>
+
+
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+																th:value="${BAMInventorymaster?.nom_depr_amt}"
+																id="nom_depr_amt" class="form-control form-control-sm"
+																name="nom_depr_amt" autocomplete="off" />
+														</div>
+
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label for="depr_rmks">Depreciation Remarks</label>
+														</div>
+
+
+
+														<div th:if="${formmode}=='view'" class="col-sm-3">
+															<input type="text"
+																oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+																th:value="${BAMInventorymaster?.depr_rmks}"
+																id="depr_rmks" class="form-control form-control-sm"
+																name="depr_rmks" autocomplete="off" />
+														</div>
+
+													</div>
+
+
+												</div>
+
+											</div>
+										</div>
+
+										<div id="tab2" class="tabcontent" style="display: none;">
+											<div class="card-body">
+												<fieldset>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">collateral Serial No</label>
+															</div>
+															<div class="col-sm-3">
+
+																<!-- 	<input type="text" th:value="${BAMInventorymaster.asst_srl_no}" 
+       id="asst_srl_no" class="form-control form-control-sm" 
+       autocomplete="off" name="asst_srl_no" readonly 
+       onclick="showDropdown()" />
+
+Custom dropdown list, hidden initially
+<div id="asset_serial_no_list" class="dropdown-list">
+    Each option gets displayed from the list of serial numbers
+    <div th:each="assetSerno : ${lists}" 
+         th:data-value="${assetSerno}" 
+         th:text="${assetSerno}" 
+         onclick="handleSelectChangeasset(this)">
+    </div>
+</div>
+ -->
+																<input type="text" name="asst_srl_no" id="asst_srl_no1"
+																	th:value="${BAMInventorymaster?.asst_srl_no}"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Collateral Type</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="text" name="asset_type" id="asset_type1"
+																	th:value="${BAMInventorymaster?.asset_type}"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Collateral Name</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="asset_name1" name="asset_name"
+																	th:value="${BAMInventorymaster.asst_name} "
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Original Cost</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="number" name="original_cost"
+																	th:value="${BAMInventorymaster.org_cost}"
+																	style="text-align: right" id="original_cost1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Collateral Currency</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="asset_currency1"
+																	th:value="${BAMInventorymaster.asst_crncy}"
+																	name="asset_currency"
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Accumulated
+																	Depreciation</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="number" name="accum_depres"
+																	th:value="${BAMInventorymaster?.acc_depr}"
+																	style="text-align: right" id="accum_depres1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Date of Purchase</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="date_of_purchase1"
+																	name="date_of_purchase"
+																	th:value="${#dates.format(BAMInventorymaster.date_of_purchase, 'dd-MM-yyyy')}"
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">current book value</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="number" name="curr_book_value"
+																	th:value="${BAMInventorymaster?.cur_book_value}"
+																	style="text-align: right" id="current_book_value1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Year of Purchase</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="date" id="year_of_purchase1"
+																	th:value="${#dates.format(BAMInventorymaster?.year_of_purchase, 'yyyy-MM-dd')}"
+																	name="year_of_purchase"
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Depreciation flag</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="text" name="depreciation_flg"
+																	th:value="${BAMInventorymaster?.depr_flag}"
+																	id="depreciation_flg1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Collateral Expiry Date</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="asst_exp_date1"
+																	name="asst_exp_date"
+																	th:value="${#dates.format(BAMInventorymaster.asst_exp_date, 'dd-MM-yyyy')}"
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="dep_method">Depreciation Method</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="text"
+																	th:value="${BAMInventorymaster?.depr_method}"
+																	id="dep_method1" class="form-control form-control-sm"
+																	name="depr_method" autocomplete="off"
+																	required="required" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Acquisition Date</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="DATE_OF_ACQN1" name="acquis_date"
+																	th:value="${#dates.format(BAMInventorymaster.date_of_acqn, 'dd-MM-yyyy')}"
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Depreciation
+																	Percentage</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="text" name="depreciation_percentage"
+																	th:value="${BAMInventorymaster?.depr_percent}"
+																	style="text-align: right;" id="dep_percentge1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="lifeofyear">Life Span Months</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="lifeofyear1"
+																	name="life_span_months"
+																	th:value="${BAMInventorymaster.life_span_mth}"
+																	class="form-control form-control-sm" autocomplete="off"
+																	style="text-align: right" readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Depreciation Frequency</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="text" name="depreciation_frequency"
+																	th:value="${BAMInventorymaster?.depr_freq}"
+																	id="depreciation_frequency1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="form-group mb-0">
+														<div class="row formline">
+															<div class="col-sm-3">
+																<label for="srlNo">Depreciation Start Date</label>
+															</div>
+															<div class="col-sm-3">
+
+																<input type="text" id="depreciation_start_date1"
+																	th:value="${#dates.format(BAMInventorymaster.date_of_last_tfr, 'dd-MM-yyyy')}"
+																	name="depreciation_start_date"
+																	class="form-control form-control-sm" autocomplete="off"
+																	readonly />
+
+															</div>
+															<div class="col-sm-3">
+																<label for="employeeName">Date of last
+																	Depreciation</label>
+															</div>
+															<div class="col-sm-3">
+																<input type="text" name="date_of_last_depreciation"
+																	th:value="${#dates.format(BAMInventorymaster.date_of_last_depr, 'dd-MM-yyyy')}"
+																	id="date_of_last_depreciation1"
+																	class="form-control form-control-sm"
+																	autocomplete="false" readonly />
+															</div>
+														</div>
+													</div>
+													<div class="card-footer text-center"
+														style="background-color: #BBC3CB;">
+														<button type="button" class="btn btn-sm btn-primary"
+															style="text-align: center;" id="genflow"
+															onclick="genflows();">GENERATE FLOWS</button>
+													</div>
+												</fieldset>
+
+
+												<fieldset id="tableset" style="display: none">
+													<div class="table-responsive mt-3">
+														<table class="table table-bordered mt-3" id="flowsTable">
+															<thead>
+																<tr>
+																	<!-- Generating 13 columns -->
+																	<th style="font-weight: 500;">SRL</th>
+																	<th style="font-weight: 500;">FLOW ID</th>
+																	<th style="font-weight: 500;">FLOW START DATE</th>
+																	<th style="font-weight: 500;">FREQUENCY</th>
+																	<th style="font-weight: 500;">METHOD</th>
+																	<th style="font-weight: 500;">PERCENTAGE</th>
+																	<th style="font-weight: 500;">ORGINAL COST</th>
+																	<th style="font-weight: 500;">DEPRECIATION</th>
+																	<th style="font-weight: 500;">BOOK VALUE</th>
+																	<th style="font-weight: 500;">AMOUNT</th>
+																	<th style="font-weight: 500;">TRAN DATE</th>
+																	<th style="font-weight: 500;">TRAN ID</th>
+																	<th style="font-weight: 500;">REMARKS</th>
+																</tr>
+															</thead>
+															<tbody>
+																<!-- Rows will be appended here by JavaScript -->
+															</tbody>
+														</table>
+													</div>
+												</fieldset>
+											</div>
+										</div>
+									</div>
+
+									<div class="card-footer text-center">
+
+										<button type="button" class="custom-btn" id="btnHome"
+											onclick="home();">Home</button>
+
+										<button type="button" class="custom-btn"
+											id="btnSubmit1" onclick="addSubmit();">Submit</button>
+
+										<button th:if="${formmode}=='edit'" type="button"
+											class="custom-btn"
+											onclick="submiteditform(this);" form="BAMInventorymaster"
+											id="btnSubmit" th:attr="data-formmode='edit'">Submit</button>
+
+										<button th:if="${formmode}=='verify'" type="button"
+											class="custom-btn"
+											onclick="submitverifyform(this);" form="BAMInventorymaster"
+											id="btnSubmit" th:attr="data-formmode='edit'">Submit</button>
+
+										<button type="button" class="custom-btn" id="btnBack"
+											onclick="back();">Back</button>
+
+									</div>
+									<!-- Conditionally display the table based on formmode edit -->
+
+
+
+									<!-- Conditionally display the table based on formmode  view-->
+									<div class="table-responsive" th:if="${formmode == 'view'}">
+										<table class="table  table-bordered  table-hover table-sm"
+											style="margin-bottom: 0px; font-size: initial;">
+											<tr>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Entry User :</B></font></td>
+												<td class="col-sm-2"
+													style="width: 112px; margin-right: 20px;"><input
+													type="text" id="entryuser" name="entry_user"
+													th:value="${BAMInventorymaster?.entry_user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Modify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="modifyuser" name="modify_user"
+													th:value="${BAMInventorymaster?.modify_user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td class="col-sm-2" style="text-align: right;"><font
+													size="2"><B>Verify User :</B></font></td>
+												<td class="col-sm-2" style="width: 112px;"><input
+													type="text" id="verifyuser" name="verify_user"
+													th:value="${BAMInventorymaster?.verify_user}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><font size="2"><B>Entry
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="entrytime" name="entry_time"
+													th:value="${BAMInventorymaster?.entry_time}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Modify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="modifytime" name="modify_time"
+													th:value="${BAMInventorymaster?.modify_time}"
+													style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+												<td style="text-align: right;"><font size="2"><B>Verify
+															Time :</B></font></td>
+												<td style="width: 112px"><input type="text"
+													id="verifytime" name="verify_time"
+													th:value="${BAMInventorymaster?.verify_time}"
+													style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+													disabled></td>
+											</tr>
+										</table>
+									</div>
+
+
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-family: verdana; font-size: medium; font-weight: bold;">BANK
+						NAME</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;">BANK NAME</p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="depreciationmodel();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alertdepression">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-family: verdana; font-size: medium; font-weight: bold;">BANK
+						NAME</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;">Added Successfully</p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="depreciationmodel();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="loader1" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="background: transparent;">
+				<div class="modal-body" style="text-align: center">
+					<div>
+						<img th:src=@{/images/loadingapp.gif} id="bfirelogo"
+							style="width: 153px; margin-left: 18px;" alt="Bornfire">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+</html>

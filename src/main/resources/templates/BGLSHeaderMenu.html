@@ -1,0 +1,575 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
+<head>
+
+<title>BGLS</title>
+
+<script src="/js/maxcdn.js" th:src="@{/js/maxcdn.js}"></script>
+<link rel="stylesheet" type="text/css" href="/css/loader.css"
+	th:href="@{/css/loader2.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.header1 {
+	background-color: #83b5ec;
+}
+
+.dropdown-menu>li {
+	margin-left: 10px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+#menu {
+	background-color: #7593b3;
+	position: absolute;
+	position: fixed;
+	width: 16.5%;
+	top: 70px;
+	left: -1px;
+	overflow-y: auto;
+	height: 100%;
+}
+
+#menu>ul>li>a {
+	display: block;
+	background-color: #2b506f;
+	color: #f1eaea;
+	font-size: 13px;
+	border-bottom: 2px solid white; /* Changed to solid white */
+}
+
+#menu>ul>li>a:hover {
+	background-color: #7593b3;
+	color: #f1eaea;
+}
+
+.sidenav>li>ul>li>a:hover {
+	color: 7593b3;
+}
+
+.sidenav>li>ul>li>a {
+	padding: .2rem .2rem !important;
+}
+
+#userdtl, #dropico {
+	float: right;
+}
+
+.submenu1>ul>li>a {
+	display: block;
+	background-color: red;
+	color: #f1eaea;
+	font-size: 13px;
+}
+
+#headerdiv {
+	top: 50%;
+	left: 40%;
+	height: 50px;
+	color: black;
+	position: absolute;
+	text-align: center;
+	margin: -20px 0 0 -0px;
+}
+
+#showmenu, #userdtl {
+	font-weight: 700;
+	font-size: larger;
+}
+
+nav {
+	background-color: #fafafa;
+}
+
+#pagetitle {
+	top: 114%;
+	left: 50%;
+	height: 50px;
+	color: #e80909;
+	position: absolute;
+	text-align: center;
+	margin: -25px 0 0 -31px;
+}
+
+#logoutmenu {
+	display: none;
+	position: absolute;
+	z-index: 1031;
+	width: 200px;
+	background-color: #dee2e6;
+	box-shadow: 3px 1px 11px 1px #888888;
+	border-radius: 5px;
+	background-color: #dee2e6;
+	right: 0px;
+	top: 70px;
+	border: 2px solid #4d8cb9;
+	position: fixed;
+}
+
+#ques {
+	margin-top: -54px;
+	float: right;
+	padding: 65px;
+}
+
+.logout {
+	color: #2e7bd0;
+}
+
+.content {
+	margin-top: 100px;
+}
+
+html {
+	zoom: 0.7;
+}
+
+label {
+	text-align: left;
+}
+
+.modal-backdrop {
+	width: 200vw;
+	height: 200vh;
+}
+
+section {
+	padding-left: 15px;
+}
+
+.form-control:focus {
+	color: #495057;
+	outline: 0;
+	box-shadow: unset !important;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+	box-shadow: unset !important;
+}
+
+.nav-link-collapse:after {
+	float: right;
+	content: '\f067';
+	font-family: 'Font Awesome 5 Free';
+	color: red;
+}
+
+.nav-link-show:after {
+	float: right;
+	content: '\f068';
+	font-family: 'Font Awesome 5 Free';
+	color: red;
+}
+
+ul {
+	list-style: none
+}
+
+li a {
+	color: #fffdfdbf;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+#showmenu1 {
+	width: 70px;
+	height: 60px;
+	border-radius: 50%;
+	object-fit: fill;
+}
+</style>
+<script type="text/javascript">
+	/*<![CDATA[*/
+
+	/* Re-Direction Functionality */
+	function contentLoad(a) {
+
+		location.href = "/BASE/" + a.id;
+	}
+
+	/* LogOut Functionality */
+	function logout() {
+		$("#datalogout").modal("toggle");
+	}
+
+	$(document).ready(function() {
+		$('.nav-link-collapse').on('click', function() {
+			$('.nav-link-collapse').not(this).removeClass('nav-link-show');
+			$(this).toggleClass('nav-link-show');
+		});
+	});
+
+	function logoutfunc() {
+
+		location.href = "/BGLS/logoutsub";
+
+	}
+</script>
+
+<script>
+	function imageuserprofile() {
+		var userphoto = document.getElementById("userphoto").value;
+		//alert(userphoto)
+		$.ajax({
+			type : 'GET',
+			url : '/BGLS/userprofileimage?userphoto=' + userphoto, // Ensure the userphoto is URL encoded
+			success : function(response) {
+				// alert("Response received: " + response); // Initial alert to see raw response
+				console.log("Response type:", typeof response); // Check response type
+				console.log("Response content:", response); // Log response content for debugging
+
+				var element = document.getElementById("photoCapture123");
+				element.innerHTML = ''; // Clear previous images
+
+				// Check if response contains valid image data
+				if (response.startsWith("No records found")
+						|| response.startsWith("Photo content is null")) {
+					//   alert("No image found");
+					// element.innerHTML = 'No photo available.';
+					return; // Exit if no valid image
+				}
+
+				// Convert the base64 string to a Blob and create an image URL
+				const uint8Array = base64ToUint8Array(response);
+				const blob = new Blob([ uint8Array ], {
+					type : "image/jpeg"
+				});
+				const imageUrl = URL.createObjectURL(blob);
+
+				// Create and append image element
+				const img = document.createElement("img");
+				img.src = imageUrl;
+				img.style.width = "70px";
+				img.style.height = "60px";
+				img.style.borderRadius = "50%";
+				img.alt = "User Profile Image";
+
+				element.appendChild(img);
+			},
+			error : function() {
+				console.error("Error fetching image.");
+				var element = document.getElementById("photoCapture123");
+				element.innerHTML = 'No photo available.';
+			}
+		});
+	}
+
+	// Function to convert Base64 string to Uint8Array
+	function base64ToUint8Array(base64) {
+		const binaryString = window.atob(base64);
+		const len = binaryString.length;
+		const bytes = new Uint8Array(len);
+		for (let i = 0; i < len; i++) {
+			bytes[i] = binaryString.charCodeAt(i);
+		}
+		return bytes;
+	}
+
+	document.addEventListener("DOMContentLoaded", function() {
+		imageuserprofile();
+	});
+</script>
+<script>
+	// Function to hide the image and show photoCapture123 if the image fails to load
+	function hideImage() {
+		const imgElement = document.getElementById("showmenu1");
+		const photoCaptureElement = document.getElementById("photoCapture123");
+
+		imgElement.style.display = "none"; // Hide the image if not loaded
+		photoCaptureElement.style.display = "flex"; // Show the photoCapture123 div
+	}
+
+	// On page load, check if the image has loaded successfully
+	/*         window.onload = function() {
+	 const imgElement = document.getElementById("showmenu1");
+	 const photoCaptureElement = document.getElementById("photoCapture123");
+
+	 // If image is loaded, show it and hide the photoCapture123 div
+	 imgElement.onload = function() {
+	 photoCaptureElement.style.display = "none";
+	 };
+
+	 // Set display styles based on whether the image loads successfully
+	 if (imgElement.complete && imgElement.naturalHeight !== 0) {
+	 photoCaptureElement.style.display = "none"; // Hide if image loaded
+	 } else {
+	 hideImage(); // Hide image and show photoCapture123 if the image is missing
+	 }
+	 }; */
+</script>
+
+
+</head>
+
+<body>
+	<input type="hidden" id="activemenu" th:value="${menu}" />
+	<nav class="navbar fixed-top navbar-expand-md navbar-dark  mb-3"
+		style="box-shadow: 6px 6px 12px #888888; height: 70px">
+		<input type="text" name="userphoto" id="userphoto"
+			th:value="${session.USERID}" hidden />
+		<div
+			class="col-sm-12 d-flex justify-content-between align-items-center">
+			<img th:src="@{/images/Image_logo.png}" class="img-fluid"
+				style="max-width: 100px; max-height: 55px;" id="showmenu"
+				alt="Bornfire">
+
+			<div id="headerdiv">
+				<h3 class="text-center">BORNFIRE GENERAL LEDGER SYSTEM</h3>
+			</div>
+			<div class="col-sm-8"></div>
+
+			<div>
+				<input type="text" style="font-size: 20px; width: 150px"
+					th:value="${#dates.format(session.TRANDATE, 'dd-MM-yyyy')}"
+					class="form-control-sm-sm bg-white border border-dark" readonly />
+
+			</div>
+			<button type="button" style="margin-left: 30px"
+				class="btn btn-default d-flex align-items-center p-2" id="userdtl">
+				<img th:src="@{'/images/' + ${session.USERID} + '.jpg'}"
+					class="rounded-circle me-2" id="showmenu1" alt="Bornfire"
+					onerror="hideImage()">
+			</button>
+
+			<!--     <img th:src="'data:image/png;base64,' + ${fileData}" alt="Excel File Image" />  -->
+
+
+
+			<div class="user-info">
+				<div class="row formline">
+					<div class="col">
+						<span class="ms-2"
+							th:text="'USER ID'+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+':'+'&nbsp;&nbsp;&nbsp;'+${session.USERID}">
+						</span>
+					</div>
+				</div>
+				<div class="row formline">
+					<div class="col">
+						<span class="ms-2"
+							th:text="'USER NAME ' + '  ' + ' : ' + ${session.USERNAME}">
+						</span>
+					</div>
+				</div>
+				<div class="row formline">
+					<div class="col">
+						<span class="ms-2"
+							th:text="'LOGIN TIME ' + '  ' + ' : ' + ${session.LOGIN_TIME}">
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- <input type="text"
+       name="userphoto"
+       id="userphoto"
+       th:value="${session.USERID}"
+       class="form-control-sm bg-white border border-dark"
+       style="font-size: 20px; width: 150px;"
+       readonly /> -->
+
+
+	<div id="menu">
+		<ul class="navbar-nav mr-auto sidenav" id="navAccordion">
+			<li class="nav-item"><a class="nav-link pl-3 pt-4"
+				data-toggle="collapse" href="#"
+				id="Dashboard" onclick="contentLoad(this)">Home</a></li>
+
+			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+				href="#" id="hasSubItems" data-toggle="collapse"
+				data-target="#collapseSubItems1"
+				aria-controls="collapseSubItems1" aria-expanded="false">Admin</a>
+
+				<ul class="nav-second-level collapse" id="collapseSubItems1"
+					data-parent="#navAccordion">
+
+					<li class="nav-item"><a class="nav-link"
+						id="organizationDetails"
+						href="#" onclick="contentLoad(this)">Organization Details </a></li>
+					<li class="nav-item"><a class="nav-link" id="userProfile"
+						href="#"
+						onclick="contentLoad(this)">User Control</a></li>
+					<!--<li class="nav-item"><a class="nav-link" id="employeeProfile"
+						href="#" onclick="contentLoad(this)">Employee Profile</a></li>-->
+
+					<li class="nav-item"><a class="nav-link" id="refCodeMain"
+						href="#"
+						onclick="contentLoad(this)">Parameters</a></li>
+					<!--<li class="nav-item"><a class="nav-link" id="chartOfAccounts"
+						href="#" onclick="contentLoad(this)">Chart of Accounts</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="accountLedger"
+						href="#" onclick="contentLoad(this)">Account ledger</a></li>-->
+					<!--<li class="nav-item"><a class="nav-link" id="Parameter" href="#"
+							onclick="contentLoad(this)">Parameters</a></li>-->
+
+					<!-- <li class="nav-item"><a class="nav-link" id="calendermaintenance"
+						href="#" onclick="contentLoad(this)">Calender Maintenance</a></li> -->
+
+					<li class="nav-item"><a class="nav-link"
+						id="audittraildetails" href="#"
+						onclick="contentLoad(this)"> Audit Trail </a></li>
+
+					<!-- <li class="nav-item"><a class="nav-link"
+						id="budgetMaintanance" href="#" onclick="contentLoad(this)">Budget
+							Control</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="documentManager"
+						href="#" onclick="contentLoad(this)">Document Manager</a></li>
+ -->
+
+				</ul></li>
+
+
+			<!-- <li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+				href="#" id="hasSubItems" data-toggle="collapse"
+				data-target="#collapseSubItems2"
+				aria-controls="collapseSubItems2" aria-expanded="false">Customer
+					Onboarding</a>
+
+				<ul class="nav-second-level collapse" id="collapseSubItems2"
+					data-parent="#navAccordion">
+
+					<li class="nav-item"><a class="nav-link" id="" href="#" onclick="contentLoad(this)">Customer
+						</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="" href="#" onclick="contentLoad(this)">Account
+						</a></li>
+					<li class="nav-item"><a class="nav-link"
+						style="background-color: #e74c4c;" id="CustomerOnboarding"
+						href="#" onclick="contentLoad(this)">Minimal Data </a></li>
+					<li class="nav-item"><a class="nav-link" id="Parameter"
+						href="#" onclick="contentLoad(this)">Parameter</a></li>
+					<li class="nav-item"><a class="nav-link" id="Approval"
+						href="#" style="background-color: #e74c4c;"
+						onclick="contentLoad(this)">Approval</a></li>
+					<li class="nav-item"><a class="nav-link" id="ListForKyc"
+						style="background-color: #e74c4c;" href="#"
+						onclick="contentLoad(this)"> KYC Compliance</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="complianceForKyc"
+						style="background-color: #e74c4c;" href="#"
+						onclick="contentLoad(this)"> Compliance Department</a></li>
+					<li class="nav-item"><a class="nav-link" id="HoldandReject"
+						style="background-color: #e74c4c;" href="#"
+						onclick="contentLoad(this)">Hold & Reject</a></li>
+					<li class="nav-item"><a class="nav-link" id="CustInquiries" href="#"
+							onclick="contentLoad(this)">Inquiries</a></li>
+					<li class="nav-item"><a class="nav-link"
+						id="CustomerDetailsCorrection" href="#"
+						onclick="contentLoad(this)">Customer Detail For Correction</a></li>
+					<li class="nav-item"><a class="nav-link" id="CustomerTEST"
+						href="#" onclick="contentLoad(this)">Customer TEST</a></li>
+						<li class="nav-item"><a class="nav-link" id="CustomerProfile" href="#" onclick="contentLoad(this)">
+							Profile</a></li>
+					<li class="nav-item"><a class="nav-link" id="Dashboard" href="#"
+							onclick="contentLoad(this)">Customer
+							Information</a></li>
+					<li class="nav-item"><a class="nav-link" id="Dashboard" href="#"
+							onclick="contentLoad(this)">
+							Customer Maintanence</a></li>
+				</ul></li> -->
+
+			<!-- <li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+				href="#" id="hasSubItems" data-toggle="collapse"
+				style="background-color: #e74c4c;" data-target="#collapseSubItems25"
+				aria-controls="collapseSubItems25" aria-expanded="false">Customer
+					Master</a>
+
+				<ul class="nav-second-level collapse" id="collapseSubItems25"
+					data-parent="#navAccordion">
+					<li class="nav-item"><a class="nav-link"
+						style="background-color: #e74c4c;" id="CustomerMaintenance"
+						href="#" onclick="contentLoad(this)">Customer Maintenance </a></li>
+				</ul></li> -->
+
+			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+				href="#" id="hasSubItems" data-toggle="collapse"
+				data-target="#collapseSubItems12"
+				aria-controls="collapseSubItems12" aria-expanded="false">Batch
+					Job Execution</a>
+				<ul class="nav-second-level collapse" id="collapseSubItems12"
+					data-parent="#navAccordion">
+					<li class="nav-item"><a class="nav-link" id="interestBatchJob"
+						href="#"
+						onclick="contentLoad(this)">Batch Job</a></li>
+				</ul></li>
+
+			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+				href="#" id="hasSubItems" data-toggle="collapse"
+				data-target="#collapseSubItems7"
+				aria-controls="collapseSubItems7" aria-expanded="false">Inquiries
+					& Reports </a>
+				<ul class="nav-second-level collapse" id="collapseSubItems7"
+					data-parent="#navAccordion">
+					<li class="nav-item"><a class="nav-link" id="Account_Balances"
+						href="#"
+						onclick="contentLoad(this)"> Account Balances </a></li>
+					<li class="nav-item"><a class="nav-link" id="interest_summary"
+						href="#"
+						onclick="contentLoad(this)"> Interest Summary </a></li>
+					<li class="nav-item"><a class="nav-link" id="journalbook"
+						href="#"
+						onclick="contentLoad(this)"> Journal Book </a></li>
+					<li class="nav-item"><a class="nav-link" id="accountLedger2"
+						href="#"
+						onclick="contentLoad(this)"> Account Ledger </a></li>
+					<!-- <li class="nav-item"><a class="nav-link"
+						id="trialBalanceReports" href="#" onclick="contentLoad(this)">Trial
+							Balance </a></li> -->
+					<li class="nav-item"><a class="nav-link"
+						id="trialBalanceReports2"
+						href="#" onclick="contentLoad(this)">Trial Balance </a></li>
+					<li class="nav-item"><a class="nav-link" id="generalLedger"
+						href="#"
+						onclick="contentLoad(this)"> General Ledger </a></li>
+
+					<li class="nav-item"><a class="nav-link"
+						id="profitAndLossAccountReports" href="#"
+						onclick="contentLoad(this)">Profile
+							and Loss Account </a></li>
+					<li class="nav-item"><a class="nav-link" id="balanceSheet"
+						href="#"
+						onclick="contentLoad(this)"> Balance Sheet </a></li>
+
+					<!--<li class="nav-item"><a class="nav-link" id="outsytandingItems" href="#"
+							onclick="contentLoad(this)">
+							Outstanding Items </a></li>-->
+
+					<!--<li class="nav-item"><a class="nav-link" id="gstDetails" href="#" onclick="contentLoad(this)">
+							GST Details </a></li>-->
+
+				</ul></li>
+
+			<li class="nav-item"><a class="nav-link pl-3"
+				data-toggle="collapse"
+				href="#logout" id="logout" onclick="contentLoad(this)">Logout</a></li>
+
+
+		</ul>
+	</div>
+
+</body>
+
+</html>

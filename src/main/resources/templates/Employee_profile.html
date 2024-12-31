@@ -1,0 +1,2831 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script class="jsbin"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #f5a142;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif;
+	/* Using a more common font */
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.file-upload-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0; /* Hide the file input */
+	cursor: pointer;
+}
+
+#file-name {
+	font-size: 14px;
+	color: #555;
+}
+
+.file-upload-label {
+	display: inline-block;
+	padding: 5px 10px;
+	background-color: #007bff;
+	color: white;
+	cursor: pointer;
+	border-radius: 3px;
+	text-align: center;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+.table-bordered th {
+	font-size: medium;
+}
+
+.table-bordered td {
+	font-size: smaller;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		event.preventDefault();
+		window.history.back();
+	}
+
+	function list() {
+
+		location.href = './employeeProfile?formmode=list';
+	}
+
+	function add() {
+
+		location.href = './employeeProfile?formmode=add';
+	}
+
+	function view(a) {
+		//alert("view")
+		var employee_id = a.getAttribute('data-resource');
+
+		location.href = './employeeProfile?formmode=view&employee_id='
+				+ employee_id;
+	}
+	function verify(a) {
+
+		var employee_id = a.getAttribute('data-resource');
+
+		location.href = './employeeProfile?formmode=verify&employee_id='
+				+ employee_id;
+	}
+	function modify(a) {
+
+		var employee_id = a.getAttribute('data-resource');
+
+		location.href = './employeeProfile?formmode=modify&employee_id='
+				+ employee_id;
+	}
+
+	function modifySubmit(event) {
+		// Prevent the default form submission behavior
+
+		const employeeId = document.getElementById("employee_id").value.trim();
+
+		// Check if the Employee ID is provided
+		if (employeeId === "") {
+			$("#alertmsg1").text("Please fill out the Employee Id field.");
+			$('#alert1').modal("show");
+			return; // Stop further execution if employeeId is empty
+		}
+
+		// First AJAX call to modify the employee data
+		$.ajax({
+			url : './employeeModify',
+			data : $("#employeeForm2").serialize(),
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal('show');
+
+				// Proceed with the second AJAX call to upload the photo if the first one succeeds
+				var photoInput = $("#employeeForm2").find(
+						"input[name='employee_Photo']");
+				var photoFile = photoInput[0].files[0]; // Get the selected photo file
+
+				if (!photoFile) {
+					// Alert if no file is selected
+					$("#alertmsg").text("Please select a photo file.");
+					$('#alert').modal("show");
+					return; // Stop further execution if no file is selected
+				}
+
+				// Create FormData for the photo upload
+				var formData = new FormData();
+				formData.append("photoFile", photoFile);
+				formData.append("employeeId", employeeId);
+
+				// Second AJAX call to upload the photo
+				$.ajax({
+					url : './employeeAdd1',
+					data : formData,
+					type : 'POST',
+					processData : false, // Prevent jQuery from converting the FormData object
+					contentType : false, // Prevent jQuery from setting content type
+					success : function(photoResponse) {
+						// Display a success message for the photo upload
+						$("#alertmsg").text(
+								"Photo upload completed: " + photoResponse);
+						$('#alert').modal("show");
+					},
+					error : function(xhr, status, error) {
+						// Handle errors during photo upload
+						var detailedError = xhr.responseText || error;
+						$("#alertmsg").text(
+								"An error occurred during photo upload: "
+										+ detailedError);
+						$('#alert').modal("show");
+					}
+				});
+			},
+			error : function(xhr, status, error) {
+				// Handle errors during employee modification
+				var detailedError = xhr.responseText || error;
+				$("#alertmsg").text("An error occurred: " + detailedError);
+				$('#alert').modal("show");
+			}
+		});
+	}
+
+	function employeeSubmit(event) {
+		// Prevent the default form submission
+		//alert("hihihi")
+		const employeeId = document.getElementById("employee_id1").value.trim();
+
+		if (employeeId === "") {
+			$("#alertmsg1").text("Please fill out the Employee Id field.");
+			$('#alert1').modal("show");
+			return; // Stop further execution if employeeId is empty
+		}
+
+		// First AJAX call to submit employee details
+		$.ajax({
+			url : './employeeAdd',
+			data : $("#employeeForm1").serialize(),
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal('show');
+
+				// Proceed with the second AJAX call to upload the photo if the first one succeeds
+				var photoInput = $("#employeeForm1").find(
+						"input[name='employee_Photo']");
+				var photoFile = photoInput[0].files[0]; // Get the selected photo file
+
+				if (!photoFile) {
+					$("#alertmsg").text("Please select a photo file.");
+					$('#alert').modal("show");
+					return; // Stop further execution if no file is selected
+				}
+
+				// Create FormData for the photo upload
+				var formData = new FormData();
+				formData.append("photoFile", photoFile);
+				formData.append("employeeId", employeeId);
+
+				// Second AJAX call to upload the photo
+				$.ajax({
+					url : './employeeAdd1',
+					data : formData,
+					type : 'POST',
+					processData : false, // Prevent jQuery from converting the FormData object
+					contentType : false, // Prevent jQuery from setting content type
+					success : function(photoResponse) {
+						alert("Photo upload completed: " + photoResponse);
+					},
+					error : function(xhr, status, error) {
+						var detailedError = xhr.responseText || error;
+						$("#alertmsg").text(
+								"An error occurred during photo upload: "
+										+ detailedError);
+						$('#alert').modal("show");
+					}
+				});
+			},
+			error : function(xhr, status, error) {
+				var detailedError = xhr.responseText || error;
+				$("#alertmsg").text("An error occurred: " + detailedError);
+				$('#alert').modal("show");
+			}
+		});
+	}
+
+	function verifySubmit() {
+		//	alert("hihih")
+		var employeeId = document.getElementById("employee_id").value.trim();
+		//	alert(employeeId)
+		$.ajax({
+			url : './employeeVerify',
+			data : $("#employeeForm").serialize(),
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal("show");
+			}
+		});
+
+	}
+
+	function Delete(a) {
+		event.preventDefault();
+		var employeeId = a.getAttribute("data-resource");
+
+		if (confirm("Are you sure you want to delete?")) {
+			$.ajax({
+				url : './employeedelete',
+				data : {
+					employeeId : employeeId
+				},
+				type : 'POST',
+				success : function(response) {
+
+					//alert("Successfully Deleted");
+					//$(a).closest('tr').remove();
+					$("#alertmsg1").text("Successfully Deleted");
+					$('#alert1').modal("show");
+					$(a).closest('tr').remove();
+
+				},
+				error : function(xhr, status, error) {
+					$("#alertmsg").text(
+							"Error occurred while deleting: " + error);
+				}
+			});
+		}
+	}
+
+	function isNumberKey(evt) {
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		return charCode >= 48 && charCode <= 57;
+	}
+
+	function limitInputLength(input) {
+		if (input.value.length > 10) {
+			input.value = input.value.slice(0, 10); // Limit to 10 digits
+		}
+	}
+
+	/* function validateEmail() {
+		const emailField = document.getElementById("email");
+	    
+		if (!emailField.checkValidity()) {
+			alert("Please enter a valid email that ends with @gmail.com or any domain ending in .in");
+			return false;
+		}
+	    
+		return true;
+	} */
+</script>
+
+<script>
+	function openUserProfile(a) {
+		event.preventDefault();
+
+		var employeeButton = document.getElementById("employeeButton");
+		employeeButton.classList.remove("active");
+
+		var userButton = document.getElementById("userButton");
+		userButton.classList.add("active");
+
+		location.href = './userProfile?formmode=list';
+	}
+
+	function branchid() {
+		const selectedValue = $('#branch_id').val();
+		//alert(selectedValue);
+
+		$.ajax({
+			url : './getBranchName',
+			type : 'GET',
+			data : {
+				branchId : selectedValue,
+
+			},
+			success : function(data) {
+				$('#branch_desc1').val(data);
+			},
+		});
+
+	}
+</script>
+
+<script>
+	function updateFileName() {
+		var fileInput = document.getElementById("employee_Photo");
+		var fileNameSpan = document.getElementById("file-name");
+
+		// Check if a file is selected
+		if (fileInput.files && fileInput.files.length > 0) {
+			fileNameSpan.textContent = fileInput.files[0].name; // Display the selected file name
+		} else {
+			fileNameSpan.textContent = "Select The File"; // Default message if no file is selected
+		}
+	}
+</script>
+</head>
+
+
+<body>
+
+	<div class="col-sm-2 d-flex align-items-center">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header ">
+
+							<div class="float-left">
+								<h4>EMPLOYEE PROFILE - LIST</h4>
+							</div>
+
+							<div class="float-right">
+								<button class="custom-btn" onclick="add();">Add</button>
+							</div>
+						</div>
+
+						<div class="mt-3"
+							style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; width: 100%;">
+							<!-- Tab buttons -->
+							<button class="tablinks rounded-pill" id="userButton"
+								onclick="openUserProfile(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 30%; background-color: #f5a142;color:white;">User
+								Profile</button>
+							<button class="tablinks active rounded-pill" id="employeeButton"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 30%; background-color: #f5a142;color:white;">Employee
+								Profile</button>
+						</div>
+
+						<div class="card-body">
+							<table class="table table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;"
+								id="AssosiateTable">
+								<thead class="table-header">
+									<tr style="text-align: left">
+										<th>Srl No</th>
+										<th>Employee Id</th>
+										<th>Name</th>
+										<th>Designation</th>
+										<th>Categoty</th>
+										<th>Mobile</th>
+										<th>Email</th>
+										<th>Profile Status</th>
+										<th>Select</th>
+									</tr>
+								</thead>
+
+								<tbody id="placelist">
+
+									<tr th:each="EmployeeData,iterator : ${EmployeeList}">
+
+										<td th:text="${iterator.index +1}"></td>
+										<td><a href="#" th:text="${EmployeeData.employee_id}"
+											th:data-resource="${EmployeeData.employee_id}"
+											onclick="view(this)">View</a></td>
+
+										<td th:text="${EmployeeData.employee_name}"></td>
+										<td th:text="${EmployeeData.design}"></td>
+										<td th:text="${EmployeeData.category}"></td>
+										<td th:text="${EmployeeData.mobile}"></td>
+										<td th:text="${EmployeeData.email}"></td>
+										<th:block th:switch="${EmployeeData.entity_flg}">
+											<td th:case="Y" style="color: lightgreen;">Verified</td>
+											<td th:case="N" style="color: red;">UnVerified</td>
+										</th:block>
+
+										<td>
+											<div class="dropdown">
+
+												<button class="btn btn-primary p-2 " type="button"
+													id="dropdownMenuButton" title="action"
+													style="line-height: 0.7; font-size: 11px; background-color: #B2BEB5; color: white; border: none; outline: none"
+													data-toggle="dropdown" aria-haspopup="true"
+													aria-expanded="false">Action</button>
+
+												<div class="dropdown-menu"
+													aria-labelledby="dropdownMenuButton"
+													style="background-color: #e3e3e4; color: #3a4550;">
+
+													<a class="dropdown-item" title=" Verify"
+														th:if="${EmployeeData.entity_flg == 'N'}"
+														th:attr="data-resource=${EmployeeData.employee_id}"
+														style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+														id="edit_value" onclick="verify(this)">Verify</a>
+													<div class="dropdown-divider"
+														th:if="${EmployeeData.entity_flg == 'N'}"></div>
+
+													<!-- <a class="dropdown-item" title="View"
+														th:attr="data-resource=${EmployeeData.employee_id}"
+														style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+														onclick="view(this)" id="view_btn">View </a>
+													<div class="dropdown-divider"></div> -->
+
+													<a class="dropdown-item" title=" Modify"
+														th:attr="data-resource=${EmployeeData.employee_id}"
+														style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+														id="edit_value" onclick="modify(this)">Modify</a>
+													<div class="dropdown-divider"></div>
+
+
+													<a class="dropdown-item" title=" Delete"
+														th:attr="data-resource=${EmployeeData.employee_id}"
+														style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+														id="delete" onclick="Delete(this)">Delete</a>
+
+
+
+												</div>
+
+											</div>
+										</td>
+									</tr>
+
+								</tbody>
+
+							</table>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+						<form action="#" method="post" id="employeeForm1"
+							autocomplete="off">
+							<div class="card-header">
+								<div class="float-left">
+									<h4>EMPLOYEE PROFILE - ADD</h4>
+								</div>
+
+								<div class="float-right">
+									<button class="custom-btn" onclick="list()">List</button>
+								</div>
+							</div>
+
+							<div class="card-body">
+								<div class="border border-secondary">
+
+									<div class="row formline" style="padding: 15px 0px 2px 0px;">
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Branch
+											Id</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="branch_id" name="branch_id" onchange="branchid()"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${branch}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+
+											</select>
+
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Branch
+											Name</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="branch_desc" id="branch_desc1"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Employee
+											Id</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="employee_id" id="employee_id1"
+												th:value="${seq}"
+												class="form-control form-control-sm bg-white border border-dark"
+												required />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Employee
+											Name</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="employee_name" id="employee_name"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Bank
+											Name</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="bank" id="bank"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Account
+											Number</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="bank_act_no" id="bank_act_no"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Date of
+											Joining</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="date" placeholder="dd-mm-yyyy" name="doj"
+												id="doj"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Date of
+											Birth</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="date" placeholder="dd-mm-yyyy" name="dob"
+												id="dob"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Category</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<select id="category" onchange="" name="category"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode1}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+											</select>
+
+										</div>
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Department</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="department" onchange="" name="department"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode3}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+											</select>
+										</div>
+									</div>
+
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Designation</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="designation" onchange="" name="design"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode4}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+
+											</select>
+
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Role</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="role" onchange="" name="role"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode5}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+											</select>
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Qualification</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="qualification" onchange="" name="qual"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode6}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+
+											</select>
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Additional
+											Qualification</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="addl_qual" id="addl_qual"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Passport</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="passport" id="passport"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Driving
+											License</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="driving_license"
+												id="driving_license"
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Gender</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="gender" onchange="" name="gender"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode7}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+											</select>
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Blood
+											Group</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="bloodGroup" onchange="" name="blood_group"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode8}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+											</select>
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Marital
+											Status</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="maritalStatus" onchange="" name="marital_status"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode9}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+
+											</select>
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Email</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="email" name="email" id="email"
+												class="form-control form-control-sm bg-white border border-dark"
+												pattern="^[a-zA-Z0-9._%+-]+@(gmail\.com|.*\.in)$"
+												title="Email must end with @gmail.com or @.in"
+												oninput="validateEmail()" />
+											<div class="password-info">
+												<p>Email must meet the following requirements:</p>
+												<ul
+													style="list-style-type: none; padding: 0; margin: 5px 0;">
+													<li>-end with (@gamil.com,@.in)</li>
+
+												</ul>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Mobile
+											No</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="number" name="mobile" id="mobile"
+												class="form-control form-control-sm bg-white border border-dark"
+												minlength="10" onkeypress="return isNumberKey(event)"
+												oninput="limitInputLength(this)" maxlength="10" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Alternate
+											Mobile No</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="number" name="alt_mobile" id="alt_mobile"
+												class="form-control form-control-sm bg-white border border-dark"
+												minlength="10" onkeypress="return isNumberKey(event)"
+												oninput="limitInputLength(this)" maxlength="10" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Address
+											1</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="addr1" id="addr1"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Address
+											2</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="addr2" id="addr2"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">City</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="city" id="city"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">State</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="state" id="state"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Country</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<select id="country" onchange="" name="country"
+												class="form-control form-control-sm bg-white border border-dark">
+												<option value="">Select</option>
+												<th:block th:each="code : ${refCode10}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+											</select>
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Zipcode</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="postal_code" id="postal_code"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 10px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Emergency
+											Contact Person</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="emer_contact_person"
+												id="emer_contact_person"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">Emergency
+											Contact No</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="emer_contact_num"
+												id="emer_contact_num"
+												class="form-control form-control-sm bg-white border border-dark"
+												minlength="10" maxlength="10" />
+
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 10px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">
+											Employee Photo</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="file" name="employee_Photo" id="employee_Photo"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2 d-flex align-items-center">
+											Employee Remarks</div>
+										<div class="col-sm-2 d-flex align-items-center">
+
+											<input type="text" name="employee_Remarks"
+												id="employee_Remarks"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="employeeSubmit();"
+									type="submit">Submit</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
+							</div>
+
+							<div class="table-responsive">
+								<table class="table table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;">
+									<tr>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Entry User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+											<input type="text" id="entry_user" name="entry_user"
+											th:value="${user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Modify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="verifyuser" name="modify_user"
+											th:value="${user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"></td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B> Verify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="modifyuser" name="verify_user"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"></td>
+
+									</tr>
+									<tr>
+										<td style="text-align: right;"><font size="2"><B>Entry
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="entry_time" name="entry_time"
+											th:value="${#dates.format(currentDate, 'dd-MM-yyyy')}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"></td>
+										<td style="text-align: right;"><font size="2"><B>Modify
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="verifytime" name="verify_time"
+											th:value="${#dates.format(currentDate, 'dd-MM-yyyy')}"
+											style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"></td>
+										<td style="text-align: right;"><font size="2"><B>
+													Verify Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="modifytime" name="modify_time"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"></td>
+
+									</tr>
+								</table>
+							</div>
+
+
+						</form>
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='view'">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-left">
+								<h4>EMPLOYEE PROFILE - VIEW</h4>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<form class="border border-secondary" action="#" method="post"
+								id="employeeForm" autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Branch Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="branch_id" name="branch_id"
+											th:value="${employee?.branch_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Branch
+										Name</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="branch_desc" id="branch_desc"
+											th:value="${employee?.branch_desc}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+
+
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="employee_id" id="employee_id"
+											th:value="${employee?.employee_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											required readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Name</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="employee_name" id="employee_name"
+											th:value="${employee?.employee_name}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Bank Name</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="bank" id="bank"
+											th:value="${employee?.bank}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Account
+										Number</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											th:value="${employee?.bank_act_no}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Date of
+										Joining</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											id="doj"
+											th:value="${#dates.format(employee?.doj, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Date of
+										Birth</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											id="dob"
+											th:value="${#dates.format(employee?.dob, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+
+									<div class="col-sm-2 d-flex align-items-center">Category</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="category" id="category"
+											th:value="${employee?.category}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Department</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="department" name="department"
+											th:value="${employee?.department}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Designation</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="designation" name="design"
+											th:value="${employee?.design}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Role</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="role" onchange="" name="role"
+											th:value="${employee?.role}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Qualification</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="qualification" name="qual"
+											th:value="${employee?.qual}"
+											class="form-control form-control-sm bg-white border border-dark">
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Additional
+										Qualification</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											th:value="${employee?.addl_qual}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Passport</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="passport" id="passport"
+											th:value="${employee?.passport}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Driving
+										License</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="driving_license" id="driving_license"
+											th:value="${employee?.driving_license}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Gender</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="gender" onchange="" name="gender"
+											th:value="${employee?.gender}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Blood
+										Group</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="bloodGroup" onchange=""
+											name="blood_group" th:value="${employee?.blood_group}"
+											class="form-control form-control-sm bg-white border border-dark">
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Marital
+										Status</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="maritalStatus" onchange=""
+											name="marital_status" th:value="${employee?.marital_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Email</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="email" name="email" id="email"
+											th:value="${employee?.email}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+										<div class="password-info">
+											<p>Email must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-end with (@gamil.com,@.in)</li>
+
+											</ul>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Mobile NO</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="mobile" id="mobile"
+											th:value="${employee?.mobile}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" onkeypress="return isNumberKey(event)"
+											maxlength="10" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Alternate
+										Mobile NO</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="number" name="alt_mobile" id="alt_mobile"
+											th:value="${employee?.alt_mobile}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" onkeypress="return isNumberKey(event)"
+											maxlength="10" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Address 1</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="addr1" id="addr1"
+											th:value="${employee?.addr1}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Address 2</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="addr2" id="addr2"
+											th:value="${employee?.addr2}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">City</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="city" id="city"
+											th:value="${employee?.city}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">State</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="state" id="state"
+											th:value="${employee?.state}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Country</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="country" onchange="" name="country"
+											th:value="${employee?.country}"
+											class="form-control form-control-sm bg-white border border-dark">
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Zipcode</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="postal_code" id="postal_code"
+											th:value="${employee?.postal_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Emergency
+										Contact Person</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="emer_contact_person"
+											id="emer_contact_person"
+											th:value="${employee?.emer_contact_person}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Emergency
+										Contact No</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="emer_contact_num"
+											id="emer_contact_num"
+											th:value="${employee?.emer_contact_num}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" maxlength="10" readonly />
+
+									</div>
+								</div>
+
+							</form>
+
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" " onclick="Back();">Back</button>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;">
+								<tr>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B>Entry User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+										<input type="text" id="entryuser" name="entry_user"
+										th:value="${user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled>
+									</td>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B>Modify User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px;"><input
+										type="text" id="verifyuser" name="modify_user"
+										th:value="${user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B> Verify User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px;"><input
+										type="text" id="modifyuser" name="verify_user"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+
+								</tr>
+								<tr>
+									<td style="text-align: right;"><font size="2"><B>Entry
+												Time :</B></font></td>
+									<td style="width: 112px"><input type="text" id="entrytime"
+										name="entry_time"
+										th:value="${#dates.format(currentDate, 'dd-MM-yyyy')}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td style="text-align: right;"><font size="2"><B>Modify
+												Time :</B></font></td>
+									<td style="width: 112px"><input type="text"
+										id="verifytime" name="verify_time"
+										th:value="${#dates.format(currentDate, 'dd-MM-yyyy')}"
+										style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td style="text-align: right;"><font size="2"><B>
+												Verify Time :</B></font></td>
+									<td style="width: 112px"><input type="text"
+										id="modifytime" name="modify_time"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+
+								</tr>
+							</table>
+						</div>
+
+
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='modify'">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-left">
+								<h4>EMPLOYEE PROFILE - MODIFY</h4>
+							</div>
+
+						</div>
+
+						<div class="card-body">
+							<form class="border border-secondary" action="#" method="post"
+								id="employeeForm2" autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Branch Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="branch_id" onchange="" name="branch_id"
+											th:value="${employee?.branch_id}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode2}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.branch_id}"></option>
+											</th:block>
+
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Branch
+										Name</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="branch_desc" id="branch_desc"
+											th:value="${employee?.branch_desc}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="employee_id" id="employee_id"
+											th:value="${employee?.employee_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Name</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="employee_name" id="employee_name"
+											th:value="${employee?.employee_name}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Bank Name</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="bank" id="bank"
+											th:value="${employee?.bank}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Account
+										Number</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											th:value="${employee?.bank_act_no}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Date of
+										Joining</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="date" placeholder="dd-mm-yyyy" name="doj"
+											id="doj"
+											th:value="${#dates.format(employee?.doj, 'yyyy-MM-dd')}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Date of
+										Birth</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="date" placeholder="dd-mm-yyyy" name="dob"
+											id="dob"
+											th:value="${#dates.format(employee?.dob, 'yyyy-MM-dd')}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Category</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<select id="category" onchange="" name="category"
+											th:value="${employee?.category}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode1}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.category}"></option>
+											</th:block>
+
+										</select>
+
+									</div>
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Department</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="department" onchange="" name="department"
+											th:value="${employee?.department}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode3}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.department}"></option>
+											</th:block>
+										</select>
+									</div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Designation</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="designation" onchange="" name="design"
+											th:value="${employee?.design}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode4}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.design}"></option>
+											</th:block>
+
+
+										</select>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Role</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="role" onchange="" name="role"
+											th:value="${employee?.role}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode5}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.role}"></option>
+											</th:block>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Qualification</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="qualification" onchange="" name="qual"
+											th:value="${employee?.qual}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode6}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.qual}"></option>
+											</th:block>
+
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Additional
+										Qualification</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											th:value="${employee?.addl_qual}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Passport</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="passport" id="passport"
+											th:value="${employee?.passport}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Driving
+										License</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="driving_license" id="driving_license"
+											th:value="${employee?.driving_license}"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Gender</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="gender" onchange="" name="gender"
+											th:value="${employee?.gender}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode7}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.gender}"></option>
+											</th:block>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Blood
+										Group</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="bloodGroup" onchange="" name="blood_group"
+											th:value="${employee?.blood_group}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode8}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.blood_group}"></option>
+											</th:block>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Marital
+										Status</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="maritalStatus" onchange="" name="marital_status"
+											th:value="${employee?.marital_status}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode9}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.marital_status}"></option>
+											</th:block>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Email</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="email" name="email" id="email"
+											th:value="${employee?.email}"
+											class="form-control form-control-sm bg-white border border-dark" />
+										<div class="password-info">
+											<p>Email must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-end with (@gamil.com,@.in)</li>
+
+											</ul>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Mobile No</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="number" name="mobile" id="mobile"
+											th:value="${employee?.mobile}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" onkeypress="return isNumberKey(event)"
+											oninput="limitInputLength(this)" maxlength="10" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Alternate
+										Mobile No</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="number" name="alt_mobile" id="alt_mobile"
+											th:value="${employee?.alt_mobile}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" onkeypress="return isNumberKey(event)"
+											oninput="limitInputLength(this)" maxlength="10" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Address 1</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="addr1" id="addr1"
+											th:value="${employee?.addr1}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Address 2</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="addr2" id="addr2"
+											th:value="${employee?.addr2}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">City</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="city" id="city"
+											th:value="${employee?.city}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">State</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="state" id="state"
+											th:value="${employee?.state}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Country</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<select id="country" onchange="" name="country"
+											th:value="${employee?.country}"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refCode10}">
+												<option th:value="${code}" th:text="${code}"
+													th:selected="${code == employee?.country}"></option>
+											</th:block>
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Zipcode</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="postal_code" id="postal_code"
+											th:value="${employee?.postal_code}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Emergency
+										Contact Person</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="emer_contact_person"
+											id="emer_contact_person"
+											th:value="${employee?.emer_contact_person}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Emergency
+										Contact No</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="emer_contact_num"
+											id="emer_contact_num"
+											th:value="${employee?.emer_contact_num}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" maxlength="10" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Photo</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<div class="file-upload-wrapper">
+											<label for="employee_Photo" class="file-upload-label">Upload
+												File</label> <input type="file" id="employee_Photo"
+												name="employee_Photo" class="file-upload-input"
+												onchange="updateFileName()">
+
+											<!-- Placeholder for the file name display -->
+											<span id="file-name"
+												th:text="${fileData1 != null ? 'File Is Selected' : 'Select The File'}">Select
+												The File</span>
+										</div>
+										<!-- 	<input type="file" name="employee_Photo"
+												id="employee_Photo"	th:value="${employee?.employee_Photo}"
+												class="form-control form-control-sm bg-white border border-dark" /> -->
+										<!--  <img th:src="'data:image/png;base64,' + ${fileData1}" alt="Excel File Image" />  -->
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Remarks</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="employee_Remarks"
+											id="employee_Remarks"
+											th:value="${employee?.employee_Remarks}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+
+								<!-- <div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry User</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="entry_user" id="entry_user"
+												th:value="'&nbsp&nbsp'+${session.USERNAME}"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+
+										<div class="col-sm-1">Modify User</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="modify_user" id="modify_user"
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+
+										<div class="col-sm-1">Verify User</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="verify_user" id="verify_user"
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+
+									</div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry Date</div>
+
+
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="entry_time" id="entryDate"
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<script>
+											// Get the current date
+											var currentDate = new Date();
+
+											// Format the date as yyyy-mm-dd (assuming you want this format)
+											var formattedDate = ('0' + currentDate
+													.getDate()).slice(-2)
+													+ '-'
+													+ ('0' + (currentDate
+															.getMonth() + 1))
+															.slice(-2)
+													+ '-'
+													+ currentDate.getFullYear();
+
+											// Set the value of the input field to the formatted date
+											document
+													.getElementById('entryDate').value = formattedDate;
+										</script>
+
+										<div class="col-sm-1">Modify Date</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="modify_time" id="imei"
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+
+										<div class="col-sm-1">Verify Date</div>
+										<div class="col-sm-2 d-flex align-items-center">
+											<input type="text" name="verify_time" id="imei"
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+
+									</div>
+								</div> -->
+
+							</form>
+
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" onclick="modifySubmit();"
+								type="submit">Submit</button>
+							<button class="custom-btn" onclick="Back();">Back</button>
+						</div>
+
+						<div class="table-responsive">
+							<table class="table table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;">
+								<tr>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B>Entry User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+										<input type="text" id="entryuser" name="entry_user"
+										th:value="${employee?.entry_user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled>
+									</td>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B>Modify User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px;"><input
+										type="text" id="verifyuser" name="modify_user"
+										th:value="${user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B> Verify User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px;"><input
+										type="text" id="modifyuser" name="verify_user"
+										th:value="${employee?.verify_user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+
+								</tr>
+								<tr>
+									<td style="text-align: right;"><font size="2"><B>Entry
+												Time :</B></font></td>
+									<td style="width: 112px"><input type="text" id="entrytime"
+										name="entry_time"
+										th:value="${#dates.format(employee?.entry_time, 'dd-MM-yyyy')}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td style="text-align: right;"><font size="2"><B>Modify
+												Time :</B></font></td>
+									<td style="width: 112px"><input type="text"
+										id="verifytime" name="modify_time"
+										th:value="${#dates.format(currentDate, 'dd-MM-yyyy')}"
+										style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td style="text-align: right;"><font size="2"><B>
+												Verify Time :</B></font></td>
+									<td style="width: 112px"><input type="text"
+										id="modifytime" name="verify_time"
+										th:value="${#dates.format(employee?.verify_time, 'dd-MM-yyyy')}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+
+								</tr>
+							</table>
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='verify'">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-left">
+								<h4>EMPLOYEE PROFILE - VERIFY</h4>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<form class="border border-secondary" action="#" method="post"
+								id="employeeForm" autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Branch Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="branch_id" name="branch_id"
+											th:value="${employee?.branch_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Branch
+										Name</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="branch_desc" id="branch_desc"
+											th:value="${employee?.branch_desc}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="employee_id" id="employee_id"
+											th:value="${employee?.employee_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											required readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Employee
+										Name</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="employee_name" id="employee_name"
+											th:value="${employee?.employee_name}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Bank Name</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="bank" id="bank"
+											th:value="${employee?.bank}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Account
+										Number</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											th:value="${employee?.bank_act_no}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Date of
+										Joining</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											id="doj"
+											th:value="${#dates.format(employee?.doj, 'yyyy-MM-dd')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Date of
+										Birth</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											id="dob"
+											th:value="${#dates.format(employee?.dob, 'yyyy-MM-dd')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Category</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="category" id="category"
+											th:value="${employee?.category}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+
+									</div>
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Department</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="department" name="department"
+											th:value="${employee?.department}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Designation</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="designation" name="design"
+											th:value="${employee?.design}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Role</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="role" onchange="" name="role"
+											th:value="${employee?.role}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Qualification</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="qualification" name="qual"
+											th:value="${employee?.qual}"
+											class="form-control form-control-sm bg-white border border-dark">
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Additional
+										Qualification</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											th:value="${employee?.addl_qual}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Passport</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="passport" id="passport"
+											th:value="${employee?.passport}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Driving
+										License</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="driving_license" id="driving_license"
+											th:value="${employee?.driving_license}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Gender</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="gender" onchange="" name="gender"
+											th:value="${employee?.gender}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Blood
+										Group</div>
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="bloodGroup" onchange=""
+											name="blood_group" th:value="${employee?.blood_group}"
+											class="form-control form-control-sm bg-white border border-dark">
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Marital
+										Status</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="maritalStatus" onchange=""
+											name="marital_status" th:value="${employee?.marital_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Email</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="email" name="email" id="email"
+											th:value="${employee?.email}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+										<div class="password-info">
+											<p>Email must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-end with (@gamil.com,@.in)</li>
+
+											</ul>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Mobile NO</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="mobile" id="mobile"
+											th:value="${employee?.mobile}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" onkeypress="return isNumberKey(event)"
+											maxlength="10" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Alternate
+										Mobile NO</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="number" name="alt_mobile" id="alt_mobile"
+											th:value="${employee?.alt_mobile}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" onkeypress="return isNumberKey(event)"
+											maxlength="10" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Address 1</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="addr1" id="addr1"
+											th:value="${employee?.addr1}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Address 2</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="addr2" id="addr2"
+											th:value="${employee?.addr2}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">City</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="city" id="city"
+											th:value="${employee?.city}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">State</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="state" id="state"
+											th:value="${employee?.state}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Country</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" id="country" onchange="" name="country"
+											th:value="${employee?.country}"
+											class="form-control form-control-sm bg-white border border-dark">
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Zipcode</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="postal_code" id="postal_code"
+											th:value="${employee?.postal_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Emergency
+										Contact Person</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="emer_contact_person"
+											id="emer_contact_person"
+											th:value="${employee?.emer_contact_person}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Emergency
+										Contact No</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="emer_contact_num"
+											id="emer_contact_num"
+											th:value="${employee?.emer_contact_num}"
+											class="form-control form-control-sm bg-white border border-dark"
+											minlength="10" maxlength="10" readonly />
+
+									</div>
+								</div>
+
+							</form>
+
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" onclick="verifySubmit();">Verify</button>
+							<button class="custom-btn" onclick="Back();">Back</button>
+						</div>
+
+						<div class="table-responsive">
+							<table class="table table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;">
+								<tr>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B>Entry User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+										<input type="text" id="entryuser" name="entry_user"
+										th:value="${employee?.entry_user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled>
+									</td>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B>Modify User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px;"><input
+										type="text" id="verifyuser" name="modify_user"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td class="col-sm-2" style="text-align: right;"><font
+										size="2"><B> Verify User :</B></font></td>
+									<td class="col-sm-2" style="width: 112px;"><input
+										type="text" id="modifyuser" name="verify_user"
+										th:value="${user}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+
+								</tr>
+								<tr>
+									<td style="text-align: right;"><font size="2"><B>Entry
+												Time :</B></font></td>
+									<td style="width: 112px"><input type="text" id="entrytime"
+										name="entry_time"
+										th:value="${#dates.format(employee?.entry_time, 'dd-MM-yyyy')}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td style="text-align: right;"><font size="2"><B>Modify
+												Time :</B></font></td>
+									<td style="width: 112px"><input type="text"
+										id="verifytime" name="modify_time"
+										style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+									<td style="text-align: right;"><font size="2"><B>
+												Verify Time :</B></font></td>
+									<td style="width: 112px"><input type="text"
+										id="modifytime" name="verify_time"
+										th:value="${#dates.format(currentDate, 'dd-MM-yyyy')}"
+										style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+										disabled></td>
+
+								</tr>
+							</table>
+						</div>
+
+
+
+
+					</div>
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- <div class="modal fade" data-backdrop="static" data-keyboard="false" id="alert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<p id="alertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="list();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg"></h6>
+					<button type="button" class="btn btn-primary" onclick="list()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert1" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg1"></h6>
+					<button type="button" class="btn btn-primary"
+						onclick="$('#alert1').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

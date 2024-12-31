@@ -1,0 +1,770 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+	<style>
+		.btns {
+			float: right;
+			margin: 5px;
+		}
+
+		label {
+			font-size: 16px;
+		}
+
+		.col-sm-5 {
+			padding-bottom: 15px;
+		}
+
+		.list-body {
+			padding: 0px;
+		}
+
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
+
+		.formline {
+			padding-bottom: 4px;
+		}
+
+		#finusertb {
+			width: 460px;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0px;
+		}
+
+		.nav-tabs .nav-item.show .nav-link,
+		.nav-tabs .nav-link.active {
+			border: 2px solid skyblue !important;
+			border-bottom: unset !important;
+			background-color: unset !important;
+			color: black !important;
+			background-color: unset !important;
+		}
+
+		nav {
+			border-bottom: 2px solid grey;
+		}
+
+		body {
+			counter-reset: Serial;
+		}
+
+		table {
+			border-collapse: separate;
+		}
+
+		.table thead th {
+			border: unset !important;
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+		}
+
+		.modal {
+			display: none;
+			/* Hidden by default */
+			position: absolute;
+			/* Stay in place */
+			z-index: 1;
+			/* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* Full width */
+			height: 150%;
+			/* Full height */
+			overflow: auto;
+			/* Enable scroll if needed */
+			background-color: rgb(0, 0, 0);
+			/* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* Black w/ opacity */
+		}
+
+		/* Modal Content */
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 100%;
+			box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 16px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-animation-name: animatetop;
+			-webkit-animation-duration: 0.4s;
+			animation-name: animatetop;
+			animation-duration: 0.4s
+		}
+	</style>
+	<script>
+		/* $(function() {
+	
+			$('#replist').DataTable({
+				"searching" : false,
+	
+				"pageLength" : 25
+			});
+		}); */
+	</script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function home() {
+			location.href = 'Dashboard';
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+		function addUser() {
+			location.href = 'glcode?formmode=add';
+		}
+
+		function userList() {
+			location.href = 'glcode?formmode=list';
+		}
+
+		function modifyData() {
+			location.href = 'glcode?formmode=list1';
+		}
+
+		function deleteData() {
+			location.href = 'glcode?formmode=deleteList';
+		}
+
+		function refTypeDropdown(a) {
+			$("#hideRefType").hide();
+			$("#showRefType").show();
+		}
+
+		function submitform() {
+
+			if ($("#BamGeneralLedger").valid()) {
+				//alert("add");
+				var url = "./GeneralLedgerAdd?formmode=add";
+				$("#BamGeneralLedger").attr('action', url);
+
+				var options = {
+					success: showResponse
+				};
+
+				$("#BamGeneralLedger").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				}
+				;
+			}
+		};
+
+		//Check to View
+		$(document).ready(
+			function () {
+				$(".checkToView").on(
+					'click',
+					function () {
+
+						$(this).prop('checked', false);
+
+						var glcode = $(this).val();
+
+						var formmode = "view1";
+
+						location.href = 'glcode?formmode=' + formmode
+							+ '&glcode=' + glcode;
+
+					});
+
+				//Check to Modify
+				$(".checkToModify").on(
+					'click',
+					function () {
+
+						$(this).prop('checked', true);
+
+						var glcode = $(this).val();
+
+						var formmode = "edit";
+
+						location.href = 'glcode?formmode=' + formmode
+							+ '&glcode=' + glcode;
+
+					});
+				//Check to Delete
+				$(".checkToDelete").on(
+					'click',
+					function () {
+
+						$(this).prop('checked', false);
+
+						var glcode = $(this).val();
+
+						var formmode = "delete";
+
+						location.href = 'glcode?formmode=' + formmode
+							+ '&glcode=' + glcode;
+
+					});
+			});
+	</script>
+
+	<script>
+		function upload() {
+			location.href = 'glcode?formmode=upload';
+		}
+
+		function submitexcelgst() {
+			event.preventDefault(); // Prevent default form submission behavior
+
+			var fileInput = document.getElementById('fileval');
+			console.log(fileInput);
+
+			// Check if a file is selected
+			if (fileInput && fileInput.files.length > 0) {
+				var file = fileInput.files[0];
+				//alert(file.name); // Alert with the file name
+
+				var formData = new FormData();
+				formData.append('file', file);
+
+				$.ajax({
+					url: './leaseuploadexcel',
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false,
+					cache: false, // Disable cache to avoid potential issues
+					success: function (data) {
+						$('#successMessage2').modal('show');
+					},
+					error: function (xhr, status, error) {
+						$('#failureMessage2').modal('show');
+					}
+				});
+			} else {
+				alert('Please select a file before uploading.');
+			}
+		}
+
+		function uploadlist() {
+			location.href = 'leasecollection?formmode=uploadlist';
+		}
+
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		function movetoTransaction(a) {
+			event.preventDefault();
+
+			//location.href = 'accountLedgerPost';
+
+			console.log("Inside of collection");
+
+			var allocationecords = [];
+
+			$("#flowIdTable tbody tr").each(
+				function () {
+					var flow_date = $(this).find("td[name='flow_date']").text();
+					if (flow_date != "") {
+						var parts = flow_date.split("-");
+						var day = parts[0];
+						var month = parts[1];
+						var year = parts[2];
+						var FlowDate = year + "-" + month + "-" + day;
+					} else {
+						var FlowDate = "";
+					}
+					var row = {};
+					row.customer_id = $(this).find("td[name='customer_id']").text();
+					row.acct_num = $(this).find("td[name='loan_accountno']").text();
+					row.acct_name = $(this).find("td[name='customer_name']").text();
+					row.balance = $(this).find("td[name='loan_outstanding']").text();
+					row.flow_Code = $(this).find("td[name='flow_code']").text();
+					row.flow_date = FlowDate;
+					row.amount = $(this).find("td[name='flow_amt']").text().replace(/,/g, '');
+
+					row.allocation = $(this).find("input[name='allocation_amt']").val().replace(/,/g, '');
+					allocationecords.push(row);
+				});
+
+			console.log(allocationecords);
+
+			$.ajax({
+				type: "POST",
+				url: "./settlementCollection",
+				contentType: "application/json",
+				data: JSON.stringify(allocationecords),
+				success: function (responseText, statusText, xhr, $form) {
+
+					console.log(responseText);
+
+					$("#alertmsgNormal").text(responseText);
+					$('#alertsvalNormal').modal("toggle");
+				},
+				error: function (error) {
+
+					console.error(error);
+				}
+			});
+
+		}
+	</script>
+
+	<script>
+		// Function to toggle Select All/Deselect All
+
+		function enquiryuser(a) {
+			var nic_no = a.getAttribute("data-settle_nicnum");
+			var amt = parseFloat(a.getAttribute("data-amt"));
+			$
+				.ajax({
+					url: 'getrecordfromcoa',
+					type: 'POST',
+					data: {
+						nic_no: nic_no
+					},
+					success: function (response) {
+
+						console.log(response);
+						var trHTML = '';
+
+						$
+							.each(
+								response,
+								function (key, value) {
+									var flow_amt = parseFloat(value.flow_amt);
+									var record_amt;
+
+									// If it's the last iteration, set record_amt as amt, otherwise set as flow_amt
+									if (key === response.length - 1) {
+										record_amt = amt;
+									} else {
+										record_amt = flow_amt;
+										amt -= flow_amt; // Update amt for the next iteration
+									}
+
+									trHTML += '<tr>'
+										+ '<td style="text-align:left;" name="customer_id">'
+										+ value.customer_id
+										+ '</td>'
+										+ '<td style="text-align:left;" name="loan_accountno">'
+										+ value.loan_accountno
+										+ '</td>'
+										+ '<td style="text-align:left;" name="customer_name">'
+										+ value.customer_name
+										+ '</td>'
+										+ '<td style="text-align:left;" name="loan_outstanding">'
+										+ value.loan_outstanding
+										+ '</td>'
+										+ '<td style="text-align:left;" name="flow_code">'
+										+ value.flow_code
+										+ '</td>'
+										+ '<td style="text-align:left;" name="flow_date">'
+										+ formatDate(value.flow_date)
+										+ '</td>'
+										+ '<td style="text-align:left;" name="flow_amt">'
+										+ value.flow_amt
+										+ '</td>'
+										+ '<td style="text-align:left;"><input name="allocation_amt" type="text" value="' + record_amt + '"></td>'
+
+										+ '</tr>';
+
+									record_amt = amt - value.flow_amt;
+								});
+
+						// Update the table content
+						$('#flowIdTbody').append(trHTML);
+						$('#flowIdTable').removeClass('d-none');
+
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.error('Error sending transactions:',
+							textStatus, errorThrown);
+					}
+				});
+		}
+
+		function formatDate(dateString) {
+
+			var date = new Date(dateString);
+
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		function refreshPage(a) {
+			event.preventDefault();
+			location.reload();
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BGLSHeaderMenu :: header"></div>
+			</div>
+
+			<div class="col-sm-10">
+
+				<div th:if="${formmode}=='upload'">
+					<form action="#" method="post" autocomplete="off" style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #f5a142;">
+								<div class="float-right"></div>
+								<h4>COLLECTION PROCESS - FILE UPLOAD</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+									<div class="form-group ">
+										<div class="row">
+											<div class="col-sm-3">
+												<label class="">Upload</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="file" id="fileval" name="fileval" accept=".xlsx,.xls,.csv"
+													class="form-control form-control-sm">
+
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center" style="background-color: #f5a142;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="uploadlist();">List</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="submitexcelgst(this)">Upload</button>
+
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div th:if="${formmode}=='uploadlist'">
+					<div class="panel panel-primary filterable" style="margin-top: 100px">
+						<div class="card w-100 border panel panel-primary filterable">
+							<div class="card-header" style="background-color: #e9ecef; height: 70px">
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">COLLECTION
+										PROCESS-LIST</h6>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="card-header" style="background-color: #e9ecef; height: 50px">
+									<div class="float-left">
+										<h6 style="font-size: 1.2rem; color: black;">COLLECTION</h6>
+									</div>
+
+								</div>
+								<div class="table-responsive mt-2">
+									<table class="table table-bordered table-hover table-sm"
+										style="margin-bottom: 0px; font-size: initial;" id="usertable">
+										<thead class="thead-light">
+											<tr class="filters">
+												<th style="width: 15%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Bank
+													" disabled></th>
+												<th style="width: 15%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Branch
+													" disabled></th>
+												<th style="width: 10%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Set Account No
+													" disabled></th>
+												<th style="width: 8%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Amount
+													" disabled></th>
+												<th style="width: 15%;"><input type="text"
+														class="form-control font-weight-bold" placeholder="Customer Name
+													" disabled></th>
+												<!--  <th style="width: 10%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="ACCOUNT NO
+													" disabled></th>  -->
+												<th style="width: 10%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Mobile No
+													" disabled></th>
+												<th style="width: 10%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Nic No"
+														disabled></th>
+												<th style="width: 10%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Amount"
+														disabled></th>
+
+												<th style="width: 10%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Select"
+														disabled></th>
+
+											</tr>
+										</thead>
+										<tbody id="placelist">
+											<tr th:each="chartacc : ${Listofvalues}">
+
+												<td th:text="${chartacc?.bank}"></td>
+												<td th:text="${chartacc?.branch}"></td>
+												<td th:text="${chartacc?.settlement_accountString}"></td>
+												<td th:text="${chartacc?.settlement_account_amount}"></td>
+												<td th:text="${chartacc?.customer_name}"></td>
+												<!-- <td th:text="${chartacc?.account_no}"></td>  -->
+												<td th:text="${chartacc?.mobile_no}"></td>
+												<td th:text="${chartacc?.nic_number}"></td>
+												<td th:text="${chartacc?.customer_account_amount}"></td>
+
+
+												<td style="text-align: center;"><input type="radio" th:attr="data-settle_nicnum=${chartacc?.nic_number},
+													data-amt=${chartacc?.customer_account_amount}
+													" name="btnradio" onclick="enquiryuser(this);"></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="card-header mt-2" style="background-color: #e9ecef; height: 50px">
+									<div class="float-left">
+										<h6 style="font-size: 1.2rem; color: black;">ALLOCATION</h6>
+									</div>
+								</div>
+								<div class="table-responsive ">
+									<table class="table table-bordered table-sm mt-2 d-none"
+										style="margin-bottom: 0px; font-size: initial;" id="flowIdTable">
+										<thead class="thead-light">
+											<tr>
+												<th>Customer Id</th>
+												<th>Account No</th>
+												<th>Account Name</th>
+												<th>Balance</th>
+												<th>Flow Code</th>
+												<th>Flow Date</th>
+												<th>Amount</th>
+												<th>Allocation</th>
+											</tr>
+										</thead>
+
+										<tbody id="flowIdTbody">
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+
+							<div class="card-footer text-center" style="background-color: #e9ecef">
+								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+								<button class="btn btn-primary p-2" id="submitBtn"
+									onclick="movetoTransaction(this);">Transactions</button>
+								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div id="successMessage2" class="modal fade bordered" tabindex="-1" role="dialog">
+					<div class="modal-dialog d-flex align-items-center justify-content-center" role="document"
+						style="min-height: 100vh;">
+						<div class="modal-content text-center">
+							<div style="margin-top: 30px; margin-bottom: 30px;">
+								<h4>
+									File Uploaded Successfully <span>&#9989;</span>
+								</h4>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"
+									style="margin-top: 20px;">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="failureMessage2" class="modal fade" tabindex="-1" role="dialog">
+					<div class="modal-dialog d-flex align-items-center justify-content-center" role="document"
+						style="min-height: 100vh;">
+						<div class="modal-content text-center">
+
+							<div style="margin-top: 30px; margin-bottom: 30px;">
+								<h4 style="text-align: center;">
+									File Upload Failure<span>&#10060;</span>
+								</h4>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"
+									style="margin-left: 200px">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="alert">
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="menu-title-header">
+								<div class="modal-title" id="exampleModalLabel"
+									style="text-align: center; color: white;">CIM FINANCE</div>
+							</div>
+							<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+								<p id="alertmsg" style="font-size: 16px;"></p>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="back();"
+									style="width: 120px">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alert1" tabindex="-7"
+					role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+
+							<div class="modal-body" style="text-align: center;">
+								<h6 id="alertmsg1"></h6>
+								<button type="button" class="btn btn-primary"
+									onclick="$('#alert1').modal('hide')">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alert2" tabindex="-7"
+					role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+
+							<div class="modal-body" style="text-align: center;">
+								<h6 id="alertmsg2"></h6>
+								<button type="button" class="btn btn-primary"
+									onclick="navigateToMainlist(this)">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alertsvalNormal" tabindex="-1"
+					role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content" style="width: 120%; height: 30%; margin-right: 480px;">
+							<div class="card">
+								<!-- Header with Alert Message -->
+								<div class="modal-header" style="justify-content: center; width: 100%;">
+									<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Alert
+										Message</h5>
+									<!-- Alert message will appear here -->
+								</div>
+
+								<!-- Body with Response -->
+								<div class="modal-body"
+									style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px">
+									<h6 id="alertmsgNormal"></h6>
+									<!-- Response will be displayed here -->
+								</div>
+
+								<!-- Footer with Close Button -->
+								<div class="modal-footer" style="justify-content: center; width: 100%;">
+									<button type="button" class="btn btn-primary" data-dismiss="modal"
+										onclick="refreshPage(this);">Close</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+
+	</div>
+
+</body>
+
+</html>

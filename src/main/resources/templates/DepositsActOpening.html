@@ -1,0 +1,955 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script class="jsbin"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #f5a142;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tablinks {
+	background-color: #f1f1f1;
+	/* Default background color */
+	border: none;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.tablinks.active {
+	background-color: #2084a9;
+	color: white;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #f5a142;
+	background-color: #f5a142;
+}
+
+.tab button {
+	background-color: #f5a142;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 56px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #f5a142;
+}
+
+.tabcontent {
+	display: none;
+	padding: 0px;
+	border-top: 1px solid #f5a142;
+}
+
+.active {
+	background-color: #2084a9;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function flow(a) {
+		var act = a.getAttribute('data-act');
+		location.href = './depositsopen?formmode=flow&act=' + act;
+	}
+
+	function depositsopen() {
+		location.href = './depositsopen';
+	}
+
+	function clickMe() {
+		$('#alert').modal('show');
+	}
+
+	function openTab(evt, tabName) {
+
+		var tabcontent = document.getElementsByClassName("tabcontent");
+		for (let i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+		let tablinks = document.getElementsByClassName("tablinks");
+		for (let i = 0; i < tablinks.length; i++) {
+			tablinks[i].classList.remove("active");
+		}
+
+		document.getElementById(tabName).style.display = "block";
+		evt.currentTarget.classList.add("active");
+
+	}
+
+	function changeDateFormat(dateString) {
+
+		var parts = dateString.split('-');
+
+		return parts[2] + '-' + parts[1] + '-' + parts[0];
+	}
+
+	function formatDate(dateString) {
+
+		var date = new Date(dateString);
+
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+
+		if (day < 10) {
+			day = '0' + day;
+		}
+		if (month < 10) {
+			month = '0' + month;
+		}
+
+		return day + '-' + month + '-' + year;
+	}
+
+	function formatNumber(number) {
+		return Number(number).toLocaleString('en-US', {
+			minimumFractionDigits : 2,
+			maximumFractionDigits : 2
+		});
+	}
+
+	function depositflow(a) {
+		event.preventDefault();
+
+		var depotype = document.getElementById("deposit_type").value;
+		var depoactno = document.getElementById("depo_actno").value;
+		var depodate = changeDateFormat(document.getElementById("deposit_date").value);
+		var depoper = document.getElementById("deposit_period").value;
+		var depoamt = document.getElementById("deposit_amt").value;
+		var intrate = document.getElementById("rate_of_int").value;
+		var freq = document.getElementById("frequency").value;
+
+		console.log(depotype + " " + depoactno + " " + depodate + " " + depoper
+				+ " " + depoamt + " " + intrate + " " + freq);
+		$
+				.ajax({
+					type : "GET",
+					url : "./getDepositFlow?deposit_type=" + depotype
+							+ "&depo_actno=" + depoactno + "&deposit_date="
+							+ depodate + "&deposit_period=" + depoper
+							+ "&deposit_amt=" + depoamt + "&rate_of_int="
+							+ intrate + "&frequency=" + freq,
+					success : function(data) {
+						console.log(data);
+						var trHTML = '';
+
+						$
+								.each(
+										data,
+										function(index, entity) {
+											var flow_id = entity.flow_id;
+											var flow_code = entity.flow_code;
+											var flow_date = formatDate(entity.flow_date);
+											var flow_amount = formatNumber(entity.flow_amt);
+											var outstanding_balance = formatNumber(entity.clr_bal_amt);
+
+											trHTML += '<tr id="scheduleRow">'
+													+ '<td ><input type="text" class="border-0" name="flowId" readonly value="' + flow_id + '" /></td>'
+													+ '<td><input type="text" class="border-0" name="flowCode" readonly value="' + flow_code + '" /></td>'
+													+ '<td><input type="text" class="border-0" name="flowDate" readonly value="' + flow_date + '" /></td>'
+													+ '<td style="text-align: right;"><input type="text" class="border-0 text-right" name="flowAmount" readonly value="' + flow_amount + '" /></td>'
+													+ '<td style="text-align: right;"><input type="text" class="border-0 text-right" name="outstandingBalance" readonly value="' + outstanding_balance + '" /></td>'
+													+ '</tr>';
+										});
+
+						$('#depositflow').empty().append(trHTML);
+						
+						var lastFlowAmount = $('#depositflow tr:last').find('input[name="flowAmount"]').val();
+						// Remove any commas from lastFlowAmount and assign the plain number to the input field
+			// Remove commas and the decimal point from lastFlowAmount
+document.getElementById("maturity_amt").value = lastFlowAmount.toString().replace(/[,\.]/g, '');
+
+
+						
+					 // Calculate the total of the middle rows
+			            var totalFlowAmount = 0;
+			            var rows = $('#depositflow tr');
+			            var rowCount = rows.length;
+
+			            if (rowCount > 2) { // Ensure there are at least 3 rows
+			                for (var i = 1; i < rowCount - 1; i++) { // Start from 1 to rowCount - 1 to skip first and last row
+			                    var flowAmount = parseFloat(rows.eq(i).find('input[name="flowAmount"]').val().replace(/,/g, '')); // Assuming formatNumber adds commas
+			                    totalFlowAmount += isNaN(flowAmount) ? 0 : flowAmount; // Sum the amounts
+			                }
+			            }
+			            document.getElementById("int_amt").value = totalFlowAmount;
+					},
+					error : function(error) {
+						console.error(error);
+					}
+				});
+	}
+
+	function formatNumber(num) {
+		if (!num)
+			return ''; // Return empty string if num is falsy
+		return Number(num).toLocaleString('en-US', {
+			minimumFractionDigits : 2,
+			maximumFractionDigits : 2
+		});
+	}
+
+	function Submit() {
+		const depo = document.getElementById("depo_actno").value.trim();
+
+		if (depo === "") {
+			$("#alertmsg1").text(
+					"Please fill out the Deposit Account No field.");
+			$('#alert1').modal("show");
+			return;
+
+		} else {
+			$.ajax({
+				url : './depositAdd',
+				data : $("#employeeForm").serialize(),
+				type : 'POST',
+				success : function(data) {
+					//alert(data)
+					$("#alertmsg").text(data);
+					$('#alert').modal("show");
+
+				}
+			});
+		}
+	}
+
+	function custid() {
+		const selectedValue = $('#cust_id').val();
+		alert(selectedValue);
+
+		$.ajax({
+			url : './getCustId',
+			type : 'GET',
+			data : {
+				custId : selectedValue,
+
+			},
+			success : function(data) {
+				if (data && data.length > 0) {
+					console.log(data)
+					$('#branch_id').val(data[0][0] || '');
+					console.log($('#branch_id').val());
+					$('#branch_desc').val(data[0][1] || '');
+					$('#cust_name').val(data[0][2] || '');
+					$('#scheme_code').val(data[0][3] || '');
+					$('#glsh_code').val(data[0][4] || '');
+					$('#glsh_desc').val(data[0][5] || '');
+
+				} else {
+					console.error("No data received or data is empty");
+				}
+
+			}
+
+		});
+
+	}
+
+	function updateDepositPeriod() {
+		const frequency = document.getElementById('frequency').value;
+		const depositPeriod = document.getElementById('depositperiod');
+
+		if (frequency === 'Monthly') {
+			depositPeriod.placeholder = 'months';
+		} else if (frequency === 'Yearly') {
+			depositPeriod.placeholder = 'years';
+		}
+	}
+	document.addEventListener('DOMContentLoaded', () => {
+	    // Set default placeholder as 'months' when the page loads.
+	    document.getElementById('depositperiod').placeholder = 'months';
+	});
+	
+	function updateMaturityDate() {
+	    // Parse the date string into a Date object
+	    const dateOfDeposit = new Date(document.getElementById('deposit_date').value);
+	    console.log("Parsed date of deposit:", dateOfDeposit); // Check if this outputs a valid date
+	    
+	    // Parse the deposit period as an integer
+	    const depositPeriod = parseInt(document.getElementById('deposit_period').value, 10);
+	    const frequency = document.getElementById('frequency').value;
+
+	    // Ensure date is valid
+	    /* if (isNaN(dateOfDeposit.getTime())) {
+	        alert('Invalid deposit date');
+	        return;
+	    } */
+
+	    // Adjust the date based on the frequency
+	    if (frequency === 'Monthly') {
+	        dateOfDeposit.setMonth(dateOfDeposit.getMonth() + depositPeriod);
+	    } else if (frequency === 'Yearly') {
+	        dateOfDeposit.setFullYear(dateOfDeposit.getFullYear() + depositPeriod);
+	    }
+	    console.log("Updated date of deposit (after period adjustment):", dateOfDeposit);
+
+	    // Check if the date is still valid after modification
+	   /*  if (isNaN(dateOfDeposit.getTime())) {
+	        alert('Invalid maturity date');
+	        return;
+	    } */
+
+	    // Format the date to 'yyyy-MM-dd'
+	    const year = dateOfDeposit.getFullYear();
+	    const month = String(dateOfDeposit.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	    const day = String(dateOfDeposit.getDate()).padStart(2, '0');
+	    const formattedMaturityDate = `${year}-${month}-${day}`;
+
+	    console.log("Formatted Maturity Date:", formattedMaturityDate);
+
+	    // Display the formatted maturity date
+	    //alert(formattedMaturityDate);
+	    document.getElementById('maturity_date').value = formattedMaturityDate;
+	}
+
+	/* function updateDemoAmt(lastFlowAmount){
+		//document.getElementById('maturity_amt').value = document.getElementById('deposit_amt').value;
+		document.getElementById("maturity_amt").value = lastFlowAmount;
+	} */
+
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+
+				<div th:if="${formmode}=='list'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card" style="border-radius: 2px">
+								<div class="card-header ">
+									<div class="float-left">
+										<h4>DEPOSIT ACCOUNT OPENING</h4>
+									</div>
+								</div>
+
+								<div class="tab mt-2"
+									style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
+									<!-- Tab buttons -->
+									<button class="tablinks active"
+										onclick="openTab(event, 'tab1'); "
+										style="font-size: 16px; padding: 4px 8px; height: 32px;">Deposit</button>
+									<button class="tablinks"
+										onclick="openTab(event, 'tab2'); depositflow()"
+										style="font-size: 16px; padding: 4px 8px; height: 32px;">Generate
+										Flow</button>
+
+								</div>
+								<form action="#" method="post" id="employeeForm"
+									autocomplete="off">
+									<div id="tab1" class="tabcontent" style="display: block">
+
+										<div class="card-body">
+
+											<div class="border border-secondary">
+												<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Branch Id <span style="color: red; font-size: 20px;">
+															*</span>
+													</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" name="branch_id" id="branch_id"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+													</div>
+													<div class="col-sm-1" style="padding: 0px"></div>
+													<div class="col-sm-2 d-flex align-items-center">Branch
+														Description</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="text" name="branch_desc" id="branch_desc"
+															class="form-control form-control-sm bg-white border border-dark" />
+
+													</div>
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Customer Id<span style="color: red; font-size: 20px;">
+															*</span>
+													</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="cust_id" name="cust_id" onchange="custid()"
+															class="form-control form-control-sm bg-white border border-dark"
+															required>
+															<option value="">Select</option>
+															<th:block th:each="code : ${deposit}">
+																<option th:value="${code}" th:text="${code}"></option>
+															</th:block>
+														</select>
+
+													</div>
+
+													<div class="col-sm-1" style="padding: 0px"></div>
+													<div class="col-sm-2 d-flex align-items-center">Customer
+														Name</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="text" name="cust_name" id="cust_name"
+															class="form-control form-control-sm bg-white border border-dark" />
+
+													</div>
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Deposit Type<span style="color: red; font-size: 20px;">
+															*</span>
+													</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="deposit_type" name="deposit_type"
+															class="form-control form-control-sm bg-white border border-dark"
+															required>
+															<option value="Fixed">Fixed</option>
+															<option value="Reinvestment">Reinvestment</option>
+															<option value="Recurring">Recurring</option>
+
+														</select>
+
+													</div>
+
+													<div class="col-sm-1" style="padding: 0px"></div>
+													<div class="col-sm-2 d-flex align-items-center">Scheme
+														Code</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="text" name="scheme_code" id="scheme_code"
+															class="form-control form-control-sm bg-white border border-dark" />
+
+													</div>
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">GLSH
+														Code</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" name="glsh_code" id="glsh_code"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">GLSH
+														Description</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="text" name="glsh_desc" id="glsh_desc"
+															class="form-control form-control-sm bg-white border border-dark" />
+
+													</div>
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Deposit Account No<span
+															style="color: red; font-size: 20px;"> *</span>
+													</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" name="depo_actno" id="depo_actno"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+
+													</div>
+
+													<div class="col-sm-1" style="padding: 0px"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Date of Deposit<span style="color: red; font-size: 20px;">
+															*</span>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="date" name="deposit_date" id="deposit_date"
+															onchange="updateMaturityDate()"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+
+													</div>
+													<div class="col-sm-1" style="padding: 0px"></div>
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+													<div class="col-sm-1"></div>
+
+													<!-- Label for Deposit Period -->
+													<div class="col-sm-2 d-flex align-items-center">
+														Deposit Period<span style="color: red; font-size: 20px;">*</span>
+													</div>
+
+													<!-- Inputs for Deposit Period without space between -->
+													<div class="col-sm-2 d-flex align-items-center"
+														style="padding-left: 15px; padding-right: 15px">
+														<input type="text" name="deposit_period"
+															id="deposit_period" onchange="updateMaturityDate()"
+															class="form-control form-control-sm bg-white border border-dark"
+															required style="margin-right: 0;" /> <input type="text"
+															id="depositperiod"
+															class="form-control form-control-sm bg-white border border-dark"
+															required style="margin-left: 0;" />
+													</div>
+
+
+													<div class="col-sm-1"></div>
+
+													<!-- Label for Deposit Amount -->
+													<div class="col-sm-2 d-flex align-items-center">
+														Deposit Amount<span style="color: red; font-size: 20px;">*</span>
+													</div>
+
+													<!-- Input for Deposit Amount -->
+													<div class="col-sm-2 d-flex align-items-center">
+														<!-- <input type="text" name="deposit_amt" id="deposit_amt"
+														onchange="updateDemoAmt()"	class="form-control form-control-sm bg-white border border-dark"
+															required /> -->
+														<input type="text" name="deposit_amt" id="deposit_amt"
+															onchange="depositflow()"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+													</div>
+
+													<div class="col-sm-1"></div>
+												</div>
+
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Rate of Interest<span style="color: red; font-size: 20px;">
+															*</span>
+													</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" name="rate_of_int" id="rate_of_int"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+
+													</div>
+
+													<div class="col-sm-1" style="padding: 0px"></div>
+													<div class="col-sm-2 d-flex align-items-center">Interest
+														Amount</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="text" name="int_amt" id="int_amt"
+															class="form-control form-control-sm bg-white border border-dark" />
+
+													</div>
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">
+														Frequency<span style="color: red; font-size: 20px;">
+															*</span>
+													</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="frequency" name="frequency"
+															onchange="updateDepositPeriod();updateMaturityDate()"
+															class="form-control form-control-sm bg-white border border-dark">
+															<option value="Monthly">Monthly</option>
+															<option value="Yearly">Yearly</option>
+
+														</select>
+
+													</div>
+
+													<div class="col-sm-1" style="padding: 0px"></div>
+													<div class="col-sm-2 d-flex align-items-center">Currency</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" name="currency" id="currency"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+
+													</div>
+
+												</div>
+
+												<div class="row formline" style="padding: 0px 0px 10px 0px;">
+
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">Maturity
+														Date</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+														<input type="date" name="maturity_date" id="maturity_date"
+															class="form-control form-control-sm bg-white border border-dark" />
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center">Maturity
+														Amount</div>
+
+
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" name="maturity_amt" id="maturity_amt"
+															class="form-control form-control-sm bg-white border border-dark"
+															required />
+
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home();">Home</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab2" class="tabcontent" style="display: none">
+										<div class="card-body">
+
+											<div class="card-header ">
+												<div class="float-left">
+													<h4>DEPOSIT ACCOUNT OPENING - FLOW</h4>
+												</div>
+											</div>
+
+											<table class="table  table-bordered  table-hover table-sm"
+												style="margin-bottom: 0px; font-size: initial;"
+												id="usertable">
+												<thead class="card-header fs-5"
+													style="text-align: center !important;">
+													<!-- <tr th:each="accvals : ${bankvalues}">
+											<td colspan="4" th:text="'Account No : ' + ${accvals[0]}">
+											</td>
+											<td colspan="3"><label
+												style="font-size: 15px; margin-right: 10px;">Account
+													Name : </label></td>
+										</tr> -->
+													<tr style="text-align: left">
+														<th>FLOW ID</th>
+														<th>FLOW CODE</th>
+														<th>FLOW DATE</th>
+														<th style="text-align: center">FLOW AMOUNT</th>
+														<th style="text-align: center">OUTSTANDING BALANCE</th>
+													</tr>
+												</thead>
+												<tbody id="depositflow">
+
+
+
+
+												</tbody>
+											</table>
+
+
+											<div class="card-footer text-center"
+												style="background-color: #f5a142;">
+
+
+												<button class="btn btn-primary P-2" onclick="Home();">Home</button>
+												<button class="btn btn-primary p-2 " onclick="Submit();">Submit</button>
+												<button class="btn btn-primary P-2" onclick="back();">Back</button>
+
+											</div>
+										</div>
+
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- <div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="background-color: white;">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: white;">ACCOUNT DETAILS</div>
+				</div>
+				<div class="modal-body">
+					<table class="table table-bordered table-hover table-sm">
+						<thead>
+							<tr style="text-align: center;">
+								<th style="font-weight: bold;">SOL ID</th>
+								<th style="font-weight: bold;">SOL DESCRIPTION</th>
+								<th style="font-weight: bold;">SELECT</th>
+							</tr>
+						</thead>
+						<tbody id="trancheDetList">
+							<tr th:each="accvals : ${solvalues}">
+								<td style="text-align: left;" th:text="${accvals[0]}"></td>
+								<td style="text-align: left;" th:text="${accvals[1]}"></td>
+								<td style="text-align: center;"><input type="radio"
+									name="radioGroup" th:data-value1="${accvals[0]}"
+									th:data-value2="${accvals[1]}" onclick="requestvalue(this);" />
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer text-center">
+					<button type="button" class="btn btn-primary p-2"
+						id="selectedAccount" onclick="closemodal();" style="color: white;">Close</button>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg"></h6>
+					<button type="button" class="btn btn-primary"
+						onclick="depositsopen()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : NITHYAPRIYA
+	DATE       : 22-09-24
+	PURPOSE    : BACP - CUSTOMER REQUEST
+	VERSION    : 01
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+
+			font-family: Arial, sans-serif;
+
+		}
+
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+	</style>
+
+
+	<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		$(function () {
+			
+			$("#disableDate, #disableTilDate, #passExDate, #acctexpiryDate").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				changeYear: true
+			});
+
+			
+			$("#disableDate").on("change", function () {
+				var disableDate = $(this).datepicker("getDate");
+				if (disableDate) {
+					$("#disableTilDate").datepicker("option", "minDate", disableDate); 
+					$("#passExDate").datepicker("option", "minDate", disableDate);
+					$("#acctexpiryDate").datepicker("option", "minDate", disableDate);
+				}
+			});
+
+			
+			$("#disableTilDate").on("change", function () {
+				var disableDate = $("#disableDate").datepicker("getDate");
+				var disableTilDate = $(this).datepicker("getDate");
+
+				if (!disableDate) {
+					alert("Please choose Disable Date first.");
+					$(this).val(""); 
+				} else if (disableTilDate && disableTilDate < disableDate) {
+					alert("Disable Til Date cannot be earlier than Disable Date.");
+					$(this).val("");
+				}
+			});
+		});
+
+	</script>
+	<script>
+		function adduser(a) {
+			event.preventDefault();
+			location.href = 'userProfile?formmode=add';
+		}
+
+		function list() {
+
+			location.href = './assosiateProfile?formmode=list';
+		}
+
+
+	</script>
+
+	<script>
+		function roledesc() {
+
+			var roleid = $("#roleId").find(':selected').val();
+
+			if (roleid == 'ADM') {
+				$("#roleDesc").val("ADMIN");
+			} else if (roleid == 'GEN') {
+				$("#roleDesc").val("GENERAL_USER");
+			}
+			$(this).find(':selected').text();
+
+		}
+
+
+	</script>
+	<script>
+		function submitform() {
+			event.preventDefault();
+
+			var userProfile = {
+				userid: $('#userid').val(),
+				username: $('#username').val(),
+				mob_number: $('#mobNo').val(),
+				email_id: $('#emailId').val(),
+				disable_start_date: $('#disableDate').val(),
+				disable_end_date: $('#disableTilDate').val(),
+				password: $('#password').val(),
+				pass_exp_date: $('#passExDate').val(),
+				user_status: $('#userStatus').val(),
+				login_status: $('#loginStatus').val(),
+				acc_exp_date: $('#acctexpiryDate').val(),
+				role_id: $('#roleId').val(),
+				role_desc: $('#roleDesc').val(),
+				permissions: $('#permission').val(),
+				work_class: $('#work_class').val()
+			};
+
+			console.log(userProfile);
+
+
+
+		}
+	</script>
+
+
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Customer Request List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem;">CUSTOMER REQUEST</h6>
+							</div>  
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead class="thead-light">
+
+
+										<tr> 
+											<th style="text-align: center">APP REF NO</th> 
+											<th style="text-align: center">CUSTOMER GROUP</th> 
+											<th style="text-align: center">REQUEST DATE</th>  
+											<th style="text-align: center">CUSTOMER NAME</th>
+											<th style="text-align: center">NATIONAL ID</th>
+											<th style="text-align: center">SELECT</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="userProfile : ${userProfiles}"
+											th:attr="data-userid=${userProfile.userid}" onclick="fnClick(this);"
+											th:id="${userProfile.userid}" class="userlist">
+
+											<td style="width: 125px" th:text="${userProfile.userid}">456</td>
+											<td style="width: 250px" th:text="${userProfile.username}">TEST</td>   
+											<td style="width: 125px" th:text="${userProfile.userid}">456</td>
+											<td style="width: 250px" th:text="${userProfile.username}">TEST</td> 
+											<td style="width: 250px" th:text="${userProfile.username}">TEST</td> 
+											<td>
+												<div class="dropdown" style="text-align: center;">
+													<button class="btn btn-sm btn-info btns" type="button"
+														id="dropdownMenuButton" data-toggle="dropdown"
+														aria-haspopup="true" aria-expanded="false">
+														Action</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<!--<button type="button" class="dropdown-item" id="btndelete"
+																th:attr="data-attribute=${chartacc?.acct_num}"
+																style="text-align: center;"
+																onclick="deleteuser(this);">Delete</button>
+															<div class="dropdown-divider"></div>-->
+														<button type="button" class="dropdown-item" id="btnEnquiry"
+															style="text-align: center;"
+															onclick="enquiryuser(this);">view</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- ------------------------------------Customer Request add---------------------------------- -->
+				<div th:if="${formmode}=='view'">
+
+
+					<div class="card w-100 border">
+
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem;">CUSTOMER REQUEST</h6>
+
+							</div>
+
+
+						</div>
+						<div class="card-body">
+
+							<form class=" border border-secondary" action="#" method="post" autocomplete="off"
+								id="userProfile">
+
+
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userId">User Id</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="userid"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="userid" autocomplete="off" required />
+									</div>
+									<div class="col-sm-1">
+
+										<a th:if="${formmode}=='add'" href="#"><i class="fas fa-search searchico"
+												data-toggle="modal" data-target="#finusers" id="iconacc" hidden></i></a>
+									</div>
+									<div class="col-sm-2">
+										<label for="username">User Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="username" name="username"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required />
+									</div>
+								</div>
+
+
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Mobile No</label>
+									<div class="col-sm-2">
+										<input type="text" id="mobNo" maxlength="10" name="mob_number"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Email Id</label>
+									<div class="col-sm-2">
+										<input type="email" id="emailId" name="email_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="disableDate" name="disable_start_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Till Date</label>
+									<div class="col-sm-2">
+										<input type="text" name="disable_end_date" id="disableTilDate"
+											class="form-control form-control-sm bg-white border border-dark" required />
+									</div>
+
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Password</label>
+									<div class="col-sm-2">
+										<input type="text" id="password" name="password" value="Bornfire@123"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Password Expiry Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="passExDate" name="pass_exp_date"
+											class="form-control form-control-sm bg-white border border-dark" required />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Status</label>
+									<div class="col-sm-2">
+										<select id="userStatus" name="user_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="Active">Active</option>
+											<option value="Inactive">Inactive</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Status</label>
+									<div class="col-sm-2">
+										<select id="loginStatus" name="login_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="Active">Active</option>
+											<option value="Inactive">Inactive</option>
+
+										</select>
+									</div>
+
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Expiry Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="acctexpiryDate" name="acc_exp_date"
+											class="form-control form-control-sm bg-white border border-dark" required />
+									</div>
+
+								</div>
+
+								<div class="card-header"
+									style="background-color: #e9ecef; height: 50px; padding: 11px 15px;">
+									<div class="float-left" style="padding-left: 100px;">
+										<h6 style="font-size: 1.5rem;">ROLE AND RIGHTS</h6>
+
+
+									</div>
+
+
+								</div>
+
+
+								<div class="row formline mt-3" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Role Id</label>
+									<div class="col-sm-2">
+										<select id="roleId" name="role_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											onchange="roledesc();" autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="ADM">ADM</option>
+											<option value="GEN">GEN</option>
+
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Role Description</label>
+									<div class="col-sm-2">
+										<input type="text" id="roleDesc" readonly name="role_desc"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Permissions</label>
+									<div class="col-sm-2">
+										<select id="permission" name="permissions"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="R">Read</option>
+											<option value="W">Write</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Work Class</label>
+									<div class="col-sm-2">
+										<select id="work_class" name="work_class"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="M">Maker</option>
+											<option value="C">Checker</option>
+										</select>
+									</div>
+								</div>
+
+							</form>
+						</div>
+
+						<div class="card-footer text-center mt-3">
+
+
+
+
+							<button type="button" class="btn btn-xs btn-primary p-2" id="btnHome"
+								onclick="Home();">Home</button>
+							<button type="button" class="btn btn-xs btn-primary p-2" id="btnSubmit"
+								onclick="submitform();">Submit</button>
+							<button type="button" class="btn btn-xs btn-primary p-2" id="btnBack"
+								onclick="Back();">Back</button>
+
+
+						</div>
+					</div>
+
+
+				</div>
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>

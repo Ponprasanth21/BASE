@@ -1,0 +1,4595 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 19-09-24
+    VERSION    : 01
+-->
+<!--
+	CREATED BY : SUIRYA K
+	DATE       : 06-11-24
+	PURPOSE    : PLUGINS TO MOVE CUSTOMER MAINTAINANCE AND UPDATE DOCUMENT MASTER
+	VERSION    : 02
+	 
+-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+<script src="js/bootstrap411.js"></script>
+
+
+
+
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+.modal-header {
+	padding: 2px 16px;
+	background-color: #BBC3CB;
+	color: balck;
+}
+
+.modal-body {
+	padding: 2px 16px;
+}
+
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #BBC3CB;
+	color: black;
+}
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	height: 0%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+.input-group-text {
+	cursor: pointer;
+}
+
+#eyeIcon {
+	font-size: 1.2rem;
+}
+
+input, select {
+	width: 75% !important;
+	padding: 2px;
+}
+
+.mmdd {
+	height: 25px;
+	width: 35% !important;
+}
+
+.ml-2 {
+	margin-left: 1px;
+}
+
+button:focus {
+	outline: unset !important;
+	border: unset !important;
+}
+
+.borderRemove {
+	border: none;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 20%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+.table-responsive {
+	max-height: 650px;
+	overflow-y: auto;
+}
+</style>
+<script>
+		$(document).ready(function () {
+			$('.dropdown-toggle').dropdown();
+		});
+	</script>
+
+<script th:inline="javascript">
+//Global variables to store the current customer account type and ID
+var currentAcctType = '';
+var currentCustomerId = '';
+
+function confirmAndOpenTab(evt, tabName) {
+    var ca_acct_type = document.getElementById('ca_acct_type').value;
+    var customerId = document.getElementById('customer_id').value;
+
+    if (!ca_acct_type || !customerId) {
+      //  alert("Please select customer ID");
+        $("#alertmsg").text("Please select customer ID");
+		$('#alert').modal("toggle");
+    } else {
+        // Check if the account type or customer ID has changed
+        if (ca_acct_type !== currentAcctType || customerId !== currentCustomerId) {
+            // Show the confirmation dialog
+            var confirmation = confirm("Do you want to open this DOCUMENT MASTER Tab?");
+            if (confirmation) {
+                currentAcctType = ca_acct_type; // Update the current account type
+                currentCustomerId = customerId; // Update the current customer ID
+                openTabAndShowTable(evt, tabName, ca_acct_type);
+            }
+        } else {
+            openTabAndShowTable(evt, tabName, ca_acct_type);
+        }
+    }
+}
+
+function openTabAndShowTable(evt, tabName, ca_acct_type) {
+    if (ca_acct_type === "INDIVIDUAL" || ca_acct_type === "JOINT ACCOUNT") {
+        document.getElementById("individualTable").style.display = "block";
+        document.getElementById("corporateTable").style.display = "none";
+    } else {
+        document.getElementById("individualTable").style.display = "none";
+        document.getElementById("corporateTable").style.display = "block";
+    }
+    openTab(evt, tabName);
+}
+
+function openTab(evt, tabName) {
+    evt.preventDefault(); // Prevent default action
+    hideAllTabs(); // Hide all tabs
+    document.getElementById(tabName).style.display = 'block'; // Show the selected tab
+    const tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active"); // Remove the active class from all tabs
+    }
+    evt.currentTarget.classList.add("active"); // Add active class to the clicked tab
+    currentTab = tabName; // Update the currentTab variable
+}
+
+function hideAllTabs() {
+    const tabContents = document.getElementsByClassName('tabcontent');
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = 'none'; // Hide all tab content
+    }
+}
+
+// Initialize the first tab as active
+document.addEventListener("DOMContentLoaded", function () {
+    hideAllTabs();
+    document.getElementById('tab1').style.display = 'block';
+});
+
+		function home() {
+			location.href = 'LSDB/Dashboard';
+		}
+
+		function refreshPage1() {
+			event.preventDefault();
+			location.href = 'drawDownLoan?formmode=add';
+		}
+
+		function listPage() {
+			event.preventDefault();
+			location.href = 'drawDownLoanMaintanace?formmode=list';
+		}
+
+
+
+
+	</script>
+<script>
+	var mrowCount = 1;
+	var mrowCountcor =3;
+	function rowadd() {  
+		 if (mrowCountcor < 6) {
+				
+				var table = document.getElementById("click1"); 
+				var row = table.insertRow(); 
+				//var cell1 = row.insertCell(); 
+				var cell2 = row.insertCell(); 
+				var cell3 = row.insertCell(); 
+				var cell4 = row.insertCell(); 
+				var cell5 = row.insertCell(); 
+				var cell6 = row.insertCell(); 
+				var cell7 = row.insertCell(); 
+				var cell8 = row.insertCell();  
+				var cell9 = row.insertCell(); 
+				 
+				//cell1.innerHTML = '<input type="checkbox"' + mrowCount + '">'; 
+			 cell2.innerHTML = '<select name="docType" id="docType' + mrowCountcor + '"  class="uniform-input pl-2" style="height: 24px" onchange="last_change_re(' + mrowCountcor + ')" >' +
+	      '<option>SELECT</option>' +
+	      '<option value="NIC">CUSTOMER-RETAIL-NIC</option>' +
+	      '<option value="PSP">CUSTOMER-RETAIL-PSP</option>' +
+	      '<option value="AGM">CUSTOMER-RETAIL-AGM</option>' +
+	      '<option value="DOC">CUSTOMER-RETAIL-DOC</option>' +
+	      '</select>';		
+	      cell3.innerHTML = '<input type="text"  name="docCode" id="docCode' + mrowCountcor + '" class="uniform-input pl-2" autocomplete="off" style="height: 24px" readonly>';
+	     
+	    //  cell3.innerHTML = '<input type="text" name="docCode" id="docCode1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">';
+				cell4.innerHTML = '<input type="text" name="docDesc" id="docDesc' + mrowCountcor + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)" readonly>'; 
+				cell5.innerHTML = '<input type="text" name="uniqId" id="uniqId1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">'; 
+				cell6.innerHTML = '<input type="text" name="docIssPlace" id="docIssPlace1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">'; 
+				cell7.innerHTML = '<input type="date" name="docIssDate"   id="docIssDate1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">';  
+				cell8.innerHTML = '<input type="date" name="docExpDate"  id="docExpDate1' + mrowCount + '" class="uniform-input pl-2" autocomplete="off" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">'; 
+				cell9.innerHTML = '<input type="file" name="docExpDate" id="file' + mrowCount + '">'; 
+		        mrowCountcor++;
+				 mrowCount++;
+				 }else{ 
+					   alert("You can only add up to 5 rows.");
+				 }
+		 }
+	
+	function rowdelete(ele) { 
+		var table = $('#click1')[0]; 
+		var rowCount = table.rows.length; 
+		console.log(rowCount); 
+		if (rowCount <= 1) { 
+			//alert("There is no row available to delete!"); 
+			return; 
+		} 
+		if (ele) { 
+			$(ele).parent().parent().remove(); 
+		} 
+		else { 
+			table.deleteRow(rowCount - 1);  
+		} 
+	}
+	function rowdeletecor(ele) { 
+		var table = $('#click2')[0]; 
+		var rowCount = table.rows.length; 
+		console.log(rowCount); 
+		if (rowCount <= 1) { 
+			//alert("There is no row available to delete!"); 
+			return; 
+		} 
+		if (ele) { 
+			$(ele).parent().parent().remove(); 
+		} 
+		else { 
+			table.deleteRow(rowCount - 1);  
+		} 
+	}
+	
+	function submitfile() {
+		var cif_id =document.getElementById("customer_id").value;
+	    var rec_no = document.getElementById('rec_no').value;
+	    var appl_ref_no =document.getElementById("appl_ref_no").value
+		    const dynamicValues = []; // Initialize the array here
+
+		    // Loop through each row in the tbody with id "click1"
+		    $("#click1 tr").each(function() {
+		        var row = {}; // Create an object to hold the data for this row
+
+		        // Get values from the current row
+		        row.doctype = $(this).find("select[name='docType']").val(); // Use select directly
+		        row.doccode = $(this).find("input[name='docCode']").val();
+		        row.doctypesesc = $(this).find("input[name='docDesc']").val();
+		        row.uniqueid = $(this).find("input[name='uniqId']").val();
+		        row.placeofissue = $(this).find("input[name='docIssPlace']").val();
+		        row.issuedate = $(this).find("input[name='docIssDate']").val();
+		        row.exprydate = $(this).find("input[name='docExpDate']").val();
+
+		        // Get the file input and extract the filename
+		        const fileInput = $(this).find("input[type='file']"); // Adjust selector as necessary
+		        if (fileInput.length > 0 && fileInput[0].files.length > 0) {
+		            const file = fileInput[0].files[0]; // Get the file object
+		            row.file = file; // Set the file object in the row
+		            row.filename = file.name; // Get the filename directly from the file object
+		        }
+
+		        if (row.doctype || row.doccode || row.doctypesesc || row.uniqueid || row.placeofissue || row.issuedate || row.exprydate || row.filename) {
+		            dynamicValues.push(row); // Push the row object to the dynamicValues array
+		        } // Push the row object to the dynamicValues array
+		    });
+
+		    console.log(dynamicValues);
+
+		    // AJAX request to submit data
+		  $.ajax({
+		        url: '/BGLS/multiline?appl_ref_no=' +  appl_ref_no + "&rec_no=" + rec_no + "&cif_id=" + cif_id,
+		        data: JSON.stringify(dynamicValues),
+		        type: 'POST',
+		        contentType: 'application/json',
+		        success: function(data) {
+		            imageuploadFunction(data, dynamicValues, appl_ref_no);
+		           
+		        }
+		    });
+	}
+	function zeroth_change(){
+		
+		var docType0 = document.getElementById("docType00").value;
+		if(docType0 === 'BRN'){
+			$('#docCode00').val("BRN");
+			$('#docDesc00').val("BUSINESS REGISTRATION NO");
+			
+		}else if(docType0 === 'COI'){
+			$('#docCode00').val("COI");
+			$('#docDesc00').val("CERTIFICATE OF REGISTRATION");
+		}else if(docType0 === 'AGM'){
+			$('#docCode00').val("AGM");
+			$('#docDesc00').val("AGREEMENT");
+		}else if(docType0 === 'DOC'){
+			$('#docCode00').val("DOC");
+			$('#docDesc00').val("DOCUMENT");
+		}
+		
+	}
+	function first_change(){
+		var docType1 = document.getElementById("docType11").value;
+		if(docType1 === 'BRN'){
+			$('#docCode11').val("BRN");
+			$('#docDesc11').val("BUSINESS REGISTRATION NO");
+			
+		}else if(docType1 === 'COI'){
+			$('#docCode11').val("COI");
+			$('#docDesc11').val("CERTIFICATE OF REGISTRATION");
+		}else if(docType1 === 'AGM'){
+			$('#docCode11').val("AGM");
+			$('#docDesc11').val("AGREEMENT");
+		}else if(docType1 === 'DOC'){
+			$('#docCode11').val("DOC");
+			$('#docDesc11').val("DOCUMENT");
+		}
+	}
+
+	function zeroth_change_re(){
+		var docType0 = document.getElementById("docType0").value;
+		if(docType0 === 'NIC'){
+			$('#docCode0').val("NIC");
+			$('#docDesc0').val("NATIONAL ID CARD");
+		}else if(docType0 === 'PSP'){
+			$('#docCode0').val("PSP");
+			$('#docDesc0').val("PASSPORT NO");
+		}else if(docType0 === 'AGM'){
+			$('#docCode0').val("AGM");
+			$('#docDesc0').val("AGREEMENT");
+		}else if(docType0 === 'DOC'){
+			$('#docCode0').val("DOC");
+			$('#docDesc0').val("DOCUMENT");
+		}
+	}
+	function first_change_re(){
+		var docType1 = document.getElementById("docType1").value;
+		if(docType1 === 'NIC'){
+			$('#docCode1').val("NIC");
+			$('#docDesc1').val("NATIONAL ID CARD");
+			
+		}else if(docType1 === 'PSP'){
+			$('#docCode1').val("PSP");
+			$('#docDesc1').val("PASSPORT NO");
+		}else if(docType1 === 'AGM'){
+			$('#docCode1').val("AGM");
+			$('#docDesc1').val("AGREEMENT");
+		}else if(docType1 === 'DOC'){
+			$('#docCode1').val("DOC");
+			$('#docDesc1').val("DOCUMENT");
+		}
+	}
+
+
+
+	function last_change(rowCount) {
+ // This will display when the function is triggered
+
+	    // Get the values of the document type and dynamically change the docCode and docDesc values.
+	    var docType = document.getElementById("docType2" + rowCount).value;
+
+	    // Create the dynamic IDs for docCode and docDesc
+	    var docDesc = '#docDesc2' + rowCount;
+	    var docCode = '#docCode2' + rowCount;
+
+	    // Change values based on the selected docType
+	    if (docType === 'BRN') {
+	        $(docCode).val("BRN");
+	        $(docDesc).val("BUSINESS REGISTRATION NO");
+	    } else if (docType === 'COI') {
+	        $(docCode).val("COI");
+	        $(docDesc).val("CERTIFICATE OF REGISTRATION");
+	    } else if (docType === 'AGM') {
+	        $(docCode).val("AGM");
+	        $(docDesc).val("AGREEMENT");
+	    } else if (docType === 'DOC') {
+	        $(docCode).val("DOC");
+	        $(docDesc).val("DOCUMENT");
+	    }
+	}
+
+
+	function last_change_re(rowCount) {
+
+		 var docType = document.getElementById("docType" + rowCount).value;
+
+		    var docDesc = '#docDesc' + rowCount;
+		    var docCode = '#docCode' +rowCount;
+
+		    if (docType === 'NIC') {
+		    	 $(docCode).val("NIC");
+		        $(docDesc).val("BUSINESS REGISTRATION NO");
+		    } else if (docType === 'PSP') {
+		    	$(docCode).val("PSP");
+		        $(docDesc).val("PASSPORT NO");
+		    } else if (docType === 'AGM') {
+		    	$(docCode).val("AGM");
+		        $(docDesc).val("AGREEMENT");
+		    } else if (docType === 'DOC') {
+		    	$(docCode).val("DOC");
+		        $(docDesc).val("DOCUMENT");
+		    }
+	}
+	function readURL(input) {
+		var Thisinput = $(input)
+		if (input.files && input.files[0]) {
+
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				Thisinput.closest('.file-uploadone').find('.image-upload-wrap')
+					.hide();
+
+				Thisinput.closest('.file-uploadone').find('.file-upload-image')
+					.attr('src', e.target.result);
+				Thisinput.closest('.file-uploadone').find('.file-upload-content')
+					.show();
+
+				Thisinput.closest('.file-uploadone').find('.image-title').html(
+					input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+
+		} else {
+			removeUpload();
+		}
+	}
+	 
+	function handleIn(input) {
+		// Remove special characters using regex
+		input.value = input.value.replace(/[^\w\s]/gi, '').toUpperCase();
+	}
+	function submitfileCorporate() {
+		var rec_no = document.getElementById("rec_no").value;
+		var cif_id =document.getElementById("customer_id").value;
+		var appl_ref_no = document.getElementById("appl_ref_no").value;
+		    
+		    const dynamicValues = []; // Initialize the array here
+
+		    // Loop through each row in the tbody with id "click1"
+		    $("#click2 tr").each(function() {
+		        var row = {}; // Create an object to hold the data for this row
+
+		        // Get values from the current row
+		        row.doctype = $(this).find("select[name='docType']").val(); // Use select directly
+		        row.doccode = $(this).find("input[name='docCode']").val();
+		        row.doctypesesc = $(this).find("input[name='docDesc']").val();
+		        row.uniqueid = $(this).find("input[name='uniqId']").val();
+		        row.placeofissue = $(this).find("input[name='docIssPlace']").val();
+		        row.issuedate = $(this).find("input[name='docIssDate']").val();
+		        row.exprydate = $(this).find("input[name='docExpDate']").val();
+
+		        // Get the file input and extract the filename
+		        const fileInput = $(this).find("input[type='file']"); // Adjust selector as necessary
+		        if (fileInput.length > 0 && fileInput[0].files.length > 0) {
+		            const file = fileInput[0].files[0]; // Get the file object
+		            row.file = file; // Set the file object in the row
+		            row.filename = file.name; // Get the filename directly from the file object
+		        }
+
+		        if (row.doctype || row.doccode || row.doctypesesc || row.uniqueid || row.placeofissue || row.issuedate || row.exprydate || row.filename) {
+		            dynamicValues.push(row); // Push the row object to the dynamicValues array
+		        }  // Push the row object to the dynamicValues array
+		    });
+
+		    console.log(dynamicValues);
+		    console.log(cif_id);
+		    // AJAX request to submit data
+		  $.ajax({
+		        url: '/BGLS/multiline?appl_ref_no=' + appl_ref_no + "&rec_no=" + rec_no + "&cif_id="+ cif_id,
+		        data: JSON.stringify(dynamicValues),
+		        type: 'POST',
+		        contentType: 'application/json',
+		        success: function(data) {
+		            imageuploadFunction(data, dynamicValues, appl_ref_no);
+		           
+		        }
+		    }); 
+	}
+	</script>
+<script>
+		function back() {
+
+			event.preventDefault();
+			window.history.back();
+		}
+	</script>
+<script>
+var mrowCount1cor1 = 3; // Assuming you start at row 3, you can adjust this
+var maxRows = 5; // Maximum number of rows allowed
+
+function rowadddcorporate() {
+    // Check if the number of rows is less than the maximum allowed
+    if (mrowCount1cor1 <= maxRows) {
+        var table = document.getElementById("click2");
+        var row = table.insertRow();
+        
+        // Create cells
+        var cell2 = row.insertCell();
+        var cell3 = row.insertCell();
+        var cell4 = row.insertCell();
+        var cell5 = row.insertCell();
+        var cell6 = row.insertCell();
+        var cell7 = row.insertCell();
+        var cell8 = row.insertCell();
+        var cell9 = row.insertCell();
+
+        // Populate cells with HTML content
+        cell2.innerHTML = `<select name="docType" id="docType2${mrowCount1cor1}" class="uniform-input pl-2" style="height: 24px" onchange="last_change(${mrowCount1cor1})">
+            <option>SELECT</option>
+            <option value="BRN">CUSTOMER-CORPORATE-BRN</option>
+            <option value="COI">CUSTOMER-CORPORATE-COI</option>
+            <option value="AGM">CUSTOMER-CORPORATE-AGM</option>
+            <option value="DOC">CUSTOMER-CORPORATE-DOC</option>
+        </select>`;
+        
+        cell3.innerHTML = `<input type="text" name="docCode" id="docCode2${mrowCount1cor1}" class="uniform-input pl-2" autocomplete="off" style="height: 24px" readonly>`;
+        
+        cell4.innerHTML = `<input type="text" name="docDesc" id="docDesc2${mrowCount1cor1}" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)" readonly>`;
+        
+        cell5.innerHTML = `<input type="text" name="uniqId" id="uniqId2${mrowCount1cor1}" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">`;
+        
+        cell6.innerHTML = `<input type="text" name="docIssPlace" id="docIssPlace2${mrowCount1cor1}" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">`;
+        
+        cell7.innerHTML = `<input type="date" name="docIssDate" id="docIssDate2${mrowCount1cor1}" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">`;
+        
+        cell8.innerHTML = `<input type="date" name="docExpDate" id="docExpDate2${mrowCount1cor1}" class="uniform-input pl-2" autocomplete="off" onkeyup="this.value = this.value.toUpperCase(); handleIn(this)">`;
+        
+        cell9.innerHTML = `<input type="file" name="docExpDate" id="file2${mrowCount1cor1}">`;
+        
+        // Increment the row count
+        mrowCount1cor1++;
+    } else {
+        alert("You can only add up to 5 rows.");
+    }
+}
+
+</script>
+
+<script>
+
+		//Next Tab 
+		function submitparam() {
+			event.preventDefault();
+
+			document.getElementById("tab1").style.display = "none";
+			document.getElementById("tab2").style.display = "block";
+			$("#smooth1").removeClass("active");
+			$("#smooth2").addClass("active");
+		}
+
+
+		function submitparam1() {
+			event.preventDefault();
+
+			document.getElementById("tab2").style.display = "none";
+			document.getElementById("tab3").style.display = "block";
+			$("#smooth2").removeClass("active");
+			$("#smooth3").addClass("active");
+		}
+
+
+		function submitparam2() {
+			event.preventDefault();
+
+			document.getElementById("tab3").style.display = "none";
+			document.getElementById("tab4").style.display = "block";
+			$("#smooth3").removeClass("active");
+			$("#smooth4").addClass("active");
+		}
+
+
+
+		function updateCheckboxValue() {
+			var checkbox = document.getElementById("record_flag");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function updateCheckboxValue1() {
+			var checkbox = document.getElementById("record_flag_1");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function refreshPage() {
+			window.location.reload();
+		}
+
+		function formatDateToYYYYMMDD(date) {
+			if (!date || !(date instanceof Date)) {
+				return '';
+			}
+			const year = date.getFullYear();
+			const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+			const day = ('0' + date.getDate()).slice(-2);
+			return `${day}-${month}-${year}`;
+		}
+		
+		
+		function imageuploadFunction(Responcedata, dynamicvalues, appl_ref_no) {
+		    var formData = new FormData(); 
+		    formData.append("unique", Responcedata);
+
+		    // Show the loader before starting the image processing
+		    $('#loader2').show();
+
+		    // Function to process a file and return a promise
+		    function processFile(value) {
+		        return new Promise((resolve, reject) => {
+		            if (!value.file) {
+		                console.error("File object is invalid:", value);
+		                return reject("Invalid file");
+		            }
+
+		            // Determine the file type (image, excel, pdf, etc.)
+		            const fileType = value.file.type;
+
+		            if (fileType.startsWith('image/')) {
+		                // Process image file (JPEG, PNG, etc.)
+		                var canvas = document.createElement('canvas');
+		                var ctx = canvas.getContext('2d');
+		                var img = new Image();
+
+		                img.src = URL.createObjectURL(value.file);
+		                img.onload = function () {
+		                    canvas.width = img.width;
+		                    canvas.height = img.height;
+		                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+		                    var dataURL = canvas.toDataURL('image/jpeg');
+
+		                    resolve({ file: value.file, dataURL: dataURL });
+		                };
+
+		                img.onerror = function (error) {
+		                    console.error("Error loading image:", error);
+		                    reject(error);
+		                };
+		            } else {
+		                // For non-image files, bypass canvas and directly resolve
+		                resolve({ file: value.file, dataURL: null });
+		            }
+		        });
+		    }
+
+		    // Process all files
+		    Promise.all(dynamicvalues.map(processFile)).then((results) => {
+		        results.forEach((result) => {
+		            formData.append("files", result.file); // Append the original file
+		            if (result.dataURL) {
+		                formData.append("dataURL", result.dataURL); // Append dataURL for images
+		            } else {
+		                formData.append("dataURL", ""); // Placeholder for non-image files
+		            }
+		        });
+
+		        formData.append("appl_ref_no", appl_ref_no);
+
+		        // Make a single AJAX call
+		        $.ajax({
+		            url: '/BGLS/imageupload11',
+		            type: 'POST',
+		            data: formData,
+		            processData: false,
+		            contentType: false,
+		            success: function (response) {
+		            	$("#alertmsg").text(response);
+						$('#alert').modal("toggle");
+		                window.location.reload();
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("Error during image upload:", status, error);
+		                // Optionally show an error message to the user
+		                alert("An error occurred while uploading the images.");
+		            },
+		            complete: function() {
+		                // Hide the loader regardless of success or error
+		             //   $('#loader2').hide();
+		            }
+		        });
+		    }).catch((error) => {
+		        console.error('Error processing files:', error);
+		        // Ensure the loader is hidden if there’s an error during file processing
+		        $('#loader').hide();
+		    });
+		}
+
+
+	</script>
+<script>
+		function addscreen() {
+			location.href = 'drawDownLoan?formmode=add';
+		}
+
+		function inquaryeditlistz(a) {
+			event.preventDefault();
+			var loan_accountno = a.getAttribute("data-loan_accountno");
+
+			location.href = 'drawDownLoanMaintanace?formmode=view&loan_accountno='
+				+ loan_accountno;
+		}
+
+		function verifyeditlistz(a) {
+			event.preventDefault();
+			var loan_accountno = a.getAttribute("data-loan_accountno");
+
+			location.href = 'drawDownLoanMaintanace?formmode=verify&loan_accountno='
+				+ loan_accountno;
+		}
+
+		function modifyeditview(a) {
+			event.preventDefault();
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			location.href = 'LSDBDDNoticeDetails?formmode=modify&dd_notice_ref='
+				+ dd_notice_ref;
+		}
+
+		function modifyeditview1(a) {
+			event.preventDefault();
+			var dd_notice_ref = a.getAttribute("data-dd_notice_ref");
+			location.href = 'LSDBDDNoticeDetails?formmode=modify1&dd_notice_ref='
+				+ dd_notice_ref;
+		}
+
+		//deleteUnverified (Praveen)
+		function deleteUnverified(a) {
+			var dd_notice_ref = a.getAttribute('data-dd_notice_ref');
+			//location.href = 'DrawDownSyndicatedLoan?formmode=view&drawDownId='+ drawId;
+			console.log(dd_notice_ref);
+			$.ajax({
+				url: './deleteUnverifiedRecordsDDN?dd_notice_ref=' + dd_notice_ref,
+				type: 'POST',
+				success: function (responseText, statusText, xhr, $form) {
+					console.log(responseText);
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				},
+				error: function (error) {
+					console.log("Error fetching data: ", error);
+				}
+
+			});
+
+		}
+
+
+
+		function getRepaymentDetails(a) {
+			event.preventDefault();
+
+			var principleAmount = document.getElementById("loan_sanctioned").value.replace(/,/g, '');
+			var santionedDate = changeDateFormat(document.getElementById("date_of_loan").value);
+			var interestRate = document.getElementById("effective_interest_rate").value.replace(/,/g, '');
+
+			var installID = $("#inst_id").val();
+			var installStartDate = changeDateFormat(document.getElementById("inst_start_dt").value);
+			var pricipleFreq = document.getElementById("inst_freq").value;
+			var noOfInstallment = document.getElementById("no_of_inst").value;
+			var installAmount = document.getElementById("inst_amount").value.replace(/,/g, '');
+			var interestFreq = document.getElementById("interest_frequency").value;
+
+			console.log(principleAmount + " " + santionedDate + " " + interestRate + " " + installID + " " + installStartDate + " "
+				+ pricipleFreq + " " + noOfInstallment + " " + installAmount + " " + interestFreq);
+			$
+				.ajax({
+					type: "GET",
+					url: "./getInterestDetails?creation_Date=" + santionedDate
+						+ "&start_date=" + installStartDate + "&Product_value=" + principleAmount
+						+ "&principle_frequency=" + pricipleFreq + "&int_rate=" + interestRate
+						+ "&no_of_inst=" + noOfInstallment + "&int_amt="
+						+ installAmount + "&interestFrequency=" + interestFreq,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+									var no_of_instalment = entity.no_of_instalment;
+									var from_date = formatDate(entity.from_date);
+									var installment_date = formatDate(entity.installment_date);
+									var installment_description = entity.installment_description;
+									var installment_amt = formatNumber(entity.installment_amt);
+									var principal_amt = formatNumber(entity.principal_amt);
+									var interest_amt = formatNumber(entity.interest_amt);
+									var charges_amt = formatNumber(entity.charges_amt);
+									var principal_outstanding = formatNumber(entity.principal_outstanding);
+
+
+
+									trHTML += '<tr id="sechduleRow">'
+										+ '<td>' + no_of_instalment + '</td>'
+										+ '<td>' + installment_date + '</td>'
+										+ '<td>' + installment_description + '</td>'
+										+ '<td class="text-right">' + installment_amt + '</td>'
+										+ '<td class="text-right">' + principal_amt + '</td>'
+										+ '<td class="text-right">' + interest_amt + '</td>'
+										+ '<td class="text-right">' + charges_amt + '</td>'
+										+ '<td class="text-right">' + principal_outstanding + '</td>'
+										+ '</tr>';
+
+								});
+						$('#repaymentDet').empty().append(trHTML);
+						$('#demandtable').removeClass('d-none');
+						$('#demandtable1').addClass('d-none');
+
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+		function getFlowDetails(a) {
+			event.preventDefault();
+
+			var principleAmount = document.getElementById("loan_sanctioned").value.replace(/,/g, '');
+			var santionedDate = changeDateFormat(document.getElementById("date_of_loan").value);
+			var interestRate = document.getElementById("effective_interest_rate").value.replace(/,/g, '');
+
+			var installID = $("#inst_id").val();
+			var installStartDate = changeDateFormat(document.getElementById("inst_start_dt").value);
+			var pricipleFreq = document.getElementById("inst_freq").value;
+			var noOfInstallment = document.getElementById("no_of_inst").value;
+			var installAmount = document.getElementById("inst_amount").value.replace(/,/g, '');
+			var interestFreq = document.getElementById("interest_frequency").value;
+
+			console.log(principleAmount + " " + santionedDate + " " + interestRate + " " + installID + " " + installStartDate + " "
+				+ pricipleFreq + " " + noOfInstallment + " " + installAmount + " " + interestFreq);
+			$
+				.ajax({
+					type: "GET",
+					url: "./getFlowDetails?creation_Date=" + santionedDate
+						+ "&start_date=" + installStartDate + "&Product_value=" + principleAmount
+						+ "&principle_frequency=" + pricipleFreq + "&int_rate=" + interestRate
+						+ "&no_of_inst=" + noOfInstallment + "&int_amt="
+						+ installAmount + "&interestFrequency=" + interestFreq,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+
+									var flow_id = entity.flow_id;
+									var flow_date = formatDate(entity.flow_date);
+									var flow_code = entity.flow_code;
+									var flow_frq = entity.flow_frq ? entity.flow_frq : "";
+									var flow_amt = formatNumber(entity.flow_amt);
+
+
+									trHTML += '<tr id="sechduleRow">'
+
+										+ '<td>' + flow_date + '</td>'
+										+ '<td>' + flow_code + '</td>'
+										+ '<td>' + flow_frq + '</td>'
+										+ '<td class="text-right">' + flow_amt + '</td>'
+										+ '</tr>';
+
+
+
+								});
+						$('#repaymentDet1').empty().append(trHTML);
+						$('#demandtable1').removeClass('d-none');
+						$('#demandtable').addClass('d-none');
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+		function updateCheckboxValue() {
+			var checkbox = document.getElementById("record_flag");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function updateCheckboxValue1() {
+			var checkbox = document.getElementById("record_flag_1");
+			checkbox.value = checkbox.checked ? "Y" : "N";
+		}
+
+		function refreshPage() {
+			window.location.reload();
+		}
+
+
+	</script>
+<script>
+		function SubmitVerify(a) {
+
+			event.preventDefault();
+			/*var button = document.getElementById('verifyButton');
+			button.disabled = true;*/
+			var accountNo = a.getAttribute('data-loan_accountno');
+			var customer_id = a.getAttribute('data-customer_id');
+			console.log(customer_id+" "+accountNo);
+			
+			location.href='ApprovalFromLease?formmode=view&customer_id='+customer_id+'&loanAcctNo='+accountNo;
+
+
+
+		}
+		
+		function viewCustomerMaster(a) {
+
+			event.preventDefault();
+			/*var button = document.getElementById('verifyButton');
+			button.disabled = true;*/
+			var accountNo = a.getAttribute('data-loan_accountno');
+			var customer_id = a.getAttribute('data-customer_id');
+			
+			console.log(customer_id+" "+accountNo);
+			
+			location.href='CustomerMaintenanceFromLease?formmode=viewCust&customer_id='+customer_id+'&loanAcctNo='+accountNo;
+			
+		}
+		
+		function viewLoanMaster(a){
+			event.preventDefault();
+			var accountNo = a.getAttribute('data-loan_accountno');
+			location.href='drawDownLoanMaintanace?formmode=view&loan_accountno='+accountNo;
+		}
+		
+
+		function formatNumber(number) {
+			return Number(number).toLocaleString('en-US', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+		}
+
+		// filter
+
+		function filterSyncRec() {
+			var filterInputSyncNo = document.getElementById("filterInputSyncNo").value
+				.toUpperCase();
+			var filterInputBorrName = document
+				.getElementById("filterInputBorrName").value.toUpperCase();
+			var table = document.getElementById("usertableSyncTab");
+			var tr = table.getElementsByTagName("tr");
+			for (var i = 0; i < tr.length; i++) {
+				var tdSyncNo = tr[i].getElementsByTagName("td")[0];
+				var tdCustomerName = tr[i].getElementsByTagName("td")[1];
+				if (tdSyncNo && tdCustomerName) {
+					var cifIdMatches = tdSyncNo.textContent.toUpperCase().indexOf(
+						filterInputSyncNo) > -1;
+					var customerNameMatches = tdCustomerName.textContent
+						.toUpperCase().indexOf(filterInputBorrName) > -1;
+					if (cifIdMatches && customerNameMatches) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+
+		function filterTranRec() {
+			var filterInputSyncNo = document.getElementById("filterInputSynNum").value
+				.toUpperCase();
+			var filterInputBorrName = document
+				.getElementById("filterInputBorrName").value.toUpperCase();
+			var filterInputTranRef = document.getElementById("filterInputTranRef").value
+				.toUpperCase();
+			var table = document.getElementById("usertableTranDet");
+			var tr = table.getElementsByTagName("tr");
+			for (var i = 0; i < tr.length; i++) {
+				var tdSyncNo = tr[i].getElementsByTagName("td")[0];
+				var tdTran = tr[i].getElementsByTagName("td")[1];
+				var tdCustomerName = tr[i].getElementsByTagName("td")[2];
+				if (tdSyncNo && tdTran && tdCustomerName) {
+					var syncMatch = tdSyncNo.textContent.toUpperCase().indexOf(
+						filterInputSyncNo) > -1;
+					var BorNameMatch = tdCustomerName.textContent.toUpperCase()
+						.indexOf(filterInputBorrName) > -1;
+					var tranMatch = tdTran.textContent.toUpperCase().indexOf(
+						filterInputTranRef) > -1;
+					if (syncMatch && BorNameMatch && tranMatch) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+	</script>
+
+<script>
+
+
+		function downloadFile() {
+			alert("cc");
+			$.ajax({
+				type: "POST",
+				url: "./downloadFile",
+				success: function (data) {
+					console.log(data);
+				}
+			})
+		}
+	</script>
+
+
+<script type="text/javascript">
+		//validations 
+
+		function numberAndLetters(inputElement) {
+			inputElement.value = inputElement.value.replace(/[^0-9a-zA-Z]/g, '')
+				.toUpperCase();
+		}
+
+		function numberOnly(inputElement) {
+			inputElement.value = inputElement.value.replace(/\D/g, '');
+		}
+
+		function setOutstanding(inputElement) {
+			var loan_outstanding = document.getElementById('loan_outstanding');
+			loan_outstanding.value = inputElement.value.replace(/\D/g, '');
+		}
+
+		function calculateDrawingLimit() {
+			var marginLimit = document.getElementById('margin_limit').value;
+			var loanSanctioned = document.getElementById('loan_sanctioned').value;
+
+			// Validate the inputs
+			if (marginLimit === "" || isNaN(marginLimit)) {
+				document.getElementById('drawing_limit').value = "";
+				return;
+			}
+
+			if (loanSanctioned === "" || isNaN(loanSanctioned)) {
+				document.getElementById('drawing_limit').value = "";
+				return;
+			}
+
+
+			var drawingLimit = (parseFloat(marginLimit) / 100) * parseFloat(loanSanctioned);
+
+			// Set the calculated drawing limit
+			document.getElementById('drawing_limit').value = drawingLimit.toFixed(2);
+		}
+
+
+
+	</script>
+<script>
+		function changeDateFormat(dateString) {
+
+			var parts = dateString.split('-');
+
+			return parts[2] + '-' + parts[1] + '-' + parts[0];
+		}
+
+		function formatDate(dateString) {
+
+			var date = new Date(dateString);
+
+
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		//number input
+		function formatNumberWithCommas(number) {
+
+			if (!number && number !== 0) return '';
+			console.log("number : " + number);
+			let numberString = number.toString();
+			console.log("numberString : " + numberString);
+
+			let [integerPart, decimalPart] = numberString.split('.');
+
+			let lastThreeDigits = integerPart.slice(-3);
+			let otherDigits = integerPart.slice(0, -3);
+
+			if (otherDigits !== '') {
+				lastThreeDigits = ',' + lastThreeDigits;
+			}
+
+			let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+			if (!decimalPart) {
+				decimalPart = '00';
+			}
+			let formattedNumber = formattedIntegerPart + '.' + decimalPart;
+			console.log("formattedIntegerPart : " + formattedIntegerPart);
+			console.log("decimalPart : " + decimalPart);
+
+			return formattedNumber;
+		}
+	</script>
+
+<script>
+		//Sehdule View
+		function sechduleView(a) {
+
+			var accountNo = a.getAttribute('data-loan_accountno');
+			console.log(accountNo);
+
+			$
+				.ajax({
+					type: "GET",
+					url: "./getInterestDetailsView?accountNo=" + accountNo,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+									var no_of_instalment = entity.no_of_instalment;
+									var from_date = formatDate(entity.from_date);
+									var installment_date = formatDate(entity.installment_date);
+									var installment_description = entity.installment_description;
+									var installment_amt = formatNumber(entity.installment_amt);
+									var principal_amt = formatNumber(entity.principal_amt);
+									var interest_amt = formatNumber(entity.interest_amt);
+									var charges_amt = formatNumber(entity.charges_amt);
+									var principal_outstanding = formatNumber(entity.principal_outstanding);
+
+
+
+									trHTML += '<tr id="sechduleRow">'
+										+ '<td>' + no_of_instalment + '</td>'
+										+ '<td>' + installment_date + '</td>'
+										+ '<td>' + installment_description + '</td>'
+										+ '<td class="text-right">' + installment_amt + '</td>'
+										+ '<td class="text-right">' + principal_amt + '</td>'
+										+ '<td class="text-right">' + interest_amt + '</td>'
+										+ '<td class="text-right">' + charges_amt + '</td>'
+										+ '<td class="text-right">' + principal_outstanding + '</td>'
+										+ '</tr>';
+
+								});
+						$('#repaymentDet').empty().append(trHTML);
+						$('#demandtable').removeClass('d-none');
+
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+
+		function sechduleView1(a) {
+
+			var accountNo = a.getAttribute('data-loan_accountno');
+			console.log(accountNo);
+
+			$
+				.ajax({
+					type: "GET",
+					url: "./getdemandflow?accountNo=" + accountNo,
+					success: function (data) {
+						console.log(data);
+						var trHTML = '';
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+
+									var flow_id = entity.flow_id;
+									var flow_date = formatDate(entity.flow_date);
+
+									var flow_code = entity.flow_code;
+									var flow_frq = entity.flow_frq ? entity.flow_frq : "";
+									var flow_amt = formatNumber(entity.flow_amt);
+
+
+
+
+									trHTML += '<tr id="sechduleRow">'
+										+ '<td>' + flow_date + '</td>'
+										+ '<td>' + flow_code + '</td>'
+										+ '<td>' + flow_frq + '</td>'
+										+ '<td class="text-right">' + flow_amt + '</td>'
+										+ '</tr>';
+
+								});
+						$('#repaymentDet1').empty().append(trHTML);
+						$('#demandtable1').removeClass('d-none');
+
+
+					},
+					error: function (error) {
+						console.error(error);
+					}
+				});
+		}
+
+
+		function handleRadioClick(selectedRadio) {
+			var installmentAmt = selectedRadio.getAttribute("data-installment-amt");
+			var accountValue = document.getElementById("loan_accountno").value;
+			var accountName = document.getElementById("customer_name").value;
+			var loancurrency = document.getElementById("loan_currency").value;
+
+			// Redirect to the journalEntries add page with query parameters
+			var url = 'journalEntries?formmode=add'
+				+ '&flow_amount=' + encodeURIComponent(installmentAmt)
+				+ '&account_no=' + encodeURIComponent(accountValue)
+				+ '&accountName=' + encodeURIComponent(accountName)
+				+ '&currency=' + encodeURIComponent(loancurrency);
+			location.href = url;
+		}
+
+	</script>
+<script>
+		//Mandatory Fields Working (Praveen)
+		function commanValues() {
+			console.log("common values check");
+
+			var syn_fac_ref = $('#synd_fac_ref').val();
+			var tran_ref = $('#trnc_desc').val();
+			var notice_ref = $('#dd_notice_ref').val();
+
+			var value;
+
+			if (syn_fac_ref === "") {
+				$("#Normalalertmsg").text("Fill Syndication ref");
+				$('#normalAlert').modal("toggle");
+				value = false;
+			}
+			else if (tran_ref === "") {
+				$("#Normalalertmsg").text("Fill Tranche Ref ");
+				$('#normalAlert').modal("toggle");
+				value = false;
+			}
+			else if (notice_ref === "") {
+				$("#Normalalertmsg").text("Fill Draw Down Ref ");
+				$('#normalAlert').modal("toggle");
+				value = false;
+			}
+			else {
+				value = true;
+			}
+
+			return value;
+
+		}
+
+
+		function tab1Value() {
+
+			console.log("tab1 values check");
+
+			var notice_date = $('#dd_notice_date').val();
+			var value_date = $('#dd_value_date').val();
+			var expiry_date = $('#dd_notice_exp_date').val();
+
+
+			var value;
+
+			if (notice_date === "") {
+				$("#Normalalertmsg").text("Fill Tranche Reference");
+				$('#normalAlert').modal("toggle");
+				value = false;
+				openTab(event, 'tab1');
+			}
+			else if (value_date === "") {
+				$("#Normalalertmsg").text("Fill Role");
+				$('#normalAlert').modal("toggle");
+				value = false;
+				openTab(event, 'tab1');
+			}
+			else if (expiry_date === "") {
+				$("#Normalalertmsg").text("Fill Tranche Creation Date");
+				$('#normalAlert').modal("toggle");
+				value = false;
+				openTab(event, 'tab1');
+			}
+			else {
+				value = true;
+			}
+			return value;
+		}
+
+
+
+
+	</script>
+
+<script>
+		function calculatePercentage(a) {
+			event.preventDefault();
+			var loanPeriod = document.getElementById('loan_period').value;
+			var loansanctioned = document.getElementById('loan_sanctioned').value;
+			var date_of_loan = document.getElementById('date_of_loan').value;
+			var expiryDateElement = document.getElementById('expiry_date');
+
+			var total;
+
+			if (loansanctioned === "") {
+
+				document.getElementById('loan_period').value = "";
+				$("#Normalalertmsg").text("Choose Santioned Amount First");
+				$('#normalAlert').modal("show");
+
+			}
+			else if (date_of_loan === "") {
+
+				document.getElementById('loan_period').value = "";
+				$("#Normalalertmsg").text("Choose Date of loan");
+				$('#normalAlert').modal("show");
+
+			}
+
+			else {
+				var amount = (loansanctioned / loanPeriod);
+				document.getElementById('inst_amount').value = amount.toFixed(2);
+
+
+				var percentage = (loansanctioned / 100);
+				total = percentage;
+				var totals = (amount / total);
+
+				document.getElementById('inst_pct').value = totals.toFixed(0);
+				document.getElementById('no_of_inst').value = loanPeriod;
+				document.getElementById('inst_id').value = '1';
+
+				var loanDate = new Date(date_of_loan);
+				loanDate.setMonth(loanDate.getMonth() + parseInt(loanPeriod));
+
+				var day = loanDate.getDate();
+				var month = (loanDate.getMonth() + 1).toString().padStart(2, '0');
+				var year = loanDate.getFullYear();
+
+				var formattedExpiryDate = day.toString().padStart(2, '0') + '-' + month + '-' + year;
+				expiryDateElement.value = formattedExpiryDate;
+
+			}
+
+
+		}
+
+		function custid() {
+			const selectedValue = $('#customer_id').val();
+
+
+			$.ajax({
+				url: './getCustId',
+				type: 'GET',
+				data: {
+					custId: selectedValue,
+
+				},
+				success: function (data) {
+					if (data && data.length > 0) {
+						console.log(data)
+						$('#branch_id').val(data[0][0] || '');
+
+						$('#branch_name').val(data[0][1] || '');
+						$('#customer_name').val(data[0][2] || '');
+
+						$('#gl_code').val(data[0][3] || '');
+						$('#gl_desc').val(data[0][4] || '');
+						$('#glsh_code').val(data[0][5] || '');
+						$('#glsh_desc').val(data[0][6] || '');
+						$('#ca_acct_type').val(data[0][7] || '');
+						$('#appl_ref_no').val(data[0][8] || '');
+						$('#rec_no').val(data[0][9] || '');
+						
+					} else {
+						console.error("No data received or data is empty");
+					}
+
+				}
+
+			});
+
+		}
+
+		function addRecords(evt, tabName) {
+
+			event.preventDefault();
+
+			var leaseData = {
+
+				loanDetails: {
+					customer_id: $(
+						"select[name='customer_id']")
+						.val(),
+					customer_name: $("input[name='customer_name']").val(),
+					branch_name: $("input[name='branch_name']")
+						.val(),
+					branch_id: $(
+						"input[name='branch_id']").val(),
+					loan_type: $("select[name='loan_type']")
+						.val(),
+					gl_code: $(
+						"input[name='gl_code']").val(),
+					gl_desc: $(
+						"input[name='gl_desc']").val(),
+					glsh_code: $(
+						"input[name='glsh_code']").val(),
+					gl_desc: $(
+						"input[name='gl_desc']").val(),
+					scheme_type: $(
+						"input[name='scheme_type']").val(),
+					scheme_code: $(
+						"input[name='scheme_code']").val(),
+					loan_accountno: $("input[name='loan_accountno']")
+						.val(),
+					date_of_loan: $("input[name='date_of_loan']")
+						.val(),
+					loan_sanctioned: $("input[name='loan_sanctioned']").val().replace(/,/g, ''),
+					margin_limit: $("input[name='margin_limit']").val().replace(/,/g, ''),
+					drawing_limit: $("input[name='drawing_limit']").val().replace(/,/g, ''),
+					loan_currency: $("input[name='loan_currency']")
+						.val(),
+					disbursement: $("input[name='disbursement']").val().replace(/,/g, ''),
+					loan_outstanding: $(
+						"input[name='loan_outstanding']").val().replace(/,/g, ''),
+					loan_period: $("input[name='loan_period']").val().replace(/,/g, ''),
+					expiry_date: changeDateFormat($("input[name='expiry_date']")
+						.val()),
+					repayment_terms: $("input[name='repayment_terms']")
+						.val(),
+					recovery_method: $(
+						"select[name='recovery_method']").val(),
+					effective_interest_rate: $(
+						"input[name='effective_interest_rate']").val()
+				},
+				repaymentDetails: {
+					customer_id: $(
+						"select[name='customer_id']")
+						.val(),
+					branch_id: $("input[name='branch_id']").val(),
+					account_no: $("input[name='loan_accountno']")
+						.val(),
+					acid: $("input[name='loan_accountno']")
+						.val(),
+					inst_id: $("input[name='inst_id']")
+						.val(),
+					inst_start_dt: $("input[name='inst_start_dt']")
+						.val(),
+					inst_freq: $("select[name='inst_freq']").val(),
+					inst_amount: $("input[name='inst_amount']").val().replace(/,/g, ''),
+					no_of_inst: $("input[name='no_of_inst']").val(),
+					inst_pct: $("input[name='inst_pct']").val().replace(/%/g, ''),
+					interest_frequency: $("select[name='interest_frequency']")
+						.val(),
+					maturity_flg: 'N'
+				}
+			};
+
+			console.log(leaseData);
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: './addLeaseAccount',
+				data: JSON.stringify(leaseData),
+				success: function (responseText, statusText, xhr, $form) {
+					 confirmAndOpenTab(evt, tabName); 
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				},
+				error: function (error) {
+					console.error(error);
+				}
+			});
+		}
+	</script>
+<script>
+
+		function openAccountledger(a) {
+			event.preventDefault();
+			var accountNo = a.getAttribute('data-loan_accountno');
+			console.log(accountNo);
+			location.href = 'accountLedger2?formmode=view&acct_num=' + accountNo;
+		}
+		
+		function getLoanPosition(a) {
+			event.preventDefault();
+			var accountNum = a.getAttribute('data-loan_accountno');
+
+			console.log(accountNum);
+
+			/*for loan position get*/
+			$.ajax({
+				type: 'GET',
+				url: './getLoanPosition',
+				data: {
+					accountNum: accountNum
+				},
+				success: function (data) {
+					console.log(data);
+
+					var tHTML = '';
+					var tempData = [];
+					var totalFlowAmt = 0;
+					var totalAdjAmt = 0;
+					var totalOverdueAmt = 0;
+
+					if (data.length > 0) {
+						$.each(data, function (index, entity) {
+							var flow_date = entity.flow_date !== null ? formatDate(entity.flow_date) : "";
+							var flow_code = entity.flow_code !== null ? entity.flow_code : "";
+							var flow_amt = entity.flow_amt !== null ? parseFloat(entity.flow_amt) : 0.00;
+							var adj_amt = entity.adj_amt !== null ? parseFloat(entity.adj_amt) : 0.00;
+							var adj_dt = entity.adj_dt !== null ? formatDate(entity.adj_dt) : "";
+
+							var overdue_amt = (adj_amt - flow_amt) < 0 ? (flow_amt - adj_amt).toFixed(2) : "0.00";
+
+							// Store data in an array for potential combination logic
+							tempData.push({flow_date, flow_code, flow_amt, adj_amt, adj_dt, overdue_amt});
+
+							totalFlowAmt += flow_amt;
+							totalAdjAmt += adj_amt;
+							totalOverdueAmt += parseFloat(overdue_amt);
+						});
+
+						// Total row
+						tHTML += "<tr class='total-row'>"
+							+ "<td></td>"
+							+ "<td><strong>Total</strong></td>"
+							+ "<td class='text-right'><strong>" + formatNumberWithCommas(totalFlowAmt.toFixed(2)) + "</strong></td>"
+							+ "<td class='text-right'><strong>" + formatNumberWithCommas(totalAdjAmt.toFixed(2)) + "</strong></td>"
+							+ "<td></td>"
+							+ "<td class='text-right'><strong>" + formatNumberWithCommas(totalOverdueAmt.toFixed(2)) + "</strong></td>"
+							+ "</tr>";
+
+						// Generate the combined and individual rows in the same tbody
+						for (let i = 0; i < tempData.length; i++) {
+							if (i < tempData.length - 1 &&
+								tempData[i].flow_date === tempData[i + 1].flow_date &&
+								tempData[i].adj_dt === tempData[i + 1].adj_dt) {
+
+								// Combine current and next record
+								var combinedFlowAmt = (tempData[i].flow_amt + tempData[i + 1].flow_amt).toFixed(2);
+								var combinedAdjAmt = (tempData[i].adj_amt + tempData[i + 1].adj_amt).toFixed(2);
+								var combinedOverdueAmt = (parseFloat(combinedAdjAmt) - parseFloat(combinedFlowAmt) < 0) ?
+									(parseFloat(combinedFlowAmt) - parseFloat(combinedAdjAmt)).toFixed(2) : "0.00";
+
+								// Combined row with 'RIDEM' (clickable to show details)
+								tHTML += "<tr class='ridem-row' style='cursor: pointer;' onclick='toggleDetails(" + i + ")'>"
+									+ '<td>' + tempData[i].flow_date + '</td>'
+									+ '<td>RIDEM</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(combinedFlowAmt) + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(combinedAdjAmt) + '</td>'
+									+ '<td>' + tempData[i].adj_dt + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(combinedOverdueAmt) + '</td>'
+									+ "</tr>";
+
+								// Detail rows (initially hidden) for expanded view
+								tHTML += "<tr class='details-row' id='details-" + i + "-1' style='display: none;'>"
+									+ '<td >'
+									+ tempData[i].flow_date + '</td>'
+									+ '<td>' + tempData[i].flow_code + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i].flow_amt) + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i].adj_amt) + '</td>'
+									+ '<td>' + tempData[i].adj_dt + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i].overdue_amt) + '</td>'
+									+ "</tr>";
+
+								tHTML += "<tr class='details-row' id='details-" + i + "-2' style='display: none;'>"
+									+ '<td >'
+									+ tempData[i + 1].flow_date + '</td>'
+									+ '<td>' + tempData[i + 1].flow_code + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i + 1].flow_amt) + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i + 1].adj_amt) + '</td>'
+									+ '<td>' + tempData[i + 1].adj_dt + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i + 1].overdue_amt) + '</td>'
+									+ "</tr>";
+
+
+
+								// Skip the next item since it's already combined
+								i++;
+							} else {
+								// Add individual record if no combination
+								tHTML += "<tr>"
+									+ '<td>' + tempData[i].flow_date + '</td>'
+									+ '<td>' + tempData[i].flow_code + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i].flow_amt) + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i].adj_amt) + '</td>'
+									+ '<td>' + tempData[i].adj_dt + '</td>'
+									+ '<td class="text-right">' + formatNumberWithCommas(tempData[i].overdue_amt) + '</td>'
+									+ "</tr>";
+							}
+						}
+					} else {
+						tHTML = "<tr><td colspan='9'>No records available</td></tr>";
+					}
+
+					// Append all rows to a single tbody
+					$("#positionTableBody").empty().append(tHTML);
+
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+
+
+
+		}
+
+		function toggleDetails(index) {
+			const detailRow1 = document.getElementById('details-' + index + '-1');
+			const detailRow2 = document.getElementById('details-' + index + '-2');
+			const isAlreadyOpen = detailRow1.style.display !== 'none';
+
+			// Hide all other open rows first
+			const openRows = document.querySelectorAll('.details-row');
+			openRows.forEach(row => {
+				row.style.display = 'none';
+				row.style.backgroundColor = 'transparent';
+			});
+
+			// Toggle the clicked row: show if it was closed, hide if it was already open
+			if (!isAlreadyOpen) {
+				// Show rows with highlight
+				detailRow1.style.display = '';
+				detailRow2.style.display = '';
+				detailRow1.style.backgroundColor = '#f0f8ff'; // Light blue highlight
+				detailRow2.style.backgroundColor = '#f0f8ff';
+			}
+		}
+	</script>
+
+</head>
+<title>BGLS</title>
+
+<body>
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<div class="container-manager">
+		<div class="row">
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+				<div th:if="${formmode}=='list'">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-left">
+								<h4>LEASE LOAN - LIST</h4>
+							</div>
+							<!--<div class="btn-group nav-buttons float-right">
+								<button type="button" class="btn btn-primary p-2" id="btnAdd"
+									onclick="addscreen();">ADD</button>
+
+							</div>-->
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead class="table-header">
+										<tr class="filters">
+											<th class="pl-3">Customer Id</th>
+											<th>Loan Acct No</th>
+											<th>Borrower Name</th>
+											<th>Branch Id</th>
+											<th>Status</th>
+											<th>Action</th>
+										</tr>
+
+
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="getDDDet : ${getDDDetails}"
+											style="cursor: pointer;">
+											<td class="pl-3 text-primary"
+												onclick="viewCustomerMaster(this);"
+												th:attr="data-customer_id = ${getDDDet?.customer_id},data-loan_accountno = ${getDDDet?.loan_accountno}"
+												th:text="${getDDDet.customer_id}"></td>
+											<td style="width: 60px;" class="text-primary"
+												onclick="viewLoanMaster(this);"
+												th:attr="data-loan_accountno = ${getDDDet?.loan_accountno}"
+												th:text="${getDDDet.loan_accountno}"></td>
+											<td style="width: 60px;" th:text="${getDDDet.customer_name}"></td>
+											<td style="width: 60px;" th:text="${getDDDet.branch_id}"></td>
+
+
+											<td
+												th:style="${getDDDet?.entity_flg == 'Y' ? 'color: green;' : 'color: red;'}"
+												th:text="${getDDDet?.entity_flg == 'Y' ? 'Verified' : 'UnVerified'}">
+											</td>
+											<td>
+												<div class="dropdown" th:if="${getDDDet?.entity_flg == 'Y'}">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton" title="Action"
+														style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">Action</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton"
+														style="background-color: #e3e3e4; color: #3a4550;">
+														<!--<a
+															th:attr="data-dd_notice_ref = ${getDDDet.loan_accountno}"
+															class="dropdown-item" title=" Modify"
+															style="cursor: pointer;" onclick="modifyeditview(this)">Modify</a>
+														<div class="dropdown-divider"></div>-->
+														<a
+															th:attr="data-loan_accountno = ${getDDDet.loan_accountno}"
+															class="dropdown-item" title="verify"
+															style="cursor: pointer;" onclick="inquaryeditlistz(this)"
+															id="verify_btn">View </a>
+													</div>
+												</div>
+												<div class="dropdown" th:if="${getDDDet?.entity_flg != 'Y'}">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton" title="Action"
+														style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">Action</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton"
+														style="background-color: #e3e3e4; color: #3a4550;">
+														<a
+															th:attr="data-loan_accountno = ${getDDDet.loan_accountno}"
+															class="dropdown-item" title="View"
+															style="cursor: pointer" onclick="verifyeditlistz(this)"
+															id="view_btn">Approve </a>
+														<div class="dropdown-divider"></div>
+														<a
+															th:attr="data-loan_accountno = ${getDDDet.loan_accountno}"
+															class="dropdown-item" title="view"
+															style="cursor: pointer;" onclick="inquaryeditlistz(this)"
+															id="verify_btn">View </a>
+														
+														<!--<a
+															th:attr="data-dd_notice_ref = ${getDDDet.loan_accountno},data-synd_fac_ref = ${getDDDet.loan_accountno}"
+															class="dropdown-item" title="Modify"
+															style="cursor: pointer;" onclick="modifyeditview1(this)">Modify
+														</a>
+														<div class="dropdown-divider"></div>
+														<a
+															th:attr="data-dd_notice_ref = ${getDDDet.loan_accountno},data-synd_fac_ref = ${getDDDet.loan_accountno}"
+															class="dropdown-item" title="Delete"
+															style="cursor: pointer;" onclick="deleteUnverified(this)">Delete
+														</a>
+														<div class="dropdown-divider"></div>-->
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" id="btnHome"
+								onclick=" home();">Home</button>
+							<button class="custom-btn" id="btnBack"
+								onclick="back();">Back</button>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='add'">
+
+					<div class="card">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>LEASE LOAN - OPEN</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="#" th:object="${drawDownDetails}" method="post"
+								id="drawDownDetailsAdd" autocomplete="off"
+								name="drawDownDetailsData" th:fragment="finuserapply">
+
+
+
+								<div class="tab row formline ml-3"
+									style="padding: 4px 4px; position: relative; font-size: 13px; width: 98%;">
+									<!-- Tab buttons -->
+									<div class="col-sm-1"></div>
+									<div class="col-sm-3">
+										<button class="tablinks active " id="smooth1"
+											style="width: 200px;" onclick="openTab(event, 'tab1')">Loan
+											Details</button>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-3">
+										<button class="tablinks" id="smooth2" style="width: 200px;"
+											onclick="openTab(event, 'tab2')">Repayment Details</button>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-3">
+										<button class="tablinks" id="smooth2" style="width: 200px;"
+											onclick="confirmAndOpenTab(event, 'tab3')">Document
+											Master</button>
+									</div>
+
+								</div>
+								<div class="">
+									<div id="tab1" class="tabcontent" style="display: block;">
+										<div class="row formline mt-2  ml-2">
+											<div class="col-sm-2">
+												<label>Customer Id</label>
+											</div>
+											<div class="col-sm-2">
+												<select id="customer_id" name="customer_id"
+													onchange="custid()" required>
+													<option value="">Select</option>
+
+													<th:block th:each="code : ${deposit}">
+														<!-- Only render option if code[0] is not null -->
+														<option th:if="${code[0] != null}" th:value="${code[0]}"
+															th:text="${code[0]}"></option>
+
+														<!-- Only render option if code[1] is not null -->
+														<option th:if="${code[1] != null}" th:value="${code[1]}"
+															th:text="${code[1]}"></option>
+													</th:block>
+
+
+
+
+												</select>
+												<!--<input type="text" name="customer_id" id="customer_id" />
+												<a role="button" style="margin-left: -12px;"
+													class="btn btn-filters  fa fa-search"></a>-->
+											</div>
+											<div class="col-sm-2">
+												<label>Customer Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_name" id="customer_name"
+													readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Loan Type</label>
+											</div>
+											<div class="col-sm-2">
+												<select name="loan_type" id="loan_type">
+													<option value="LL">Lease Loan</option>
+
+												</select>
+
+											</div>
+										</div>
+										<div class="row formline  ml-2 mt-1">
+
+											<div class="col-sm-2">
+												<label>GL code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="gl_code" id="gl_code" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>GL Des</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="gl_desc" id="gl_desc" readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label> GLSH Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="glsh_code" id="glsh_code" readonly />
+											</div>
+										</div>
+										<div class="row formline  ml-2 mt-1">
+
+											<div class="col-sm-2">
+												<label>GLSH Des</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="glsh_desc" id="glsh_desc" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Scheme Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="scheme_code" id="scheme_code"
+													readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label> Scheme Type</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="scheme_type" id="scheme_type"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline  ml-2 mt-1">
+
+											<div class="col-sm-2">
+												<label>Branch Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="branch_id" id="branch_id" />
+											</div>
+											<div class="col-sm-2">
+												<label>Barnch Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="branch_name" id="branch_name" />
+											</div>
+
+											<div class="col-sm-2">
+												<label> Date Of loan</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="date_of_loan" id="date_of_loan"
+													th:value="${ConDate}" />
+											</div>
+										</div>
+										<div class="row formline  ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Loan Acct No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_accountno" id="loan_accountno" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Loan Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_currency" id="loan_currency"
+													value="SCR" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interset Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="effective_interest_rate"
+													id="effective_interest_rate" oninput="numberOnly(this);" />
+
+											</div>
+										</div>
+										<div class="row formline ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Loan Santioned</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_sanctioned"
+													id="loan_sanctioned"
+													oninput="numberOnly(this);setOutstanding(this);" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Margin limit (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="margin_limit" name="margin_limit"
+													oninput="numberOnly(this);calculateDrawingLimit();" />
+											</div>
+											<div class="col-sm-2">
+												<label>Drawing Limit</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="drawing_limit" id="drawing_limit"
+													oninput="numberOnly(this);" readonly />
+
+											</div>
+										</div>
+										<div class="row formline ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Disbursement</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="disbursement" id="disbursement"
+													oninput="numberOnly(this);" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Loan Outstanding</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="loan_outstanding"
+													name="loan_outstanding" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Loan Period</label>
+											</div>
+											<div class="col-sm-2">
+												<!--<input type="text" name="loan_period" id="loan_period"
+													oninput="calculatePercentage(this)" />-->
+												<div class="row" style="gap: 0;">
+													<div class="col-sm-3 ml-2"
+														style="padding-left: 7px; padding-right: 8px;">
+														<input type="text" name="loan_period1" id="loan_period1"
+															value="00" style="margin: 0;" placeholder="yy" readonly />
+													</div>
+													<div class="col-sm-3"
+														style="padding-left: 10px; padding-right: 8px;">
+														<input type="text" name="loan_period" id="loan_period"
+															oninput="calculatePercentage(this);numberOnly(this);"
+															style="margin: 0;" placeholder="mm" />
+													</div>
+													<div class="col-sm-3"
+														style="padding-left: 10px; padding-right: 7px;">
+														<input type="text" name="loan_period3" id="loan_period3"
+															value="00" style="margin: 0;" placeholder="dd" readonly />
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="row formline ml-2  mt-1">
+											<div class="col-sm-2">
+												<label>Expiry Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="expiry_date" id="expiry_date"
+													readonly />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Repayment terms</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="repayment_terms"
+													name="repayment_terms" />
+											</div>
+											<div class="col-sm-2">
+												<label>Recovery Method</label>
+											</div>
+											<div class="col-sm-2">
+
+												<select name="recovery_method" id="recovery_method">
+													<option value="Cash">Cash</option>
+													<option value="Office Routing Account">Office
+														Routing Account</option>
+													<option value="Standing Instructions">Standing
+														Instructions</option>
+
+												</select> <input type="text" id="ca_acct_type" hidden  /> <input
+													type="text" id="appl_ref_no" hidden /> <input type="text" hidden
+													id="rec_no"  />
+											</div>
+										</div>
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home();">Home</button>
+											<button class="custom-btn" onclick="submitparam()">Submit</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab2" class="tabcontent" style="display: none;">
+
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Installment ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_id" name="inst_id" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment Start Date</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="inst_start_dt" name="inst_start_dt" />
+											</div>
+
+											<div class="col-sm-2">
+												<label for="">No of Installment</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" id="no_of_inst" name="no_of_inst"
+													readonly />
+											</div>
+
+										</div>
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Cap At Maturity ?</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<label> <input type="radio" value="Y"
+													id="maturity_flg1" name="maturity_flg"
+													style="width: unset !important"
+													onclick="updateInterestFreq();"> Yes
+												</label> <label> <input type="radio" value="N"
+													id="maturity_flg" name="maturity_flg"
+													style="width: unset !important"
+													onclick="updateInterestFreq();"> No
+												</label>
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Principal Installment Freq</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<select id="inst_freq" name="inst_freq">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<!--<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>-->
+
+
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<label for="tranche_amt">Interest Installment Freq</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<select id="interest_frequency" name="interest_frequency">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<!--<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>-->
+
+												</select>
+											</div>
+
+										</div>
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 10px 35px;">
+
+											<div class="col-sm-2">
+												<label for="inst_amount">Installment Amount </label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" oninput="validateInput(this)"
+													id="inst_amount" readonly name="inst_amount" />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment (%)</label><span
+													style="color: red;">*</span>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_pct" name="inst_pct"
+													autocomplete="off" readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Record </label>
+											</div>
+											<div class="col-sm-2">
+												<label for="delete"> <input type="checkbox"
+													id="record" style="width: unset !important" class="mr-2">Delete
+												</label>
+											</div>
+
+
+
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" id="btnHome"
+												onclick="window.location.href='/.Dashboard';">Home</button>
+											<!-- <button class="btn btn-primary"
+										th:if="${formmode}=='modify' OR ${formmode}=='add' ">Validate</button> -->
+
+											<button type="button" class="custom-btn"
+												onclick="getRepaymentDetails(this)">Schedule</button>
+											<button type="button" class="custom-btn"
+												onclick="getFlowDetails(this)">Flows</button>
+											<button class="custom-btn"
+												onclick="addRecords(event, 'tab3');"
+												th:attr="data-formmode=${formmode}" id="detsubmit"
+												th:if="${formmode}=='modify' OR ${formmode}=='add' ">Submit</button>
+											<button class="custom-btn" id="btnBack"
+												onclick="generalback()">Back</button>
+										</div>
+
+										<div class="table-responsive d-none" id="demandtable">
+											<table class="table table-bordered">
+												<thead class="table-header">
+													<tr>
+														<th style="text-align: left; width: 60px !important;">Srl.
+															No.</th>
+
+														<th style="text-align: left; width: 60px !important;">
+															Installment Date</th>
+														<th style="text-align: right; width: 60px !important;">
+															Installment Description</th>
+														<th style="text-align: right; width: 60px !important;">
+															Installment Amt.</th>
+														<th style="text-align: right; width: 60px !important;">
+															Principal Amt.</th>
+														<th style="text-align: right; width: 60px !important;">Interest
+															Amt.</th>
+														<th style="text-align: right; width: 60px !important;">Charges
+															Amt.</th>
+														<th style="text-align: right; width: 60px !important;">
+															Principal Outstanding</th>
+
+													</tr>
+												</thead>
+												<tbody id="repaymentDet">
+
+													<!-- More rows can be added similarly -->
+												</tbody>
+											</table>
+										</div>
+
+										<div class="table-responsive d-none" id="demandtable1">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+
+														<th style="text-align: left; width: 60px !important;">
+															Flow Date</th>
+
+														<th style="text-align: left; width: 60px !important;">
+															Flow Code</th>
+														<th style="text-align: left; width: 60px !important;">
+															Flow Freq.</th>
+														<th style="text-align: right; width: 60px !important;">Flow
+															Amt</th>
+
+
+
+													</tr>
+												</thead>
+												<tbody id="repaymentDet1">
+
+													<!-- More rows can be added similarly -->
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div id="tab3" class="tabcontent" style="display: none;">
+										<div class="" id="individualTable" style="display: none;">
+											<table border="1" id="dynamicTable"
+												class="table table-bordered"
+												style="text-align: center; margin-top: 10px; font-size: 15px;">
+												<thead class="table-header">
+													<tr>
+
+														<th>Document Type</th>
+														<th>Document Code</th>
+														<th>Document Description</th>
+														<th>Unique Id</th>
+														<th>Place of Issue</th>
+														<th>Issue Date</th>
+														<th>Expiry Date</th>
+														<th>Document Upload</th>
+												<tbody id="click1">
+													<tr>
+														<td><select id="docType0" name="docType"
+															onchange="zeroth_change_re()" class="uniform-input pl-2"
+															style="height: 24px">
+																<option value="">SELECT</option>
+																<option value="NIC">CUSTOMER-RETAIL-NIC</option>
+																<option value="PSP">CUSTOMER-RETAIL-PSP</option>
+																<option value="AGM">CUSTOMER-RETAIL-AGM</option>
+																<option value="DOC">CUSTOMER-RETAIL-DOC</option>
+														</select></td>
+
+
+														<td><input type="text" id="docCode0" name="docCode"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															maxlength="10" class="uniform-input" autocomplete="off"
+															readonly></td>
+
+														<td><input type="text" id="docDesc0" name="docDesc"
+															readonly
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															class="uniform-input" autocomplete="off"></td>
+														<td><input type="text" id="uniqId0" maxlength="13"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="uniqId" class="uniform-input" autocomplete="off"></td>
+														<td><input type="text" id="docIssPlace0"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssPlace" maxlength="25" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docIssDate0"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docExpDate0"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docExpDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td class="span2"><input id="file0" type="file"
+															onchange="readURL(this);"></td>
+													</tr>
+													<tr>
+
+														<td><select id="docType1" name="docType"
+															onchange="first_change_re()" class="uniform-input pl-2"
+															style="height: 24px">
+																<option value="">SELECT</option>
+																<option value="NIC">CUSTOMER-RETAIL-NIC</option>
+																<option value="PSP">CUSTOMER-RETAIL-PSP</option>
+																<option value="AGM">CUSTOMER-RETAIL-AGM</option>
+																<option value="DOC">CUSTOMER-RETAIL-DOC</option>
+														</select></td>
+														<td><input type="text" id="docCode1" name="docCode"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															maxlength="10" class="uniform-input" autocomplete="off"
+															readonly /></td>
+														<td><input type="text" id="docDesc1" name="docDesc"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															class="uniform-input" autocomplete="off" readonly></td>
+														<td><input type="text" id="uniqId1" name="uniqId"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															class="uniform-input" autocomplete="off"></td>
+														<td><input type="text" id="docIssPlace1"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssPlace" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docIssDate1"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docExpDate1"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docExpDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="file" id="file1"
+															onchange="readURL(this);"></td>
+
+													</tr>
+												</tbody>
+											</table>
+											<div class="text-center card-footer">
+												<button class="custom-btn" type="button"
+													onclick="rowadd()">Add</button>
+												<button class="custom-btn" type="button"
+													onclick="rowdelete()">Remove</button>
+												<button class="custom-btn" type="button"
+													onclick="submitfile()">Submit</button>
+											</div>
+										</div>
+										<div id="corporateTable" style="display: none;">
+											<table border="1" id="dynamicTable"
+												class="table table-bordered"
+												style="text-align: center; font-size: 15px;">
+												<thead class="table-header">
+													<tr>
+
+														<th>Document Type</th>
+														<th>Document Code</th>
+														<th>Document Description</th>
+														<th>Unique Id</th>
+														<th>Place of Issue</th>
+														<th>Issue Date</th>
+														<th>Expiry Date</th>
+														<th>Document Upload</th>
+												<tbody id="click2">
+													<tr>
+														<td><select id="docType00" name="docType"
+															onchange="zeroth_change()" class="uniform-input pl-2"
+															style="height: 24px">
+																<option value="">SELECT</option>
+																<option value="BRN">CUSTOMER-CORPORATE-BRN</option>
+																<option value="COI">CUSTOMER-CORPORATE-COI</option>
+																<option value="AGM">CUSTOMER-CORPORATE-AGM</option>
+																<option value="DOC">CUSTOMER-CORPORATE-DOC</option>
+														</select></td>
+
+
+														<td><input type="text" id="docCode00" name="docCode"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															maxlength="100" class="uniform-input" autocomplete="off"
+															readonly></td>
+
+														<td><input type="text" id="docDesc00" name="docDesc"
+															readonly
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															class="uniform-input" autocomplete="off"></td>
+														<td><input type="text" id="uniqId00" maxlength="13"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="uniqId" class="uniform-input" autocomplete="off"></td>
+														<td><input type="text" id="docIssPlace00"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssPlace" maxlength="25" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docIssDate00"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docExpDate00"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docExpDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td class="span2"><input id="file00" type="file"
+															onchange="readURL(this);"></td>
+													</tr>
+													<tr>
+
+														<td><select id="docType11" name="docType"
+															onchange="first_change()" class="uniform-input pl-2"
+															style="height: 24px">
+																<option value="">SELECT</option>
+																<option value="BRN">CUSTOMER-CORPORATE-BRN</option>
+																<option value="COI">CUSTOMER-CORPORATE-COI</option>
+																<option value="AGM">CUSTOMER-CORPORATE-AGM</option>
+																<option value="DOC">CUSTOMER-CORPORATE-DOC</option>
+														</select></td>
+														<td><input type="text" id="docCode11" name="docCode"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															maxlength="10" class="uniform-input" autocomplete="off"
+															readonly /></td>
+														<td><input type="text" id="docDesc11" name="docDesc"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															class="uniform-input" autocomplete="off" readonly></td>
+														<td><input type="text" id="uniqId11" name="uniqId"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															class="uniform-input" autocomplete="off"></td>
+														<td><input type="text" id="docIssPlace11"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssPlace" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docIssDate11"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docIssDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="date" id="docExpDate11"
+															onkeyup="this.value = this.value.toUpperCase();handleIn(this)"
+															name="docExpDate" class="uniform-input"
+															autocomplete="off"></td>
+														<td><input type="file" id="file11"
+															onchange="readURL(this);"></td>
+
+													</tr>
+												</tbody>
+											</table>
+											<div class="text-center card-footer">
+												<button class="custom-btn" type="button"
+													onclick="rowadddcorporate()">Add</button>
+												<button class="custom-btn" type="button"
+													onclick="rowdeletecor()">Remove</button>
+												<button class="custom-btn" type="button"
+													onclick="submitfileCorporate()">Submit</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<table
+									Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+									<tr>
+										<td class="col-sm-2" style="text-align: center;"><font
+											size="2"><B>Entry User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input
+											type="text" id="entryuser" th:value="${user}"
+											name="ub.entryuser"
+											style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+											readonly></td>
+										<td class="col-sm-2" style="text-align: center;"><font
+											size="2"><B>Modify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="modifyuser" th:value="${user}"
+											name="ub.modifyuser" value="MMR"
+											style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+											readonly></td>
+										<td class="col-sm-2" style="text-align: center;"><font
+											size="2"><B>Verify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="verifyuser" name="ub.verifyuser"
+											style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+											readonly></td>
+									</tr>
+									<tr>
+										<td style="text-align: center;"><font size="2"><B>Entry
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="entrytime" name="ub.entrytime"
+											th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+											readonly
+											style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+										<td style="text-align: center;"><font size="2"><B>Modify
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="modifytime" name="ub.modifytime"
+											th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+											style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+											readonly></td>
+										<td style="text-align: center; font-size: 15px;"><font
+											size="2"><B>Verify Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="verifytime" name="ub.verifytime"
+											style="border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;"
+											readonly></td>
+									</tr>
+								</table>
+
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='view' or ${formmode}=='verify'">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-left">
+								<h4 th:if="${formmode}=='verify'"
+									class="ml-3">LEASE LOAN - APPROVE</h4>
+								<h4 th:if="${formmode}=='view'"
+									class="ml-3">LEASE LOAN - VIEW</h4>
+							</div>
+						</div>
+
+						<div class="card-body">
+
+
+							<input type="text" id="cif_id" style="display: none" readonly
+								th:value="${getFacilityDetails?.cif_id}"> <input
+								type="text" id="ccy" style="display: none" readonly
+								th:value="${getFacilityDetails?.ccy}">
+
+							<div
+								class="tab row d-flex justify-content-between align-items-center formline ml-3"
+								style="padding: 4px 4px; position: relative; font-size: 13px; width: 98%;">
+								<div class="col">
+									<button class="tablinks active" id="smooth1"
+										style="width: 100%;" onclick="openTab(event, 'tab1')">Loan Details</button>
+								</div>
+								<div class="col">
+									<button class="tablinks" id="smooth2" style="width: 100%;"
+										onclick="openTab(event, 'tab2')">Repayment Details</button>
+								</div>
+								<div class="col">
+									<button class="tablinks" id="smooth4" style="width: 100%;"
+										onclick="openTab(event, 'tab4')">Flows</button>
+								</div>
+
+								<div class="col" th:if="${loanDetails?.entity_flg}=='Y'">
+									<button class="tablinks" id="smooth6" style="width: 100%;"
+										th:attr="data-loan_accountno = ${loanDetails?.loan_accountno}"
+										onclick="openTab(event, 'tab5');getLoanPosition(this);">Loan Position</button>
+								</div>
+								<div class="col" th:if="${loanDetails?.entity_flg}=='Y'">
+									<button class="tablinks" id="smooth5" style="width: 100%;"
+										th:attr="data-loan_accountno=${loanDetails?.loan_accountno}"
+										onclick="openAccountledger(this);">Account Ledger</button>
+								</div>
+							</div>
+							<div>
+								<div id="tab1" class="tabcontent" style="display: block;">
+
+									<div class="row formline mt-2  ml-2">
+
+										<div class="col-sm-2">
+											<label>Customer Id</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="customer_id" id="customer_id"
+												th:value="${loanDetails?.customer_id}" readonly /> <span
+												data-bs-toggle="tooltip" title="Customer Information"
+												onclick="viewCustomerMaster(this);"
+												th:attr="data-customer_id = ${loanDetails?.customer_id},data-loan_accountno = ${loanDetails?.loan_accountno}">
+												<i class="fas fa-info-circle"></i>
+											</span>
+											<!--<select id="customer_id" name="customer_id" onchange="custid()" required>
+												<option value="">Select</option>
+												<th:block th:each="code : ${deposit}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+											</select>-->
+
+										</div>
+										<div class="col-sm-2">
+											<label>Customer Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="customer_name" id="customer_name"
+												th:value="${loanDetails?.customer_name}" readonly />
+										</div>
+
+
+										<div class="col-sm-2">
+											<label>Loan Type</label>
+										</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="loan_type" id="loan_type"
+												th:value="${loanDetails?.loan_type}" readonly />
+											<!--<select name="loan_type" id="loan_type">
+												<option value="LL">Lease Loan</option>
+
+											</select>-->
+
+										</div>
+									</div>
+									<div class="row formline  ml-2 mt-1">
+
+										<div class="col-sm-2">
+											<label>Branch Id</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="branch_id" id="branch_id"
+												th:value="${loanDetails?.branch_id}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Barnch Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="branch_name" id="branch_name"
+												th:value="${loanDetails?.branch_name}" readonly />
+										</div>
+
+										<div class="col-sm-2">
+											<label> Date Of loan</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="date_of_loan" id="date_of_loan"
+												readonly
+												th:value="${#dates.format(loanDetails?.date_of_loan, 'dd-MM-yyyy')}" />
+											<!--<input type="date" name="date_of_loan" id="date_of_loan"
+												class="set-last-date" />-->
+										</div>
+									</div>
+									<div class="row formline  ml-2 mt-1">
+
+										<div class="col-sm-2">
+											<label>GL code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="gl_code" id="gl_code"
+												th:value="${loanDetails?.gl_code}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>GL Des</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="gl_desc" id="gl_desc"
+												th:value="${loanDetails?.gl_desc}" readonly />
+										</div>
+
+										<div class="col-sm-2">
+											<label> GLSH Code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="glsh_code" id="glsh_code"
+												th:value="${loanDetails?.glsh_code}" readonly />
+										</div>
+									</div>
+									<div class="row formline  ml-2 mt-1">
+
+										<div class="col-sm-2">
+											<label>GLSH Des</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="glsh_desc" id="glsh_desc"
+												th:value="${loanDetails?.glsh_desc}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Scheme Code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="scheme_code" id="scheme_code"
+												th:value="${loanDetails?.scheme_code}" readonly />
+										</div>
+
+										<div class="col-sm-2">
+											<label> Scheme Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="scheme_type" id="scheme_type"
+												th:value="${loanDetails?.scheme_type}" readonly />
+										</div>
+									</div>
+									<div class="row formline  ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Loan Acct No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="loan_accountno" id="loan_accountno"
+												th:value="${loanDetails?.loan_accountno}" readonly />
+										</div>
+
+										<div class="col-sm-2">
+											<label>Loan Currency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="loan_currency" id="loan_currency"
+												th:value="${loanDetails?.loan_currency}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Interset Rate</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="effective_interest_rate"
+												id="effective_interest_rate" oninput="numberOnly(this);"
+												th:value="${loanDetails?.effective_interest_rate}" readonly />
+
+										</div>
+									</div>
+									<div class="row formline ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Loan Santioned</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="loan_sanctioned"
+												id="loan_sanctioned"
+												th:value="${loanDetails?.loan_sanctioned == 0 ? '0.00' :#numbers.formatDecimal(loanDetails?.loan_sanctioned, 0, 'COMMA', 2, 'POINT')}"
+												oninput="numberOnly(this);setOutstanding(this);" readonly />
+										</div>
+										<div class="col-sm-2 ">
+											<label>Margin limit (%)</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="margin_limit" name="margin_limit"
+												th:value="${loanDetails?.margin_limit}"
+												oninput="numberOnly(this);calculateDrawingLimit();" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Drawing Limit</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="drawing_limit" id="drawing_limit"
+												th:value="${loanDetails?.drawing_limit == 0 ? '0.00' :#numbers.formatDecimal(loanDetails?.drawing_limit, 0, 'COMMA', 2, 'POINT')}"
+												oninput="numberOnly(this);" readonly />
+
+										</div>
+									</div>
+									<div class="row formline ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Disbursement</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="disbursement" id="disbursement"
+												th:value="${loanDetails?.disbursement == 0 ? '0.00' :#numbers.formatDecimal(loanDetails?.disbursement, 0, 'COMMA', 2, 'POINT')}"
+												oninput="numberOnly(this);" readonly />
+										</div>
+										<div class="col-sm-2 ">
+											<label>Loan Outstanding</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_outstanding"
+												name="loan_outstanding"
+												th:value="${loanDetails?.loan_outstanding == 0 ? '0.00' :#numbers.formatDecimal(loanDetails?.loan_outstanding, 0, 'COMMA', 2, 'POINT')}"
+												readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Loan Period</label>
+										</div>
+										<div class="col-sm-2">
+											<!--<input type="text" name="loan_period" id="loan_period"
+													oninput="calculatePercentage(this)" />-->
+											<div class="row" style="gap: 0;">
+												<div class="col-sm-3 ml-2"
+													style="padding-left: 7px; padding-right: 8px;">
+													<input type="text" name="loan_period1" id="loan_period1"
+														value="00" style="margin: 0;" placeholder="yy" readonly />
+												</div>
+												<div class="col-sm-3"
+													style="padding-left: 10px; padding-right: 8px;">
+													<input type="text" name="loan_period" id="loan_period"
+														th:value="${loanDetails?.loan_period}"
+														oninput="calculatePercentage(this);numberOnly(this);"
+														style="margin: 0;" placeholder="mm" readonly />
+												</div>
+												<div class="col-sm-3"
+													style="padding-left: 10px; padding-right: 7px;">
+													<input type="text" name="loan_period3" id="loan_period3"
+														value="00" style="margin: 0;" placeholder="dd" readonly />
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div class="row formline ml-2  mt-1">
+										<div class="col-sm-2">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="expiry_date" id="expiry_date"
+												readonly
+												th:value="${#dates.format(loanDetails?.expiry_date, 'dd-MM-yyyy')}" />
+										</div>
+										<div class="col-sm-2 ">
+											<label>Repayment terms</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="repayment_terms"
+												name="repayment_terms"
+												th:value="${loanDetails?.repayment_terms}" readonly />
+										</div>
+										<div class="col-sm-2">
+											<label>Recovery Method</label>
+										</div>
+										<div class="col-sm-2">
+
+											<input type="text" id="recovery_method"
+												name="recovery_method"
+												th:value="${loanDetails?.recovery_method}" readonly />
+
+											<!--<select name="recovery_method" id="recovery_method">
+												<option value="AUTO">AUTO</option>
+												<option value="MANUAL">MANUAL</option>
+
+											</select>-->
+
+										</div>
+									</div>
+
+									<div class="card-footer text-center">
+										<button class="custom-btn" onclick="home();">Home</button>
+										<button class="custom-btn"
+											onclick="SubmitVerify(this)"
+											th:attr="data-customer_id = ${loanDetails?.customer_id},data-loan_accountno = ${loanDetails?.loan_accountno}"
+											th:if="${formmode}=='verify'">Approve</button>
+
+										<button class="custom-btn" onclick="back();">Back</button>
+									</div>
+								</div>
+
+								<div id="tab2" class="tabcontent" style="display: none;">
+
+
+
+									<div id="paymentviewID">
+
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label>Customer Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_id" id="customer_id"
+													th:value="${loanDetails?.customer_id}" readonly />
+												<!--<select id="customer_id" name="customer_id" onchange="custid()" required>
+												<option value="">Select</option>
+												<th:block th:each="code : ${deposit}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+											</select>-->
+
+											</div>
+											<div class="col-sm-2">
+												<label>Customer Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_name" id="customer_name"
+													th:value="${loanDetails?.customer_name}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label> Date Of loan</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="date_of_loan" id="date_of_loan"
+													readonly
+													th:value="${#dates.format(loanDetails?.date_of_loan, 'dd-MM-yyyy')}" />
+												<!--<input type="date" name="date_of_loan" id="date_of_loan"
+												class="set-last-date" />-->
+											</div>
+										</div>
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label>Loan Acct No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_accountno" id="loan_accountno"
+													th:value="${loanDetails?.loan_accountno}" readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Loan Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_currency" id="loan_currency"
+													th:value="${loanDetails?.loan_currency}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Interset Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="effective_interest_rate"
+													id="effective_interest_rate" oninput="numberOnly(this);"
+													th:value="${loanDetails?.effective_interest_rate}" readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Installment ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_id" name="inst_id"
+													th:value="${paymentDetails?.inst_id}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment Start Date</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_start_dt" name="inst_start_dt"
+													readonly
+													th:value="${#dates.format(paymentDetails?.inst_start_dt, 'dd-MM-yyyy')}" />
+												<!--<input type="date" id="inst_start_dt" name="inst_start_dt" />-->
+											</div>
+
+											<div class="col-sm-2">
+												<label for="">No of Installment</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="no_of_inst" name="no_of_inst"
+													th:value="${paymentDetails?.no_of_inst}" readonly />
+											</div>
+
+										</div>
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Cap At Maturity ?</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<label> <input type="radio" value="Y"
+													id="maturity_flg1" name="maturity_flg"
+													style="width: unset !important"
+													onclick="updateInterestFreq();" disabled
+													th:checked="${paymentDetails?.maturity_flg=='Y'}">
+													Yes
+												</label> <label> <input type="radio" value="N"
+													id="maturity_flg" name="maturity_flg"
+													style="width: unset !important"
+													onclick="updateInterestFreq();" disabled
+													th:checked="${paymentDetails?.maturity_flg!='Y'}">
+													No
+												</label>
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Principal Installment Freq</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_freq" name="inst_freq"
+													th:value="${paymentDetails?.inst_freq}" readonly />
+												<!--<select id="inst_freq" name="inst_freq">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>
+
+
+												</select>-->
+											</div>
+											<div class="col-sm-2">
+												<label for="tranche_amt">Interest Installment Freq</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="interest_frequency"
+													name="interest_frequency"
+													th:value="${paymentDetails?.interest_frequency}" readonly />
+												<!--<select id="interest_frequency" name="interest_frequency">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>
+
+												</select>-->
+											</div>
+
+										</div>
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 10px 35px;">
+
+											<div class="col-sm-2">
+												<label for="inst_amount">Installment Amount </label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" oninput="validateInput(this)"
+													id="inst_amount"
+													th:value="${paymentDetails?.inst_amount == 0 ? '0.00' :#numbers.formatDecimal(paymentDetails?.inst_amount, 0, 'COMMA', 2, 'POINT')}"
+													readonly name="inst_amount" />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment (%)</label>
+												<!--<span style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_pct" name="inst_pct"
+													th:value="${paymentDetails?.inst_pct}" autocomplete="off"
+													readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Record </label>
+											</div>
+											<div class="col-sm-2">
+												<label for="delete"> <input type="checkbox"
+													id="record" style="width: unset !important" class="mr-2"
+													disabled>Delete
+												</label>
+											</div>
+
+
+
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home2();">Home</button>
+											<button class="custom-btn"
+												onclick="SubmitVerify(this)"
+												th:attr="data-customer_id = ${loanDetails?.customer_id},data-loan_accountno = ${loanDetails?.loan_accountno}"
+												th:if="${formmode}=='verify'">Approve</button>
+											<button class="custom-btn"
+												th:attr="data-loan_accountno = ${loanDetails?.loan_accountno}"
+												onclick="sechduleView(this);">Schedule</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+
+										<div class="table-responsive d-none" id="demandtable"
+											style="font-size: 15px;">
+											<table class="table table-bordered">
+												<thead class="table-header">
+													<tr>
+														<th style="text-align: left; width: 60px !important;">Srl.
+															No.</th>
+
+														<th style="text-align: left; width: 60px !important;">
+															Installment Date</th>
+														<th style="text-align: left; width: 60px !important;">
+															Installment Description</th>
+														<th style="text-align: right; width: 60px !important;">
+															Installment Amt.</th>
+														<th style="text-align: right; width: 60px !important;">
+															Principal Amt.</th>
+														<th style="text-align: right; width: 60px !important;">Interest
+															Amt.</th>
+														<th style="text-align: right; width: 60px !important;">Charges
+															Amt.</th>
+														<th style="text-align: right; width: 60px !important;">
+															Principal Outstanding</th>
+
+													</tr>
+												</thead>
+												<tbody id="repaymentDet">
+
+													<!-- More rows can be added similarly -->
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+
+								<div id="tab4" class="tabcontent" style="display: none;">
+
+
+
+									<div id="paymentviewID">
+
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label>Customer Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_id" id="customer_id"
+													th:value="${loanDetails?.customer_id}" readonly />
+												<!--<select id="customer_id" name="customer_id" onchange="custid()" required>
+												<option value="">Select</option>
+												<th:block th:each="code : ${deposit}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+											</select>-->
+
+											</div>
+											<div class="col-sm-2">
+												<label>Customer Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_name" id="customer_name"
+													th:value="${loanDetails?.customer_name}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label> Date Of loan</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="date_of_loan" id="date_of_loan"
+													readonly
+													th:value="${#dates.format(loanDetails?.date_of_loan, 'dd-MM-yyyy')}" />
+												<!--<input type="date" name="date_of_loan" id="date_of_loan"
+												class="set-last-date" />-->
+											</div>
+										</div>
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label>Loan Acct No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_accountno" id="loan_accountno"
+													th:value="${loanDetails?.loan_accountno}" readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Loan Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_currency" id="loan_currency"
+													th:value="${loanDetails?.loan_currency}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Interset Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="effective_interest_rate"
+													id="effective_interest_rate" oninput="numberOnly(this);"
+													th:value="${loanDetails?.effective_interest_rate}" readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Installment ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_id" name="inst_id"
+													th:value="${paymentDetails?.inst_id}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment Start Date</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_start_dt" name="inst_start_dt"
+													readonly
+													th:value="${#dates.format(paymentDetails?.inst_start_dt, 'dd-MM-yyyy')}" />
+												<!--<input type="date" id="inst_start_dt" name="inst_start_dt" />-->
+											</div>
+
+											<div class="col-sm-2">
+												<label for="">No of Installment</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="no_of_inst" name="no_of_inst"
+													th:value="${paymentDetails?.no_of_inst}" readonly />
+											</div>
+
+										</div>
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label for="">Cap At Maturity ?</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<label> <input type="radio" value="Y"
+													id="maturity_flg1" name="maturity_flg"
+													style="width: unset !important"
+													onclick="updateInterestFreq();" disabled
+													th:checked="${paymentDetails?.maturity_flg=='Y'}">
+													Yes
+												</label> <label> <input type="radio" value="N"
+													id="maturity_flg" name="maturity_flg"
+													style="width: unset !important"
+													onclick="updateInterestFreq();" disabled
+													th:checked="${paymentDetails?.maturity_flg!='Y'}">
+													No
+												</label>
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Principal Installment Freq</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_freq" name="inst_freq"
+													th:value="${paymentDetails?.inst_freq}" readonly />
+												<!--<select id="inst_freq" name="inst_freq">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>
+
+
+												</select>-->
+											</div>
+											<div class="col-sm-2">
+												<label for="tranche_amt">Interest Installment Freq</label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="interest_frequency"
+													name="interest_frequency"
+													th:value="${paymentDetails?.interest_frequency}" readonly />
+												<!--<select id="interest_frequency" name="interest_frequency">
+													<option value="">select</option>
+													<option value="Monthly">Monthly</option>
+													<option value="Quarterly">Quarterly</option>
+													<option value="Halfyearly">Half Yearly</option>
+													<option value="Yearly">Yearly</option>
+
+												</select>-->
+											</div>
+
+										</div>
+										<div class="row formline mt-2"
+											style="padding: 1px 0px 10px 35px;">
+
+											<div class="col-sm-2">
+												<label for="inst_amount">Installment Amount </label>
+												<!--<span
+													style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" oninput="validateInput(this)"
+													id="inst_amount"
+													th:value="${paymentDetails?.inst_amount == 0 ? '0.00' :#numbers.formatDecimal(paymentDetails?.inst_amount, 0, 'COMMA', 2, 'POINT')}"
+													readonly name="inst_amount" />
+											</div>
+											<div class="col-sm-2">
+												<label for="">Installment (%)</label>
+												<!--<span style="color: red;">*</span>-->
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="inst_pct" name="inst_pct"
+													th:value="${paymentDetails?.inst_pct}" autocomplete="off"
+													readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label for="tranche_amt">Record </label>
+											</div>
+											<div class="col-sm-2">
+												<label for="delete"> <input type="checkbox"
+													id="record" style="width: unset !important" class="mr-2"
+													disabled>Delete
+												</label>
+											</div>
+
+
+
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home2();">Home</button>
+											<button class="custom-btn"
+												onclick="SubmitVerify(this)"
+												th:attr="data-customer_id = ${loanDetails?.customer_id},data-loan_accountno = ${loanDetails?.loan_accountno}"
+												th:if="${formmode}=='verify'">Approve</button>
+											<button class="custom-btn"
+												th:attr="data-loan_accountno = ${loanDetails?.loan_accountno}"
+												onclick="sechduleView1(this);">Flows</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+
+										<div class="table-responsive d-none" id="demandtable1"
+											style="font-size: 15px;">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+
+														<th style="text-align: left;">Flow Date</th>
+
+														<th style="text-align: left;">Flow Code</th>
+														<th style="text-align: left;">Flow Freq.</th>
+														<th style="text-align: right;">Flow Amt</th>
+
+
+
+													</tr>
+												</thead>
+												<tbody id="repaymentDet1">
+
+													<!-- More rows can be added similarly -->
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div id="tab5" class="tabcontent" style="display: none;">
+
+									<div>
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label>Customer Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_id" id="customer_id"
+													th:value="${loanDetails?.customer_id}" readonly />
+												<!--<select id="customer_id" name="customer_id" onchange="custid()" required>
+												<option value="">Select</option>
+												<th:block th:each="code : ${deposit}">
+													<option th:value="${code}" th:text="${code}"></option>
+												</th:block>
+											</select>-->
+
+											</div>
+											<div class="col-sm-2">
+												<label>Customer Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="customer_name" id="customer_name"
+													th:value="${loanDetails?.customer_name}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label> Date Of loan</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="date_of_loan" id="date_of_loan"
+													readonly
+													th:value="${#dates.format(loanDetails?.date_of_loan, 'dd-MM-yyyy')}" />
+												<!--<input type="date" name="date_of_loan" id="date_of_loan"
+												class="set-last-date" />-->
+											</div>
+										</div>
+										<div class="row formline mt-1"
+											style="padding: 1px 0px 0px 35px;">
+											<div class="col-sm-2">
+												<label>Loan Acct No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_accountno" id="loan_accountno"
+													th:value="${loanDetails?.loan_accountno}" readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Loan Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_currency" id="loan_currency"
+													th:value="${loanDetails?.loan_currency}" readonly />
+											</div>
+											<div class="col-sm-2">
+												<label>Interset Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="effective_interest_rate"
+													id="effective_interest_rate" oninput="numberOnly(this);"
+													th:value="${loanDetails?.effective_interest_rate}" readonly />
+
+											</div>
+										</div>
+
+										<div class="mt-2" id="loanPositionDiv">
+
+
+
+											<table class="table table-bordered table-sm mt-1"
+												style="margin-bottom: 0px; font-size: initial;"
+												id="positionTable">
+												<thead class="table-header">
+													<tr>
+														<th style="width: 15%">Flow Date</thstyle>
+														<th style="width: 10%">Flow Code</th>
+														<th style="text-align: right; width: 20%;">Flow Amt</th>
+
+														<th style="text-align: right; width: 20%;">Coll Amt</th>
+														<th style="width: 15%">Coll Date</thstyle>
+														<th style="text-align: right; width: 20%;">OverDue
+															Amt</th>
+
+
+
+
+													</tr>
+												</thead>
+
+												<tbody id="positionTableBody">
+													<tr>
+														<td colspan="9" style="text-align: center;">No
+															records available</td>
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home2();">Home</button>
+
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+									</div>
+
+								</div>
+								<table
+									Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+									<tr>
+										<td class="col-sm-2" style="text-align: center;"><font
+											size="2"><B>Entry User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;"><input
+											type="text" id="entryuser"
+											th:value="${loanDetails?.entry_user}" name="ub.entryuser"
+											readonly
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+										<td class="col-sm-2" style="text-align: center;"><font
+											size="2"><B>Modify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="modifyuser"
+											th:value="${loanDetails?.modify_user}" name="ub.modifyuser"
+											readonly
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+										<td class="col-sm-2" style="text-align: center;"><font
+											size="2"><B>Verify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="verifyuser" name="ub.verifyuser"
+											th:value="${loanDetails?.verify_user}" readonly
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align: center;"><font size="2"><B>Entry
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="entrytime" name="ub.entrytime"
+											th:value="${#dates.format(loanDetails?.entry_time, 'dd-MM-yyyy')}"
+											readonly
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+										<td style="text-align: center;"><font size="2"><B>Modify
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="modifytime" name="ub.modifytime"
+											th:value="${#dates.format(loanDetails?.modify_time, 'dd-MM-yyyy')}"
+											readonly
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+										<td style="text-align: center; font-size: 15px;"><font
+											size="2"><B>Verify Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="verifytime" name="ub.verifytime" readonly
+											th:value="${#dates.format(loanDetails?.verify_time, 'dd-MM-yyyy')}"
+											style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+										</td>
+									</tr>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='modify' or ${formmode}=='modify1'"
+					class="mt-5">
+					<form action="#" th:object="${drawDownDetails}" method="post"
+						id="drawDownDetailsAdd" autocomplete="off"
+						name="drawDownDetailsData" th:fragment="finuserapply">
+
+						<!-- Hidden values -->
+
+
+
+						<input type="text" name="verify_flg"
+							th:value="${getGeneralDetails?.verify_flg}" hidden /> <input
+							type="text" name="entity_flg"
+							th:value="${getGeneralDetails?.entity_flg}" hidden /> <input
+							type="text" name="modify_flg"
+							th:value="${getGeneralDetails?.modify_flg}" hidden /> <input
+							type="text" name="del_flg"
+							th:value="${getGeneralDetails?.del_flg}" hidden /> <input
+							type="text" name="ver_usr"
+							th:value="${getGeneralDetails?.ver_usr}" hidden /> <input
+							type="text" name="entry_usr"
+							th:value="${getGeneralDetails?.entry_usr}" hidden /> <input
+							type="text" name="mod_usr"
+							th:value="${getGeneralDetails?.mod_usr}" hidden /> <input
+							type="date" name="ver_tm" hidden
+							th:value="${#dates.format(getGeneralDetails?.ver_tm, 'yyyy-MM-dd')}" />
+						<input type="date" name="entry_tm" hidden
+							th:value="${#dates.format(getGeneralDetails?.entry_tm, 'yyyy-MM-dd')}" />
+						<input type="date" name="mod_tm" hidden
+							th:value="${#dates.format(getGeneralDetails?.mod_tm, 'yyyy-MM-dd')}" />
+
+						<!-- End Hidden values -->
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card" style="width: 95%;">
+									<hr style="margin: 0; padding: 0;">
+									<div class="row formline"
+										style="padding: 5px 0px 0px 65px; background-color: #d3d3d3; margin-left: 0px; margin-right: 0px;">
+										<div class="col-sm-4"></div>
+										<h6
+											style="color: black; margin-left: 20px; font-size: 16px; height: 50px; padding: 20px;">
+											DRAWDOWN NOTICE DETAILS</h6>
+									</div>
+									<hr style="margin: 0; padding: 0;">
+									<div class="row formline mt-2 ml-2 mb-2">
+										<div class="col-sm-2" font-size=10px>Function:</div>
+										<div class="col-sm-2">
+											<input type="text" value="Modify" readonly />
+										</div>
+										<div class="col-sm-2">Syndicated Facility Ref:</div>
+										<div class="col-sm-2">
+											<input type="text" name="synd_fac_ref"
+												th:value="${getGeneralDetails?.synd_fac_ref}" /> <a
+												role="button" onclick="synDetails()"
+												style="margin-left: -12px;"
+												class="btn btn-filters  fa fa-search"></a>
+										</div>
+										<div class="col-sm-2">Tranche Ref:</div>
+										<div class="col-sm-2 ">
+											<input type="text" id="trnc_desc" name="trnc_desc"
+												th:value="${getGeneralDetails?.trnc_desc}" /> <a
+												role="button" onclick="trancheDetails()"
+												style="margin-left: -12px;"
+												class="btn btn-filters  fa fa-search"></a>
+										</div>
+									</div>
+									<div class="row formline ml-2 mb-2">
+										<div class="col-sm-2">Draw Down Notice Ref:</div>
+										<div class="col-sm-2">
+											<input type="text" id="dd_notice_ref" name="dd_notice_ref"
+												th:value="${getGeneralDetails?.dd_notice_ref}" readonly />
+										</div>
+										<div class="col-sm-2">Borrower Name:</div>
+										<div class="col-sm-2 ">
+											<input type="text" name="borr_name"
+												th:value="${getGeneralDetails?.borr_name}" />
+										</div>
+										<div class="col-sm-2">Tranche Currency:</div>
+										<div class="col-sm-2 ">
+											<input type="text" id="trnc_curr" name="trnc_curr"
+												th:value="${getGeneralDetails?.trnc_curr}" />
+										</div>
+									</div>
+
+									<div class="tab row formline ml-3"
+										style="padding: 4px 4px; position: relative; font-size: 13px; width: 98%;">
+										<!-- Tab buttons -->
+										<div class="col-sm-1"></div>
+										<div class="col-sm-3">
+											<button class="tablinks active" id="smooth1"
+												style="width: 200px;" onclick="openTab(event, 'tab1')">General
+												Details</button>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-3">
+											<button class="tablinks" id="smooth2" style="width: 200px;"
+												onclick="openTab(event, 'tab2')">Payment Details</button>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-3">
+											<button class="tablinks" id="smooth3" style="width: 200px;"
+												onclick="openTab(event, 'tab3')">Interest Slab
+												Details</button>
+										</div>
+									</div>
+									<div id="tab1" class="tabcontent" style="display: block;">
+										<div class="row formline ml-2 mb-2 mt-2">
+											<div class="col-sm-2 ">
+												<label>Draw Down Notice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="dd_notice_date" id="dd_notice_date"
+													th:value="${#dates.format(getGeneralDetails?.dd_notice_date, 'yyyy-MM-dd')}" />
+											</div>
+
+											<div class="col-sm-2 ">
+												<label>Draw Down Value Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="dd_value_date" id="dd_value_date"
+													style="width: 65%;"
+													th:value="${#dates.format(getGeneralDetails?.dd_value_date, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Draw Down Amount</label>
+											</div>
+											<div class="col-sm-2">
+
+												<input type="text" id="dd_amount" name="dd_amount"
+													th:value="${getGeneralDetails?.dd_amount == 0 ? '0.00' :#numbers.formatDecimal(getGeneralDetails?.dd_amount, 0, 'COMMA', 2, 'POINT')}">
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2 ">
+												<label>Draw Down Expiry Dt</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" name="dd_notice_exp_date"
+													id="dd_notice_exp_date"
+													th:value="${#dates.format(getGeneralDetails?.dd_notice_exp_date, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2 ">
+												<label>Loan Tenor(MM/DD)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="loan_tenor" id="loan_tenor"
+													class="mmdd" th:value="${getGeneralDetails?.loan_tenor}" />
+												<input type="text" name="loan_tenor1" id="loan_tenor1"
+													class="mmdd ml-2"
+													th:value="${getGeneralDetails?.loan_tenor1}" />
+											</div>
+											<div class="col-sm-2">
+												<label> Notice Rec from Cus</label>
+											</div>
+											<div class="col-sm-2">
+												<label> <input style="width: unset !important"
+													type="radio" id="notice_from_cust" class="mr-1"
+													th:checked="${getGeneralDetails?.notice_from_cust}=='Y'"
+													name="notice_from_cust"> Yes
+												</label> <label> <input style="width: unset !important"
+													type="radio" id="notice_from_cust"
+													th:checked="${getGeneralDetails?.notice_from_cust}=='N'"
+													class="mr-1 ml-2" name="notice_from_cust"> No
+
+												</label>
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2 ">
+												<label>Draw Down-Int Payment</label>
+											</div>
+											<div class="col-sm-2">
+												<label><input type="radio" name="dd_int_pay"
+													style="width: unset !important"
+													th:checked="${getGeneralDetails?.dd_int_pay=='Y'}"
+													id="dd_int_pay" class="mr-2 ml-2" />Yes</label> <label><input
+													type="radio" name="dd_int_pay"
+													th:checked="${getGeneralDetails?.dd_int_pay=='N'}"
+													id="dd_int_pay" style="width: unset !important"
+													class="mr-2 ml-2" checked />No</label>
+											</div>
+											<div class="col-sm-2 ">
+												<label>Tranche Ref-Int Payment</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="tranche_ref_int_pay"
+													id="tranche_ref_int_pay"
+													th:value="${getGeneralDetails?.tranche_ref_int_pay}" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Rate Ref Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="int_rate_ref_curr"
+													id="int_rate_ref_curr"
+													th:value="${getGeneralDetails?.int_rate_ref_curr}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2 ">
+												<label>Currency Holiday Treatment</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="curr_holiday_treat"
+													th:value="${getGeneralDetails?.curr_holiday_treat}"
+													name="curr_holiday_treat">
+											</div>
+
+											<div class="col-sm-2">
+												<label>Msg to Participate Lenders</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="msg_part_lenders"
+													th:value="${getGeneralDetails?.msg_part_lenders}" readonly />
+											</div>
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home1();">Home</button>
+											<button class="custom-btn" onclick="submitparam()">Submit</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab2" class="tabcontent" style="display: none;">
+										<div class="table-responsive mt-2 ml-3 scroll">
+											<table id="row1" class="table table-bordered"
+												style="width: 90%; margin-left: 35px;">
+												<thead style="background-color: #f1f1f1">
+													<tr>
+														<td><b style="font-size: 15px;">Installment Id</b></td>
+														<td><b style="font-size: 15px;">Installment start
+																Date</b></td>
+														<td><b style="font-size: 15px;">Principal
+																Installment Freq</b></td>
+														<td><b style="font-size: 15px;">No Of Installment</b></td>
+														<td><b style="font-size: 15px;">Installment
+																Amount</b></td>
+														<td><b style="font-size: 15px;">Select</b></td>
+														<!--<td><b style="font-size: 15px;">Save</b></td>-->
+													</tr>
+												</thead>
+												<tbody id="clik1">
+
+													<tr th:each="getPaymentDet : ${getPaymentDetails}"
+														th:attr="data-srl_no=${getPaymentDet.srl_no}">
+														<td><input type="text" name="inst_id" id="inst_id_11"
+															th:value="${getPaymentDet?.inst_id}" readonly /></td>
+														<td><input type="text" name="inst_start_dt"
+															id="inst_start_dt_11"
+															th:value="${#dates.format(getPaymentDet?.inst_start_dt, 'yyyy-MM-dd')}"
+															readonly /></td>
+														<td><input type="text" name="inst_freq"
+															id="inst_freq_11" th:value="${getPaymentDet?.inst_freq}"
+															readonly /></td>
+														<td><input type="text" name="no_of_inst"
+															id="no_of_inst_11"
+															th:value="${getPaymentDet?.no_of_inst}" readonly /></td>
+
+														<td><input type="text" name="inst_amount"
+															id="inst_amount_11"
+															th:value="${getPaymentDet?.inst_amount == 0 ? '0.00' :#numbers.formatDecimal(getPaymentDet?.inst_amount, 0, 'COMMA', 2, 'POINT')}"
+															readonly /></td>
+														<td hidden><input type="text" name="maturity_flg"
+															id="maturity_flg1"
+															th:value="${getPaymentDet?.maturity_flg}" readonly />
+														<td hidden><input type="text" name="record_flag"
+															id="record_flag_11"
+															th:value="${getPaymentDet?.record_flag}" readonly /></td>
+														<td hidden><input type="text" name="srl_no"
+															id="srl_no_11" th:value="${getPaymentDet?.srl_no}"
+															readonly /></td>
+														<td hidden><input type="text"
+															name="interest_frequency" id="interest_frequency1"
+															th:value="${getPaymentDet?.interest_frequency}" readonly />
+														<td><input type="radio" id="btnclick" name="btnradio"
+															th:attr="data-dd_notice_ref = ${getPaymentDet.dd_notice_ref},data-srl_no = ${getPaymentDet.srl_no}"
+															onclick="paymentview(this);" /></td>
+														</td>
+														<!--<td><input type="button"
+																class="btn btn-filters save-button btn-primary p-2 p-0"
+																onclick="ModifyPayment(this);" value="Save"></td>-->
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<hr>
+
+										<div id="paymentviewID" style="display: none;">
+											<input type="text" id="srl_no" hidden>
+											<div class="row formline mb-2 ml-2">
+												<div class="col-sm-2">
+													<label>Installment Id</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_id" readonly>
+												</div>
+
+												<div class="col-sm-2">
+													<label>Installment Start Date</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_start_dt" readonly />
+												</div>
+												<div class="col-sm-2">
+													<label for="">Instalment Amt Specifiedin </label>
+												</div>
+												<div class="col-sm-2">
+													<label><input type="radio" value="Fixed"
+														id="inst_amt_spec" class="inst_amt_specFixed mr-2"
+														name="inst_amt_spec" style="width: unset !important"
+														disabled>Fixed</label> <label><input type="radio"
+														value="Percentage" id="inst_amt_spec1"
+														class="inst_amt_specPct mr-2 ml-2" name="inst_amt_spec"
+														style="width: unset !important" disabled>Percentage</label>
+												</div>
+
+											</div>
+											<div class="row formline ml-2 mb-2">
+												<div class="col-sm-2">
+													<label>Cap At Maturity?</label>
+												</div>
+												<div class="col-sm-2">
+													<label> <input style="width: unset !important"
+														class="mr-2 ml-2" type="radio" id="maturity_flg"
+														name="maturity_flg" disabled>Yes
+													</label> <label> <input style="width: unset !important"
+														class="mr-2 ml-2" type="radio" id="maturity_flg1"
+														name="maturity_flg" disabled>No
+													</label>
+												</div>
+												<div class="col-sm-2">
+													<label>Principal Installment Freq</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_freq" readonly />
+
+												</div>
+
+												<div class="col-sm-2">
+													<label>Interest Installment Freq</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="interest_frequency" readonly />
+
+												</div>
+
+
+											</div>
+											<div class="row formline ml-2 mb-2">
+												<div class="col-sm-2">
+													<label>No of Installment</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="no_of_inst" readonly />
+												</div>
+												<div class="col-sm-2">
+													<label>Installment Amount</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_amount" readonly />
+												</div>
+												<div class="col-sm-2">
+													<label for="">Instalment (%)</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="inst_pct" readonly />
+												</div>
+
+
+											</div>
+											<div class="row formline ml-2 mb-2">
+												<div class="col-sm-2">
+													<label>Record</label>
+												</div>
+												<div class="col-sm-2">
+													<input style="width: unset !important" type="checkbox"
+														class="mr-2" id="record_flag"
+														onclick="updateCheckboxValue()" disabled />Delete
+												</div>
+											</div>
+
+										</div>
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home2();">Home</button>
+											<button class="custom-btn" onclick="submitparam1()">Submit</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+									</div>
+
+									<div id="tab3" class="tabcontent" style="display: none;">
+										<div class="row formline ml-2 mb-2 mt-2">
+											<div class="col-sm-2">
+												<label>Interest Table Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_table_code" name="int_table_code"
+													th:value="${getSlabInterestDetails?.int_table_code}" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Interest Rate Period(MM/DD)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_rate_period"
+													name="int_rate_period"
+													th:value="${getSlabInterestDetails?.int_rate_period}"
+													class="mmdd " oninput="numberOnly(this)" /> <input
+													type="text" id="int_rate_period1" name="int_rate_period1"
+													th:value="${getSlabInterestDetails?.int_rate_period1}"
+													class="mmdd ml-2" oninput="numberOnly(this)" />
+											</div>
+											<!-- Other form elements -->
+											<div class="col-sm-2">
+												<label>Interest Polate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_polate_ch" name="int_polate_ch"
+													th:value="${getSlabInterestDetails?.int_polate_ch}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Method of Interpolation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_method" name="int_method"
+													th:value="${getSlabInterestDetails?.int_method}" />
+											</div>
+											<div class="col-sm-2">
+												<label>Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="start_dt" name="start_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.start_dt, 'yyyy-MM-dd')}" />
+											</div>
+
+											<div class="col-sm-2">
+												<label> End Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="end_dt" name="end_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.end_dt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Min Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="min_int"
+													th:value="${getSlabInterestDetails?.min_int}"
+													name="min_int" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Max Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="max_int"
+													th:value="${getSlabInterestDetails?.max_int}"
+													name="max_int" />
+											</div>
+											<div class="col-sm-2">
+												<label>Margin (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="margin"
+													th:value="${getSlabInterestDetails?.margin}" name="margin" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Spread (%)</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="spread"
+													th:value="${getSlabInterestDetails?.spread}" name="spread" />
+											</div>
+											<div class="col-sm-2">
+												<label>Normal Interest Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="norm_int_rate"
+													th:value="${getSlabInterestDetails?.norm_int_rate}"
+													name="norm_int_rate" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Compound Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="comp_int"
+													th:value="${getSlabInterestDetails?.comp_int}"
+													name="comp_int" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Interest on Overdue Principal</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_overdue_princ"
+													th:value="${getSlabInterestDetails?.int_overdue_princ}"
+													name="int_overdue_princ" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Penalty on Principal</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="penal_princ"
+													th:value="${getSlabInterestDetails?.penal_princ}"
+													name="penal_princ" />
+											</div>
+											<div class="col-sm-2">
+												<label>Penalty on Interest</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="penal_int"
+													th:value="${getSlabInterestDetails?.penal_int}"
+													name="penal_int" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Penal Interest Rate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="penal_int_rate"
+													th:value="${getSlabInterestDetails?.penal_int_rate}"
+													name="penal_int_rate" />
+											</div>
+											<div class="col-sm-2">
+												<label>Interest Pegged</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_pegged" name="int_pegged"
+													th:value="${getSlabInterestDetails?.int_pegged}" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Pegging Review Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="pegging_review_dt"
+													name="pegging_review_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.pegging_review_dt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Pegging Frequency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="pegging_freq" name="pegging_freq"
+													th:value="${getSlabInterestDetails?.pegging_freq}"
+													class="mmdd " oninput="numberOnly(this)" /> <input
+													type="text" id="pegging_freq1" name="pegging_freq1"
+													th:value="${getSlabInterestDetails?.pegging_freq1}"
+													class="mmdd ml-2" oninput="numberOnly(this)" />
+											</div>
+
+											<div class="col-sm-2">
+												<label>Interest Version No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="int_version_no" name="int_version_no"
+													th:value="${getSlabInterestDetails?.int_version_no}" />
+											</div>
+											<div class="col-sm-2">
+												<label>Review on Slab Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="date" id="review_slab_start_dt"
+													name="review_slab_start_dt"
+													th:value="${#dates.format(getSlabInterestDetails?.review_slab_start_dt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline ml-2 mb-2">
+											<div class="col-sm-2">
+												<label>Reason Code</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="reason_code" name="reason_code"
+													th:value="${getSlabInterestDetails?.reason_code}" />
+											</div>
+										</div>
+
+										<div class="card-footer text-center">
+											<button class="custom-btn" onclick="home4();">Home</button>
+											<button class="custom-btn"
+												th:if="${formmode}=='modify'"
+												th:attr="dd_notice_ref = ${getGeneralDetails?.dd_notice_ref}"
+												onclick="ModifySubmit(this)">Submit</button>
+											<button class="custom-btn"
+												th:if="${formmode}=='modify1'"
+												th:attr="dd_notice_ref = ${getGeneralDetails?.dd_notice_ref}"
+												onclick="ModifySubmit1(this)">Submit</button>
+											<button class="custom-btn" onclick="back();">Back</button>
+										</div>
+									</div>
+									<table
+										Style="border: 1px solid #ccc; width: 100%; max-width: 100%; margin: 0 auto; box-sizing: border-box;">
+										<tr>
+											<td class="col-sm-2" style="text-align: center;"><font
+												size="2"><B>Entry User :</B></font></td>
+											<td class="col-sm-2"
+												style="width: 112px; margin-right: 20px;"><input
+												type="text" id="entryuser" th:value="${session.USERNAME}"
+												name="ub.entryuser"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+											</td>
+											<td class="col-sm-2" style="text-align: center;"><font
+												size="2"><B>Modify User :</B></font></td>
+											<td class="col-sm-2" style="width: 112px;"><input
+												type="text" id="modifyuser" th:value="${session.USERNAME}"
+												name="ub.modifyuser" value="MMR"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+											</td>
+											<td class="col-sm-2" style="text-align: center;"><font
+												size="2"><B>Verify User :</B></font></td>
+											<td class="col-sm-2" style="width: 112px;"><input
+												type="text" id="verifyuser" name="ub.verifyuser"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;">
+											</td>
+										</tr>
+										<tr>
+											<td style="text-align: center;"><font size="2"><B>Entry
+														Time :</B></font></td>
+											<td style="width: 112px"><input type="text"
+												id="entrytime" name="ub.entrytime"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+											</td>
+											<td style="text-align: center;"><font size="2"><B>Modify
+														Time :</B></font></td>
+											<td style="width: 112px"><input type="text"
+												id="modifytime" name="ub.modifytime"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+											</td>
+											<td style="text-align: center; font-size: 15px;"><font
+												size="2"><B>Verify Time :</B></font></td>
+											<td style="width: 112px"><input type="text"
+												id="verifytime" name="ub.verifytime"
+												style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px; margin-left: 14px;">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Model Boxes -->
+
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		style="padding-right: 850px" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			style="height: 20%">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<p id="alertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="refreshPage1()">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert1">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<p id="alertmsg1"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="listPage();">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Get Normal Alerts -->
+	<!--<div class="modal fade" data-backdrop="static" data-keyboard="false" id="normalAlert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<p id="Normalalertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="$('#normalAlert').modal('hide');">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>-->
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="normalAlert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content"
+				style="position: fixed; left: 50%; transform: translate(-50%, 0%); width: 30%; height: 25%;">
+				<div class="modal-header">
+					<h5 class="modal-title">Alerts</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" onclick="$('#normalalert').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="Normalalertmsg"></h6>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="$('#normalalert').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="scheduleModal" class="modal fade" data-backdrop="static"
+		data-keyboard="false" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content"
+				style="width: 1300px; margin-left: -400px;">
+				<div class="modal-header">
+					<h5 class="modal-title" style="text-align: center;">DEMAND
+						SCHEDULE DETAILS</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" onclick="$('#scheduleModal').modal('hide');">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!--<div class="d-flex mt-2 mb-2">
+						<div>
+							<label style="font-size: 13px; font-weight: 500;">SYNDICATION
+								REF NO</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="sync_ref_num" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">TRANCHE
+								REF</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="tranche_reff" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">BORROWER
+								NAME</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="borrower_name" readonly />
+						</div>
+					</div>-->
+
+
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+					<!--<button type="button" class="btn btn-primary active" onclick="sechduleSubmit();">Submit</button>-->
+					<button type="button" class="btn btn-primary active"
+						onclick="$('#scheduleModal').modal('hide');">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sechdule Modal view -->
+	<div id="scheduleModalView" class="modal fade" data-backdrop="static"
+		data-keyboard="false" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content"
+				style="width: 1300px; margin-left: -400px;">
+				<div class="modal-header">
+					<h5 class="modal-title" style="text-align: center;">SCHEDULE
+						PAYMENT DETAILS</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close"
+						onclick="$('#scheduleModalView').modal('hide');">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!--<div class="d-flex mt-2 mb-2">
+						<div>
+							<label style="font-size: 13px; font-weight: 500;">SYNDICATION
+								REF NO</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="sync_ref_num" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">TRANCHE
+								REF</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="tranche_reff" readonly />
+						</div>
+						<div class="ml-3">
+							<label style="font-size: 13px; font-weight: 500;">BORROWER
+								NAME</label>
+						</div>
+						<div class="ml-3">
+							<input class="" type="text" id="borrower_name" readonly />
+						</div>
+					</div>-->
+
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="white-space: nowrap; width: 100px;">SCHEDULE NO</th>
+									<th style="white-space: nowrap; width: 100px;">ORIGINAL
+										DEMAND DATE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND DATE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND TYPE</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND ID</th>
+									<th style="white-space: nowrap; width: 100px;">DEMAND
+										AMOUNT</th>
+									<th style="white-space: nowrap; width: 100px;">INSTALMENT
+										NO</th>
+									<th style="white-space: nowrap; width: 100px;">REMARKS</th>
+								</tr>
+							</thead>
+							<tbody id="sehduleViewDetails">
+
+								<!-- More rows can be added similarly -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+
+					<button type="button" class="btn btn-primary active"
+						onclick="$('#scheduleModalView').modal('hide');">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="mypopup2" tabindex="-1" role="dialog" aria-hidden="true"
+		style="padding-right: 800px">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 120%; height: 25%">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Alert
+							Message</h5>
+						<!-- Alert message will appear here -->
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body"
+						style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px">
+						<h6 id="popupmsg"></h6>
+						<!-- Response will be displayed here -->
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="openCity(event, 'india');">Close</button>
+						<!-- Calls goBack function -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="customConfirmModal" class="modal">
+		<div class="modal-content">
+			<p>Do you want to open this DOCUMENT MASTER Tab?</p>
+			<button id="confirmYes" class="btn">Yes</button>
+			<button id="confirmNo" class="btn">No</button>
+		</div>
+	</div>
+
+</body>
+
+</html>

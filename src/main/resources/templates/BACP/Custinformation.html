@@ -1,0 +1,1159 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<script src="js/bootstrap411.js"></script>
+
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+		rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+	<style>
+		.content {
+			margin-right: 108px;
+		}
+
+		.tableFixHead thead th {
+			position: sticky;
+			/* make the table heads sticky */
+			top: 0px;
+			/* table head will be placed from the top of the table and sticks to it */
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+	</style>
+	<script type="text/javascript">
+
+
+		function list() {
+			location.href = 'CustOtherServices?formmode=list';
+		}
+		function fnClick() {
+			alert("1");
+
+			var cust_name = a.getAttribute("data-custname")
+			location.href = './CustOtherServices?formmode=edit&custname=' + edit
+
+		}
+		function listradioclick(a) {
+/* alert("hhhhhhhhhhhh"); */
+			var custid = a.getAttribute("data-cif_id");
+			alert(custid);
+
+			location.href = 'Customerinformation?formmode=view&custid=' + custid
+		}
+		function back() {
+			window.history.back();
+		}
+		function submitform() {
+
+			$.ajax({
+				url: './createOtherService?formmode=add',
+				data: $("#OtherSerView").serialize(),
+				type: 'POST',
+				success: function (data) {
+					alert("Updated successfully");
+					window.history.back();
+				}
+			});
+		}
+
+		</script>
+		
+<script>
+				function submitformIss() {
+					
+					
+
+					$.ajax({
+						url: './createOtherService1?formmode=add',
+						data: $("#OtherSerView").serialize(),
+						type: 'POST',
+						success: function (data) {
+							alert("Updated successfully");
+						}
+					});
+				}
+
+			</script>
+
+	
+	</script>	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('input[name="iss_che_bk"]').change(function () {
+				if ($(this).is(':checked')) {
+					$('#myModal').modal('show');
+				}
+			});
+			$('input[name="dbt_crd"]').change(function () {
+				if ($(this).is(':checked')) {
+					$('#myModal1').modal('show');
+				}
+			});
+			$('input[name="int_bnkg"]').change(function () {
+				if ($(this).is(':checked')) {
+					$('#myModal2').modal('show');
+				}
+			});
+			$('input[name="mob_bnkg"]').change(function () {
+				if ($(this).is(':checked')) {
+					$('#myModal3').modal('show');
+				}
+			});
+
+
+
+		});
+
+		//		function Close() {
+		//			alert("2");
+		//			var tt=document.getElementById(IsschebookYES).value;
+		//			alert(tt);
+		//			$('#IsschebookYES').prop('checked', false);
+		//			$('#IsschebookNO').prop('checked', true);
+		//			$('#mblbnkgYES').prop('checked', false);
+		//			$('#mblbnkgNO').prop('checked', true);
+		//			$('#IntbnkgYES').prop('checked', false);
+		//			$('#IntbnkgNO').prop('checked', true);
+		//			$('#dbtcrdYES').prop('checked', false);
+		//			$('#dbtcrdNO').prop('checked', true);
+		//		};
+		//Filter Table mela
+		$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function () {
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No result found</td></tr>'));
+								}
+							});
+				});
+	</script>
+</head>
+<title>BACP</title>
+<!-- var modal = document.getElementById("myModal");
+				  modal.style.display = "block"; -->
+
+<body>
+
+	<div th:insert="BGLSHeaderMenu:: header"></div>
+	<div class="content-page" style="font-size: .7rem;">
+		<div class="content">
+			<!-- Start Content-->
+			<div class="container-fluid">
+				<div th:if="${formmode}=='list'">
+					<div class="row">
+						<div class="col-lg-10" style="margin-left:400px;margin-top:-30px">
+							<div class="card" style="margin-top: 50px">
+								<div class="panel panel-primary filterable">
+									<div class="card-header" style="background-color: #bbc3cb8a;height:60px">
+										<div class="float-left">
+											<h6 style="font-size: 20px">List Of Customer Services</h6>
+										</div>
+										<div class="btn-group nav-buttons float-right">
+											<button Style="width: 110px; height: 35px;" type="button"
+												class="btn btn-xs btn-primary btns" id="Dashboard"
+												onclick="contentLoad(this)">DashBoard</button>&nbsp
+											<button Style="width: 110px; height: 35px;"
+												class="btn text-white btn-filter btn-primary">Filter</button>
+										</div>
+									</div>
+									<div class="tableFixHead">
+										<div class="card-body p-0" style="padding:0% ;height:700px;overflow-y: auto">
+											<div class="table-responsive">
+
+												<table class="table  table-bordered  table-hover table-sm"
+													style="margin-bottom: 0px" id="usertable">
+													<thead class="thead-light">
+														<tr class="filters">
+															<th style="font-size: 15px">Srl No</th>
+															<th><input type="text" style="font-color:#000000;"
+																	class="form-control font-weight-bold"
+																	placeholder="CIF Id" disabled></th>
+															<th><input type="text" style="font-color:#000000;"
+																	class="form-control font-weight-bold"
+																	placeholder="Customer Name" disabled></th>
+															<th><input type="text" style="font-color:#000000;"
+																	class="form-control font-weight-bold"
+																	placeholder="Account Type" disabled></th>
+															<th><input type="text" style="font-color:#000000;"
+																	class="form-control font-weight-bold"
+																	placeholder="Scheme Type" disabled></th>
+															<th><input type="text" style="font-color:#000000;"
+																	class="form-control font-weight-bold"
+																	placeholder="Scheme Code" disabled></th>
+
+															<th style="font-size: 15px">Select</th>
+
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="tdata,iterator  : ${kyc}"
+															class="userlist">
+
+															<td th:text="${iterator.index +1}"></td>
+															<td style="width: 250px;font-size: 15px;"
+																th:text="${tdata.cif_id}">i</td>
+															<td style="width: 250px;font-size: 15px;"
+																th:text="${tdata.ca_first_name+' '+tdata.ca_last_name}">
+																j</td>
+															<td style="width: 250px;font-size: 15px;"
+																th:text="${tdata.account_id}">l</td>
+															<td style="width: 250px;font-size: 15px;"
+																th:text="${tdata.ca_schemetype}">l</td>
+															<td style="width: 250px;font-size: 15px;"
+																th:text="${tdata.ca_scheme_code}">l</td>
+															<td><input type="radio"
+																	th:attr="data-cif_id=${tdata.cif_id}"
+																	onclick="listradioclick(this);"
+																	th:id="${tdata.cif_id}" name="btnradio"></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer col-sm-12 text-center">
+									<div>
+
+										<button Style="width: 100px; height: 25px;" class="btn btn-xs btn-primary btns"
+											type="button" id="Dashboard" onclick="contentLoad(this)">Home</button>
+
+
+										<button Style="width: 110px; height: 25px;" class="btn btn-xs btn-primary btns"
+											type="button" id="btnBack" onclick="back();">Back</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!---------------------List Ends--------------------------------------------------------->
+				<!--------------------- Edit form Starts-------------------------------------------------->
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				<div class="row" th:if="${formmode}=='view'">
+					<div class="col-lg-10" style="margin-left:400px;margin-top:-30px">
+						<form action="#" th:object="${customerRequest}" method="post" autocomplete="off" id="OtherSerView"
+							class="userlist" th:fragment="finuserapply">
+							<div class="card" style="margin-top: 50px">
+								<div class="card-header" style="background-color: #bbc3cb8a;height:60px">
+									<div class="float-left">
+										<h6 style="font-size: 20px">Other Services</h6>
+									</div>
+								</div>
+								<div class="card-body" style="margin-left:100px;">
+
+									<input autocomplete="false" name="hidden" type="text" style="display: none;">
+									<div class="form-group" style="line-height: 1.4;">
+										<div class="row formline">
+
+											<label class="col-sm-2 control-label "
+												style="font-size: 15px;font-weight: 500;" for="userId">Customer
+												Id</label>
+
+											<input type="text" id="cif_id" name="cif_id"
+												th:value="${customerRequest?.cif_id}" class=" col-sm-3 form-control"
+												autocomplete="off" readonly />
+											
+
+											<label class="  col-sm-1 "></label>
+
+											<label class="col-sm-2 control-label "
+												style="font-size: 15px;font-weight: 500;" for="userName">Customer
+												Name</label>
+
+
+											<input type="text" id="ca_first_name" name="ca_first_name"
+												th:value="${customerRequest?.ca_first_name+' '+customerRequest?.ca_last_name}"
+												class=" col-sm-3 form-control" autocomplete="false" required readonly />
+
+										</div>
+										<label></label>
+										<div class="row formline">
+
+											<label class="col-sm-2 control-label "
+												style="font-size: 15px;font-weight: 500;" for="userId">Scheme
+												Type</label>
+
+
+											<input type="text" id="ca_schemetype" class="col-sm-3 form-control"
+												name="ca_schemetype" th:value="${customerRequest?.ca_schemetype}"
+												autocomplete="off" required readonly />
+											<label class="  col-sm-1 "></label>
+
+											<label class="col-sm-2 control-label "
+												style="font-size: 15px;font-weight: 500;" for="userName">Scheme
+												Code</label>
+
+
+											<input type="text" id="ca_scheme_code" name="ca_scheme_code"
+												th:value="${customerRequest?.ca_scheme_code}" class="col-sm-3 form-control"
+												autocomplete="false" required readonly />
+
+										</div>
+
+										<label></label>
+										<div class="row formline">
+											<label class="col-sm-2 control-label "
+												style="font-size: 15px;font-weight: 500;" for="userId">Currency</label>
+
+											<input type="text" id="ca_currency" class="col-sm-3 form-control"
+												name="ca_currency" th:value="${customerRequest?.ca_currency}"
+												autocomplete="off" required readonly />
+
+											<label class="  col-sm-1 "></label>
+
+											<label class="col-sm-2 control-label "
+												style="font-size: 15px;font-weight: 500;" for="userName">Account
+												No</label>
+
+
+											<input type="text" id="appl_ref_no" name="appl_ref_no"
+												th:value="${customerRequest?.appl_ref_no}" class="col-sm-3 form-control"
+												autocomplete="false" contenteditable="false"  readonly/>
+
+										</div>
+
+										<label></label>
+										<div class="card" style="margin-left: -100px;">
+											<label></label>
+											<div class="row formline" style="margin-left: 100px;">
+
+												<label class="col-sm-2 control-label "
+													style="font-size: 15px;font-weight: 500;" for="userId">Issue
+													checkbook</label>
+
+												<div class="col-sm-2 ">
+
+													<div class="form-check-inline  ">
+														<input type="radio" name="iss_che_bk" id="IsschebookYES"
+															value="Y" class="form-check-input"> <label
+															class="form-check-label" for="iss_che_bk"> Yes</label>
+													</div>
+													<div class="form-check-inline ">
+														<input type="radio" name="iss_che_bk" class="form-check-input"
+															id="IsschebookNO" value="N" checked>
+														<label class="form-check-label " for="iss_che_bk"> No
+														</label>
+													</div>
+												</div>
+												<!-- Defau
+												lt switch -->
+												<!-- <div class="col-sm-3">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input"
+															id="customSwitches"> <label
+															class="custom-control-label" for="customSwitches"></label>
+													</div>
+													<a href="#" id="CallerTune"><span
+														class="fa fa-info-circle" value="Y" id="checkbox"
+														style="margin-top: -18px; font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+
+													</a>
+												</div> -->
+												<!-- <div class="col-sm-3">
+													<input type="checkbox" data-toggle="toggle"
+														data-onstyle="info" data-offstyle="dark"
+														id="CallerTuneOption"> <a href="#" id="CallerTune"><span
+														class="fa fa-info-circle" value="Y" id="checkbox"
+														style="font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+
+													</a>
+												</div> -->
+
+
+												<label class="col-sm-2 control-label "
+													style="font-size: 15px;font-weight: 500;" for="userName">Debit
+													Card</label>
+
+												<!-- <div class="col-sm-3">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input"
+															id="AdSMS"> <label class="custom-control-label"
+															for="customSwitches"></label>
+													</div>
+													<a href="#" id="AdSMS"><span class="fa fa-info-circle"
+														value="Y" id="checkbox"
+														style="margin-top: -18px; font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+
+													</a>
+												</div> -->
+
+												<div class="col-sm-2">
+													<div class="form-check-inline  ">
+														<input type="radio" name="dbt_crd" id="dbtcrdYES" value="Y"
+															class="form-check-input"> <label class="form-check-label"
+															for="dbt_crd"> Yes</label>
+													</div>
+													<div class="form-check-inline ">
+														<input type="radio" name="dbt_crd" class="form-check-input"
+															id="dbtcrdNO" value="N" checked>
+														<label class="form-check-label " for="dbt_crd"> No </label>
+													</div>
+												</div>
+
+												<label class="col-sm-2 control-label "
+													style="font-size: 15px;font-weight: 500;" for="userName">Internet
+													Banking</label>
+
+												<!-- <div class="col-sm-3">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input"
+															id="customSwitches"> <label
+															class="custom-control-label" for="customSwitches"></label>
+													</div>
+													<a href="#" id="RoamAlert"><span
+														class="fa fa-info-circle" value="Y" id="checkbox"
+														style="margin-top: -18px; font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+
+													</a>
+												</div> -->
+												<div class="col-sm-2">
+													<div class="form-check-inline  ">
+														<label class="form-check-label" for="int_bnkg"> <input
+																type="radio" class="form-check-input " id="IntbnkgYES"
+																name="int_bnkg" value="Y">Yes
+														</label>
+													</div>
+													<div class="form-check-inline -3">
+														<label class="form-check-label " for="int_bnkg"> <input
+																type="radio" class="form-check-input" id="IntbnkgNO"
+																name="int_bnkg" value="N" checked>No
+														</label>
+													</div>
+												</div>
+											</div>
+											<label></label>
+											<div class="row formline" style="margin-left: 100px;">
+
+												<label class="col-sm-2 control-label "
+													style="font-size: 15px;font-weight: 500;" for="userId">Mobile
+													Banking</label>
+
+												<!-- <div class="col-sm-3">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input"
+															id="customSwitches"> <label
+															class="custom-control-label" for="customSwitches"></label>
+													</div>
+													<a href="#" id="RoamAlert"><span
+														class="fa fa-info-circle" value="Y" id="checkbox"
+														style="margin-top: -18px; font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+
+													</a>"roamingNO"
+												</div> -->
+												<div class="col-sm-2">
+													<div class="form-check-inline  ">
+														<label class="form-check-label" for="mob_bnkg"> <input
+																type="radio" class="form-check-input " id="mblbnkgYES"
+																name="mob_bnkg" value="Y">Yes
+														</label>
+													</div>
+													<div class="form-check-inline -3">
+														<label class="form-check-label " for="mob_bnkg"> <input
+																type="radio" class="form-check-input" id="mblbnkgNO"
+																name="mob_bnkg" value="N" checked>No
+														</label>
+													</div>
+												</div>
+
+												<label class="col-sm-2 control-label "
+													style="font-size: 15px;font-weight: 500;" for="userName">Document
+													Archival</label>
+
+												<!-- <div class="col-sm-3">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input"
+															id="customSwitches"> <label
+															class="custom-control-label" for="customSwitches"></label>
+													</div>
+													<a href="#" id="DocArch"><span
+														class="fa fa-info-circle" value="Y" id="checkbox"
+														style="margin-top: -18px; font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+
+													</a>
+												</div> -->
+												<div class="col-sm-2">
+													<div class="form-check-inline  ">
+														<label class="form-check-label" for="doc_arch"> <input
+																type="radio" class="form-check-input " id="doc_arch"
+																name="doc_arch" value="Y">Yes
+														</label>
+													</div>
+													<div class="form-check-inline -3">
+														<label class="form-check-label " for="doc_arch"> <input
+																type="radio" class="form-check-input" id="doc_arch"
+																name="doc_arch" value="N" checked>No
+														</label>
+													</div>
+												</div>
+
+
+
+												<label class="col-sm-2 control-label "
+													style="font-size: 15px;font-weight: 500;" for="userName">Upload
+													Signature</label>
+
+												<!-- <div class="col-sm-3">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input"
+															id="customSwitches"> <label
+															class="custom-control-label" for="customSwitches"></label>
+													</div>
+													<a href="#" id="UploadSign"><span
+														class="fa fa-info-circle" value="Y" id="checkbox"
+														style="margin-top: -18px; font-size: 25px; color: #495561; float: right; margin-right: 64px; cursor: pointer; display: inline-block;"></span>
+													</a>
+												</div> -->
+												<div class="col-sm-2">
+													<div class="form-check-inline  ">
+														<label class="form-check-label" for="doc_arch"> <input
+																type="radio" class="form-check-input " id="upl_sign"
+																name="upl_sign" value="Y">Yes
+														</label>
+													</div>
+													<div class="form-check-inline -3">
+														<label class="form-check-label " for="doc_arch"> <input
+																type="radio" class="form-check-input" id="upl_sign"
+																name="upl_sign" value="N" checked>No
+														</label>
+													</div>
+												</div>
+											</div>
+											<label></label>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center">
+									<div>
+
+										<button Style="width: 100px; height: 25px;"
+											type="button" class="btn btn-xs btn-primary" id="Dashboard"
+											onclick="contentLoad(this)">Home</button>
+
+										<button Style="width: 100px; height: 25px;"
+											th:if="${formmode}=='view'" type="submit" class="btn btn-xs btn-primary"
+											th:attr="data-formmode=${formmode}" id="btnSubmit"
+											onclick="submitform()">Submit </button>
+
+										<button Style="width: 100px; height: 25px;"
+											type="button" class="btn btn-xs btn-primary" id="btnback"
+											onclick="back();">Back</button>
+									</div>
+
+								</div>
+							</div>
+							<div class="container">
+								<div class="modal fade" id="myModal">
+									<div class=" modal-dialog modal-lg">
+										<div class="modal-content">
+
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">Issue Check Book</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+
+											<!-- Modal body -->
+											<div class="modal-body">
+												<div class="row formline">
+
+													<label class="col-sm-2">Account Number </label>
+													<div class="col-sm-3">
+														<input type="text" id="appl_ref_no_ACC_ISS"
+															th:value="${OtherSerView?.appl_ref_no}"
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Cheque book type</label>
+													<div class="col-sm-3">
+														<select id="che_bk_typ" name="che_bk_typ"
+															class="form-control form-control-sm" autocomplete="off"
+															onchange="option()" required
+															th:readonly="${formmode}=='view'">
+															<option value="">Select</option>
+															<option value="Personal">Personal</option>
+															<option value="Normal">Normal</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+												<label></label>
+
+
+												<div class="row formline">
+
+
+													<label class="col-sm-2">No.Of Cheque Leaves</label>
+													<div class="col-sm-3">
+														<input type="text" id="no_che_lvs" name="no_che_lvs"
+															maxlength="10" value="" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">No.Of Leaves in a Book</label>
+													<div class="col-sm-3">
+														<input type="text" id="no_che_lvs_bk" name="no_che_lvs_bk"
+															value="" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+
+												<label></label>
+
+												<div class="row formline">
+													<label class="col-sm-2">Despatch Mode</label>
+													<div class="col-sm-3">
+														<input type="text" id="desp_mode" name="desp_mode" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Delivery Sol Id</label>
+													<div class="col-sm-3">
+														<input type="text" id="del_sol_id" name="del_sol_id" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+												<label></label>
+
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Despatch Address</label>
+													<div class="col-sm-3">
+														<input type="text" id="desp_addr" name="desp_addr" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Name in The Cheque Book</label>
+													<div class="col-sm-3">
+														<input type="text" id="name_in_che_bk" name="name_in_che_bk"
+															value="" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+												<label></label>
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Service Status</label>
+													<div class="col-sm-3">
+														<input type="text" id="serv_sts" name="serv_sts" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Remarks</label>
+													<div class="col-sm-3">
+														<input type="text" id="remks" name="remks" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+
+											</div>
+
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal"
+													onclick="Close();">Close</button>
+												<button type="button" class="btn btn-secondary" data-dismiss="modal"
+													onclick="submitformIss()">Submit ISS</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<!---------------------------------- caller tune model ends ------------------------------->
+							<!-- ----------------------------ADVERTISING SMS STARTS --------------------------------------->
+							<div class="container">
+								<!-- The Modal -->
+								<div class="modal fade" id="myModal1">
+									<div class=" modal-dialog modal-lg">
+										<div class="modal-content">
+
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">Card Details</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+
+											<!-- Modal body -->
+											<div class="modal-body">
+												<div class="row formline">
+
+													<label class="col-sm-2">Card Type </label>
+													<div class="col-sm-3">
+														<input type="text" id="crd_typ" name="crd_typ" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Card Sub Type</label>
+													<div class="col-sm-3">
+														<input type="text" id="crd_sub_typ" name="crd_sub_typ" value=""
+															class="form-control form-control-sm" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+												<label></label>
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Name in the Card</label>
+													<div class="col-sm-3">
+														<input type="text" id="name_in_crd" name="name_in_crd" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Mother`s Maiden Name</label>
+													<div class="col-sm-3">
+														<input type="text" id="mom_maidn_name" name="mom_maidn_name"
+															value="" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+
+												<label></label>
+
+												<div class="row formline">
+													<label class="col-sm-2">Card Number</label>
+													<div class="col-sm-3">
+														<input type="text" id="crd_num" name="crd_num" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Card Limit</label>
+													<div class="col-sm-3">
+														<input type="text" id="crd_limt" name="crd_limt" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+												<label></label>
+
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Despatch Mode</label>
+													<div class="col-sm-3">
+														<input type="text" id="cd_desp_mode" name="cd_desp_mode"
+															value="" maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2"> Delivery SOL</label>
+													<div class="col-sm-3">
+														<input type="text" id="delvry_sol" name="delvry_sol" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+												<label></label>
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Card Status</label>
+													<div class="col-sm-3">
+														<input type="text" id="crd_sts" name="crd_sts" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Remarks</label>
+													<div class="col-sm-3">
+														<input type="text" id="deb_crd_remks" name="deb_crd_remks"
+															value="" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+											</div>
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal"
+													onclick="Close();">Close</button>
+												<button type="button" class="btn btn-secondary"
+													onclick="submitformIss()" data-dismiss="modal">Submit</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ----------------------------ADVERTISING SMS ENDS --------------------------------------->
+							<!-- ----------------------------BANKING SMS STARTS --------------------------------------->
+
+							<div class="container">
+								<!-- Button to Open the Modal -->
+								<!-- The Modal -->
+								<div class="modal fade" id="myModal2">
+									<div class=" modal-dialog modal-lg">
+										<div class="modal-content">
+
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">Internet Banking</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+
+											<!-- Modal body -->
+											<div class="modal-body">
+												<div class="row formline">
+
+													<label class="col-sm-2">Account Number</label>
+													<div class="col-sm-3">
+														<input type="text" id="appl_ref_no"
+															th:value="${OtherSerView?.appl_ref_no}"
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">CIF Number</label>
+													<div class="col-sm-3">
+														<input type="text" id="cif_id"
+															th:value="${OtherSerView?.cif_id}"
+															class="form-control form-control-sm" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+												<label></label>
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Branch Code</label>
+													<div class="col-sm-3">
+														<input type="text" id="brch_code" name="brch_code" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Country</label>
+													<div class="col-sm-3">
+														<input type="text" id="cntry" name="cntry" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+
+												<label></label>
+
+												<div class="row formline">
+													<label class="col-sm-2">Registered Mobile No</label>
+													<div class="col-sm-3">
+														<input type="text" id="reg_mob_no" name="reg_mob_no" value=""
+															maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Facility Required</label>
+													<div class="col-sm-3">
+														<select id="fac_rec" name="fac_rec"
+															class="form-control form-control-sm" autocomplete="off"
+															onchange="option()" required
+															th:readonly="${formmode}=='view'">
+															<option value="">Select Transaction Rights</option>
+															<option value="Full Transaction Rights">Full Transaction
+																Rights</option>
+															<option value="Limited Transaction Rights">Limited
+																Transaction Rights</option>
+															<option value="View Rights">View Rights</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+												<label></label>
+
+
+												<!-- Modal footer -->
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal"
+														onclick="Close();">Close</button>
+													<button type="button" class="btn btn-secondary"
+														onclick="submitformIss()" data-dismiss="modal">Submit</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- ----------------------------BANKING SMS ENDS --------------------------------------->
+							<!-- ----------------------------ROAMING ALERT STARTS --------------------------------------->
+							<div class="container">
+								<!-- The Modal -->
+								<div class="modal fade" id="myModal3">
+									<div class=" modal-dialog modal-lg">
+										<div class="modal-content">
+
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">Mobile Banking</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+
+											<!-- Modal body -->
+											<div class="modal-body">
+												<div class="row formline">
+
+													<label class="col-sm-2">Account Number Mob</label>
+													<div class="col-sm-3">
+														<input type="text" id="appl_ref_no_ACC_MOB"
+															th:value="${OtherSerView?.appl_ref_no}"
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">CIF Number</label>
+													<div class="col-sm-3">
+														<input type="text" id="appl_ref_no_CIF"
+															th:value="${OtherSerView?.appl_ref_no}"
+															class="form-control form-control-sm" required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+												<label></label>
+												<div class="row formline">
+
+
+													<label class="col-sm-2">Branch Code</label>
+													<div class="col-sm-3">
+														<input type="text" id="mob_brch_code" name="mob_brch_code"
+															value="" maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Country</label>
+													<div class="col-sm-3">
+														<input type="text" id="mob_cntry" name="mob_cntry" value=""
+															class="form-control form-control-sm" autocomplete="off"
+															required />
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+
+
+												<label></label>
+
+												<div class="row formline">
+													<label class="col-sm-2">Registered Mobile No</label>
+													<div class="col-sm-3">
+														<input type="text" id="mob_reg_mob_no" name="mob_reg_mob_no"
+															value="" maxlength="10" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+													<div class="col-sm-1"></div>
+
+
+													<label class="col-sm-2">Facility Required</label>
+													<div class="col-sm-3">
+														<select id="mob_fac_rec" name="mob_fac_rec"
+															class="form-control form-control-sm" autocomplete="off"
+															onchange="option()" required
+															th:readonly="${formmode}=='view'">
+															<option value="">Select Transaction Rights</option>
+															<option value="Full Transaction Rights">Full Transaction
+																Rights</option>
+															<option value="Limited Transaction Rights">Limited
+																Transaction Rights</option>
+															<option value="View Rights">View Rights</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+												</div>
+												<label></label>
+
+
+												<!-- Modal footer -->
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal"
+														onclick="Close();">Close</button>
+													<button type="button" class="btn btn-secondary"
+														onclick="submitformIss()" data-dismiss="modal">Submit mob</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ----------------------------ROAMING ALERT ENDS ---------------------------------------> -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 17-09-24
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+
+			font-family: Arial, sans-serif;
+
+		}
+
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.table-responsive {
+			max-height: 650px;
+			overflow-y: auto;
+
+		}
+
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		thead {
+			position: sticky;
+			top: 0;
+			background-color: #f9f9f9;
+			z-index: 10;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+	</style>
+
+
+	<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		$(function () {
+			$(
+				"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
+				.datepicker({
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					changeYear: true
+
+				});
+		});
+	</script>
+	<script>
+		function add() {
+
+			location.href = './assosiateProfile?formmode=add';
+		}
+
+		function list() {
+
+			location.href = './assosiateProfile?formmode=list';
+		}
+
+
+	</script>
+
+	<script>
+		function assosiateVerifySub() {
+
+			var id = document.getElementById('resource_id').value;
+			alert(id);
+
+			$.ajax({
+				url: './assosiateVerify',
+				data: $("#assosiateFormverify").serialize(),
+				type: 'POST',
+				success: function (data) {
+					alert(data);
+					location.href = './assosiateProfile?formmode=list';
+				}
+
+			});
+
+		}
+
+
+	</script>
+
+
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Budjet Maintanance List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">KYC HISTORY</h6>
+							</div>
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="placelist" class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;">
+									<thead class="thead-light">
+
+										<tr>
+
+
+											<th style="text-align: left;width: 14%;">PRI SOL ID</th>
+											<th style="text-align: left;width:14%;">CUSTOMER ID</th>
+											<th style="text-align: left;width: 14%;">CUSTOMER NAME</th>
+											<th style="text-align: left;width: 14%;">CUST OPEN DATE</th>
+											<th style="text-align: left;width: 14%;">LAST KYC DATE</th>
+											<th style="text-align: left;width: 14%;">KYC REV DATE</th>
+											<th style="text-align: left;">MAINTAIN</th>
+											
+								
+
+										</tr>
+									</thead>
+
+									<tbody id="placelist">
+
+										<tr>
+											<td colspan="8"></td>
+										</tr>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #e9ecef;">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+
+				</div>
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>

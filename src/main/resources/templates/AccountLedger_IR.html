@@ -1,0 +1,1195 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 17-09-24
+-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<!--moment.js-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+
+
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.table-responsive {
+	max-height: 600px;
+	overflow-y: auto;
+}
+
+.table-responsive1 {
+	max-height: 420px;
+	overflow-y: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+thead {
+	top: 0;
+	background-color: #f9f9f9;
+	z-index: 10;
+}
+
+th, td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+</style>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function Home() {
+			location.href = 'Dashboard'
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		function enquiryuser(a) {
+			var acct_num = a.getAttribute("data-attr");
+			console.log(acct_num);
+			location.href = 'accountLedger2?formmode=view&acct_num='
+				+ acct_num;
+		}
+
+		$(function () {
+			$("#fromdate").datepicker({
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: "dd-mm-yy",
+				maxDate: 0,
+				onSelect: function (selected) {
+					var dt = $(this).datepicker('getDate');
+					if (dt) {
+						dt.setDate(dt.getDate());
+						$("#todate").datepicker("option", "minDate", dt);
+					}
+				}
+			});
+
+			$("#todate").datepicker({
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: "dd-mm-yy",
+				maxDate: 0,
+				onSelect: function (selected) {
+					var fromdate = $("#fromdate").val();
+					var todate = $("#todate").val();
+
+					if (!fromdate) {
+						alert("Enter From date");
+					} else {
+						funcall();
+					}
+				}
+			});
+		});
+
+	</script>
+
+
+<style>
+/* Hide the "Part Tran Id" and "Test" columns */
+.part-tran-id-col, .test-col {
+	display: none;
+}
+</style>
+<script>
+		function formatDecimal(value, decimalPlaces) {
+			return parseFloat(value).toFixed(decimalPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+		function formatDate(dateString) {
+			let date = new Date(dateString);
+			let day = String(date.getDate()).padStart(2, '0'); // Add leading zero if necessary
+			let month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+			let year = date.getFullYear();
+			return `${day}-${month}-${year}`;
+		}
+
+
+
+
+		var globalBalance1 = 0.00;
+
+
+
+		function funcall() {
+
+			updateMinusDate();
+
+
+			var acctnum = $('#acct_num').val();
+			var fromdate = $('#fromdate').val();
+			var todate = $('#todate').val();
+
+			// Validate account number and date fields
+			if (!acctnum) {
+				alert("Account number is required");
+				return;
+			}
+			if (!fromdate || !todate) {
+				alert("Both From and To dates are required");
+				return;
+			}
+
+			// Hide the initial table and show a loading message
+			$('#list1').hide();
+			$('#loadingMessage').show();  // Show loading message
+
+			// Inside the success function after the balanceData fetch
+			$.ajax({
+				url: './getTransactionBalance',  // API endpoint for balance
+				type: 'GET',
+				data: {
+					acctnum: acctnum,
+					fromdate: fromdate
+				},
+				success: function (balanceData) {
+
+
+					if (balanceData !== undefined && balanceData !== null) {
+						let Tranbalance = balanceData;
+						let formattedBalance = formatDecimal(Tranbalance, 2);
+						$('#TranBalance').val(formattedBalance);
+					} else {
+						console.warn("Balance data is invalid or missing.");
+						$('#TranBalance').val('0.00');
+					}
+
+					// Second AJAX call to get transaction records
+					$.ajax({
+						url: './getTransactionRecords',
+						type: 'GET',
+						data: {
+							acctnum: acctnum,
+							fromdate: fromdate,
+							todate: todate
+						},
+						success: function (data) {
+							console.log("datadatadatadata", data);
+
+							// Clear the existing table rows
+							var tableBody = document.getElementById("transactionBody");
+							tableBody.innerHTML = '';  // Remove all old rows
+
+							// Generate the new row for Previous Date and Opening Balance
+							let previousDate = $('#minusdate').val();
+							let openingBalance = $('#TranBalance').val();
+
+							// Check if openingBalance is NaN or invalid and default to 0.00 if necessary
+							if (isNaN(parseFloat(openingBalance))) {
+								openingBalance = '0.00';  // Default value if it's NaN
+							}
+
+							// Create the header row with previous date and opening balance
+							let headerHTML = `
+                        <tr>
+                            <td colspan="1">${previousDate}</td>
+                            <td colspan="7"><strong>Opening Balance: </strong>${openingBalance}</td>
+                        </tr>`;
+
+							// Add the header row to the table body
+							tableBody.innerHTML = headerHTML;
+
+							let transactions = [];
+							// Generate new rows for the fetched transaction data
+							let trHTML = '';
+							data.forEach(function (records) {
+								let formattedDate = records.tran_date ? formatDate(records.tran_date) : '';
+								let debitAmount = (records.part_tran_type === 'Debit') ? parseFloat(formatDecimal(records.tran_amt, 2).replace(/,/g, '')) : 0.00;
+								let creditAmount = (records.part_tran_type === 'Credit') ? parseFloat(formatDecimal(records.tran_amt, 2).replace(/,/g, '')) : 0.00;
+								let tran = (records.tran_id || '') + "/" + (records.part_tran_id || '');
+								let balance = getBalanceFromAlert(formattedAlertMessage, tran);
+
+
+								// Remove the minus sign from the balance by using its absolute value
+								let absoluteBalance = Math.abs(balance);
+								globalBalance1 = balance;
+								// Determine the indicator based on the balance value
+								let indicator = '';
+								if (balance < 0) {
+									indicator = 'DR';  // Debit if balance is negative
+								} else if (balance >= 0) {
+									indicator = 'CR';  // Credit if balance is positive
+								}
+
+								// Generate the row with formatted date, debit, credit, balance (without minus), and indicator columns
+								trHTML += `
+                            <tr>
+                                <td>${formattedDate}</td>
+                                <td>${tran}</td>
+                                <td>${(records.tran_particular || '')}</td>
+                                <td>${(records.acct_crncy || '')}</td>
+                                <td style="text-align:right">${formatDecimal(debitAmount, 2)}</td>
+                                <td style="text-align:right">${formatDecimal(creditAmount, 2)}</td>
+                                <td style="text-align:right">${formatDecimal(balance, 2)}</td>
+                                <td>${indicator}</td>
+                            </tr>`;
+
+
+
+
+								transactions.push({tran, balance});
+								console.log("transactions transactions transactions" + transactions);
+
+								/* const downloadButton2 = document.getElementById('downloadButton2');
+							    
+								downloadButton2.addEventListener('click', function() {
+										sendFilteredDataToBackend(transactions); // Send transactions on button click
+									}); */
+							});
+
+							// Add the new rows to the table body
+							tableBody.innerHTML += trHTML;
+							$('#loadingMessage').hide();
+							$('#transactionTable').show();
+
+						},
+						error: function (error) {
+							alert("Error occurred: " + error.responseText);
+							$('#loadingMessage').hide();  // Hide loading message on error
+						}
+					});
+
+
+				},
+				error: function (error) {
+					alert("Error occurred while fetching balance: " + error.responseText);
+					$('#loadingMessage').hide();  // Hide loading message on error
+				}
+			});
+
+		}
+
+
+
+		//Function to extract balance from alert message
+		function getBalanceFromAlert(alertMessage, tran) {
+			// Find the start index of the relevant section
+			let startIndex = alertMessage.indexOf(`Column 2: ${tran}`);
+
+			if (startIndex !== -1) {
+				let balanceText = alertMessage.substring(startIndex);
+
+				let balanceStartIndex = balanceText.indexOf("Updated Balance: ");
+
+				if (balanceStartIndex !== -1) {
+					balanceText = balanceText.substring(balanceStartIndex + "Updated Balance: ".length);
+					let balanceEndIndex = balanceText.indexOf("\n");
+					if (balanceEndIndex === -1) {
+						balanceEndIndex = balanceText.length;
+					}
+					return parseFloat(balanceText.substring(0, balanceEndIndex).replace(/,/g, ''));
+				}
+			}
+			return 0;
+		}
+
+		let globalBalance = 0;
+		let formattedAlertMessage = ''; // Global variable to store the formatted alert message
+
+		document.addEventListener("DOMContentLoaded", function () {
+			let rows = document.querySelectorAll("#listvalues tr");
+			let balance = 0;
+
+			rows.forEach(row => {
+				// Extract values from columns 1 to 7
+				let tran = row.querySelector("td:nth-child(1)").innerText.trim();
+				let col2 = row.querySelector("td:nth-child(2)").innerText.trim();
+				let col3 = row.querySelector("td:nth-child(3)").innerText.trim();
+				let col4 = row.querySelector("td:nth-child(4)").innerText.trim();
+				let credit = parseFloat(row.querySelector("td:nth-child(5)").innerText.replace(/,/g, '')) || 0;
+				let debit = parseFloat(row.querySelector("td:nth-child(6)").innerText.replace(/,/g, '')) || 0;
+
+				// Update the running balance
+				balance = balance + credit - debit;
+
+				// Format the alert message for this row
+				let message = `Transaction: ${tran}\n` +
+					`Column 2: ${col2}\n` +
+					`Column 3: ${col3}\n` +
+					`Column 4: ${col4}\n` +
+					`Credit: ${credit}\n` +
+					`Debit: ${debit}\n` +
+					`Updated Balance: ${formatDecimal(balance, 2)}`;
+
+				// Store the message in the global variable
+				formattedAlertMessage += message + '\n\n';  // Append each message with a newline for separation
+
+				// Set the balance in the last column with formatted number
+				row.querySelector(".balancelist").innerText = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(balance);
+			});
+
+			// Store the final balance in the global variable
+			globalBalance = balance;
+		});
+
+
+		function updateMinusDate() {
+			var fromDateStr = $('#fromdate').val().trim();
+
+
+
+			if (!fromDateStr) {
+				console.warn("From Date is not set.");
+				return;
+			}
+
+			// Try to parse the From Date using moment.js with the DD-MM-YYYY format
+			var fromDate = moment(fromDateStr, 'DD-MM-YYYY', true);
+
+			if (!fromDate.isValid()) {
+				console.error("Invalid From Date format. Expected format: DD-MM-YYYY.");
+				return;
+			}
+
+			// Subtract one day
+			fromDate.subtract(1, 'days');
+
+			// Format the date to DD-MM-YYYY
+			var formattedDate = fromDate.format('DD-MM-YYYY');
+
+			// Set the value of the Minus Date input field
+			$('#minusdate').val(formattedDate);
+		}
+
+
+		$('#TranBalance').val(formattedBalance);
+		$('#minusdate').val(previousDate);
+
+
+		function downloadFile(fileType) {
+
+
+			var a = document.getElementById("acct_num").value;
+			var b = document.getElementById("fromdate").value;
+			var c = document.getElementById("todate").value;
+			alert(a + b + c);
+			location.href = 'accountledgerdownload?filetype=' + fileType + '&acct_num=' + a + '&fromdate=' + b + '&todate=' + c + '&globalBalance1=' + globalBalance1;
+		}
+
+
+		//Example of a filtered transaction list with calculated balance
+
+		//Send the data to the backend
+		/* fetch('/generateReport', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ transactions: filteredTransactions })
+		}).then(response => response.json())
+		.then(data => {
+		  console.log('Report generated:', data);
+		}); */
+
+
+
+
+		function sendFilteredDataToBackend(transactions) {
+			console.log("transactionstransactionstransactions2222222222222" + transactions)
+			$.ajax({
+				url: 'generateReport',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({transactions: transactions}), // Send the transactions as JSON
+				success: function (response) {
+					console.log('Transactions successfully sent to backend');
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.error('Error sending transactions:', textStatus, errorThrown);
+				}
+			});
+		}
+
+		function navigate(a) {
+			var navi = a.getAttribute('data-resource');
+/* 			alert(navi)
+ */			var parts = navi.split('/');
+			var navi1 = parts[0];
+/* 			alert(navi1)
+ */			var navi2 = parts[1];
+/* alert(navi2)
+ */			var acctnum = a.getAttribute('data-resource1');
+/* 			alert(acctnum)
+ */
+			var url = 'journalEntries?formmode=view&tran_id=' + navi1
+				+ '&part_tran_id=' + navi2 + '&acct_num=' + acctnum;
+			 
+
+		location.href = url;
+		}
+
+
+	</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Account Ledger List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+					<div class="panel panel-primary filterable">
+						<div class="card w-100 border panel panel-primary filterable">
+
+							<div class="card-header"
+								style="background-color: #e9ecef; height: 50px">
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">ACCOUNT
+										LEDGER - LIST</h6>
+								</div>
+								<div class="float-right">
+									<button type="button"
+										class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
+								</div>
+							</div>
+
+
+
+
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table  table-bordered table-hover table-sm"
+										style="margin-bottom: 0px; font-size: initial;" id="usertable">
+										<thead class="thead-light">
+											<tr class="filters">
+												<th style="width: 8%"><input type="text"
+													class="form-control font-weight-bold" placeholder="Head"
+													disabled></th>
+												<th><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Acct Num" disabled></th>
+												<th style="width: 35%"><input type="text"
+													class="form-control font-weight-bold"
+													placeholder="Acct Name" disabled></th>
+												<th><input type="text"
+													class="form-control font-weight-bold" placeholder="Cur"
+													disabled></th>
+												<th style="text-align: right"><input type="text"
+													style="text-align: right"
+													class="form-control font-weight-bold" placeholder="Credits"
+													disabled></th>
+												<th style="text-align: right"><input type="text"
+													style="text-align: right"
+													class="form-control font-weight-bold" placeholder="Debits"
+													disabled></th>
+												<th style="text-align: right"><input type="text"
+													style="text-align: right"
+													class="form-control font-weight-bold" placeholder="Balance"
+													disabled></th>
+												<th><input type="text"
+													class="form-control font-weight-bold" placeholder="Status"
+													disabled></th>
+												<th style="width: 8%"><input type="text"
+													style="text-align: center"
+													class="form-control font-weight-bold" placeholder="Action"
+													disabled readonly></th>
+												<!-- <th style="font-weight: bold; font-size: 16px; width: 8%">ACTION</th> -->
+											</tr>
+
+										</thead>
+										<tbody id="placelist">
+											<tr th:each="chartacc : ${chartaccount}">
+												<td th:text="${chartacc?.classification}"></td>
+												<td th:text="${chartacc?.acct_num}"></td>
+												<td th:text="${chartacc?.acct_name}"></td>
+												<td th:text="${chartacc?.acct_crncy}"></td>
+
+												<td
+													th:text="${chartacc?.cr_amt == 0 ? '0.00' :#numbers.formatDecimal(chartacc?.cr_amt, 0, 'COMMA', 2, 'POINT')}"
+													style="text-align: right;"></td>
+												<td
+													th:text="${chartacc?.dr_amt == 0 ? '0.00' :#numbers.formatDecimal(chartacc?.dr_amt, 0, 'COMMA', 2, 'POINT')}"
+													style="text-align: right;"></td>
+												<td
+													th:text="${chartacc?.acct_bal == 0 ? '0.00' :#numbers.formatDecimal(chartacc?.acct_bal, 0, 'COMMA', 2, 'POINT')}"
+													style="text-align: right;"></td>
+												<th:block th:switch="${chartacc.entity_flg}">
+													<td th:case="'Y'" style="color: green;">Active</td>
+													<td th:case="'N'" style="color: red;">UnActive</td>
+												</th:block>
+
+												<td style="text-align: center;"><input type="radio"
+													id="btnEnquiry" name="btnradio" style="cursor: pointer;"
+													th:attr="data-attr=${chartacc?.acct_num}"
+													onclick="enquiryuser(this);"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+				<!-- ------------------------------------Account Ledger view---------------------------------- -->
+				<div th:if="${formmode}=='view'">
+
+
+					<div class="card w-100 border">
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">ACCOUNT LEDGER - VIEW</h6>
+							</div>
+
+						</div>
+						<div class="card-body">
+							<form action="#" id="" th:object="${Accountvalue}">
+								<div class="row formline"
+									style="padding: 0px 0px 2px 0px; margin-left: -130px">
+									<div class="col-sm-1"></div>
+
+									<div class="col-sm-2">Acct Num</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_num" id="acct_num"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.acct_num}" readonly />
+									</div>
+
+									<div class="col-sm-1">Acct Name</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_name" id="acct_name"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.acct_name}" readonly />
+									</div>
+									<div class="col-sm-2">Acct CCY</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_crncy" id="acct_crncy"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.acct_crncy}" readonly />
+									</div>
+								</div>
+
+								<div class="row formline"
+									style="padding: 0px 0px 2px 0px; margin-left: -130px">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Acct Bal</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_bal" id="acct_bal"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${#numbers.formatDecimal(chartaccount?.acct_bal, 1, 2)}"
+											readonly />
+									</div>
+									<div class="col-sm-1">Gen Led</div>
+									<div class="col-sm-2">
+										<input type="text" name="gl_code" id="gl_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.gl_code}" readonly />
+									</div>
+									<div class="col-sm-2">GL Des</div>
+									<div class="col-sm-2">
+										<input type="text" name="gl_desc" id="gl_desc"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.gl_desc}" readonly />
+									</div>
+								</div>
+
+								<div class="row formline"
+									style="padding: 0px 0px 2px 0px; margin-left: -130px">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">GL Sub Head</div>
+
+									<div class="col-sm-2">
+										<input type="text" name="glsh_code" id="glsh_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.glsh_code}" readonly />
+
+									</div>
+									<div class="col-sm-1">GLSH Des</div>
+									<div class="col-sm-2">
+										<input type="text" name="glsh_desc" id="glsh_desc"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.glsh_desc}" readonly />
+									</div>
+									<div class="col-sm-2">Account Currency</div>
+									<div class="col-sm-2">
+										<input type="text" name="ref_crncy" id="ref_crncy"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.ref_crncy}" readonly />
+									</div>
+
+
+
+								</div>
+
+								<div class="row formline"
+									style="padding: 0px 0px 2px 0px; margin-left: -130px">
+									<div class="col-sm-1"></div>
+
+
+									<div class="col-sm-2">Home Currency Bal</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id=""
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+									<!-- <div class="col-sm-1">Acct Type</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_type" id="acct_type"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.acct_type == 'A' ? 'Asset' 
+             						 : chartaccount?.acct_type == 'L' ? 'Liability'
+              							: chartaccount?.acct_type == 'I' ? 'Income'
+              						: chartaccount?.acct_type == 'E' ? 'Expense'
+            							  : chartaccount?.acct_type}"
+											readonly />
+									</div> -->
+
+									<div class="col-sm-1">Acct Open Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="fromdate" id="opendate"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+									<div class="col-sm-2">Acct Close Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="todate" id="closedate"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+								</div>
+								<!-- <div class="row formline" style="padding: 0px 0px 2px 0px;margin-left: -130px">
+									<div class="col-sm-1"></div>
+
+
+									<div class="col-sm-2">From Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="fromdate" id="fromdate"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+									<div class="col-sm-1">To Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="todate" id="todate"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+								</div> -->
+								<div class="row formline"
+									style="padding: 0px 0px 2px 0px; margin-left: -130px">
+									<div class="col-sm-1"></div>
+
+									<div class="col-sm-2">From Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="fromdate" id="fromdate"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+									<div class="col-sm-1">To Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="todate" id="todate"
+											th:value="${#dates.format(TRANDATE, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+									<div class="col-sm-2">Acct Status</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_status" id="acct_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${chartaccount?.acct_status == 'Y' ? 'ACTIVE' :
+											chartaccount?.acct_status == 'ACTIVE' ? 'ACTIVE' : 'INACTIVE' }"
+											readonly />
+									</div>
+
+								</div>
+							</form>
+						</div>
+
+						<!-- ----------------------------------------------------------------------------------------------------- -->
+						<div class="card-body p-2">
+							<div class="table-responsive mt-4">
+								<table class="table table-bordered table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="list1">
+									<thead class="thead-light">
+										<tr class="filters">
+											<th>Tran Date</th>
+											<th>Tran Id</th>
+											<th>Tran Particulars</th>
+											<th>Currency</th>
+											<th style="text-align: right">Credits</th>
+											<th style="text-align: right">Debits</th>
+											<th style="text-align: right">Balance</th>
+
+										</tr>
+									</thead>
+
+									<tbody id="listvalues">
+										<tr th:if="${#lists.isEmpty(dataList)}">
+											<td colspan="7" style="text-align: center;">No records</td>
+										</tr>
+										<tr th:each="data : ${dataList}"
+											th:unless="${#lists.isEmpty(dataList)}">
+											<td th:text="${#dates.format(data[0], 'dd-MM-yyyy')}"
+												style="text-align: left;"></td>
+
+											<td><a href="#" th:text="${data[1]}"
+												style="text-align: left;" th:data-resource="${data[1]}"
+												,
+													th:data-resource1="${chartaccount?.acct_num}"
+												onclick="navigate(this)"></a></td>
+
+											<td th:text="${data[2]}"
+												style="width: 30%; text-align: left;"></td>
+											<td th:text="${data[3]}" style="text-align: left;"></td>
+											<td
+												th:text="${data[5]== 0 ? '0.00' :#numbers.formatDecimal(data[5], 0, 'COMMA', 2, 'POINT')}"
+												style="text-align: right;"></td>
+											<td
+												th:text="${data[6]== 0 ? '0.00' :#numbers.formatDecimal(data[6], 0, 'COMMA', 2, 'POINT')}"
+												style="text-align: right;"></td>
+											<td style="text-align: right;"><span class="balancelist"
+												th:text="0.00"></span></td>
+										</tr>
+									</tbody>
+
+								</table>
+
+							</div>
+						</div>
+						<!-- -------------------------------------------------------------------------------------- -->
+
+						<div id="loadingMessage" style="display: none;">Loading,
+							please wait...</div>
+
+						<div class="row formline" style="display: none;"
+							id="invisibledate">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2">Previous Date</div>
+							<div class="col-sm-2">
+								<input type="text" id="minusdate" class="form-control-sm"
+									readonly />
+							</div>
+
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2">Opening Balance</div>
+							<div class="col-sm-2">
+								<input class="form-control-sm" id="TranBalance" readonly />
+							</div>
+						</div>
+						<!-- Table to display transaction records -->
+						<table class="table table-bordered table-hover table-sm"
+							id="transactionTable"
+							style="margin-bottom: 0px; font-size: initial; display: none; margin-top: 20px;">
+							<thead class="thead-light">
+								<tr class="filters">
+									<th>Tran Date</th>
+									<th>Tran Id</th>
+									<th>Tran Particulars</th>
+									<th>Currency</th>
+									<th style="text-align: right">Debits</th>
+									<th style="text-align: right">Credits</th>
+									<th style="text-align: right">Balance</th>
+									<th>Indicator</th>
+								</tr>
+							</thead>
+							<tbody id="transactionBody">
+								<!-- This row is for Previous Date and Opening Balance -->
+								<tr>
+
+								</tr>
+							</tbody>
+						</table>
+						<!---------------------------------------------------------------------------------------------------->
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+	<!---------------------Modal Alerts------------------------------------------------------>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="normalalert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content"
+				style="position: fixed; left: 50%; bottom: 35%; right: 20%; transform: translate(-50%, 0%); width: 30%; height: 25%;">
+				<div class="modal-header">
+					<h5 class="modal-title">Alerts</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" onclick="$('#normalalert').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="normalalertmsg"></h6>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="$('#normalalert').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+<script>
+	
+	
+
+	function setFirstDate() {
+
+		// Get all date elements from the table (Tran Date column)
+		var dateElements = document.querySelectorAll('#list1 tbody tr td:nth-child(1)');
+
+		if (dateElements.length > 0) {
+			var firstDate = dateElements[0].textContent.trim(); 
+			
+			if(firstDate === "No records"){
+				document.getElementById('fromdate').value = document.getElementById('todate').value;
+			}else{
+				document.getElementById('fromdate').value = firstDate;
+			}
+		}
+
+		var today = new Date();
+		var day = String(today.getDate()).padStart(2, '0'); // Ensure two digits
+		var month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so +1
+		var year = today.getFullYear();
+
+		// Format date as 'dd-MM-yyyy'
+		var formattedDate = day + '-' + month + '-' + year;
+
+		// Set the current date in the 'todate' input field
+		//document.getElementById('todate').value = formattedDate;
+	}
+
+	window.onload = function () {
+		setFirstDate();
+	};
+
+	//Filter Table
+
+	$(document)
+		.ready(
+			function () {
+				$('.filterable .btn-filter')
+					.click(
+						function () {
+							var $panel = $(this).parents(
+								'.filterable'), $filters = $panel
+									.find('.filters input'), $tbody = $panel
+										.find('.table tbody');
+							if ($filters.prop('disabled') == true) {
+								$filters
+									.prop('disabled', false);
+								$filters.first().focus();
+							} else {
+								$filters.val('').prop(
+									'disabled', true);
+								$tbody.find('.no-result')
+									.remove();
+								$tbody.find('tr').show();
+							}
+						});
+
+				$('.filterable .filters input')
+					.keyup(
+						function (e) {
+							/* Ignore tab key */
+							var code = e.keyCode || e.which;
+							if (code == '9')
+								return;
+							/* Useful DOM data and selectors */
+							var $input = $(this), inputContent = $input
+								.val().toLowerCase(), $panel = $input
+									.parents('.filterable'), column = $panel
+										.find('.filters th')
+										.index($input.parents('th')), $table = $panel
+											.find('.table'), $rows = $table
+												.find('tbody tr');
+							/* Dirtiest filter function ever ;) */
+							var $filteredRows = $rows
+								.filter(function () {
+									var value = $(this)
+										.find('td').eq(
+											column)
+										.text()
+										.toLowerCase();
+									return value
+										.indexOf(inputContent) === -1;
+								});
+							/* Clean previous no-result if exist */
+							$table.find('tbody .no-result')
+								.remove();
+							/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+							$rows.show();
+							$filteredRows.hide();
+							/* Prepend no-result row if all rows are filtered */
+							if ($filteredRows.length === $rows.length) {
+								$table
+									.find('tbody')
+									.prepend(
+										$('<tr class="no-result text-center"><td colspan="'
+											+ $table
+												.find('.filters th').length
+											+ '">No result found</td></tr>'));
+							}
+						});
+			});
+</script>
+
+</html>

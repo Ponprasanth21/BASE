@@ -1,0 +1,1491 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 17-09-24
+-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tablinks {
+	background-color: #f1f1f1;
+	/* Default background color */
+	border: none;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.tablinks.active {
+	background-color: #2084a9;
+	color: white;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f2f2f2;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 56px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 0px;
+	border-top: 1px solid #ccc;
+}
+
+.active {
+	background-color: #2084a9;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+</script>
+<script>
+	function addHoliday() {
+		
+		location.href = './calendermaintenance?formmode=addholiday';
+
+	}
+	
+	function ListHoliday() {
+
+		location.href = './calendermaintenance?formmode=listholiday';
+	}
+
+	function ModifyHoliday() {
+
+		location.href = './calendermaintenance?formmode=ModifyHoliday';
+	}
+	
+	function UploadHoliday() {
+		
+		location.href = './calendermaintenance?formmode=UploadHoliday';
+
+	}
+</script>
+
+<script>
+	function view(a) {
+		var branch = a.getAttribute('data-resource');
+
+		location.href = './organizationDetails?formmode=view&branch_name='
+				+ branch;
+	}
+
+	function modify(a) {
+		var branch = a.getAttribute('data-resource');
+
+		location.href = './organizationDetails?formmode=modify&branch_name='
+				+ branch;
+	}
+
+	function openTab(evt, tabName) {
+
+		var tabcontent = document.getElementsByClassName("tabcontent");
+		for (let i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+		let tablinks = document.getElementsByClassName("tablinks");
+		for (let i = 0; i < tablinks.length; i++) {
+			tablinks[i].classList.remove("active");
+		}
+
+		document.getElementById(tabName).style.display = "block";
+		evt.currentTarget.classList.add("active");
+
+		//document.getElementById("submitBtn").style.display = (tabName === 'tab2') ? 'block' : 'none';
+	}
+
+	function AddSubmit() {
+
+		const branchName = document.getElementById("branch_name").value.trim();
+
+		if (branchName === "") {
+			$("#alertmsg1").text("Please fill out the Branch Name field.");
+			$('#alert1').modal("show");
+		} else {
+			$.ajax({
+				url : './OrgBranchAdd',
+				data : $("#assosiateForm1").serialize(),
+				type : 'POST',
+				success : function(data) {
+					$("#alertmsg").text(data);
+					$('#alert').modal("show");
+				}
+			});
+		}
+	}
+
+	function ModifyTab1Submit() {
+
+		$.ajax({
+			url : './tab1modify',
+			data : $("#tab1modify").serialize(),
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal("show");
+			}
+		});
+
+	}
+
+	function ModifyTab2Submit() {
+
+		$.ajax({
+			url : './tab2modify',
+			data : $("#tab2modify").serialize(),
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal("show");
+			}
+		});
+
+	}
+</script>
+
+<script>
+function submitexcelgst() {
+	event.preventDefault(); // Prevent default form submission behavior
+
+	var fileInput = document.getElementById('fileval');
+	console.log(fileInput);
+
+	// Check if a file is selected
+	if (fileInput && fileInput.files.length > 0) {
+		var file = fileInput.files[0];
+		//alert(file.name); // Alert with the file name
+
+		var formData = new FormData();
+		formData.append('file', file);
+
+		$.ajax({
+			url : './calenderuploadexcel',
+			data : formData,
+			type : 'POST',
+			contentType : false,
+			processData : false,
+			cache : false, // Disable cache to avoid potential issues
+			success : function(data) {
+				alert('File uploaded successfully: ' + data);
+				console.log("Successfully Upload")
+			},
+			error : function(xhr, status, error) {
+				alert('Error occurred while uploading file: ' + error);
+			}
+		});
+	} else {
+		alert('Please select a file before uploading.');
+	}
+}
+</script>
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Organization Main---------------------------------- -->
+
+
+				<div th:if="${formmode}=='add'">
+					<div class="card ">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">Calender
+									Maintenance</h6>
+							</div>
+
+						</div>
+
+						<div class="tab mt-2"
+							style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
+							<!-- Tab buttons -->
+							<button class="tablinks active " onclick="openTab(event, 'tab1')"
+								style="font-size: 16px; padding: 4px 8px; height: 32px;">Calender
+								Master</button>
+							<button class="tablinks" onclick="openTab(event, 'tab2')"
+								style="font-size: 16px; padding: 4px 8px; height: 32px;">Holiday
+								Master</button>
+
+
+						</div>
+
+						<div id="tab1" class="tabcontent" style="display: block">
+							<div class="card-body">
+								
+							</div>
+							<div class="card-footer text-center "
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+								<button class="btn btn-primary p-2" onclick="Modify();">Modify</button>
+								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+							</div>
+						</div>
+
+						<div id="tab2" class="tabcontent" style="display: none">
+							<div class="card-body">
+								<form class=" border border-secondary" action="#" method="post"
+									id="assosiateForm" autocomplete="off">
+									<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Organization</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Location</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Calendar Year</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Month</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Record No</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Description</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Remarks</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Holiday Flag</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Record Status</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="" id="" readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+								</form>
+
+							</div>
+							<div class="card-footer text-center "
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+								<button class="btn btn-primary p-2" onclick="addHoliday()">Add</button>
+								<button class="btn btn-primary p-2" onclick="UploadHoliday()">Upload</button>
+								<button class="btn btn-primary p-2" onclick="ModifyHoliday();">Modify</button>
+								<button class="btn btn-primary p-2" onclick="ListHoliday()">List</button>
+								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<!-- ------------------------------------Organization Modify---------------------------------- -->
+				<div th:if="${formmode}=='view'">
+					<div class="card ">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">BRANCH - VIEW</h6>
+							</div>
+
+						</div>
+
+						<div class="card-body">
+							<form class=" border border-secondary" action="#" method="post"
+								id="assosiateForm1" autocomplete="off">
+								<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Branch Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="branch_code" id="branch_code"
+											th:value="${OrgBranch?.branch_code}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Branch Name</div>
+									<div class="col-sm-2">
+										<input type="text" name="branch_name" id="branch_name"
+											th:value="${OrgBranch?.branch_name}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Branch Head</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="branch_head" id="branch_head"
+											th:value="${OrgBranch?.branch_head}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="designation" id="designation"
+											th:value="${OrgBranch?.designation}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Swift Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="swift_code" id="swift_code"
+											th:value="${OrgBranch?.swift_code}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Pic No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pic_no" id="pic_no"
+											th:value="${OrgBranch?.pic_no}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Land Line</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="land_line" id="land_line"
+											th:value="${OrgBranch?.land_line}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Fax</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="fax" id="fax"
+											th:value="${OrgBranch?.fax}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile</div>
+
+
+									<div class="col-sm-2">
+										<input type="number" name="mobile" id="mobile"
+											th:value="${OrgBranch?.mobile}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Contact Person</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person" id="cont_person"
+											th:value="${OrgBranch?.cont_person}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Web Site</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="website" id="website"
+											th:value="${OrgBranch?.website}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mail Id</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="mail_id" id="mail_id"
+											th:value="${OrgBranch?.mail_id}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="add_1" id="add_1"
+											th:value="${OrgBranch?.add_1}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+										<input type="text" name="add_2" id="add_2"
+											th:value="${OrgBranch?.add_2}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											th:value="${OrgBranch?.city}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+										<input type="text" name="state" id="state"
+											th:value="${OrgBranch?.state}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="country" id="country"
+											th:value="${OrgBranch?.country}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zip Code</div>
+									<div class="col-sm-2">
+										<input type="text" name="zip_code" id="zip_code"
+											th:value="${OrgBranch?.zip_code}" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+
+							</form>
+
+						</div>
+						<div class="card-footer text-center "
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode}=='modify'">
+					<div class="card ">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">BRANCH -
+									MODIFY</h6>
+							</div>
+
+						</div>
+
+
+						<div class="card-body">
+							<form class=" border border-secondary" action="#" method="post"
+								id="tab2modify" autocomplete="off">
+								<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Branch Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="branch_code" id="branch_code"
+											th:value="${OrgBranch?.branch_code}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Branch Name</div>
+									<div class="col-sm-2">
+										<input type="text" name="branch_name" id="branch_name"
+											th:value="${OrgBranch?.branch_name}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Branch Head</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="branch_head" id="branch_head"
+											th:value="${OrgBranch?.branch_head}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="designation" id="designation"
+											th:value="${OrgBranch?.designation}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Swift Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="swift_code" id="swift_code"
+											th:value="${OrgBranch?.swift_code}"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Pic No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pic_no" id="pic_no"
+											th:value="${OrgBranch?.pic_no}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Land Line</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="land_line" id="land_line"
+											th:value="${OrgBranch?.land_line}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Fax</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="fax" id="fax"
+											th:value="${OrgBranch?.fax}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile</div>
+
+
+									<div class="col-sm-2">
+										<input type="number" name="mobile" id="mobile"
+											th:value="${OrgBranch?.mobile}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Contact Person</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person" id="cont_person"
+											th:value="${OrgBranch?.cont_person}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Web Site</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="website" id="website"
+											th:value="${OrgBranch?.website}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mail Id</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="mail_id" id="mail_id"
+											th:value="${OrgBranch?.mail_id}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="add_1" id="add_1"
+											th:value="${OrgBranch?.add_1}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+										<input type="text" name="add_2" id="add_2"
+											th:value="${OrgBranch?.add_2}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											th:value="${OrgBranch?.city}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+										<input type="text" name="state" id="state"
+											th:value="${OrgBranch?.state}"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="country" id="country"
+											th:value="${OrgBranch?.country}"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zip Code</div>
+									<div class="col-sm-2">
+										<input type="text" name="zip_code" id="zip_code"
+											th:value="${OrgBranch?.zip_code}"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+
+							</form>
+
+						</div>
+						<div class="card-footer text-center "
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" id="submitBtn"
+								onclick="ModifyTab2Submit();">Submit</button>
+
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<div th:if="${formmode} =='ModifyHoliday'">
+					<div class="card">
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">Holiday
+									Master-Modify</h6>
+							</div>
+
+						</div>
+
+
+						<div class="card-body">
+							<form class=" border border-secondary" action="#" method="post"
+								id="tab1modify" autocomplete="off">
+								<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Organization</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Location</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Calendar Year</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Month</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Record No</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Description</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Remarks</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Holiday Flag</div>
+									<div class="col-sm-2">
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Record Status</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="" id="" readonly
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+							</form>
+
+						</div>
+						<div class="card-footer text-center "
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" id="submitBtn"
+								onclick="ModifyTab1Submit();">Submit</button>
+
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+
+
+					</div>
+				</div>
+
+				<div th:if="${formmode} =='addholiday'">
+					<div class="card">
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">Holiday
+									Master-Add</h6>
+							</div>
+
+						</div>
+
+						<div class="card-body">
+							<form class=" border border-secondary" action="#" method="post"
+								id="assosiateForm1" autocomplete="off">
+								<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Organization</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Location</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Calendar Year</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Month</div>
+										<div class="col-sm-2">
+										<input type="text" name="" id=""
+												readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Record No</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+										</div>
+									</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Description</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Remarks</div>
+										<div class="col-sm-2">
+										<input type="text" name="" id=""
+												
+												readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Holiday Flag</div>
+										<div class="col-sm-2">
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Record Status</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="" id=""
+												 readonly
+												class="form-control form-control-sm bg-white border border-dark" />
+
+										</div>
+									</div>
+								
+							</form>
+
+						</div>
+						<div class="card-footer text-center "
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" id="submitBtn"
+								onclick="AddSubmit();">Submit</button>
+
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='listholiday'">
+					<div class="panel panel-primary filterable" >
+						<div class="card w-100 border panel panel-primary filterable">
+							<div class="card-header" style="background-color: #e9ecef; height: 70px">
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">Holiday
+									Master-List
+										</h6>
+								</div>
+								
+							</div>
+
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover table-sm"
+										style="margin-bottom: 0px; font-size: initial;" id="usertable">
+										<thead class="thead-light">
+											<tr class="filters">
+												<th style="width: 5%"><input type="text"
+														class="form-control font-weight-bold" placeholder="SRL NO"
+														disabled></th>
+												<th style="width: 5%"><input type="text"
+														class="form-control font-weight-bold" placeholder="YEAR"
+														disabled></th>
+												<th style="width: 8%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Month
+														"
+														disabled></th>
+												<th style="width: 5%"><input type="text"
+														class="form-control font-weight-bold" placeholder="Date"
+														disabled></th>
+												<th style="width: 5%; display: none;"><input type="text"
+														class="form-control font-weight-bold" placeholder="Day
+														"
+														disabled></th>
+												<th style="width: 6%"><input type="text"
+														class="form-control font-weight-bold" placeholder="DESCRIPTION"
+														disabled></th>
+												<th style="width: 15%"><input type="text"
+														class="form-control font-weight-bold" placeholder="REMARKS"
+														disabled></th>
+												<th style="width: 6%"><input type="text"
+														class="form-control font-weight-bold" placeholder="SELECT"
+														disabled></th>
+												
+											</tr>
+										</thead>
+										<tbody id="placelist">
+											<tr th:each="chartacc : ${Listofvalues}">
+												<td></td>
+												<td th:text="${chartacc?.glCode}"></td>
+												<td th:text="${chartacc?.glDescription}"></td>
+												<td th:text="${chartacc?.branch_id}"></td>
+												<td style="display: none;" th:text="${chartacc?.branch_desc}"></td>
+												<td th:text="${chartacc?.glsh_code}">
+												</td>
+
+												<td th:text="${chartacc?.glsh_desc}"></td>
+												<td th:text="${chartacc?.crncy_code}"></td>
+												<!--<td
+													th:text="${chartacc?.total_balance != null && (T(java.lang.Double).valueOf(chartacc.total_balance) > 0) ? #numbers.formatDecimal(T(java.lang.Double).valueOf(chartacc.total_balance), 2, 2) : '0.00'}">
+												</td>
+												<td
+													th:text="${chartacc?.total_balance != null && (T(java.lang.Double).valueOf(chartacc.total_balance) < 0) ? #numbers.formatDecimal(T(java.lang.Double).valueOf(chartacc.total_balance), 2, 2) : '0.00'}">
+												</td>-->
+												<td></td>
+												<td></td>
+												<td style="display: none;" th:text="${chartacc?.bal_sheet_group}"></td>
+												<td style="display: none;" th:text="${chartacc?.seq_order}"></td>
+												<td style="display: none;" th:text="${chartacc?.gl_type}"></td>
+												<td style="display: none;" th:text="${chartacc?.gl_type_description}">
+												</td>
+												<td style="display: none;" th:text="${chartacc?.module}"></td>
+												<td style="display: none;" th:text="${chartacc?.remarks}"></td>
+												<td style="display: none;" th:text="${chartacc?.no_acct_closed}"></td>
+												<td style="display: none;" th:text="${chartacc?.no_acct_opened}"></td>
+												<td style="display: none;" th:text="${chartacc?.total_balance}"></td>
+
+												<td style="text-align: center;"><input type="checkbox" class="checkbox"
+														name="btnradio" style="cursor: pointer;"
+														onclick="enquiryuser(this);"></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="card-footer text-center" style="background-color: #e9ecef">
+								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+								<button class="btn btn-primary p-2" id="submitBtn"
+									onclick="getCheckedValues()">Submit</button>
+								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div  th:if="${formmode}=='UploadHoliday'" >
+					<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+						<div class="card" >
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right"></div>
+								<h4>HOLIDAY MASTER - FILE UPLOAD</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Upload</label>
+											</div>
+											<div class="col-sm-2">
+
+												<input type="file" id="fileval" name="fileval"
+													accept=".xlsx,.xls,.csv"
+													class="form-control form-control-sm">
+
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="uploadlist();">List</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="submitexcelgst(this)">Upload</button>
+
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		
+	</div>
+
+
+
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg"></h6>
+					<button type="button" class="btn btn-primary" onclick="add()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert1" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg1"></h6>
+					<button type="button" class="btn btn-primary"
+						onclick="$('#alert1').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

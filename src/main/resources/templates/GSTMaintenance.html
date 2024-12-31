@@ -1,0 +1,653 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 18-09-24
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+
+			font-family: Arial, sans-serif;
+
+		}
+
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+	</style>
+
+
+	<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		$(function () {
+			$(
+				"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
+				.datepicker({
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					changeYear: true
+
+				});
+		});
+	</script>
+	<script>
+		function add() {
+
+			location.href = './assosiateProfile?formmode=add';
+		}
+
+		function list() {
+
+			location.href = './assosiateProfile?formmode=list';
+		}
+
+
+	</script>
+
+	<script>
+		function view(a) {
+
+			var tran = a.getAttribute("data-tran_id");
+
+			location.href = 'gstMaintanance?formmode=view&tran_id=' + tran;
+
+		}
+
+
+	</script>
+
+
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------GST Maintanance List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">GST MAINTENANCE TRANSACTION - LIST
+								</h6>
+							</div>
+
+
+						</div>
+						<div class="table-responsive">
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;" id="usertable">
+								<thead class="thead-light">
+
+
+									<tr>
+										<th style="text-align: center">TRAN DATE</th>
+										<th style="text-align: center">TRAN ID</th>
+										<th style="text-align: center">PART TRAN TYPE</th>
+										<th style="text-align: center">CURRENCY</th>
+										<th style="text-align: center">AMOUNT</th>
+										<th style="text-align: center">ACCT NUM</th>
+										<th style="text-align: center">ACCT NAME</th>
+										<th style="text-align: center">TRAN PARTICULAR</th>
+										<th style="text-align: center">STATUS</th>
+										<th style="text-align: center">SELECT</th>
+									</tr>
+								</thead>
+								<tbody id="placelist">
+									<!--<tr th:each="details : ${gst}">
+
+												<td style="width: 10%" th:text="${details.tran_date}"></td>
+												<td th:text="${details.tran_id + '-' + details.part_tran_id}"></td>
+
+												<td style="width: 10%" th:text="${details?.part_tran_type}"></td>
+												<td th:text="${details.acct_crncy}"></td>
+												<td style="text-align:right" th:text="${details.tran_amt}"></td>
+												<td style="text-align:right" th:text="${details.acct_num}"></td>
+												<td th:text="${details.acct_name}"></td>
+												<td th:text="${details.tran_particular}"></td>
+												<td th:text="${details.tran_status}"></td>
+												<td style="text-align:center"> <input type="radio"
+														th:attr="data-tran_id=${details.tran_id}"
+														onclick="view(this)" /></td>
+
+
+											</tr>-->
+
+
+								</tbody>
+							</table>
+						</div>
+						<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- ------------------------------------GST Maintanance View---------------------------------- -->
+				<div th:if="${formmode}=='view'">
+
+
+					<div class="card w-100 border">
+
+						<div class="card-header" style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">GST MAINTENANCE
+								</h6>
+							</div>
+
+
+						</div>
+						<form class=" border border-secondary" action="#" method="post" id="pmid" autocomplete="off" class="mt-3">
+
+							<div class="row formline" style="padding: 10px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST Type</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="gst_type" id="gst_type" class="form-control-sm"
+										th:value="${gstmain?.gst_type}" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Client Type</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="client_type" id="client_type" class="form-control-sm"
+										th:value="${gstmain?.client_type}" readonly />
+
+								</div>
+							</div>
+
+
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Client</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="client" id="client" class="form-control-sm"
+										th:value="${gstmain?.client}" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Client Remark</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="client_remark" id="client_remark" class="form-control-sm"
+										th:value="${gstmain?.client_remark}" readonly />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GSTIN</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="gstin" id="gstin" class="form-control-sm"
+										th:value="${gstmain?.gstin}" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Payment Status</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="pay_status" id="pay_status" class="form-control-sm"
+										th:value="${gstmain?.pay_status}" readonly />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Organization Tran Date</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_date" id="tran_date" class="form-control-sm"
+										th:value="${#dates.format(gstmain?.tran_date,'dd-MM-yyyy')}" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Payment Tran Date</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="pay_tran_date" id="pay_tran_date" class="form-control-sm"
+										th:value="${#dates.format(gstmain?.pay_tran_date,'dd-MM-yyyy')}" readonly />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Organization Tran Id</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_id" id="tran_id" class="form-control-sm"
+										th:value="${gstmain?.tran_id}" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Payment Tran Id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="pay_tran_id" id="pay_tran_id" class="form-control-sm"
+										th:value="${gstmain?.pay_tran_id}" readonly />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Organization partTran Type</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="part_tran_type" id="part_tran_type" class="form-control-sm"
+										th:value="${gstmain?.part_tran_type}" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Payment PartTran Type</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="pay_part_tran_type" id="pay_part_tran_type"
+										class="form-control-sm" th:value="${gstmain?.pay_part_tran_type}" readonly />
+
+								</div>
+							</div>
+
+
+
+							<div class="row formline" style="padding: 10px 50px 0px 50px;">
+
+								<table class="table table-bordered table-sm" id="preorg1">
+									<thead>
+										<tr>
+											<th style="text-align: center;">
+												<h6>Invoice No</h6>
+											</th>
+											<th style="text-align: center;">
+												<h6>Invoice Date</h6>
+											</th>
+											<th style="text-align: center;">
+												<h6>Description</h6>
+											</th>
+											<th style="text-align: center;">
+												<h6>Invoice Amount</h6>
+											</th>
+											<th style="text-align: center;">
+												<h6>Eligible Amount</h6>
+											</th>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<td style="text-align: center;"><input type="text" name="invoice_no"
+													class="form-control input-md" id="invoice_no"
+													th:value="${gstmain?.invoice_no}" style="background-color:white"
+													readonly></td>
+											<td style="text-align: center;"><input type="text" name="invoice_date"
+													class="form-control input-md" id="invoice_date"
+													th:value="${#dates.format(gstmain?.invoice_date,'dd-MM-yyyy')}"
+													style="background-color:white" readonly></td>
+											<td style="text-align: center;"><input type="text" name="inv_desc"
+													class="form-control input-md" id="inv_desc"
+													th:value="${gstmain?.inv_desc}" style="background-color:white"
+													readonly></td>
+											<td style="text-align: center;"><input type="text" name="inv_amt"
+													class="form-control input-md" id="inv_amt"
+													th:value="${gstmain?.inv_amt}" style="background-color:white"
+													readonly></td>
+											<td style="text-align: center;"><input type="text" name="eligible_amt"
+													class="form-control input-md" id="eligible_amt"
+													th:value="${gstmain?.eligible_amt}" style="background-color:white"
+													readonly></td>
+
+
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+
+
+							<div class="row formline" style="padding: 10px 50px 0px 50px;">
+
+								<div class="table-responsive">
+									<table class="table table-bordered table-sm" id="preorg2" style="width: 100%;">
+										<thead>
+											<tr>
+												<th style="text-align: center;">
+													<h6>CGST</h6>
+												</th>
+												<th style="text-align: center;">
+													<h6>SGST</h6>
+												</th>
+												<th style="text-align: center;">
+													<h6>IGST</h6>
+												</th>
+												<th style="text-align: center;">
+													<h6>Total GST</h6>
+												</th>
+												<th style="text-align: center;">
+													<h6>Total Amount</h6>
+												</th>
+
+											</tr>
+										</thead>
+
+
+										<tbody>
+
+
+											<tr>
+												<td style="text-align: center;"><input type="text" name="inv_cgst"
+														class="form-control input-md" id="inv_cgst"
+														th:value="${gstmain?.inv_cgst}" style="background-color:white"
+														readonly></td>
+												<td style="text-align: center;"><input type="text" name="inv_sgst"
+														class="form-control input-md" id="inv_sgst"
+														th:value="${gstmain?.inv_sgst}" style="background-color:white"
+														readonly></td>
+												<td style="text-align: center;"><input type="text" name="inv_igst"
+														class="form-control input-md" id="inv_igst"
+														th:value="${gstmain?.inv_igst}" style="background-color:white"
+														readonly></td>
+												<td style="text-align: center;"><input type="text" name="total_gst_amt"
+														class="form-control input-md" id="total_gst_amt"
+														th:value="${gstmain?.total_gst_amt}"
+														style="background-color:white" readonly></td>
+												<td style="text-align: center;"><input type="text" name="inv_tot_amt"
+														class="form-control input-md" id="inv_tot_amt"
+														th:value="${gstmain?.inv_tot_amt}"
+														style="background-color:white" readonly></td>
+
+
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+						</form>
+						<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" th:attr="data-tran_id=${gstmain.tran_id}"
+								onclick="modify(this);">Modify</button>
+
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,4889 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : Aishu
+	DATE : 28-09-24
+-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+.input-group-text {
+	cursor: pointer;
+}
+
+#eyeIcon {
+	font-size: 1.2rem;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<script>
+		// JavaScript function to switch between tabs
+		function Home() {
+			location.href = 'Dashboard';
+		}
+		function Back() {
+			window.history.back();
+		}
+		function addcolla() {
+			event.preventDefault();
+			location.href = "collateralmanage?formmode=add";
+		}
+		function list() {
+			event.preventDefault();
+			location.href = "collateralmanage?formmode=list";
+		}
+		
+		function viewcolla(a) {
+			event.preventDefault();
+			var customer_id = a.getAttribute('data-customer_id');
+			location.href = 'collateralmanage?formmode=view&customer_id=' + customer_id;
+		}
+		function modifycolla(a) {
+			event.preventDefault();
+			var customer_id = a.getAttribute('data-customer_id');
+			location.href = 'collateralmanage?formmode=modify&customer_id=' + customer_id;
+		}
+		function Addrow() {
+			event.preventDefault(); // Prevent default behavior of the event
+			var m = document.getElementById("placelist"); // Use the correct tbody ID
+			var row = m.insertRow();
+			row.className = "dynamic-row";
+			var cell1 = row.insertCell();
+			var cell2 = row.insertCell();
+			var cell3 = row.insertCell();
+			var cell4 = row.insertCell();
+			var cell5 = row.insertCell();
+
+			// Setting the input fields
+			cell1.innerHTML = '<input type="text" style="width=10px" name="national_id_card">';
+			cell2.innerHTML = '<input type="text" style="width=10px" name="address">';
+			cell3.innerHTML = '<input type="text" style="width=10px" name="guarantor_name">';
+			cell4.innerHTML = '<input type="text" style="width=10px" name="network">';
+			cell5.innerHTML = '<i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color:red;" onclick="deleteRow(this)"></i>';
+		}
+		function deleteRow(a) {
+			var row = a.parentNode.parentNode; // Get the current row
+			row.parentNode.removeChild(row); // Remove the current row
+			updateSerialNumbers(); // Update serial numbers after deletion
+		}
+	</script>
+<script>
+		function openTab(evt, tabName) {
+			// Hide all tab content
+			const tabcontent = document.getElementsByClassName("tabcontent");
+			for (let i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+
+			// Remove 'active' class from all tablinks
+			const tablinks = document.getElementsByClassName("tablinks");
+			for (let i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+
+			// Display the selected tab
+			document.getElementById(tabName).style.display = "block";
+			evt.currentTarget.className += " active";
+
+			// If switching to tab2, hide the property details
+			if (tabName === 'tab2') {
+				const allDetails = document.querySelectorAll('[id$="Details"]');
+				allDetails.forEach(section => {
+					section.style.display = 'none';
+				});
+			}
+
+			// If switching to tab1, re-run showPropertyDetails
+			if (tabName === 'tab1') {
+				showPropertyDetails(document.getElementById('collateral_type'));
+			}
+		}
+
+		// Updated showPropertyDetails function
+		function showPropertyDetails(selectElement) {
+		//	alert("hihi")
+			const activeTab = document.querySelector('.tablinks.active');
+			if (!activeTab || activeTab.id !== 'screen3') {
+				return; // Do not proceed if screen3 is not active
+			}
+
+			// Hide all sections
+			const allDetails = document.querySelectorAll('[id$="Details"]');
+			allDetails.forEach(section => {
+				section.style.display = 'none';
+			});
+
+			// Show the selected section based on the value of the selectElement
+			let selectedSection = '';
+
+			switch (selectElement.value) {
+				case 'Immovable Property':
+					selectedSection = 'immovablePropertyDetails';
+					break;
+				case 'Plant and Machinery':
+					selectedSection = 'plantAndMachineryDetails';
+					break;
+				case 'Gold Ornaments':
+					selectedSection = 'goldOrnamentsDetails';
+					break;
+				case 'Vehicles':
+					selectedSection = 'vehiclesDetails';
+					break;
+				case 'Book Debits':
+					selectedSection = 'bookDebitsDetails';
+					break;
+				case 'Share Certificates':
+					selectedSection = 'shareCertificatesDetails';
+					break;
+				case 'Other Securities':
+					selectedSection = 'otherSecuritiesDetails';
+					break;
+				case 'Guarantees':
+					selectedSection = 'guaranteesDetails';
+					break;
+				default:
+					break;
+			}
+
+			// Show the selected section
+			if (selectedSection) {
+				const sectionElement = document.getElementById(selectedSection);
+				if (sectionElement) {
+					sectionElement.style.display = 'block';
+				}
+			}
+		}
+
+		// Function to check if a section has any pre-filled values
+		function checkPrefilledValues(sectionId) {
+			const section = document.getElementById(sectionId);
+			if (!section) return false;
+
+			// Find all input fields within the section
+			const inputs = section.querySelectorAll('input');
+
+			// Check if any input has a non-empty value
+			return Array.from(inputs).some(input => input.value.trim() !== '');
+		}
+
+		// Event listener to check if sections have pre-filled values or if collateral_type is already set on page load
+		document.addEventListener('DOMContentLoaded', function () {
+			const selectElement = document.getElementById('collateral_type');
+
+			if (selectElement) {
+				// Ensure correct section is shown based on the current value of the select element
+				showPropertyDetails(selectElement);
+
+				// Only display sections with pre-filled values if the collateral_type matches
+				const sections = [
+					{id: 'immovablePropertyDetails', type: 'Immovable Property'},
+					{id: 'plantAndMachineryDetails', type: 'Plant and Machinery'},
+					{id: 'goldOrnamentsDetails', type: 'Gold Ornaments'},
+					{id: 'vehiclesDetails', type: 'Vehicles'},
+					{id: 'bookDebitsDetails', type: 'Book Debits'},
+					{id: 'shareCertificatesDetails', type: 'Share Certificates'},
+					{id: 'otherSecuritiesDetails', type: 'Other Securities'},
+					{id: 'guaranteesDetails', type: 'Guarantees'}
+				];
+
+				sections.forEach(section => {
+					if (checkPrefilledValues(section.id) && selectElement.value === section.type) {
+						document.getElementById(section.id).style.display = 'block';
+					}
+				});
+			}
+		});
+	</script>
+<script>
+		function formatDate(date) {
+			var datelive = new Date(); // Current date
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			var hours = datelive.getHours();
+			var minutes = datelive.getMinutes();
+
+			// Ensure two digits for day, month, hours, and minutes
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+			if (hours < 10) {
+				hours = '0' + hours;
+			}
+			if (minutes < 10) {
+				minutes = '0' + minutes;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		function calculateFlowStartDates(acquisitionDate) {
+			var flowStartDates = [];
+			var currentYear = acquisitionDate.getFullYear();
+
+			// Loop through subsequent years until 2027-03-31 (change year if needed)
+			while (currentYear <= 2027) {
+				var startDate = new Date(currentYear, 2, 31); // March 31st of each year
+				flowStartDates.push(startDate);
+				currentYear++;
+			}
+
+			return flowStartDates;
+		}
+
+		function getMonthDayDifference(startDate, endDate) {
+			const start = new Date(startDate);
+			const end = new Date(endDate);
+
+			let yearsDiff = end.getFullYear() - start.getFullYear();
+			let monthsDiff = end.getMonth() - start.getMonth();
+			let daysDiff = end.getDate() - start.getDate();
+
+			if (daysDiff < 0) {
+				monthsDiff--;
+				const previousMonth = new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+				daysDiff += previousMonth;
+			}
+
+			if (monthsDiff < 0) {
+				yearsDiff--;
+				monthsDiff += 12;
+			}
+
+			let totalMonths = (yearsDiff * 12) + monthsDiff;
+
+			return `${Math.abs(totalMonths)}.${Math.abs(daysDiff)}`;
+		}
+
+		function parseDateString(dateString) {
+			let parts = dateString.split("-");
+			if (parts.length !== 3) {
+				console.error("Invalid date format:", dateString);
+				return null;
+			}
+
+			let day = parseInt(parts[0], 10);
+			let month = parseInt(parts[1], 10) - 1; // Months are zero-based
+			let year = parseInt(parts[2], 10);
+
+			let date = new Date(year, month, day);
+
+			if (isNaN(date.getTime())) {
+				console.error("Invalid date:", dateString);
+				return null;
+			}
+
+			return date;
+		}
+
+		function genflows() {
+			//alert("hihi")
+			var dep = document.getElementById('depreciation_method').value;
+			//alert(dep);
+
+			if (dep == 'SLM') {
+				//alert('SLM')
+				// Get the number of years input
+				var yearsInput = document.getElementById('life_of_property').value;
+				var years = parseInt(yearsInput);
+
+				var acquisitionDateInput = document.getElementById('acquis_date').value;
+				//alert(acquisitionDateInput)
+				// let acquisitionDate = new Date(acquisitionDateInput);
+				let acquisitionDate = parseDateString(acquisitionDateInput);
+				// alert(acquisitionDate)
+
+
+				var dep_method = document.getElementById('depreciation_method').value;
+				var flowStartDates = calculateFlowStartDates(acquisitionDate);
+				//alert(flowStartDates[0]);
+				var result = getMonthDayDifference(acquisitionDate, flowStartDates[0]);
+				var deppercent = document.getElementById('depreciation_percentage').value;
+				var percent = parseInt(deppercent);
+				var original_cost = document.getElementById('original_value').value;
+				var cur_book = document.getElementById('book_value').value;
+
+				var rm = original_cost;
+
+
+				// Show the fieldset
+				var fieldset = document.getElementById('tableset');
+				fieldset.style.display = 'block';
+
+				// Get the table body
+				var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+				// Clear any existing rows
+				tbody.innerHTML = '';
+
+				// Generate rows based on the number of years
+				for (var i = 0; i <= years; i++) {
+					var row = document.createElement('tr');
+
+					// Create 13 columns for each row
+					for (var j = 0; j < 13; j++) {
+						var cell = document.createElement('td');
+						// Create an input element for each cell
+						var input = document.createElement('input');
+						input.type = 'text';
+
+						// Set the text content for the first column only
+						if (j === 0) {
+							input.value = i + 1; // Display the row number
+							input.readOnly = true; // Make it read-only
+						}
+						// Set the year value in the second column
+						if (j === 1) {
+							input.value = "DEPR"; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						// Set the acquisition date in the third column first cell
+						if (j === 1 && i === 0) {
+							input.value = "ACQN";
+							input.readOnly = true;
+						}
+						// Set the flow start dates in the third column
+						if (j === 2 && i < flowStartDates.length) {
+							input.value = formatDate(flowStartDates[i]);
+							input.readOnly = true;
+							if (j === 2 && i === 0) {
+								//alert(acquisitionDateInput)
+								input.value = acquisitionDateInput;
+								input.readOnly = true;
+							}
+						}
+						   if (j === 3 && i===0) {
+					        	 var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Remaining months including current month
+
+					     	    // Add the months from January to March of the next year
+					     	    var monthsInNextYearUntilMarch = 3; // Jan to Mar
+
+					     	    // Total remaining months from acquisition month to March next year
+					     	    var totalRemainingMonths = monthsInFirstYear + monthsInNextYearUntilMarch;
+
+					     	    // Display the total remaining months
+					     	    console.log('Remaining months until March next year:', totalRemainingMonths);
+
+					     	    input.value = totalRemainingMonths + " MONTHS"; 
+					          input.readOnly = true; // Make it read-only
+					        }
+						if (j === 3) {
+							input.value = "YEARLY"; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						if (j === 4) {
+							input.value = dep_method; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						if (j === 5) {
+							input.value = deppercent; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						if (j === 6) {
+							input.value = original_cost; // Display the year
+							input.readOnly = true;
+							input.style.textAlign = 'right';
+						}
+
+					       //Depretiation
+			             if (j === 7 && i === 0) {
+			// Calculate monthly depreciation
+			var monthlyDepreciation = (original_cost * (percent / 100)) / 12;
+
+			// Calculate the remaining months in the acquisition year
+			var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Inclusive of the current month
+
+			// Calculate depreciation for the remaining months of the acquisition year
+			var firstYearDepreciation = monthlyDepreciation * monthsInFirstYear;
+
+			// Calculate depreciation for January to March of the next year
+			var monthsInNextYearUntilMarch = 3; // Jan to Mar
+			var nextYearDepreciationUntilMarch = monthlyDepreciation * monthsInNextYearUntilMarch;
+
+			// Total depreciation from acquisition month to March of the next year
+			var totalDepreciationUntilNextMarch = firstYearDepreciation + nextYearDepreciationUntilMarch;
+
+			// Set the depreciation value in the input field
+			input.value = totalDepreciationUntilNextMarch.toFixed(2);
+			input.readOnly = true;
+			input.style.textAlign = 'right';
+			}
+			             if (j === 7 && i===1) {
+
+			            	var cl=original_cost * (percent / 100);
+			            	 input.value=cl/12*result;
+			            	 var dp=input.value;
+			                 input.readOnly = true;// Make it read-only
+			                 input.style.textAlign = 'right';
+			             }
+			             
+			             if (j === 7 && i>1) {
+
+			            	 input.value = original_cost * (percent / 100);
+			            	 var dp=input.value;
+			                 input.readOnly = true;// Make it read-only
+			                 input.style.textAlign = 'right';
+			             }
+			             
+
+
+						//For Book value
+						if (j === 8 && i === 0) {
+							input.value = original_cost;
+							input.readOnly = true;
+							input.style.textAlign = 'right';
+						}
+						if (j === 8 && i > 0) {
+							if (remainingValue != null) {
+								rm = remainingValue;
+							}
+							var remainingValue = rm - dp;
+							input.value = remainingValue;
+							input.readOnly = true;
+							input.style.textAlign = 'right';
+
+						}
+						// Set id and class for input cells
+						input.id = 'input_' + i + '_' + j; // Example: input_1_2
+						input.name = 'input_rows' + j;
+						//   input.classList.add('form-control');
+
+
+
+						// Append the input element to the cell
+						cell.appendChild(input);
+						// Append the cell to the row
+						row.appendChild(cell);
+					}
+
+					// Append the row to the table body
+					tbody.appendChild(row);
+				}
+			}
+
+
+			if (dep == 'WDV') {
+				//alert('WDV')
+				// Get the number of years input
+				var yearsInput = document.getElementById('lifeofyear1').value;
+				var years = parseInt(yearsInput);
+
+				var acquisitionDateInput = document.getElementById('DATE_OF_ACQN1').value;
+				// var acquisitionDate = new Date(acquisitionDateInput);  
+				let acquisitionDate = parseDateString(acquisitionDateInput);
+
+				var dep_method = document.getElementById('dep_method1').value;
+				var flowStartDates = calculateFlowStartDates(acquisitionDate);
+				var result = getMonthDayDifference(acquisitionDate, flowStartDates[0]);
+				var deppercent = document.getElementById('dep_percentge1').value;
+				var percent = parseInt(deppercent);
+				var original_cost = document.getElementById('original_cost1').value;
+				var cur_book = document.getElementById('current_book_value1').value;
+				var rm = original_cost;
+
+
+
+				// Show the fieldset
+				var fieldset = document.getElementById('tableset');
+				fieldset.style.display = 'block';
+
+				// Get the table body
+				var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+				// Clear any existing rows
+				tbody.innerHTML = '';
+
+				// Generate rows based on the number of years
+				for (var i = 0; i <= years; i++) {
+					var row = document.createElement('tr');
+
+					// Create 13 columns for each row
+					for (var j = 0; j < 13; j++) {
+						var cell = document.createElement('td');
+						// Create an input element for each cell
+						var input = document.createElement('input');
+						input.type = 'text';
+
+						// Set the text content for the first column only
+						if (j === 0) {
+							input.value = i + 1; // Display the row number
+							input.readOnly = true; // Make it read-only
+						}
+						// Set the year value in the second column
+						if (j === 1) {
+							input.value = "DEPR"; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						// Set the acquisition date in the third column first cell
+						if (j === 1 && i === 0) {
+							input.value = "ACQN";
+							input.readOnly = true;
+						}
+						// Set the flow start dates in the third column
+						if (j === 2 && i < flowStartDates.length) {
+							input.value = formatDate(flowStartDates[i]);
+							input.readOnly = true;
+							if (j === 2 && i === 0) {
+								input.value = acquisitionDateInput;
+								input.readOnly = true;
+							}
+						}
+						  if (j === 3 && i===0) {
+				            	 var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Remaining months including current month
+
+				         	    // Add the months from January to March of the next year
+				         	    var monthsInNextYearUntilMarch = 3; // Jan to Mar
+
+				         	    // Total remaining months from acquisition month to March next year
+				         	    var totalRemainingMonths = monthsInFirstYear + monthsInNextYearUntilMarch;
+
+				         	    // Display the total remaining months
+				         	    console.log('Remaining months until March next year:', totalRemainingMonths);
+
+				         	    input.value = totalRemainingMonths + " MONTHS"; 
+				              input.readOnly = true; // Make it read-only
+				            }
+				                
+				                
+				                 if (j === 3 && i>0) {
+				                 input.value = "YEARLY"; // Display the year
+				                 input.readOnly = true; // Make it read-only
+				             }
+						if (j === 4) {
+							input.value = dep_method; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						if (j === 5) {
+							input.value = deppercent; // Display the year
+							input.readOnly = true; // Make it read-only
+						}
+						if (j === 6) {
+							input.value = original_cost; // Display the year
+							input.readOnly = true;
+							input.style.textAlign = 'right';
+						}
+
+			             
+			               //Depretiation
+			              if (j === 7 && i === 0) {
+		    // Calculate monthly depreciation
+		    var monthlyDepreciation = (original_cost * (percent / 100)) / 12;
+		    
+		    // Calculate the remaining months in the acquisition year
+		    var monthsInFirstYear = 12 - acquisitionDate.getMonth(); // Inclusive of the current month
+		    
+		    // Calculate depreciation for the remaining months of the acquisition year
+		    var firstYearDepreciation = monthlyDepreciation * monthsInFirstYear;
+
+		    // Calculate depreciation for January to March of the next year
+		    var monthsInNextYearUntilMarch = 3; // Jan to Mar
+		    var nextYearDepreciationUntilMarch = monthlyDepreciation * monthsInNextYearUntilMarch;
+		    
+		    // Total depreciation from acquisition month to March of the next year
+		    var totalDepreciationUntilNextMarch = firstYearDepreciation + nextYearDepreciationUntilMarch;
+		    
+		    // Set the depreciation value in the input field
+		    input.value = totalDepreciationUntilNextMarch.toFixed(2);
+		    input.readOnly = true;
+		    input.style.textAlign = 'right';
+		}
+			             if (j === 7 && i===1) {
+			            	 
+			            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+			                 if (prevBookValueElement) {
+			                     var prevBookValue = parseFloat(prevBookValueElement.value);
+			                    // alert(prevBookValue)
+			                     cl= (prevBookValue * (percent / 100)).toFixed(2);
+			                     input.value=cl/12*result;
+			                    var dp= input.value
+			                 input.readOnly = true;// Make it read-only
+			                 input.style.textAlign = 'right';
+			             }
+			             
+			             }
+			             
+							if (j === 7 && i>1) {
+			            	 
+			            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+			                 if (prevBookValueElement) {
+			                     var prevBookValue = parseFloat(prevBookValueElement.value);
+			                    // alert(prevBookValue)
+			                     input.value=(prevBookValue * (percent / 100)).toFixed(2);
+			                    var dp= input.value
+			                 input.readOnly = true;// Make it read-only
+			                 input.style.textAlign = 'right';
+			             }
+			             
+			             }
+						//For Book value
+						if (j === 8 && i === 0) {
+							input.value = original_cost;
+							input.readOnly = true;
+							input.style.textAlign = 'right';
+						}
+						if (j === 8 && i > 0) {
+							if (remainingValue != null) {
+								rm = remainingValue;
+							}
+							var remainingValue = rm - dp;
+							input.value = remainingValue;
+							input.readOnly = true;
+							input.style.textAlign = 'right';
+
+						}
+						if (j === 9 && i === 0) {
+							input.value = acquisitionDateInput;
+							input.readOnly = true;
+						}
+						if (j === 10 && i === 0) {
+							input.value = '124/1';
+							input.readOnly = true;
+						}
+						if (j === 11 && i === 0) {
+							input.value = original_cost;
+							input.readOnly = true;
+						}
+						input.id = 'input_' + i + '_' + j;
+						input.name = 'input_rows' + j;  // Set the name attribute	          
+						// Append the input element to the cell
+						cell.appendChild(input);
+						// Append the cell to the row
+						row.appendChild(cell);
+					}
+
+					// Append the row to the table body
+					tbody.appendChild(row);
+				}
+			}
+		}
+	</script>
+<script>
+		$(function () {
+
+			$("#date_of_loan, #expiry_date, #date_of_purchase, #date_of_valuation, #last_depreciation_date,#mortgage_date, #date_of_installation, #appraisal_date, #expiry_date_v, #statement_date, #expiry_date_b, #date_of_inspection,#gen_flow_strt_date,#gen_tran_date").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				changeYear: true,
+				minDate: 0
+			});
+		});
+
+		function submitformadd() {
+			event.preventDefault();
+			var customer_id = document.getElementById("customer_id").value;
+			$.ajax({
+				url: './Submitcollamanage',
+				data: $("#colla").serialize(),
+				type: 'post', // Note: 'post' should be in lowercase
+				success: function (responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				},
+				error: function (error) {
+					console.error("Error: " + error.responseText);
+					alert("error submitting");
+				}
+			});
+		}
+		
+		
+	</script>
+<script>
+	function submitdatas() {
+	    alert("modify");
+
+	    var customer_id = document.getElementById("customer_id").value;
+	    alert(customer_id);
+
+	    $.ajax({
+	        url: './SubmitcollamanageModify', // Added missing comma after the URL
+	        data: $("#collaModify").serialize(),
+	        type: 'post', // 'post' should be lowercase
+	        success: function (responseText, statusText, xhr, $form) {
+	            $("#alertmsg").text(responseText);
+	            $('#alert').modal("toggle");
+	        },
+	        error: function (xhr, status, error) {
+	            console.error("Error: " + xhr.responseText); // Log the error
+	            alert("Error submitting: " + xhr.responseText); // Show the error in the alert
+	        }
+	    });
+	}
+	$(function() {
+		$("#year_of_purchase,#year_of_purchase1,#expiry_date,#last_depreciation_date,#acquis_date").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+	});
+	
+	function validateNumericInput(input) {
+		const errorMessage = document.getElementById('errorMessage');
+		// Remove any non-numeric characters
+		input.value = input.value.replace(/[^0-9]/g, '');
+
+		// Show an error message if needed (optional)
+		if (/[^0-9]/.test(input.value)) {
+			errorMessage.style.display = 'block';
+		} else {
+			errorMessage.style.display = 'none';
+		}
+	}
+
+	</script>
+<body>
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!-------------------------------------------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-12 ml-n3 mt-2" style="font-size: 0.8rem;">
+				<!-- -------------------------------------------------------------Organization Main-------------------------------------------- -->
+				<div th:if="${formmode}=='list'">
+					<div class="card ">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>COLLATERAL MANAGEMENT - LIST</h4>
+							</div>
+							<div class="float-right">
+								<button class="custom-btn" onclick="addcolla()">Add</button>
+								<button class="custom-btn  btn-filter">Filter</button>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="panel panel-primary filterable">
+								<div class="table-responsive">
+									<table class="table  table-bordered  table-hover table-sm"
+										style="margin-bottom: 0px; font-size: initial;" id="usertable">
+										<thead class="table-header">
+											<tr>
+												<th>Branch Id</th>
+												<th>Customer Id</th>
+												<th>Customer Name</th>
+												<th style="width: 7%;">Loan A/C No</th>
+												<th style="width: 7%;">Date Of Loan</th>
+												<th>Loan Outstanding</th>
+												<th>Collateral Type</th>
+												<th>Collateral Ref No</th>
+												<th>Collateral Srl No</th>
+												<th>Collateral Value</th>
+												<th>Select</th>
+											</tr>
+										</thead>
+										<tbody id="placelist1">
+											<tr th:each="managelist1 : ${managelist}"
+												th:attr="data-customer_id=${managelist1.customer_id}"
+												class="managelist">
+												<td th:text="${managelist1.branch_code}"></td>
+												<td th:text="${managelist1.customer_id}"></td>
+												<td th:text="${managelist1.customer_name}"></td>
+												<td th:text="${managelist1.loan_account_no}"></td>
+												<td
+													th:text="${#dates.format(managelist1.date_of_loan, 'dd-MM-yyyy')}">
+												</td>
+												<td style="text-align: right;"
+													th:text="${managelist1.loan_outstanding}"></td>
+												<td th:text="${managelist1.collateral_type}"></td>
+												<td th:text="${managelist1.collateral_ref_no}"></td>
+												<td th:text="${managelist1.collateral_serial_no}"></td>
+												<td style="text-align: right;"
+													th:text="${managelist1.original_value}"></td>
+												<td>
+													<div class="dropdown">
+														<button class="btn btn-primary p-2" type="button"
+															id="dropdownMenuButton" data-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															Action</button>
+														<div class="dropdown-menu"
+															aria-labelledby="dropdownMenuButton">
+															<a class="dropdown-item" id="btnEnquiry"
+																th:attr="data-customer_id=${managelist1.customer_id}"
+																style="text-align: center;" onclick="viewcolla(this);">view</a>
+															<a class="dropdown-item" id="btnVerify"
+																th:attr="data-customer_id=${managelist1.customer_id}"
+																style="text-align: center;" onclick="modifycolla(this);">Modify</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center ">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" onclick="Back();">Back</button>
+						</div>
+					</div>
+				</div>
+				<!----------------------------------------------------------------Add page------------------------------------------------------------>
+				<div th:if="${formmode}=='add'">
+					<div class="card w-100 border">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>COLLATERAL MANAGEMENT - ADD</h4>
+							</div>
+						</div>
+						<form action="#" method="post" autocomplete="off" id="colla"
+							th:object="${colla}">
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Branch Code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="branch_code"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="branch_code" autocomplete="off" required />
+										</div>
+										<div class="col-sm-1">
+											<label>Branch Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="branch_name" name="branch_name"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" required />
+										</div>
+										<div class="col-sm-1">
+											<label>Customer Id</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="customer_id" name="customer_id"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" required />
+										</div>
+										<div class="col-sm-1">
+											<label>Customer Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="customer_name" name="customer_name"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" required />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Loan Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="loan_type" value="Lease" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Loan Account No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_account_no"
+												name="loan_account_no" maxlength="9"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Date of Loan</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_loan" name="date_of_loan"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Loan Currency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_currency" name="loan_currency"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Amt Sanctioned</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="amount_sanctioned"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)"
+												name="amount_sanctioned" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Drawing Limit</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="drawing_limit" name="drawing_limit"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Disb. Amt.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="disbursement_amount"
+												name="disbursement_amount" title="Disbursement Amount"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Loan Out.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_outstanding"
+												name="loan_outstanding" title="Loan Outstanding"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Loan Period</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_period"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" name="loan_period"
+												autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date" name="expiry_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Rep. Terms</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="repayment_terms"
+												name="repayment_terms" title="Repayment Terms"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Rec. Method</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="recovery_method"
+												name="recovery_method" title="Recovery Method"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Ref No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_ref_no"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)"
+												name="collateral_ref_no" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>No of Collaterals</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="no_of_collaterals"
+												name="no_of_collaterals"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Collateral Srl No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_serial_no"
+												name="collateral_serial_no"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Apportion. Flag</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="apportionment_flag"
+												name="apportionment_flag" title="Apportionment Flag"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Type</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="collateral_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												onchange="showPropertyDetails(this)" name="collateral_type"
+												autocomplete="off" type="text">
+												<option value="">Select</option>PlantandMachinery
+												<option value="Immovable Property">Immovable
+													Property</option>
+												<option value="Plant and Machinery">Plant and
+													Machinery</option>
+												<option value="Gold Ornaments">Gold Ornaments</option>
+												<option value="Vehicles">Vehicles</option>
+												<option value="Book Debits">Book Debits</option>
+												<option value="Share Certificates">Share
+													Certificates</option>
+												<option value="Other Securities">Other Securities</option>
+												<option value="Guarantees">Guarantees</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Description</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="description" name="description"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Date of Purchase</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_purchase"
+												name="date_of_purchase"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Original Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="original_value" name="original_value"
+												class="form-control form-control-sm bg-white border border-dark "
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Desc</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_description"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="collateral_description" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Ownership</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="ownership" name="ownership"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Location</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="location" name="location"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Book Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="property_value" name="property_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Date of Valuation</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_valuation"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="date_of_valuation" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Valuer Details</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="valuer_details" name="valuer_details"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Market Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="market_value" name="market_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Insured Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insured_value" name="insured_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Max. Allow. Amt.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="max_allowable_amount"
+												title="Max Allowable Amount"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)"
+												name="max_allowable_amount" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Apport. Amt.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="apportionment_amount"
+												name="apportionment_amount" title="Apportionment Amount"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Apport. Details.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="apportionment_details"
+												name="apportionment_details" title="Apportionment Details"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Other Loans</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="other_loans" name="other_loans"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Life of Property</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="life_of_property"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" name="life_of_property"
+												autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Dep. Flag</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_flag"
+												name="depreciation_flag" title="Depreciation Flag"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Dep. Method.</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="depreciation_method" name="depreciation_method"
+												class="form-control form-control-sm bg-white border border-dark"
+												required>
+												<option value="">SELECT</option>
+												<option value="SLM">SLM</option>
+												<option value="WDV">WDV</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Calculation Type</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="calculation_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="calculation_type" autocomplete="off" type="text">
+												<option value="">Select</option>
+												<option value="System">System</option>
+												<option value="Manual">Manual</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Last Dep. Date.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="last_depreciation_date"
+												title="Last Depreciation Date"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="last_depreciation_date" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Depreciation %.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_percentage"
+												name="depreciation_percentage"
+												title="Depreciation Percentage"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Dep. Amt</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_amount"
+												name="depreciation_amount" title="Depreciation Amount"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Acc. Dep.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="accumulated_depreciation"
+												name="accumulated_depreciation"
+												oninput="validateNumericInput(this)"
+												title="Accumulated Depreciation"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ TAB 2 -------------------------------------------------------------------->
+							<!-- <div id="tab2" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<fieldset>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Serial No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="collateral_serial_no"
+													id="collateral_serial_no"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Collateral Type</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="collateral_type"
+													id="collateral_type"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="collateral_nature"
+													name="collateral_nature"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Original Cost</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" name="original_value"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="loan_currency" name="loan_currency"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Accumulated Depreciation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" name="accumulated_depreciation"
+													style="text-align: right" id="accumulated_depreciation"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Date of Purchase</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="year_of_purchase"
+													name="year_of_purchase"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>current book value</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" name="curr_book_value"
+													style="text-align: right" id="book_value"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Year of Purchase</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="year_of_purchase1"
+													name="year_of_purchase"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation flag</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="depreciation_flg"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Expiry Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="expiry_date" name="expiry_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Method</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="depreciation_method"
+													class="form-control form-control-sm bg-white border border-dark"
+													name="depreciation_method" autocomplete="off"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Acquisition Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="acquis_date" name="acquis_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Percentage</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="depreciation_percentage"
+													style="text-align: right;" id="depreciation_percentage"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Life Span Months</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="life_of_property"
+													name="life_of_property"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" style="text-align: right" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Frequency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="depreciation_frequency"
+													id="depreciation_frequency1"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline" style="padding-bottom: 25px;">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="depreciation_start_date1"
+													name="depreciation_start_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label for="employeeName">Date of last Depreciation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="last_depreciation_date"
+													id="last_depreciation_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="card-footer text-center"
+											style="background-color: #e9ecef; height: 50px">
+											<button type="button" class="btn btn-xs btn-primary p-2"
+												id="btnHome" onclick="genflows();">GENERATE FLOWS</button>
+										</div>
+									</fieldset>
+
+									<fieldset id="tableset" style="display: none">
+										<div class="table-responsive">
+											<table class="table  table-bordered  table-hover table-sm"
+												style="margin-bottom: 0px; font-size: initial;"
+												id="flowsTable">
+												<thead class="thead-light">
+													<tr>
+														<th>SRL</th>
+														<th>FLOW ID</th>
+														<th>FLOW START DATE</th>
+														<th>FREQUENCY</th>
+														<th>METHOD</th>
+														<th>PERCENTAGE</th>
+														<th>ORGINAL COST</th>
+														<th>DEPRECIATION</th>
+														<th>BOOK VALUE</th>
+														<th>AMOUNT</th>
+														<th>TRAN DATE</th>
+														<th>TRAN ID</th>
+														<th>REMARKS</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</fieldset>
+								</div>
+							</div> -->
+							<!------------------------------------------------------------------ IMMOVABLE PROPERTY -------------------------------------------------------------------->
+							<div id="immovablePropertyDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>IMMOVABLE PROPERTY</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Nature</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="collateral_nature" name="collateral_nature"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" required>
+												<option value="">Select</option>
+												<option value="Land">Land</option>
+												<option value="Building">Building</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Valuation Type</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="valuation_type" name="valuation_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" required>
+												<option value="">Select</option>
+												<option value="D">D</option>
+												<option value="A">A</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Valuation Method</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="valuation_method"
+												name="valuation_method"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Property Details</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="property_details"
+												name="property_details"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Mortgage Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="mortgage_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="mortgage_date" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Mortgage Details</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="mortgage_details"
+												name="mortgage_details"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Mortgage Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="mortgage_value" name="mortgage_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Remarks</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="remarks_i" name="remarks_i"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Plant and Machinery -------------------------------------------------------------------->
+							<div id="plantAndMachineryDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>PLANT AND MACHINERY</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Date of Purchase</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="year_of_purchase"
+												name="year_of_purchase"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Date of Install</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_installation"
+												name="date_of_installation" title="Date of Installation"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Commission Cost</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="commissioning_cost"
+												name="commissioning_cost" title="Commissioning Cost"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Holiday Period</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="holiday_period" name="holiday_period"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Gold Ornaments-------------------------------------------------------------------->
+							<div id="goldOrnamentsDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4 style="font-size: 1.5rem;">GOLD ORNAMENTS</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Description</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="description_g" name="description_g"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>No of Items</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="no_of_items" name="no_of_items"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Gross Weight</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="gross_weight" name="gross_weight"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Net Weight</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="net_weight" name="net_weight"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Appraiser Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="appraiser_name" name="appraiser_name"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Appraisal Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="appraisal_date" name="appraisal_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Appraisal Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="appraisal_value"
+												name="appraisal_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Market Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="market_value_v" name="market_value_v"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------Vehicles-------------------------------------------------------------------->
+							<div id="vehiclesDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>VEHICLES</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>vehicle Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="vehicle_type" name="vehicle_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Brand</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="brand" name="brand"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Make</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="make" name="make"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Model</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="model" name="model"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Ins. Company</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insurance_company_v"
+												name="insurance_company_v"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" title="Insurance Company" />
+										</div>
+										<div class="col-sm-1">
+											<label>Insured Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insured_value_v"
+												name="insured_value_v"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Policy No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="policy_no_v" name="policy_no_v"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date_v" name="expiry_date_v"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Book Debts-------------------------------------------------------------------->
+							<div id="bookDebitsDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>BOOK DEBTS</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Statement Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="statement_date" name="statement_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Stock Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="stock_value" name="stock_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Eligible Stock Val.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="eligible_stock_value"
+												name="eligible_stock_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" title="Eligible Stock Value" />
+										</div>
+										<div class="col-sm-1">
+											<label>Remarks</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="remarks_v" name="remarks_v"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Ins. Company</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insurance_company_b"
+												name="insurance_company_b"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" title="Insurance Company" />
+										</div>
+										<div class="col-sm-1">
+											<label>Insured Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insured_value_b"
+												name="insured_value_b"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Policy No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="policy_no_b" name="policy_no_b"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date_b" name="expiry_date_b"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Share Certificate-------------------------------------------------------------------->
+							<div id="shareCertificatesDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>SHARE CERTIFICATION</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Company Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="company_name_s" name="company_name_s"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>No of Certificates</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="no_of_certificates"
+												name="no_of_certificates"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Certificate Serial</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="certificate_serial"
+												name="certificate_serial"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Face Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="face_value" name="face_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------Personal Guarantee-------------------------------------------------------------------->
+							<div id="guaranteesDetails" style="display: none;">
+								<div class="card">
+									<div class="card-header">
+										<div class="float-left">
+											<h4 style="font-size: 1.5rem;">PERSONAL GUARANTEE</h4>
+										</div>
+									</div>
+									<div class="card-body" id="guaranteesBody">
+										<div class="row formline">
+											<div class="col-sm-1">
+												<label>National Id Card</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="national_id_card"
+													name="national_id_card"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-1">
+												<label>Address</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="address" name="address"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-1">
+												<label>Guarantor Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="guarantor_name" name="guarantor_name"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-1">
+												<label>Network</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="network" name="network"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--------------------------------------------------------------------------Details End-------------------------------------------------------------------->
+						</form>
+					</div>
+					<div class="card-footer text-center">
+						<button type="button" class="custom-btn"
+							id="btnHome" onclick="Home();">Home</button>
+						<button type="button" class="custom-btn"
+							id="btnSubmit" onclick="submitformadd();">Submit</button>
+						<button type="button" class="custom-btn"
+							id="btnBack" onclick="Back();">Back</button>
+					</div>
+					<!------------------------------------------------------------------------ Add footer ------------------------------------------------------------------>
+					<div class="card-body">
+						<div class="row formline">
+							<div class="col-sm-1">
+								<label>Entry User :</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="entryuser" name="ub.entryuser"
+									class="form-control form-control-sm bg-white border border-dark"
+									autocomplete="false" th:value="${user}" disabled />
+							</div>
+							<div class="col-sm-1"></div>
+							<div class="col-sm-1">
+								<label>Modify User :</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="" name=""
+									class="form-control form-control-sm bg-white border border-dark"
+									autocomplete="false" />
+							</div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-1">
+								<label>Verify User :</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="" name=""
+									class="form-control form-control-sm bg-white border border-dark"
+									autocomplete="false" />
+							</div>
+						</div>
+						<div class="row formline">
+							<div class="col-sm-1">
+								<label>Entry Time :</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="entrytime" name="ub.entrytime"
+									class="form-control form-control-sm bg-white border border-dark"
+									autocomplete="false"
+									th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+									disabled />
+							</div>
+							<div class="col-sm-1"></div>
+							<div class="col-sm-1">
+								<label>Modify Time :</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="" name=""
+									class="form-control form-control-sm bg-white border border-dark"
+									autocomplete="false" />
+							</div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-1">
+								<label>Verify Time :</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="" name=""
+									class="form-control form-control-sm bg-white border border-dark"
+									autocomplete="false" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-----------------------------------------------------------------view page ------------------------------------------------------------>
+				<div th:if="${formmode}=='view'">
+					<div class="card w-100 border">
+						<div class="card-header"
+							style="padding: 8px 8px; position: relative; display: flex; justify-content: space-around;">
+							<button class="tablinks active" id="screen3"
+								style="font-size: 14px;"
+								onclick="openTab(event, 'tab1');event.preventDefault();">COLLATERAL
+								MANAGEMENT</button>
+							<button class="tablinks" id="genflow" style="font-size: 14px;"
+								onclick="openTab(event, 'tab2');event.preventDefault();">DEPRECIATION
+								FLOW</button>
+						</div>
+
+						<div id="tab1" class="tabcontent" style="display: block;">
+							<div class="card-body">
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Branch Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="branch_code"
+											th:value="${viewmanage?.branch_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="branch_code" autocomplete="off" required readonly />
+									</div>
+									<div class="col-sm-1">
+										<label>Branch Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="branch_name" name="branch_name"
+											th:value="${viewmanage?.branch_name}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required />
+									</div>
+									<div class="col-sm-1">
+										<label>Customer Id</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="customer_id" name="customer_id"
+											th:value="${viewmanage?.customer_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required />
+									</div>
+									<div class="col-sm-1">
+										<label>Customer Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="customer_name" name="customer_name"
+											th:value="${viewmanage?.customer_name}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Loan Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="loan_type"
+											th:value="${viewmanage?.loan_type}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="loan_type" value="Lease" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Loan Account No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="loan_account_no" name="loan_account_no"
+											th:value="${viewmanage?.loan_account_no}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Date of Loan</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="date_of_loan" name="date_of_loan"
+											th:value="${#dates.format(viewmanage.date_of_loan, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Loan Currency</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="loan_currency" name="loan_currency"
+											th:value="${viewmanage?.loan_currency}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Amt Sanctioned</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="amount_sanctioned"
+											th:value="${viewmanage?.amount_sanctioned}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="amount_sanctioned" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Drawing Limit</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="drawing_limit" name="drawing_limit"
+											th:value="${viewmanage?.drawing_limit}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Disp. Amt.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="disbursement_amount"
+											name="disbursement_amount" title="Disbursement Amount"
+											th:value="${viewmanage?.disbursement_amount}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Loan Out.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="loan_outstanding"
+											name="loan_outstanding" title="Loan Outstanding"
+											th:value="${viewmanage?.loan_outstanding}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Loan Period</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="loan_period"
+											th:value="${viewmanage?.loan_period}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="loan_period" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Expiry Date</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="expiry_date" name="expiry_date"
+											th:value="${#dates.format(viewmanage.expiry_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Rep. Terms</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="repayment_terms" name="repayment_terms"
+											th:value="${viewmanage?.repayment_terms}"
+											title="Repayment Terms"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Rec. Method</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="recovery_method" name="recovery_method"
+											th:value="${viewmanage?.recovery_method}"
+											title="Recovery Method"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Collateral Ref No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="collateral_refno"
+											th:value="${viewmanage?.collateral_ref_no}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="collateral_ref_no" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>No of Collaterals</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="no_of_collaterals"
+											name="no_of_collaterals"
+											th:value="${viewmanage?.no_of_collaterals}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Collateral Srl No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="collateral_srlno"
+											name="collateral_srlno"
+											th:value="${viewmanage?.collateral_serial_no}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Apportion. Flag</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="app_flag" name="app_flag"
+											title="Apportionment Flag"
+											th:value="${viewmanage?.apportionment_flag}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Collateral Type</label>
+									</div>
+									<div class="col-sm-2">
+										<select id="collateral_type"
+											class="form-control form-control-sm bg-white border border-dark"
+											onchange="showPropertyDetails(this)" name="collateral_type"
+											autocomplete="off" type="text">
+											<option value="Immovable Property"
+												th:selected="${viewmanage?.collateral_type}=='Immovable Property'">
+												Immovable Property</option>
+											<option value="Plant and Machinery"
+												th:selected="${viewmanage?.collateral_type}=='Plant and Machinery'">
+												Plant and Machinery</option>
+											<option value="Gold Ornaments"
+												th:selected="${viewmanage?.collateral_type}=='Gold Ornaments'">Gold
+												Ornaments</option>
+											<option value="Vehicles"
+												th:selected="${viewmanage?.collateral_type}=='Vehicles'">Vehicles
+											</option>
+											<option value="Book Debits"
+												th:selected="${viewmanage?.collateral_type}=='Book Debits'">Book
+												Debits</option>
+											<option value="Share Certificates"
+												th:selected="${viewmanage?.collateral_type}=='Share Certificates'">
+												Share Certificates</option>
+											<option value="Other Securities"
+												th:selected="${viewmanage?.collateral_type}=='Other Securities'">
+												Other Securities</option>
+											<option value="Guarantees"
+												th:selected="${viewmanage?.collateral_type}=='Guarantees'">
+												Guarantees</option>
+										</select>
+									</div>
+									<div class="col-sm-1">
+										<label>Description</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="description" name="description"
+											th:value="${viewmanage?.description}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Date of Purchase</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="date_of_purchase"
+											name="date_of_purchase"
+											th:value="${#dates.format(viewmanage.date_of_purchase, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Original Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="original_value" name="original_value"
+											th:value="${viewmanage?.original_value}"
+											class="form-control form-control-sm bg-white border border-dark "
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Collateral Desc</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="collateral_desc"
+											th:value="${viewmanage?.collateral_description}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="collateral_desc" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Ownership</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="ownership" name="ownership"
+											th:value="${viewmanage?.ownership}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Location</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="location" name="location"
+											th:value="${viewmanage?.location}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Book Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="book_value" name="book_value"
+											th:value="${viewmanage?.book_value}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Date of Valuation</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="date_of_valuation"
+											th:value="${#dates.format(viewmanage.date_of_valuation, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="date_of_valuation" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Valuer Details</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="valuer_details" name="valuer_details"
+											th:value="${viewmanage?.valuer_details}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Market Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="market_value" name="market_value"
+											th:value="${viewmanage?.market_value}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Insured Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="insured_value" name="insured_value"
+											th:value="${viewmanage?.insured_value}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Max. Allow. Amt.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="max_allowed_amt"
+											title="Max Allowable Amount"
+											th:value="${viewmanage?.max_allowable_amount}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="max_allowed_amt" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Apport. Amt.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="apportioned_amt" name="apportioned_amt"
+											title="Apportionment Amount"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${viewmanage?.apportionment_amount}"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Apport. Details.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="apportioned_details"
+											name="apportioned_details" title="Apportionment Details"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${viewmanage?.apportionment_details}"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Other Loans</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="other_loans" name="other_loans"
+											th:value="${viewmanage?.other_loans}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Life of Property</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="life_of_property"
+											th:value="${viewmanage?.life_of_property}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="life_of_property" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Dep. Flag</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="dep_flag" name="dep_flag"
+											th:value="${viewmanage?.depreciation_flag}"
+											title="Depreciation Flag"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Dep. Method.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="dep_method" name="dep_method"
+											title="Depreciation Method"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${viewmanage?.depreciation_method}"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Calculation Type</label>
+									</div>
+									<div class="col-sm-2">
+										<select id="cal_type"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="calculation_type" autocomplete="off" type="text">
+											<option value="System"
+												th:selected="${viewmanage?.calculation_type}=='System'">
+												System</option>
+											<option value="Manual"
+												th:selected="${viewmanage?.calculation_type}=='Manual'">
+												Manual</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Last Dep. Date.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="last_dep_date"
+											title="Last Depreciation Date"
+											th:value="${#dates.format(viewmanage.last_depreciation_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="last_dep_date" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Depreciation %.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="dep_percentage" name="dep_percentage"
+											title="Depreciation Percentage"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${viewmanage?.depreciation_percentage}"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Dep. Amt</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="dep_amt" name="dep_amt"
+											title="Depreciation Amount"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${viewmanage?.depreciation_amount}"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Acc. Dep.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_dep" name="acc_dep"
+											title="Accumulated Depreciation"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${viewmanage?.accumulated_depreciation}"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------ TAB 2 -------------------------------------------------------------------->
+						<div id="tab2" class="tabcontent" style="display: none;">
+							<div class="card-body">
+								<fieldset>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Collateral Serial No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="collateral_serial_no"
+												id="collateral_serial_no"
+												th:value="${viewmanage?.collateral_serial_no}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Collateral Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="collateral_type"
+												id="collateral_type"
+												th:value="${viewmanage?.collateral_type}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Collateral Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_nature"
+												name="collateral_nature"
+												th:value="${viewmanage?.collateral_nature}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Original Cost</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="number" name="original_value"
+												th:value="${viewmanage?.original_value}" id="original_value"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Collateral Currency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_currency" name="loan_currency"
+												th:value="${viewmanage?.loan_currency}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Accumulated Depreciation</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="number" name="accumulated_depreciation"
+												style="text-align: right" id="accumulated_depreciation"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${viewmanage?.accumulated_depreciation}"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Date of Purchase</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="year_of_purchase"
+												name="year_of_purchase"
+												th:value="${#dates.format(viewmanage.year_of_purchase, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>current book value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="number" name="curr_book_value"
+												style="text-align: right" id="book_value"
+												th:value="${viewmanage?.book_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Year of Purchase</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="year_of_purchase1"
+												name="year_of_purchase"
+												th:value="${#dates.format(viewmanage.year_of_purchase, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Depreciation flag</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="depreciation_flg"
+												th:value="${viewmanage?.depreciation_flag}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Collateral Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date" name="expiry_date"
+												th:value="${#dates.format(viewmanage.expiry_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Depreciation Method</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_method"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${viewmanage?.depreciation_method}"
+												name="depreciation_method" autocomplete="off"
+												required="required" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Acquisition Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="acquis_date" name="acquis_date"
+												th:value="${#dates.format(viewmanage.appraisal_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Depreciation Percentage</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="depreciation_percentage"
+												style="text-align: right;" id="depreciation_percentage"
+												th:value="${viewmanage?.depreciation_percentage}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Life Span Months</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="life_of_property"
+												name="life_of_property"
+												th:value="${viewmanage?.life_of_property}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" style="text-align: right" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label>Depreciation Frequency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="depreciation_frequency"
+												value="Monthly" id="depreciation_frequency1"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="row formline" style="padding-bottom: 25px;">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label>Depreciation Start Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_start_date1"
+												th:value="${#dates.format(viewmanage.appraisal_date, 'dd-MM-yyyy')}"
+												name="depreciation_start_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label for="employeeName">Date of last Depreciation</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" name="last_depreciation_date"
+												th:value="${#dates.format(viewmanage.last_depreciation_date, 'dd-MM-yyyy')}"
+												id="last_depreciation_date"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+
+									<div class="card-footer text-center"
+										style="background-color: #e9ecef; height: 50px">
+										<button type="button" class="btn btn-xs btn-primary p-2"
+											id="btnHome" onclick="genflows();">GENERATE FLOWS</button>
+									</div>
+								</fieldset>
+
+								<fieldset id="tableset" style="display: none">
+									<div class="table-responsive">
+										<table class="table  table-bordered  table-hover table-sm"
+											style="margin-bottom: 0px; font-size: initial;"
+											id="flowsTable">
+											<thead class="table-header">
+												<tr>
+													<th>SRL</th>
+													<th>FLOW ID</th>
+													<th>FLOW START DATE</th>
+													<th>FREQUENCY</th>
+													<th>METHOD</th>
+													<th>PERCENTAGE</th>
+													<th>ORGINAL COST</th>
+													<th>DEPRECIATION</th>
+													<th>BOOK VALUE</th>
+													<th>AMOUNT</th>
+													<th>TRAN DATE</th>
+													<th>TRAN ID</th>
+													<th>REMARKS</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+						<!------------------------------------------------------------------ IMMOVABLE PROPERTY -------------------------------------------------------------------->
+						<div id="immovablePropertyDetails" style="display: none;">
+							<div class="card-header">
+								<div class="float-left">
+									<h4>IMMOVABLE PROPERTY</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Collateral Nature</label>
+									</div>
+									<div class="col-sm-2">
+										<select id="collateral_nature" name="collateral_nature"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="Land">Land</option>
+											<option value="Building">Building</option>
+										</select>
+									</div>
+									<div class="col-sm-1">
+										<label>Valuation Type</label>
+									</div>
+									<div class="col-sm-2">
+										<select id="valuation_type" name="valuation_type"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="D">D</option>
+											<option value="A">A</option>
+										</select>
+									</div>
+									<div class="col-sm-1">
+										<label>Valuation Method</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="valuation_method"
+											name="valuation_method" value="Cost Approach"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Property Details</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="property_details"
+											name="property_details" value="Residential"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Mortgage Date</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="mortgage_date" value="01-01-2023"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="mortgage_date" autocomplete="off" />
+									</div>
+									<div class="col-sm-1">
+										<label>Mortgage Details</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="mortgage_details"
+											name="mortgage_details" value="Fixed rate"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Mortgage Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="mortgage_value" name="mortgage_value"
+											value="INR"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Remarks</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="remarks_i" name="remarks_i"
+											value="Pending approval from bank"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------ Plant and Machinery -------------------------------------------------------------------->
+						<div id="plantAndMachineryDetails" style="display: none;">
+							<div class="card-header">
+								<div class="float-left">
+									<h4>PLANT AND MACHINERY</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Date of Purchase</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name="" value="15-05-2023"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Date of Install</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name="" title="Date of Installation"
+											value="25-05-2023"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Commission Cost</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name="" title="Commissioning Cost"
+											value="4500.00"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Holiday Period</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name="" value="6"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------ Gold Ornaments-------------------------------------------------------------------->
+						<div id="goldOrnamentsDetails" style="display: none;">
+							<div class="card-header">
+								<div class="float-left">
+									<h4 style="font-size: 1.5rem;">GOLD ORNAMENTS</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Description</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>No of Items</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Gross Weight</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Net Weight</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Appraiser Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Appraisal Date</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Appraisal Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Market Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------Vehicles-------------------------------------------------------------------->
+						<div id="vehiclesDetails" style="display: none;">
+							<div class="card-header">
+								<div class="float-left">
+									<h4 style="font-size: 1.5rem;">VEHICLES</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>vehicle Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="vehicle_type" name="vehicle_type"
+											value="Motorcycle"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Brand</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="brand" name="brand" value="Honda"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Make</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="make" name="make" value="Civic"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Model</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="model" name="model" value="2019"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Ins. Company</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="insurance_company_v"
+											name="insurance_company_v" value="Geico"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" title="Insurance Company" />
+									</div>
+									<div class="col-sm-1">
+										<label>Insured Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="insured_value_v" name="insured_value_v"
+											value="USD"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Policy No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="policy_no_v" name="policy_no_v"
+											value="POL123456"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Expiry Date</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="expiry_date_v" name="expiry_date_v"
+											value="15-08-2025"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------ Book Debts-------------------------------------------------------------------->
+						<div id="bookDebitsDetails" style="display: none;">
+							<div class="card-header">
+								<div class="float-left">
+									<h4 style="font-size: 1.5rem;">BOOK DEBTS</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Statement Date</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Stock Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Eligible Stock Val.</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" title="Eligible Stock Value" />
+									</div>
+									<div class="col-sm-1">
+										<label>Remarks</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Ins. Company</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" title="Insurance Company" />
+									</div>
+									<div class="col-sm-1">
+										<label>Insured Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Policy No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Expiry Date</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------ Share Certificate-------------------------------------------------------------------->
+						<div id="shareCertificatesDetails" style="display: none;">
+							<div class="card-header">
+								<div class="float-left">
+									<h4>SHARE CERTIFICATION</h4>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline">
+									<div class="col-sm-1">
+										<label>Company Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>No of Certificates</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Certificate Serial</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+									<div class="col-sm-1">
+										<label>Face Value</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!------------------------------------------------------------------Personal Guarantee-------------------------------------------------------------------->
+						<div id="guaranteesDetails" style="display: none;">
+							<div class="card">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>PERSONAL GUARANTEE</h4>
+									</div>
+								</div>
+								<div class="card-body" id="guaranteesBody">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>National Id Card</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="national_id_card"
+												name="national_id_card"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Address</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="address" name="address"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Guarantor Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="guarantor_name" name="guarantor_name"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Network</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="network" name="network"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--------------------------------------------------------------------------Details End-------------------------------------------------------------------->
+					</div>
+					<div class="card-footer text-center">
+						<button type="button" class="custom-btn"
+							id="btnHome" onclick="Home();">Home</button>
+						<button type="button" class="custom-btn"
+							id="btnBack" onclick="Back();">Back</button>
+					</div>
+					<!-----------------------------------------------------------------footer end ------------------------------------------------------------>
+				</div>
+
+
+
+
+				<!-----------------------------------------------------------modify---------------------------------------------------------------->
+				<div th:if="${formmode}=='modify'">
+					<div class="card w-100 border">
+						<div class="card-header"
+							style="padding: 8px 8px; display: flex; justify-content: space-around;">
+							<div class="float-left">
+								<h4 style="font-size: 1.2rem; color: black;">COLLATERAL
+									MANAGEMENT-MODIFY</h4>
+							</div>
+
+							<button class="tablinks active" id="screen3"
+								style="font-size: 14px; display: none;"
+								onclick="openTab(event, 'tab1');event.preventDefault();">COLLATERAL
+								MANAGEMENT</button>
+							<!-- <button class="tablinks" id="genflow" style="font-size: 14px;"
+								onclick="openTab(event, 'tab2');event.preventDefault();">DEPRECIATION FLOW
+							</button> -->
+						</div>
+						<form action="#" method="post" autocomplete="off" id="collaModify"
+							th:object="${collaModify}">
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<div class="card-body">
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Branch Code</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="branch_code"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.branch_code}" name="branch_code"
+												autocomplete="off" required />
+										</div>
+										<div class="col-sm-1">
+											<label>Branch Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="branch_name" name="branch_name"
+												th:value="${modimanage?.branch_name}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" required />
+										</div>
+										<div class="col-sm-1">
+											<label>Customer Id</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="customer_id" name="customer_id"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.customer_id}" autocomplete="false"
+												required />
+										</div>
+										<div class="col-sm-1">
+											<label>Customer Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="customer_name" name="customer_name"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.customer_name}" autocomplete="false"
+												required />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Loan Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.loan_type}" name="loan_type"
+												value="Lease" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Loan Account No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_account_no"
+												name="loan_account_no" maxlength="9"
+												th:value="${modimanage?.loan_account_no}"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Date of Loan</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_loan" name="date_of_loan"
+												th:value="${#dates.format(modimanage?.date_of_loan, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Loan Currency</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_currency" name="loan_currency"
+												th:value="${modimanage?.loan_currency}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Amt Sanctioned</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="amount_sanctioned"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.amount_sanctioned}"
+												oninput="validateNumericInput(this)"
+												name="amount_sanctioned" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Drawing Limit</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="drawing_limit" name="drawing_limit"
+												th:value="${modimanage?.drawing_limit}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Disb. Amt.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="disbursement_amount"
+												name="disbursement_amount" title="Disbursement Amount"
+												th:value="${modimanage?.disbursement_amount}"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Loan Out.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_outstanding"
+												name="loan_outstanding" title="Loan Outstanding"
+												th:value="${modimanage?.loan_outstanding}"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Loan Period</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="loan_period"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.loan_period}"
+												oninput="validateNumericInput(this)" name="loan_period"
+												autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date" name="expiry_date"
+												th:value="${#dates.format(modimanage?.expiry_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Rep. Terms</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="repayment_terms"
+												name="repayment_terms" title="Repayment Terms"
+												th:value="${modimanage?.repayment_terms}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Rec. Method</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="recovery_method"
+												name="recovery_method" title="Recovery Method"
+												th:value="${modimanage?.recovery_method}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Ref No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_ref_no"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.collateral_ref_no}"
+												oninput="validateNumericInput(this)"
+												name="collateral_ref_no" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>No of Collaterals</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="no_of_collaterals"
+												name="no_of_collaterals"
+												th:value="${modimanage?.no_of_collaterals}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Collateral Srl No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_serial_no"
+												name="collateral_serial_no"
+												th:value="${modimanage?.collateral_serial_no}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Apportion. Flag</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="apportionment_flag"
+												name="apportionment_flag" title="Apportionment Flag"
+												th:value="${modimanage?.apportionment_flag}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Type</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="collateral_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												onchange="showPropertyDetails(this)" name="collateral_type"
+												autocomplete="off" type="text">
+												<option value="Immovable Property"
+													th:selected="${modimanage?.collateral_type}=='Immovable Property'">
+													Immovable Property</option>
+												<option value="Plant and Machinery"
+													th:selected="${modimanage?.collateral_type}=='Plant and Machinery'">
+													Plant and Machinery</option>
+												<option value="Gold Ornaments"
+													th:selected="${modimanage?.collateral_type}=='Gold Ornaments'">Gold
+													Ornaments</option>
+												<option value="Vehicles"
+													th:selected="${modimanage?.collateral_type}=='Vehicles'">Vehicles
+												</option>
+												<option value="Book Debits"
+													th:selected="${modimanage?.collateral_type}=='Book Debits'">Book
+													Debits</option>
+												<option value="Share Certificates"
+													th:selected="${modimanage?.collateral_type}=='Share Certificates'">
+													Share Certificates</option>
+												<option value="Other Securities"
+													th:selected="${modimanage?.collateral_type}=='Other Securities'">
+													Other Securities</option>
+												<option value="Guarantees"
+													th:selected="${modimanage?.collateral_type}=='Guarantees'">
+													Guarantees</option>
+											</select>
+										</div>
+
+										<div class="col-sm-1">
+											<label>Description</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="description" name="description"
+												th:value="${modimanage?.description}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Date of Purchase</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_purchase"
+												name="date_of_purchase"
+												th:value="${#dates.format(modimanage?.date_of_purchase, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Original Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="original_value" name="original_value"
+												th:value="${modimanage?.original_value}"
+												class="form-control form-control-sm bg-white border border-dark "
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Desc</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="collateral_description"
+												th:value="${modimanage?.collateral_description}"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="collateral_description" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Ownership</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="ownership" name="ownership"
+												th:value="${modimanage?.ownership}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Location</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="location" name="location"
+												th:value="${modimanage?.location}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Book Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="book_value" name="book_value"
+												th:value="${modimanage?.book_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Date of Valuation</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_valuation"
+												th:value="${#dates.format(modimanage?.date_of_valuation, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="date_of_valuation" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Valuer Details</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="valuer_details" name="valuer_details"
+												th:value="${modimanage?.valuer_details}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Market Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="market_value" name="market_value"
+												th:value="${modimanage?.market_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Insured Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insured_value" name="insured_value"
+												th:value="${modimanage?.insured_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Max. Allow. Amt.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="max_allowable_amount"
+												title="Max Allowable Amount"
+												th:value="${modimanage?.max_allowable_amount}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)"
+												name="max_allowable_amount" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Apport. Amt.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="apportionment_amount"
+												name="apportionment_amount" title="Apportionment Amount"
+												th:value="${modimanage?.apportionment_amount}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Apport. Details.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="apportionment_details"
+												name="apportionment_details" title="Apportionment Details"
+												th:value="${modimanage?.apportionment_details}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Other Loans</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="other_loans" name="other_loans"
+												th:value="${modimanage?.other_loans}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Life of Property</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="life_of_property"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${modimanage?.life_of_property}"
+												oninput="validateNumericInput(this)" name="life_of_property"
+												autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Dep. Flag</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_flag"
+												name="depreciation_flag" title="Depreciation Flag"
+												th:value="${modimanage?.depreciation_flag}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Dep. Method.</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="depreciation_method" name="depreciation_method"
+												class="form-control form-control-sm bg-white border border-dark"
+												required>
+												<option value="SLM"
+													th:selected="${modimanage?.depreciation_method}=='SLM'">SLM</option>
+												<option value="WDV"
+													th:selected="${modimanage?.depreciation_method}=='WDV'">
+													WDV</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Calculation Type</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="calculation_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="calculation_type" autocomplete="off" type="text">
+												<option value="System"
+													th:selected="${modimanage?.calculation_type}=='System'">System</option>
+												<option value="Manual"
+													th:selected="${modimanage?.calculation_type}=='Manual'">
+													Manual</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Last Dep. Date.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="last_depreciation_date"
+												title="Last Depreciation Date"
+												th:value="${#dates.format(modimanage?.last_depreciation_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="last_depreciation_date" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Depreciation %.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_percentage"
+												name="depreciation_percentage"
+												th:value="${modimanage?.depreciation_percentage}"
+												title="Depreciation Percentage"
+												oninput="validateNumericInput(this)"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Dep. Amt</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="depreciation_amount"
+												name="depreciation_amount" title="Depreciation Amount"
+												th:value="${modimanage?.depreciation_amount}"
+												class="form-control form-control-sm bg-white border border-dark"
+												oninput="validateNumericInput(this)" autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Acc. Dep.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="accumulated_depreciation"
+												name="accumulated_depreciation"
+												th:value="${modimanage?.accumulated_depreciation}"
+												oninput="validateNumericInput(this)"
+												title="Accumulated Depreciation"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ TAB 2 -------------------------------------------------------------------->
+							<!-- <div id="tab2" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<fieldset>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Serial No</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="collateral_serial_no"
+													id="collateral_serial_no"
+													th:value="${modimanage?.collateral_serial_no}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Collateral Type</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="collateral_type"
+													id="collateral_type"
+													th:value="${modimanage?.collateral_type}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="collateral_nature"
+													name="collateral_nature"
+													th:value="${modimanage?.collateral_nature}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Original Cost</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" name="original_value"
+													th:value="${modimanage?.original_value}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Currency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="loan_currency" name="loan_currency"
+													th:value="${modimanage?.loan_currency}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Accumulated Depreciation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" name="accumulated_depreciation"
+													style="text-align: right" id="accumulated_depreciation"
+													th:value="${modimanage?.accumulated_depreciation}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Date of Purchase</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="year_of_purchase"
+													name="year_of_purchase"
+													th:value="${#dates.format(modimanage?.year_of_purchase, 'dd-MM-yyyy')}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>current book value</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="number" name="curr_book_value"
+													style="text-align: right" id="book_value"
+													th:value="${modimanage?.book_value}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Year of Purchase</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="year_of_purchase1"
+													name="year_of_purchase"
+													th:value="${#dates.format(modimanage?.year_of_purchase, 'dd-MM-yyyy')}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation flag</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="depreciation_flg"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Collateral Expiry Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="expiry_date" name="expiry_date"
+													th:value="${#dates.format(modimanage?.expiry_date, 'dd-MM-yyyy')}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Method</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="depreciation_method"
+													th:value="${modimanage?.depreciation_method}"
+													class="form-control form-control-sm bg-white border border-dark"
+													name="depreciation_method" autocomplete="off"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Acquisition Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="acquis_date" name="acquis_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Percentage</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="depreciation_percentage"
+													th:value="${modimanage?.depreciation_percentage}"
+													style="text-align: right;" id="depreciation_percentage"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Life Span Months</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="life_of_property"
+													name="life_of_property"
+													th:value="${modimanage?.life_of_property}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" style="text-align: right" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Frequency</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="depreciation_frequency"
+													id="depreciation_frequency1"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="row formline" style="padding-bottom: 25px;">
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label>Depreciation Start Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="depreciation_start_date1"
+													name="depreciation_start_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label for="employeeName">Date of last Depreciation</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" name="last_depreciation_date"
+													id="last_depreciation_date"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+
+										<div class="card-footer text-center"
+											style="background-color: #e9ecef; height: 50px">
+											<button type="button" class="btn btn-xs btn-primary p-2"
+												id="btnHome" onclick="genflows();">GENERATE FLOWS</button>
+										</div>
+									</fieldset>
+
+									<fieldset id="tableset" style="display: none">
+										<div class="table-responsive">
+											<table class="table  table-bordered  table-hover table-sm"
+												style="margin-bottom: 0px; font-size: initial;"
+												id="flowsTable">
+												<thead class="thead-light">
+													<tr>
+														<th>SRL</th>
+														<th>FLOW ID</th>
+														<th>FLOW START DATE</th>
+														<th>FREQUENCY</th>
+														<th>METHOD</th>
+														<th>PERCENTAGE</th>
+														<th>ORGINAL COST</th>
+														<th>DEPRECIATION</th>
+														<th>BOOK VALUE</th>
+														<th>AMOUNT</th>
+														<th>TRAN DATE</th>
+														<th>TRAN ID</th>
+														<th>REMARKS</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</fieldset>
+								</div>
+							</div> -->
+							<!------------------------------------------------------------------ IMMOVABLE PROPERTY -------------------------------------------------------------------->
+							<div id="immovablePropertyDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>IMMOVABLE PROPERTY</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Collateral Nature</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="collateral_nature" name="collateral_nature"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" required>
+												<option value="Land"
+													th:selected="${modimanage?.collateral_nature}=='Land'">
+													Land</option>
+												<option value="Building"
+													th:selected="${modimanage?.collateral_nature}=='Building'">
+													Building</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Valuation Type</label>
+										</div>
+										<div class="col-sm-2">
+											<select id="valuation_type" name="valuation_type"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="off" required>
+												<option value="D"
+													th:selected="${modimanage?.collateral_nature}=='D'">
+													D</option>
+												<option value="A"
+													th:selected="${modimanage?.collateral_nature}=='A'">
+													A</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<label>Valuation Method</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="valuation_method"
+												name="valuation_method"
+												th:value="${modimanage?.valuation_method}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Property Details</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="property_details"
+												name="property_details"
+												th:value="${modimanage?.property_details}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Mortgage Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="mortgage_date"
+												th:value="${#dates.format(modimanage?.mortgage_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												name="mortgage_date" autocomplete="off" />
+										</div>
+										<div class="col-sm-1">
+											<label>Mortgage Details</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="mortgage_details"
+												name="mortgage_details"
+												th:value="${modimanage?.mortgage_details}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Mortgage Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="mortgage_value" name="mortgage_value"
+												th:value="${modimanage?.mortgage_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Remarks</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="remarks_i" name="remarks_i"
+												th:value="${modimanage?.remarks_i}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Plant and Machinery -------------------------------------------------------------------->
+							<div id="plantAndMachineryDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4 style="font-size: 1.5rem;">PLANT AND MACHINERY</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Date of Purchase</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="year_of_purchase"
+												name="year_of_purchase"
+												th:value="${#dates.format(modimanage?.year_of_purchase, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Date of Install</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="date_of_installation"
+												name="date_of_installation" title="Date of Installation"
+												th:value="${#dates.format(modimanage?.date_of_installation, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Commission Cost</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="commissioning_cost"
+												name="commissioning_cost" title="Commissioning Cost"
+												th:value="${modimanage?.commissioning_cost}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Holiday Period</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="holiday_period" name="holiday_period"
+												th:value="${modimanage?.holiday_period}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Gold Ornaments-------------------------------------------------------------------->
+							<div id="goldOrnamentsDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>GOLD ORNAMENTS</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Description</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="description_g" name="description_g"
+												th:value="${modimanage?.description_g}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>No of Items</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="no_of_items" name="no_of_items"
+												th:value="${modimanage?.no_of_items}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Gross Weight</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="gross_weight" name="gross_weight"
+												th:value="${modimanage?.gross_weight}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Net Weight</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="net_weight" name="net_weight"
+												th:value="${modimanage?.net_weight}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Appraiser Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="appraiser_name" name="appraiser_name"
+												th:value="${modimanage?.appraiser_name}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Appraisal Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="appraisal_date" name="appraisal_date"
+												th:value="${#dates.format(modimanage?.appraisal_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Appraisal Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="appraisal_value"
+												name="appraisal_value"
+												th:value="${modimanage?.appraisal_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Market Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="market_value_v" name="market_value_v"
+												th:value="${modimanage?.market_value_v}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------Vehicles-------------------------------------------------------------------->
+							<div id="vehiclesDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4 style="font-size: 1.5rem;">VEHICLES</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>vehicle Type</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="vehicle_type" name="vehicle_type"
+												th:value="${modimanage?.vehicle_type}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Brand</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="brand" name="brand"
+												th:value="${modimanage?.brand}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Make</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="make" name="make"
+												th:value="${modimanage?.make}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Model</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="model" name="model"
+												th:value="${modimanage?.model}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Ins. Company</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insurance_company_v"
+												name="insurance_company_v"
+												th:value="${modimanage?.insurance_company_v}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" title="Insurance Company" />
+										</div>
+										<div class="col-sm-1">
+											<label>Insured Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insured_value_v"
+												name="insured_value_v"
+												th:value="${modimanage?.insured_value_v}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Policy No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="policy_no_v" name="policy_no_v"
+												th:value="${modimanage?.policy_no_v}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date_v" name="expiry_date_v"
+												th:value="${#dates.format(modimanage?.expiry_date_v, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Book Debts-------------------------------------------------------------------->
+							<div id="bookDebitsDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4>BOOK DEBTS</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Statement Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="statement_date" name="statement_date"
+												th:value="${#dates.format(modimanage?.statement_date, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Stock Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="stock_value" name="stock_value"
+												th:value="${modimanage?.stock_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Eligible Stock Val.</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="eligible_stock_value"
+												name="eligible_stock_value"
+												th:value="${modimanage?.eligible_stock_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" title="Eligible Stock Value" />
+										</div>
+										<div class="col-sm-1">
+											<label>Remarks</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="remarks_v" name="remarks_v"
+												th:value="${modimanage?.remarks_v}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Ins. Company</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insurance_company_b"
+												name="insurance_company_b"
+												th:value="${modimanage?.insurance_company_b}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" title="Insurance Company" />
+										</div>
+										<div class="col-sm-1">
+											<label>Insured Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="insured_value_b"
+												name="insured_value_b"
+												th:value="${modimanage?.insured_value_b}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Policy No</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="policy_no_b" name="policy_no_b"
+												th:value="${modimanage?.policy_no_b}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Expiry Date</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="expiry_date_b" name="expiry_date_b"
+												th:value="${#dates.format(modimanage?.expiry_date_b, 'dd-MM-yyyy')}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------ Share Certificate-------------------------------------------------------------------->
+							<div id="shareCertificatesDetails" style="display: none;">
+								<div class="card-header">
+									<div class="float-left">
+										<h4 style="font-size: 1.5rem;">SHARE CERTIFICATION</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row formline">
+										<div class="col-sm-1">
+											<label>Company Name</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="company_name_s" name="company_name_s"
+												th:value="${modimanage?.company_name_s}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>No of Certificates</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="no_of_certificates"
+												name="no_of_certificates"
+												th:value="${modimanage?.no_of_certificates}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Certificate Serial</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="certificate_serial"
+												name="certificate_serial"
+												th:value="${modimanage?.certificate_serial}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+										<div class="col-sm-1">
+											<label>Face Value</label>
+										</div>
+										<div class="col-sm-2">
+											<input type="text" id="face_value" name="face_value"
+												th:value="${modimanage?.face_value}"
+												class="form-control form-control-sm bg-white border border-dark"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------Personal Guarantee-------------------------------------------------------------------->
+							<div id="guaranteesDetails" style="display: none;">
+								<div class="card">
+									<div class="card-header">
+										<div class="float-left">
+											<h4>PERSONAL GUARANTEE</h4>
+										</div>
+									</div>
+									<div class="card-body" id="guaranteesBody">
+										<div class="row formline">
+											<div class="col-sm-1">
+												<label>National Id Card</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="national_id_card"
+													name="national_id_card"
+													th:value="${modimanage?.face_value}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-1">
+												<label>Address</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="address" name="address"
+													th:value="${modimanage?.face_value}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-1">
+												<label>Guarantor Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="guarantor_name" name="guarantor_name"
+													th:value="${modimanage?.face_value}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+											<div class="col-sm-1">
+												<label>Network</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="network" name="network"
+													th:value="${modimanage?.face_value}"
+													class="form-control form-control-sm bg-white border border-dark"
+													autocomplete="false" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<!--------------------------------------------------------------------------Details End-------------------------------------------------------------------->
+
+						<div class="card-footer text-center mt-3">
+							<button type="button" class="custom-btn"
+								id="btnHome" onclick="Home();">Home</button>
+							<button type="button" class="custom-btn"
+								id="btnHome" onclick="submitdatas(this);">Submit</button>
+							<button type="button" class="custom-btn"
+								id="btnBack" onclick="Back();">Back</button>
+						</div>
+
+
+						<!------------------------------------------------------------------------ Add footer ------------------------------------------------------------------>
+						<div class="card-body">
+							<div class="row formline">
+								<div class="col-sm-1">
+									<label>Entry User :</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="entryuser" name="entry_user"
+										class="form-control form-control-sm bg-white border border-dark"
+										autocomplete="false" th:value="${modimanage?.entry_user}"
+										disabled />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-1">
+									<label>Modify User :</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="" name="modify_user"
+										th:value="${modimanage?.modify_user}"
+										class="form-control form-control-sm bg-white border border-dark"
+										autocomplete="false" />
+								</div>
+								<div class="col-sm-2"></div>
+								<div class="col-sm-1">
+									<label>Verify User :</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="" name=""
+										class="form-control form-control-sm bg-white border border-dark"
+										autocomplete="false" />
+								</div>
+							</div>
+							<div class="row formline">
+								<div class="col-sm-1">
+									<label>Entry Time :</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="entrytime" name="entry_time"
+										class="form-control form-control-sm bg-white border border-dark"
+										autocomplete="false"
+										th:value="${#dates.format(modimanage?.entry_time, 'dd-MM-yyyy HH:mm:ss')}"
+										disabled />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-1">
+									<label>Modify Time :</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="" name="modify_time"
+										th:value="${#dates.format(modimanage?.modify_time, 'dd-MM-yyyy HH:mm:ss')}"
+										class="form-control form-control-sm bg-white border border-dark"
+										autocomplete="false" />
+								</div>
+								<div class="col-sm-2"></div>
+								<div class="col-sm-1">
+									<label>Verify Time :</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="" name=""
+										class="form-control form-control-sm bg-white border border-dark"
+										autocomplete="false" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!----------------------------------------------------------- Modal ------------------------------------------------------------>
+	<div class="modal fade" id="deletealert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="background-color: #e3e3e4;">
+				<div class="modal-body" style="text-align: center">
+					<p style="color: #000;" id="deletealertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="Back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg"></h6>
+					<button type="button" class="btn btn-primary" onclick="list()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!------------------------------------------------------------------ end ---------------------------------------------------------------->
+</body>
+</html>

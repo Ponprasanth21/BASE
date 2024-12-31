@@ -1,0 +1,762 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif; /* Using a more common font */
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+	
+	function add() {
+		alert("add")
+		location.href = 'profileManager?formmode=add';
+
+	}
+	
+	function addrow1(button) {
+		event.preventDefault();
+		var maxRows = 10; // Maximum number of rows
+		var table = document.getElementById("preorg1").getElementsByTagName(
+				'tbody')[0];
+		var rowCount = table.rows.length + 1;
+
+		if (rowCount <= maxRows) {
+			var row = table.insertRow(-1);
+
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			var cell7 = row.insertCell(6);
+
+			// Set input field names dynamically
+			var index = rowCount; 
+			cell1.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" style="background-color:white" name="prev_orgn_' + index + '" value="' + rowCount + '" readonly></div>';
+			cell2.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell3.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell4.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell5.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell6.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell7.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color: red;" onclick="deleterow1(this)" readonly></i></div>';
+
+		} else {
+			alert("Maximum rows reached.");
+		}
+	}
+	
+
+	function deleterow1(ele) {
+		event.preventDefault();
+
+		var table = document.getElementById('preorg1');
+		var rowCount = table.rows.length;
+
+		// Check if there's only one row, prevent deletion if so
+		if (rowCount <= 1) {
+			alert("There is no row available to delete!");
+			return;
+		}
+
+		// Get the row index of the clicked icon
+		var rowIndex = ele.closest('tr').rowIndex;
+
+		// Delete the row corresponding to the row index
+		table.deleteRow(rowIndex);
+	}
+	
+	function addrow2(button) {
+		event.preventDefault();
+		var maxRow = 20;
+		var table = document.getElementById("preorg2").getElementsByTagName(
+				'tbody')[0];
+		var rowCount = table.rows.length + 1;
+		if (rowCount <= maxRow) {
+			var row = table.insertRow(-1);
+
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			var cell7 = row.insertCell(6);
+			var cell8 = row.insertCell(7);
+
+			var index = rowCount;
+			cell1.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" style="background-color:white" name="proj_det_' + index + '" value="' + index + '" readonly></div>';
+			cell2.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell3.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell4.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell5.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell6.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell7.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell8.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px;color:red;" onclick="deleterow2(this)" readonly></i></div>';
+		} else {
+			alert("Maximum rows reached.");
+		}
+
+	} 
+	
+	function deleterow2(ele) {
+		event.preventDefault();
+		var table = document.getElementById('preorg2');
+		var rowCount = table.rows.length;
+
+		// Check if there's only one row, prevent deletion if so
+		if (rowCount <= 1) {
+			alert("There is no row available to delete!");
+			return;
+		}
+
+		// Get the row index of the clicked icon
+		var rowIndex = ele.closest('tr').rowIndex;
+
+		// Delete the row corresponding to the row index
+		table.deleteRow(rowIndex);
+	}
+	
+</script>     
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">LIST OF
+									PROFILES</h6>
+							</div>
+
+							<div class="btn-group nav-buttons float-right"
+								style="padding: 5px;">
+
+								<button class="btn btn-primary p-2" onclick="add();">Add</button>
+
+
+
+							</div>
+
+						</div>
+
+						<table class="table  table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th>SRL NO</th>
+									<th>EMPLOYEE ID</th>
+									<th>NAME</th>
+									<th>DESIGNATION</th>
+									<th>GROUP</th>
+									<th>STATUS</th>
+									<th>SELECT</th>
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+
+								<tr th:each="details,ind : ${list}">
+
+									<td th:text="${ind.index+1}"></td>
+									<td th:text="${details.emp_id}"></td>
+									<td th:text="${details.emp_name}"></td>
+									<td th:text="${details.emp_desig}"></td>
+									<td th:text="${details.emp_group}"></td>
+									<th:block th:switch="${details.verify_flg}">
+										<td th:case="'Y'" style="color: green;">Verified</td>
+										<td th:case="*" style="color: red;">UnVerified</td>
+									</th:block>
+									<td style="text-align: center">
+										<div class="dropdown">
+
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4; color: #3a4550;">
+
+												<a
+													th:if="${details.verify_flg == null or details.verify_flg == 'N'}"
+													th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title="Verify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="verify(this)">Verify</a>
+												<div
+													th:if="${details.verify_flg == null or details.verify_flg == 'N'}"
+													class="dropdown-divider"></div>
+
+												<a th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title="View"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													onclick="view(this)" id="view_btn">View </a>
+												<div class="dropdown-divider"></div>
+
+												<a th:if="${details.verify_flg == 'Y'}"
+													th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title=" Modify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="modify(this)">Modify</a>
+												<div th:if="${details.verify_flg == 'Y'}"
+													class="dropdown-divider"></div>
+
+												<a th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title=" Delete"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="delete" onclick="Delete(this)">Delete</a>
+												<div class="dropdown-divider"></div>
+
+
+											</div>
+
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+						</div>
+					</div>
+
+				</div>
+
+<div th:if="${formmode}=='add'">
+					<div class="card">
+						<form class=" border border-secondary" action="#" method="post" id="pmid" autocomplete="off">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 25px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+							
+
+								<h4
+									style="height: 40px; padding: 10px;">
+									PROFILE MANAGER</h4>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE PERSONAL DETAILS</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Employee Id</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_id" id="emp_id"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Emplpoyee Name</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_name" id="emp_name"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Designation</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_desig" id="emp_desig"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Group</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_group" id="emp_group"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="dd-mm-yyyy" name="dob" id="dob" class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Martial Status</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="marital_status" id="marital_status"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobile No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobile_no" id="mobile_no"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Email Id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addr" id="addr"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE QUALIFICATION</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Educational Qualification</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="academic_qual" id="academic_qual"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addl_qual" id="addl_qual"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Certificates</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="certification" id="certification"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Set</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="skill_set" id="skill_set"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Capabilities</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="capabilities" id="capabilities"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Project Exposure</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="project_exposure"
+										id="project_exposure" class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Remarks</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="remarks" id="remarks"
+										class="form-control form-control-sm bg-white border border-dark" />
+
+								</div>
+							</div>
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PREVIOUS ORGANIZATION</h6>
+								</div>
+								<div class="col-6 text-right">
+									<div class="btn-group" style="margin-right: 50px;">
+										<button class="btn btn-primary p-2" onclick="addrow1(this);">Add
+											Row</button>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<table class="table table-bordered table-sm" id="preorg1">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Organization
+													Name</h6></th>
+											<th style="text-align: center;"><h6>Designation</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Years</h6></th>
+											<th style="text-align: center;"><h6>Roles and
+													Responsibilities</h6></th>
+											<th style="text-align: center;"><h6>Action</h6></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<td style="text-align: center;"><input type="text"
+												value=" 1" name="prev_orgn_1" class="form-control form-control-sm input-md" id="srlno" style="background-color:white;" readonly></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control form-control-sm input-md" id="orgname"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control form-control-sm input-md" id="des"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control form-control-sm input-md" id="per"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control form-control-sm input-md" id="yr"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control form-control-sm input-md" id="rr"></td>
+											<td style="text-align: center;"><i
+												class="fa fa-minus-circle" aria-hidden="true"
+												style="font-size: 23px; color: red;"
+												onclick="deleterow1(this)" readonly></i></td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+
+
+
+
+
+
+
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PROJECT DETAILS</h6>
+								</div>
+								<div class="col-6 text-right">
+									<div class="btn-group" style="margin-right: 50px;">
+										<button class="btn btn-primary p-2" onclick="addrow2();">Add
+											Row</button>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<div class="table-responsive">
+									<table class="table table-bordered table-sm" id="preorg2"
+										style="width: 100%;">
+										<thead>
+											<tr>
+												<th style="text-align: center;"><h6>Srl No</h6></th>
+												<th style="text-align: center;"><h6>Project Name</h6></th>
+												<th style="text-align: center;"><h6>Role</h6></th>
+												<th style="text-align: center;"><h6>Period</h6></th>
+												<th style="text-align: center;"><h6>Client</h6></th>
+												<th style="text-align: center;"><h6>Responsibilities</h6></th>
+												<th style="text-align: center;"><h6>Remarks</h6></th>
+												<th style="text-align: center;"><h6>Action</h6></th>
+											</tr>
+										</thead>
+
+
+										<tbody>
+
+
+											<tr>
+												<td style="text-align: center;"><input type="text"
+													value=" 1" name="proj_det_1" class="form-control form-control-sm input-md" id="srlno" style="background-color:white;" readonly></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control form-control-sm input-md" id="proname"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control form-control-sm input-md" id="role"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control form-control-sm input-md" id="per"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control form-control-sm input-md" id="client"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control form-control-sm input-md" id="res"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control form-control-sm input-md" id="remarks"></td>
+												<td style="display: flex; justify-content: center;"><i
+													class="fa fa-minus-circle" aria-hidden="true"
+													style="font-size: 23px; color: red;"
+													onclick="deleterow2(this)" readonly></i></td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Submit();">Submit</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

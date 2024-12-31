@@ -1,0 +1,1736 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="summary">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	
+<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="js/bootstrap411.js"></script>
+<!-- Include jQuery and Bootstrap JS if not already included -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+.filterable {
+	margin-top: 35px;
+}
+
+.filterable .panel-heading .pull-right {
+	margin-top: -20px;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.body {
+	font-family: calibri;
+	font-size: 11px;
+	line-height: 1.42857143;
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+.panel-primary>.panel-heading {
+	color: #fff;
+	background-color: #bbc3cb;
+	border-color: #bbc3cb;
+}
+
+.panel-title {
+	font-size: 12px;
+	text-align: center;
+	color: black;
+}
+
+.panel-heading {
+	padding: 8px;
+	height: 38px;
+}
+
+.form-control {
+	font-size: 11px;
+	width: 80%;
+	height: 25px;
+}
+
+body {
+	font-size: 10px;
+	font-family: calibri;
+}
+
+.panel-primary {
+	border-color: rgba(18, 18, 19, 0.22);
+}
+
+.modal-footer {
+	text-align: center;
+	border-top: 0;
+	padding: 25px;
+	padding-right: 600px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.modal {
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.glyphicon {
+	float: right;
+	cursor: pointer;
+}
+
+.loader {
+	width: 30px;
+	aspect-ratio: 1;
+	display: grid;
+	border-radius: 50%;
+	background: linear-gradient(0deg, rgb(0 0 0/ 50%) 30%, #0000 0 70%,
+		rgb(0 0 0/ 100%) 0) 50%/8% 100%,
+		linear-gradient(90deg, rgb(0 0 0/ 25%) 30%, #0000 0 70%,
+		rgb(0 0 0/ 75%) 0) 50%/100% 8%;
+	background-repeat: no-repeat;
+	animation: l23 1s infinite steps(12);
+}
+
+.loader::before, .loader::after {
+	content: "";
+	grid-area: 1/1;
+	border-radius: 50%;
+	background: inherit;
+	opacity: 0.915;
+	transform: rotate(30deg);
+}
+
+.loader::after {
+	opacity: 0.83;
+	transform: rotate(60deg);
+}
+
+@keyframes l23 { 100% {
+	transform: rotate(1turn)
+}
+
+}
+.loader2 {
+	margin-left: 150px;
+	width: fit-content;
+	font-size: 30px;
+	font-family: system-ui, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #0000;
+	text-align: center;
+	-webkit-text-stroke: 1px #000;
+	background: linear-gradient(90deg, #0000 33%, #000 0 67%, #0000 0) 0/300%
+		100% no-repeat text;
+	animation: l2 2s linear infinite;
+	width: fit-content;
+}
+
+.loader2:before {
+	content: "Loading...";
+}
+
+@keyframes l2 { 0% {
+	background-position: 100%;
+}
+
+}
+.loader3 {
+	margin-left: 150px;
+	width: fit-content;
+	font-size: 30px;
+	font-family: system-ui, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #0000;
+	text-align: center;
+	-webkit-text-stroke: 1px #000;
+	background: linear-gradient(90deg, #0000 33%, #000 0 67%, #0000 0) 0/300%
+		100% no-repeat text;
+	animation: l2 2s linear infinite;
+	width: fit-content;
+}
+
+.loader3:before {
+	content: "Loading...";
+}
+
+@keyframes l2 { 0% {
+	background-position: 100%;
+}
+
+}
+.loader8 {
+	margin-left: 150px;
+	width: fit-content;
+	font-size: 30px;
+	font-family: system-ui, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #0000;
+	text-align: center;
+	-webkit-text-stroke: 1px #000;
+	background: linear-gradient(90deg, #0000 33%, #000 0 67%, #0000 0) 0/300%
+		100% no-repeat text;
+	animation: l2 2s linear infinite;
+	width: fit-content;
+}
+
+.loader8:before {
+	content: "Loading...";
+}
+</style>
+<style>
+.custom-margin-top {
+	margin-top: 1000px;
+}
+</style>
+</head>
+<script>
+
+/* function Refresh() {
+    window.location.reload();
+} */
+
+	document.addEventListener('DOMContentLoaded', function () {
+		// Elements for loader and messages
+		var loader = document.getElementById('loader8');
+		var successMessage = document.getElementById('successMessage8');
+		var failureMessage = document.getElementById('failureMessage8');
+
+		// Show loader for 5-6 seconds (5000-6000 milliseconds)
+		setTimeout(function () {
+			// Hide loader after 5-6 seconds
+			loader.style.display = 'none';
+
+			// Check if the condition is for success or failure
+			if (successMessage) {
+				successMessage.style.display = 'block'; // Show success message
+			} else if (failureMessage) {
+				failureMessage.style.display = 'block'; // Show failure message
+			}
+		}, 3500); // Change this to 6000 if you want 6 seconds
+	});
+
+	// Wait for the DOM to load
+	document.addEventListener('DOMContentLoaded', function () {
+		// Elements for loader and messages
+		var loader = document.getElementById('loader2');
+		var successMessage = document.getElementById('successMessage');
+		var failureMessage = document.getElementById('failureMessage');
+
+		// Show loader for 5-6 seconds (5000-6000 milliseconds)
+		setTimeout(function () {
+			// Hide loader after 5-6 seconds
+			loader.style.display = 'none';
+
+			// Check if the condition is for success or failure
+			if (successMessage) {
+				successMessage.style.display = 'block'; // Show success message
+			} else if (failureMessage) {
+				failureMessage.style.display = 'block'; // Show failure message
+			}
+		}, 3500); // Change this to 6000 if you want 6 seconds
+	});
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+		var loader = document.getElementById('loader3');
+		var successMessage2 = document.getElementById('successMessage2');
+		var failureMessage2 = document.getElementById('failureMessage2');
+
+		// Function to check balances and display messages
+		function checkBalances() {
+			const accountCredit = document.getElementById("accountCredit").innerText;
+			const accountDebit = document.getElementById("accountDebit").innerText;
+			const glCredit = document.getElementById("glCredit").innerText;
+			const glDebit = document.getElementById("glDebit").innerText;
+
+			console.log("accountCredit: " + accountCredit);
+			console.log("accountDebit: " + accountDebit);
+			console.log("glCredit: " + glCredit);
+			console.log("glDebit: " + glDebit);
+
+			// Convert to numbers for comparison
+			const accOpen = parseFloat(accountCredit.replace(/,/g, ''));
+			const accClose = parseFloat(accountDebit.replace(/,/g, ''));
+			const glC = parseFloat(glCredit.replace(/,/g, ''));
+			const glD = parseFloat(glDebit.replace(/,/g, ''));
+
+			console.log("accOpen: " + accOpen);
+			console.log("accClose: " + accClose);
+			console.log("glC: " + glC);
+			console.log("glD: " + glD);
+
+
+			if (accOpen === glC && accClose === glD) {
+				successMessage2.style.display = "block";
+				failureMessage2.style.display = "none";
+			} else {
+				failureMessage2.style.display = "block";
+				successMessage2.style.display = "none";
+			}
+		}
+
+		// Show loader for 3.5 seconds (3500 milliseconds)
+		setTimeout(function () {
+			// Hide loader after 3.5 seconds
+			loader.style.display = 'none';
+
+			// Call the checkBalances function after loader is hidden
+			checkBalances();
+		}, 4500); // Adjust to 6000 if you want 6 seconds
+	});
+
+	
+	
+	function setNextDate() {
+	    // Get the current date from the 'current_date' field
+	    const currentDateStr = document.getElementById("current_date").value;
+	    
+	    // Parse the date string (expected format: dd-MM-yyyy)
+	    const [day, month, year] = currentDateStr.split("-");
+	    const currentDate = new Date(`${year}-${month}-${day}`);
+
+	    // Add one day
+	    currentDate.setDate(currentDate.getDate() + 1);
+
+	    // Manually format the date as dd-MM-yyyy
+	    const nextDateStr = String(currentDate.getDate()).padStart(2, '0') + "-" + 
+	                        String(currentDate.getMonth() + 1).padStart(2, '0') + "-" + 
+	                        currentDate.getFullYear();
+
+	    // Set the next date in the 'nxtdate' field
+	    document.getElementById("nxtdate").value = nextDateStr;
+	}
+
+	// Set the next date when the page loads
+	window.onload = setNextDate;
+
+
+	   // Set the next date when the page loads
+	   window.onload = setNextDate;
+</script>
+
+<script>
+	$(document)
+		.ready(
+			function () {
+
+				if ('<%=arl.get(0).toUpperCase()%>' == "COMPLETED"
+					&& '<%=arl.get(6).toUpperCase()%>' != "OPEN") {
+					$('#td1').remove();
+					$('#tr1')
+						.append(
+							'<td style="text-align: center;" id="td11">'
+							+ '<img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="User Pic">'
+							+ '</td>');
+				}
+
+				if ('<%=arl.get(1).toUpperCase()%>' == "COMPLETED"
+					&& '<%=arl.get(6).toUpperCase()%>' != "OPEN") {
+					$('#td2').remove();
+					$('#tr2')
+						.append(
+							'<td style="text-align: center;" id="td21"><img class="img-thumbnail" th:src="@{/images/check.png}" width="35" height="10" alt="User Pic"></td>');
+
+				}
+				if ('<%=arl.get(2).toUpperCase()%>' == "COMPLETED"
+					&& '<%=arl.get(6).toUpperCase()%>' != "OPEN") {
+					$('#td3').remove();
+					$('#tr3')
+						.append(
+							'<td style="text-align: center;" id="td31"><img class="img-thumbnail" th:src="@{/images/check.png}" width="35" height="10" alt="User Pic"></td>');
+
+				}
+				if ('<%=arl.get(3).toUpperCase()%>' == "COMPLETED"
+					&& '<%=arl.get(6).toUpperCase()%>' != "OPEN") {
+					$('#td4').remove();
+					$('#tr4')
+						.append(
+							'<td style="text-align: center;" id="td41"><img class="img-thumbnail" th:src="@{/images/check.png}" width="35" height="10" alt="User Pic"></td>');
+
+				}
+				if ('<%=arl.get(4).toUpperCase()%>' == "COMPLETED"
+					&& '<%=arl.get(6).toUpperCase()%>' != "OPEN") {
+					$('#td5').remove();
+					$('#tr5')
+						.append(
+							'<td style="text-align: center;" id="td51"><img class="img-thumbnail" th:src="@{/images/check.png}" width="35" height="10" alt="User Pic"></td>');
+
+				}
+				if ('<%=arl.get(5).toUpperCase()%>' == "COMPLETED"
+					&& '<%=arl.get(6).toUpperCase()%>' != "OPEN") {
+					$('#td6').remove();
+					$('#tr6')
+						.append(
+							'<td style="text-align: center;" id="td61"><img class="img-thumbnail" th:src="@{/images/check.png}" width="35" height="10" alt="User Pic"></td>');
+
+				}
+
+				$("#play1")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play1").hide();
+
+							// Remove any existing loader
+							$('#td1').remove();
+
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr1')
+								.append(
+									'<td width="205px;" id="td1" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+							setTimeout(
+								function () {
+									$('#td1')
+										.html(
+											'<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>'); // Append the tick character
+								}, 2000);
+
+							var values = {
+								"trndate": $("#crdate").val()
+							};
+
+							// Send AJAX request
+							$
+								.ajax({
+									url: "journalvalid",
+									data: values,
+									dataType: 'json',
+									type: 'POST',
+									async: true,
+									success: function (res) {
+										// Remove loader
+										$('#td1').remove();
+
+										// Append appropriate image based on response
+										if (res.tranval == "Valid") {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="Valid"></td>');
+										} else {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/uncheck.png" width="35" height="10" alt="Invalid"></td>');
+										}
+									}
+								});
+						});
+
+				$("#play2")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play2").hide();
+
+							// Remove any existing loader
+							$('#td2').remove();
+
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr2')
+								.append(
+									'<td width="205px;" id="td2" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+							setTimeout(
+								function () {
+									$('#td2')
+										.html(
+											'<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#10060</td>'); // Append the tick character
+								}, 2000);
+
+							var values = {
+								"trndate": $("#crdate").val()
+							};
+							$
+								.ajax({
+									url: "ledgervalid",
+									data: values,
+									dataType: 'json',
+									type: 'POST',
+									async: true,
+									success: function (res) {
+
+										$('#td2').remove();
+										if (res.tranval == "Valid") {
+											$('#tr2')
+												.append(
+													'<td style="text-align: center;" id="td2"><img class="img-thumbnail" src="../image/check.png" width="35" height="10" alt="User Pic"></td>');
+										} else {
+											$('#tr2')
+												.append(
+													'<td style="text-align: center;" id="td2"><img  class="img-thumbnail" src="../image/uncheck.png" width="35" height="10" alt="User Pic"></td>');
+										}
+									}
+								});
+
+						});
+
+				$("#play3")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play3").hide();
+
+							// Remove any existing loader
+							$('#td3').remove();
+
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr3')
+								.append(
+									'<td width="205px;" id="td3" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+							setTimeout(
+								function () {
+									$('#td3')
+										.html(
+											'<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>'); // Append the tick character
+								}, 2000); // 10000 milliseconds = 10 seconds
+
+							var values = {
+								"trndate": $("#crdate").val()
+							};
+
+							// Send AJAX request
+							$
+								.ajax({
+									url: "journalvalid",
+									data: values,
+									dataType: 'json',
+									type: 'POST',
+									async: true,
+									success: function (res) {
+										// Remove loader
+										$('#td1').remove();
+
+										// Append appropriate image based on response
+										if (res.tranval == "Valid") {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="Valid"></td>');
+										} else {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/uncheck.png" width="35" height="10" alt="Invalid"></td>');
+										}
+									}
+								});
+						});
+
+				/* $( "#play4").click(function() {
+					// Hide the start button
+					$( "#play4").hide();
+				    
+					// Remove any existing loader
+					$('#td4').remove();
+				    
+					// Append the custom CSS loader while waiting for the AJAX response
+					$('#tr4').append('<td width="205px;" id="td4" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+				    
+					// 10000 milliseconds = 10 seconds
+				    
+					var values = {
+						"trndate" : $("#crdate").val()
+					};
+				    
+					// Send AJAX request
+					$.ajax({
+						url : "journalvalid",
+						data : values,
+						dataType : 'json', 
+						type : 'POST',
+						async : true,
+						success : function(res) {
+							// Remove loader
+							$('#td1').remove();
+						    
+							// Append appropriate image based on response
+							if(res.tranval == "Valid") {
+								$('#tr1').append('<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="Valid"></td>');
+							} else {
+								$('#tr1').append('<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/uncheck.png" width="35" height="10" alt="Invalid"></td>');
+							}
+						}
+					});
+				}); */
+
+				$("#play4")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play4").hide();
+
+							// Remove any existing loader
+							$('#td4').remove();
+
+							$('#journalModal').modal('show');
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr4')
+								.append(
+									'<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>');
+
+							// Prepare values for AJAX
+							var values = {
+								"trndate": $("#crdate").val()
+							};
+
+							// Show the modal with input fields for Journal Entries
+
+							// Send AJAX request
+							$
+								.ajax({
+									url: "journalvalid",
+									data: values,
+									dataType: 'json',
+									type: 'POST',
+									async: true,
+									success: function (res) {
+										// Remove loader
+										$('#td1').remove();
+
+										// Append appropriate image based on response
+										if (res.tranval == "Valid") {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="Valid"></td>');
+										} else {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/uncheck.png" width="35" height="10" alt="Invalid"></td>');
+										}
+									}
+								});
+						});
+
+				$("#play5").click(function () {
+				    // Hide the start button
+				    $("#play5").hide();
+
+				    // Remove any existing loader
+				    $('#td5').remove();
+
+				    // Append the custom CSS loader while waiting for the AJAX response
+				    $('#tr5').append(
+				        '<td width="205px;" id="td5" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>'
+				    );
+
+					setTimeout(
+					function () {
+					$('#td5').html('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>'); // Append the tick character
+												
+					}, 2000); // 10000 milliseconds = 10 seconds
+
+				   
+				    // AJAX request
+				    $.ajax({
+				        url: "accountLedgerdayend",
+				        type: 'POST',
+				        async: true,
+				        success: function (res) {
+				            // Remove loader
+				            $('#td5').remove();
+
+				            // Process the response
+				            console.log(res);
+							$('#modalBody').text(res);
+							$('#responseModal').modal('show');
+							$('#tr5').append('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>');
+						
+							
+							 // Log the response for debugging
+				       
+				        },
+				        error: function (xhr, status, error) {
+				            // Handle errors
+				            console.error("AJAX error: ", status, error);
+				            $('#td5').remove();
+							$('#modalBody').text("An error occurred while processing your request.");
+							$('#responseModal').modal('show');
+							$('#tr5').append('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#10060</td>');
+				        }
+				    });
+				});
+				
+				
+				$("#play6")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play6").hide();
+
+							// Remove any existing loader
+							$('#td6').remove();
+
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr6')
+								.append(
+									'<td width="205px;" id="td6" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+							setTimeout(
+								function () {
+									$('#td6')
+										.html(
+											'<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>'); // Append the tick character
+								}, 2000); // 10000 milliseconds = 10 seconds
+
+							var values = {
+								"trndate": $("#crdate").val()
+							};
+
+							// Send AJAX request
+							$
+								.ajax({
+									url: "journalvalid",
+									data: values,
+									dataType: 'json',
+									type: 'POST',
+									async: true,
+									success: function (res) {
+										// Remove loader
+										$('#td1').remove();
+
+										// Append appropriate image based on response
+										if (res.tranval == "Valid") {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="Valid"></td>');
+										} else {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/uncheck.png" width="35" height="10" alt="Invalid"></td>');
+										}
+									}
+								});
+						});
+
+				$("#play7")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play7").hide();
+
+							// Remove any existing loader
+							$('#td7').remove();
+						//	$('#journalModal7').modal('show');
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr7')
+								.append(
+									'<td width="205px;" id="td7" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+							setTimeout(
+								function () {
+									$('#td7')
+										.html(
+											'<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>'); // Append the tick character
+								}, 2000); // 10000 milliseconds = 10 seconds
+							// 10000 milliseconds = 10 seconds
+
+							var values = {
+								"trndate": $("#crdate").val()
+							};
+
+							// Send AJAX request
+							$
+								.ajax({
+									url: "journalvalid",
+									data: values,
+									dataType: 'json',
+									type: 'POST',
+									async: true,
+									success: function (res) {
+										// Remove loader
+										$('#td1').remove();
+
+										// Append appropriate image based on response
+										if (res.tranval == "Valid") {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/check.png" width="35" height="10" alt="Valid"></td>');
+										} else {
+											$('#tr1')
+												.append(
+													'<td style="text-align: center;" id="td1"><img class="img-thumbnail" src="/images/uncheck.png" width="35" height="10" alt="Invalid"></td>');
+										}
+									}
+								});
+						});
+
+							
+							/* $("#play8").click(function () {
+								window.location.reload();
+								 
+							    $("#play8").hide();
+
+							    // Remove any existing loader
+							    $('#td8').remove();
+							    $('#journalModal8').modal('show');
+
+							    // Append the custom CSS loader while waiting for the AJAX response
+							    $('#tr8').append('<td width="205px;" id="td8" style="text-align: center; padding-left:80px;"><div class="loader"></div></td>');
+
+							    // Simulate an AJAX call
+							    performAjaxCall()
+							        .then(response => {
+							            // Check if the response indicates success
+							            if (response.success) {
+							                $('#td8').html('<td style="text-align: center; font-size: 20px; padding:0px; margin:0px;">&#9989;</td>'); // Success tick
+							            } else {
+							                $('#td8').html('<td style="text-align: center; font-size: 20px; padding:0px; margin:0px;">&#10060;</td>'); // Failure cross
+							            }
+							        })
+							        .catch(error => {
+							            // Display a failure icon in case of error
+							            $('#td8').html('<td style="text-align: center; font-size: 20px; padding:0px; margin:0px;">&#10060;</td>'); // Failure cross
+							        });
+							});
+
+							// Function to simulate an AJAX call (or replace with actual AJAX)
+							function performAjaxCall() {
+							    return new Promise((resolve, reject) => {
+							        setTimeout(() => {
+							            // Simulate success/failure
+							            const success = true; // Or set to false to simulate failure
+							            resolve({ success: success });
+							        }, 2000); // Simulated delay for AJAX
+							    });
+							} */
+							
+							// Set a flag in sessionStorage and reload the page
+							 $("#play8").click(function () {
+							    sessionStorage.setItem("runPlay8Function", "true");
+							    window.location.reload();
+							});
+
+							// On page load, check for the flag and execute the function if it’s set
+							$(document).ready(function () {
+							    if (sessionStorage.getItem("runPlay8Function")) {
+							        sessionStorage.removeItem("runPlay8Function"); // Remove the flag to avoid repeated execution
+
+							        $("#play8").hide();
+
+							        // Remove any existing loader
+							        $('#td8').remove();
+							        $('#journalModal8').modal('show');
+
+							        // Append the custom CSS loader while waiting for the AJAX response
+							        $('#tr8').append('<td width="205px;" id="td8" style="text-align: center; padding-left:80px;"><div class="loader"></div></td>');
+
+							        // Simulate an AJAX call
+							        performAjaxCall()
+							            .then(response => {
+							                // Check if the response indicates success
+							                if (response.success) {
+							                    $('#td8').html('<td style="text-align: center; font-size: 20px; padding:0px; margin:0px;">&#9989;</td>'); // Success tick
+							                } else {
+							                    $('#td8').html('<td style="text-align: center; font-size: 20px; padding:0px; margin:0px;">&#10060;</td>'); // Failure cross
+							                }
+							            })
+							            .catch(error => {
+							                // Display a failure icon in case of error
+							                $('#td8').html('<td style="text-align: center; font-size: 20px; padding:0px; margin:0px;">&#10060;</td>'); // Failure cross
+							            });
+							    }
+							});
+
+							// Function to simulate an AJAX call (or replace with actual AJAX)
+							function performAjaxCall() {
+							    return new Promise((resolve, reject) => {
+							        setTimeout(() => {
+							            // Simulate success/failure
+							            const success = true; // Or set to false to simulate failure
+							            resolve({ success: success });
+							        }, 5000); // Simulated delay for AJAX
+							    });
+							} 
+
+
+
+
+						$("#play9").click(function () {
+											// Hide the start button
+											$("#play9").hide();
+
+											// Remove any existing loader
+											$('#td9').remove();
+
+											// Append the loader before the AJAX call
+											$('#tr9').append('<td width="205px;" id="td9" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+											$.ajax({
+												url: "glconsolidation",
+												type: 'GET',
+												async: true,
+												success: function (res) {
+													console.log(res);
+													// Remove the loader if it's there
+													$('#td9').remove();
+
+													// Append a success icon
+													$('#tr9').append('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>');
+
+													// Show the loader for 3 seconds before showing the success modal
+
+													setTimeout(function () {
+
+														$('#successMessage2').modal('show');
+													}, 1000);
+												},
+												error: function (xhr, status, error) {
+													// Remove the loader if it's there
+													$('#td9').remove();
+
+													// Append a failure icon
+													$('#tr9').append('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#10060;</td>');
+
+
+													setTimeout(function () {
+
+														$('#failureMessage2').modal('show');
+													}, 1000);
+												}
+											});
+										});
+
+				$("#play10")
+					.click(
+						function () {
+							// Hide the start button
+							$("#play10").hide();
+
+							// Remove any existing loader
+							$('#td10').remove();
+
+							// Append the custom CSS loader while waiting for the AJAX response
+							$('#tr10')
+								.append(
+									'<td width="205px;" id="td10" style="text-align: center;padding-left:80px;"><div class="loader"></div></td>');
+
+							// Send AJAX request
+							$
+								.ajax({
+									url: "movementoftransaction",
+									type: 'POST',
+									async: true,
+									success: function (res) {
+										
+									
+										// Remove loader
+										$('#td10').remove();
+										// Append a success icon
+										$('#tr10').append('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#9989;</td>');
+										
+										setTimeout(function () {
+
+											$('#successMessage3').modal('show');
+										}, 1000);
+										
+										
+									},
+								error: function (xhr, status, error) {
+									// Remove the loader if it's there
+									$('#td10').remove();
+
+									// Append a failure icon
+									$('#tr10').append('<td style="text-align: center;font-size: 20px;padding:0px;margin:0px">&#10060;</td>');
+
+
+									setTimeout(function () {
+
+										$('#failureMessage3').modal('show');
+									}, 1000);
+								}
+								});
+						});
+				$("#btnhome,#btnback").click(function () {
+
+					window.history.back();
+
+				});
+			});
+			
+			function Doatranscation() {
+				   // alert("Doatranscation");
+
+				    $.ajax({
+				        url: "Doatransactionpush",
+				        type: 'POST',
+				        async: true,
+				        success: function(responseText) {
+				          //  alert(responseText);  
+
+				            // Store responseText in the input field
+				            var responseField = document.getElementById("responseField");
+			            
+			            // Set the response text as the value of the input field
+			            responseField.value = responseText;
+			            
+			            // Display the updated value for debugging
+			           // alert(responseField.value + " responseField");
+
+				            // Elements for success and failure messages
+				            var loader = document.getElementById('loader2');
+				            //alert("hihihi")
+				            var successMessage = document.getElementById('successMessage1');
+				            var failureMessage = document.getElementById('failureMessage1');
+				            var button = document.getElementById('Doatranscationbutton');
+
+				            // Initially hide both messages and loader
+				            loader.style.display = 'block';
+				            button.style.display = 'none';
+				        
+
+				     /*        setTimeout(function() {
+				            	//alert("timeout")
+				                loader.style.display = 'none';
+				            	
+
+				                // Check the responseField value to display the appropriate message
+				                if (responseField.value === 'Account balances successfully inserted') {
+				                    successMessage.style.display = 'block';
+				                } else {
+				                    failureMessage.style.display = 'block';
+				                }
+				            }, 500); */
+				            if (responseField.value === 'Account balances successfully inserted') {
+				                $("#alertmsg1").text("Account balances successfully inserted");
+				            } else {
+				                $("#alertmsg1").text("Account balances not successfully inserted");
+				            }
+				            $('#alertsval').modal("toggle");
+				        },
+				        error: function(xhr, status, error) {
+				            alert("Error: " + error);
+				        }
+				    });
+				}
+</script>
+<title>BGLS</title>
+
+<body>
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<div class="container " style="margin-top: 100px">
+
+		<div class="card border panel panel-primary filterable"
+			style="width: 1400px">
+			<div class="card-header">
+				<div class="panel-heading text-center" id="modheadtitle">
+					<b style="font-size: 1.2rem;">DAY END OPERATION</b> <span
+						class="glyphicon glyphicon-question-sign" onclick="open1()"></span>
+				</div>
+
+
+			</div>
+
+
+
+
+			<div class="card-body">
+				<div class="panel panel-primary filterable">
+					<div class="panel-heading" style="height: 50px">
+						<div class="form-group ">
+							<div class="row col-sm-12 ">
+								<div class="col-sm-1 "></div>
+								<label class="col-sm-2 control-label" style="margin-top: 4px;">
+									<font size="4" color="black">Current Date</font><span
+									style="color: red; font-size: 19px;" class="mant">*</span>
+								</label>
+
+								<div class="col-sm-3 ">
+									<input type="text"
+										style="font-size: 20px; width: 150px; margin-top: 5px"
+										id="current_date"
+										th:value="${#dates.format(session.TRANDATE, 'dd-MM-yyyy')}"
+										class="form-control" readonly />
+								</div>
+
+								<label class="col-sm-2 control-label" style="margin-top: 4px;">
+									<font size="4" color="black">Next Working Date</font><span
+									style="color: red; font-size: 19px;" class="mant">*</span>
+								</label>
+
+								<div class="col-sm-3 ">
+									<input type="text" name="nxtdate" id="nxtdate"
+										class="form-control "
+										style="font-size: 20px; width: 150px; margin-top: 5px" />
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<table class="table table-bordered" id="desc">
+
+						<tr id="tr1">
+							<td><b>Batch Job</b></td>
+							<td>Interest Calculation</td>
+							<td width="205px;" id="td1"
+								style="text-align: center; margin-top: 0px; padding: 0px;">
+								<button type="button" class="btn btn-xs btn-info" value="Start"
+									id="play1" style="background-color: gray; border: none">Start</button>
+							</td>
+
+						</tr>
+						<tr id="tr2">
+							<td></td>
+							<td>Fees & Service Charges</td>
+							<td width="205px;" id="td2"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play2" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr3">
+							<td></td>
+							<td>Batch Jobs</td>
+							<td width="205px;" id="td3"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play3" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr4">
+							<td><b>Validation</b></td>
+							<td>Journal</td>
+							<td width="205px;" id="td4"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play4" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr5">
+							<td></td>
+							<td>Account Ledger</td>
+							<td width="205px;" id="td5"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play5" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr6">
+							<td></td>
+							<td>Holiday Check</td>
+							<td width="205px;" id="td6"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play6" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr7">
+							<td><b>Steps</b></td>
+							<td>Daily Account Balance</td>
+							<td width="205px;" id="td7"
+								style="text-align: center; margin: 0px; padding: 0px;">
+								<button type="button" class="btn btn-xs btn-info"
+									onclick="Doatranscation()" value="Start" id="play7"
+									style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr8">
+							<td></td>
+							<td>Consistency Check</td>
+							<td width="205px;" id="td8"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play8" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr9">
+							<td></td>
+							<td>GL Consolidation</td>
+							<td width="205px;" id="td9"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play9" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr10">
+							<td></td>
+							<td>Movement of Transactions</td>
+							<td width="205px;" id="td10"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play10" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+						<tr id="tr11">
+							<td></td>
+							<td>Date Change Process</td>
+							<td width="205px;" id="td11"
+								style="text-align: center; margin: 0px; padding: 0px;"><button
+									type="button" class="btn btn-xs btn-info" value="Start"
+									id="play11" style="background-color: gray; border: none">Start</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+
+			</div>
+			<div id="dialog-confirm" title="Alert" style="display: none">
+				<p>
+					<span class="glyphicon glyphicon-alert"
+						style="float: left; margin: 12px 12px 20px 0;"></span>This date is
+					a Holiday!
+				</p>
+				<p>Do you Want Continue?</p>
+			</div>
+			<div id="dialog" title="Alert" style="display: none">
+				<p>
+					<span class="glyphicon glyphicon-alert"
+						style="float: left; margin: 12px 12px 20px 0;"></span>Some Process
+					are Pending......
+				</p>
+			</div>
+			<div id="dialog1" title="Alert" style="display: none">
+				<p>
+					<span class="glyphicon glyphicon-alert"
+						style="float: left; margin: 12px 12px 20px 0;"></span>Your
+					Transaction Date has not been changed..try again..
+				</p>
+			</div>
+			<div id="dialogdab" title="Alert" style="display: none">
+				<p>
+					<span class="glyphicon glyphicon-alert"
+						style="float: left; margin: 12px 12px 20px 0;"></span>No
+					Transaction Found this date!
+				</p>
+				<p>Do you Want Continue?</p>
+			</div>
+			<div class="modal-footer " style="margin-top: -25px">
+
+				<button type="button" class="custom-btn" id="btnhome">Home</button>
+
+				<button type="button" class="custom-btn" value="back"
+					id="btnback">Back</button>
+
+			</div>
+		</div>
+	</div>
+	<div id="journalModal" class="modal fade" tabindex="-3" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" style="text-align: center;">Journal
+						Entries</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Table for displaying transaction data -->
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>VALIDATION</th>
+								<th>NO</th>
+								<th>AMOUNT</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${chartacc1 != null}"
+								th:each="chartacc1 : ${Valuesfornotransaction}">
+								<td>Total No.of.Trans</td>
+								<td th:text="${chartacc1[0]}"></td>
+								<td th:if="${chartacc1[1] != null}"
+									th:text="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT')}">Amt</td>
+
+							</tr>
+
+							<tr th:each="chartacc2 : ${Valuesfordebit}">
+								<td>Dr Transactions</td>
+								<td th:text="${chartacc2[0]}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(chartacc2[1], 1, 'COMMA', 2, 'POINT')}"></td>
+							</tr>
+							<tr th:each="chartacc3 : ${ValuesforCredit}">
+								<td>Cr Transactions</td>
+								<td th:text="${chartacc3[0]}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(chartacc3[1], 1, 'COMMA', 2, 'POINT')}"></td>
+							</tr>
+							<tr th:each="chartacc4 : ${ValuesforDel}">
+								<td>Deleted</td>
+								<td th:text="${chartacc4}"></td>
+							</tr>
+							<tr th:each="chartacc5 : ${Valuesforunpost}">
+								<td>Unposted</td>
+								<td th:text="${chartacc5}"></td>
+								<td></td>
+							</tr>
+						</tbody>
+
+
+
+					</table>
+
+
+					<div th:if="${chartacc1 != null}"
+						th:each="chartacc1 : ${Valuesfornotransaction}">
+
+						<!-- Loader that will show initially -->
+						<div id="loader2" class="loader2" style="display: block;"></div>
+
+						<!-- Success Message -->
+						<div id="successMessage"
+							th:if="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT') == '0.00'}"
+							style="display: none;">
+							<h4 style="text-align: center;">
+								Validation Success <span>&#9989;</span>
+							</h4>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" aria-label="Close"
+								style="margin-left: 200px">Close</button>
+						</div>
+
+						<!-- Failure Message -->
+						<div id="failureMessage"
+							th:if="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT') != '0.00'}"
+							style="display: none;">
+							<h4 style="text-align: center;">
+								Validation Failed <span>&#10060;</span>
+							</h4>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" aria-label="Close"
+								style="margin-left: 200px">Close</button>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="loader3" class="loader3" style="display: block;"></div>
+	<div id="successMessage2" class="modal fade bordered" tabindex="-1"
+		role="dialog">
+		<div
+			class="modal-dialog d-flex align-items-center justify-content-center"
+			role="document" style="min-height: 100vh;">
+			<div class="modal-content text-center">
+				<div style="margin-top: 30px; margin-bottom: 30px;">
+					<h4>
+						Consolidation Successful <span>&#9989;</span>
+					</h4>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" aria-label="Close" style="margin-top: 20px;">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="failureMessage2" class="modal fade" tabindex="-1"
+		role="dialog">
+		<div
+			class="modal-dialog d-flex align-items-center justify-content-center"
+			role="document" style="min-height: 100vh;">
+			<div class="modal-content text-center">
+
+				<div style="margin-top: 30px; margin-bottom: 30px;">
+					<h4 style="text-align: center;">
+						Consolidation Failed <span>&#10060;</span>
+					</h4>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" aria-label="Close" style="margin-left: 200px">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="loader3" class="loader3" style="display: block;"></div>
+	<div id="successMessage3" class="modal fade bordered" tabindex="-1"
+		role="dialog">
+		<div
+			class="modal-dialog d-flex align-items-center justify-content-center"
+			role="document" style="min-height: 100vh;">
+			<div class="modal-content text-center">
+				<div style="margin-top: 30px; margin-bottom: 30px;">
+					<h4>
+						Transaction Successful <span>&#9989;</span>
+					</h4>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" aria-label="Close" style="margin-top: 20px;">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="failureMessage3" class="modal fade" tabindex="-1"
+		role="dialog">
+		<div
+			class="modal-dialog d-flex align-items-center justify-content-center"
+			role="document" style="min-height: 100vh;">
+			<div class="modal-content text-center">
+
+				<div style="margin-top: 30px; margin-bottom: 30px;">
+					<h4 style="text-align: center;">
+						Transaction Failed <span>&#10060;</span>
+					</h4>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" aria-label="Close" style="margin-left: 200px">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="journalModal8" class="modal fade" tabindex="-3" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" style="text-align: center;">Consistency
+						Check</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Table for displaying transaction data -->
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>VALIDATION</th>
+								<th>CREDIT AMOUNT</th>
+								<th>DEBIT AMOUNT</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="check : ${custcheck1}">
+								<td>TRM Balance</td>
+								<td th:if="${check[0] != null}"
+									th:text="${#numbers.formatDecimal(check[0], 1, 'COMMA', 2, 'POINT')}"></td>
+								<td th:if="${check[1] != null}"
+									th:text="${#numbers.formatDecimal(check[1], 1, 'COMMA', 2, 'POINT')}"></td>
+							</tr>
+							<tr th:each="check : ${custcheck2}">
+								<td>COA Balance</td>
+								<td th:if="${check[0] != null}"
+									th:text="${#numbers.formatDecimal(check[0], 1, 'COMMA', 2, 'POINT')}"></td>
+								<td th:if="${check[1] != null}"
+									th:text="${#numbers.formatDecimal(check[1], 1, 'COMMA', 2, 'POINT')}"></td>
+							</tr>
+							<tr th:each="check : ${custcheck3}">
+								<td>DAB Balance</td>
+								<td th:if="${check[0] != null}"
+									th:text="${#numbers.formatDecimal(check[0], 1, 'COMMA', 2, 'POINT')}"></td>
+								<td th:if="${check[1] != null}"
+									th:text="${#numbers.formatDecimal(check[1], 1, 'COMMA', 2, 'POINT')}"></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Validation message logic -->
+					<div>
+						<div id="loader8" class="loader8" style="display: block;"></div>
+
+						<!-- Success Message -->
+						<div id="successMessage8"
+							th:if="${custcheck1[0][0] != null and custcheck2[0][0] != null and custcheck3[0][0] != null and custcheck1[0][0] == custcheck2[0][0] and custcheck1[0][0] == custcheck3[0][0]}"
+							style="display: none;">
+							<h4 style="text-align: center;">
+								Validation Success <span>&#9989;</span>
+							</h4>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" aria-label="Close"
+								style="margin-left: 200px">Close</button>
+						</div>
+
+						<!-- Failure Message -->
+						<div id="failureMessage8"
+							th:if="${custcheck1[0][0] != null and custcheck2[0][0] != null and custcheck3[0][0] != null and (custcheck1[0][0] != custcheck2[0][0] or custcheck1[0][0] != custcheck3[0][0])}"
+							style="display: none;">
+							<h4 style="text-align: center;">
+								Validation Failed <span>&#10060;</span>
+							</h4>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" aria-label="Close"
+								style="margin-left: 200px">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div id="journalModal7" class="modal fade" tabindex="-3" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"
+				style="max-height: 900px; overflow-y: auto; width: 900px;">
+				<div class="modal-header"
+					style="max-height: 900px; overflow-y: auto; width: 900px;">
+					<h5 class="modal-title" style="text-align: center;">Journal
+						Entries</h5>
+				</div>
+				<div class="modal-body"
+					style="max-height: 900px; overflow-y: auto; width: 900px;">
+					<!-- Table for displaying transaction data -->
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Validation</th>
+								<th>Account</th>
+								<th>count</th>
+								<th>Credit</th>
+								<th>Debit</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Total Debit Rows -->
+
+							<!-- Debit/Credit Data -->
+							<tr th:if="${chartacc7 != null}"
+								th:each="chartacc7 : ${debitCreditData}">
+								<td>Account Number</td>
+								<td th:text="${chartacc7[0]}"></td>
+								<td th:text="${chartacc7[1]}">Total No. of Debit and Credit</td>
+								<td th:if="${chartacc7[2] != null}"
+									th:text="${#numbers.formatDecimal(chartacc7[2], 1, 'COMMA', 2, 'POINT')}">Net
+									Amount</td>
+								<td th:if="${chartacc7[2] == null}" th:text="'0.00'">Net
+									Amount</td>
+								<td th:text="${chartacc7[3]}">Total No. of Debit and Credit</td>
+								<td th:text="${chartacc7[4]}">Total No. of Debit and Credit</td>
+							</tr>
+
+							<!--  <tr th:if="${chartacc1 != null}" th:each="chartacc1 : ${getWoforDebitValues}">
+	               <td>Total Credit</td>
+	                  <td></td>
+	                <td th:text="${chartacc1[0]}"></td>
+	                  <td>0.00</td> 
+	                <td th:if="${chartacc1[1] != null}" th:text="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT')}">Amt</td>
+	                           
+	                           <td th:if="${chartacc1[1] != null}" th:text="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT')}">Amt</td>
+	           
+	       
+	            </tr>
+
+	            Total Credit Rows
+	            <tr th:if="${chartacc1 != null}" th:each="chartacc1 : ${getWoforcreditValues}">
+	                <td>Total Debit</td>
+	                <td></td>
+	                <td th:text="${chartacc1[0]}"></td>
+	               
+	                <td th:if="${chartacc1[1] != null}" th:text="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT')}">Amt</td>
+	                    <td>0.00</td>
+	                    <td th:if="${chartacc1[1] != null}" th:text="${#numbers.formatDecimal(chartacc1[1], 1, 'COMMA', 2, 'POINT')}">Amt</td>
+	           
+	            </tr> -->
+
+							<!--           <tr th:if="${chartacc8 != null}" th:each="chartacc8 : ${gettotalValues}">
+	                <td>Total Amount</td>
+	                <td></td>
+	                 <td>0.00</td>
+	                  <td>0.00</td>
+	                   <td>0.00</td>
+	                 
+	                <td th:text="${chartacc8[0]}"></td>
+
+	                 
+	            </tr> -->
+
+							<tr>
+								<td>Total Validation</td>
+								<td></td>
+								<td th:text="${totaltransaction}"></td>
+								<td th:text="${getTotalCredit}"></td>
+								<td th:text="${getTotalDebit}"></td>
+								<td th:text="${totalamount}"></td>
+							</tr>
+
+						</tbody>
+					</table>
+
+
+					<!-- 	<tr th:each="chartacc2 : ${getNetDebitCreditForCurrentDate}">
+									<td>Today Net Balance</td>
+									<td th:text="${chartacc2[0]}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(chartacc2[1], 1, 'COMMA', 2, 'POINT')}"></td>
+								</tr> -->
+
+
+					<button class="btn btn-primary p-2" id="Doatranscationbutton"
+						onclick="Doatranscation()" style="display: block;">Submit</button>
+					<input type="text" id="responseField" hidden />
+
+
+
+
+					<!-- Loader that will show initially -->
+					<div id="loader2" class="loader2" style="display: none;"></div>
+
+					<!-- Success Message -->
+
+					<div id="successMessage1" style="display: none;">
+
+						<h4 style="text-align: center;">
+							Validation Success <span>&#9989;</span>
+						</h4>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" aria-label="Close">Close</button>
+					</div>
+
+					<!-- Failure Message -->
+					<div id="failureMessage1" style="display: none;">
+
+						<h4 style="text-align: center;">
+							Validation Failed <span>&#10060;</span>
+						</h4>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" aria-label="Close">Close</button>
+					</div>
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alertsval" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 100%; height: 25%;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header"
+						style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">
+
+							Alert Message</h5>
+
+						<!-- Alert message will appear here -->
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body"
+						style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px">
+						<!-- <label>TRAN ID</label>
+		<input type="text" id="tran_id_model" th:value="${plusonetran2}" 
+		    style="border: none; background: none; outline: none;">
+		 -->
+						<h6 id="alertmsg1"></h6>
+						<!-- Response will be displayed here -->
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer"
+						style="justify-content: center; width: 100%;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="refreshPagemulti()">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Structure -->
+	<div class="modal fade" id="responseModal" tabindex="-1" role="dialog"
+		aria-labelledby="responseModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="responseModalLabel">Account Ledger</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div style="text-align: center; margin-top: 30px;">
+					<b class="modal-body" id="modalBody" style="font-size: 20px;"></b>
+				</div>
+				<div class="modal-footer " style="margin-left: 250px">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+
+</script>
+
+</html>

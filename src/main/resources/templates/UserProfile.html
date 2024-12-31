@@ -1,0 +1,3602 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 19-09-24
+-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+body {
+	font-size: 0.8rem;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered th {
+	font-size: medium;
+}
+
+.table-bordered td {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #f5a142;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+.input-group-text {
+	cursor: pointer;
+}
+
+#eyeIcon {
+	font-size: 1.2rem;
+}
+</style>
+<style>
+.table-bordered td, .table-bordered th {
+	font-size: medium;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	font-family: Arial, sans-serif;
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+<script>
+	$(function() {
+
+		$("#disableDate, #disableTilDate, #passExDate, #acctexpiryDate")
+				.datepicker({
+					dateFormat : "dd-mm-yy",
+					changeMonth : true,
+					changeYear : true,
+					minDate : 0
+				});
+
+		$("#disableDate").on(
+				"change",
+				function() {
+					var disableDate = $(this).datepicker("getDate");
+					if (disableDate) {
+						$("#disableTilDate").datepicker("option", "minDate",
+								disableDate);
+
+					}
+				});
+
+		$("#disableTilDate").on("change", function() {
+			var disableDate = $("#disableDate").datepicker("getDate");
+			var disableTilDate = $(this).datepicker("getDate");
+
+			if (!disableDate) {
+				alert("Please choose Disable Date first.");
+				$(this).val("");
+			} else if (disableTilDate && disableTilDate < disableDate) {
+				alert("Disable Til Date cannot be earlier than Disable Date.");
+				$(this).val("");
+			}
+		});
+	});
+</script>
+
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+</script>
+<script>
+	function adduser() {
+		event.preventDefault();
+		location.href = 'userProfile?formmode=add';
+	}
+
+	function enquiryuser(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		location.href = 'userProfile?formmode=view&userid=' + userId;
+	}
+
+	function verifyuser(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		location.href = 'userProfile?formmode=verify&userid=' + userId;
+	}
+
+	function modifyuser(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		location.href = 'userProfile?formmode=modify&userid=' + userId;
+	}
+
+	function deleteuser(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		location.href = 'userProfile?formmode=delete&userid=' + userId;
+	}
+
+	function deleteUnverifiedUser(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		location.href = 'userProfile?formmode=deleteUnverified&userid='
+				+ userId;
+	}
+
+	function goToList() {
+
+		location.href = './userProfile?formmode=list';
+	}
+</script>
+
+<script>
+	function roledesc() {
+
+		var roleid = $("#roleId").find(':selected').val();
+
+		if (roleid == 'ADM') {
+			$("#roleDesc").val("ADMIN");
+		} else if (roleid == 'GEN') {
+			$("#roleDesc").val("GENERAL_USER");
+		}
+		$(this).find(':selected').text();
+
+	}
+
+	/*Praveen*/
+	function letterOnly(input) {
+
+		var cleanValue = input.value.replace(/[^a-zA-Z\s]/g, '');
+
+		cleanValue = cleanValue.toUpperCase();
+		input.value = cleanValue;
+	}
+
+	/*Praveen*/
+	function letterAndNumbers(input) {
+
+		var cleanValue = input.value.replace(/[^a-zA-Z0-9]/g, '');
+
+		cleanValue = cleanValue.toUpperCase();
+		input.value = cleanValue;
+	}
+
+	/*Praveen*/
+	function phoneNumber(input) {
+
+		var cleanValue = input.value.replace(/\D/g, '');
+
+		cleanValue = cleanValue.substring(0, 10);
+		input.value = cleanValue;
+	}
+
+	/*Praveen*/
+	function togglePassword() {
+		var passwordField = document.getElementById("password");
+		var eyeIcon = document.getElementById("eyeIcon");
+
+		if (passwordField.type === "password") {
+			passwordField.type = "text";
+			eyeIcon.classList.remove("fa-eye-slash");
+			eyeIcon.classList.add("fa-eye");
+		} else {
+			passwordField.type = "password";
+			eyeIcon.classList.remove("fa-eye");
+			eyeIcon.classList.add("fa-eye-slash");
+		}
+	}
+
+	/*Praveen*/
+	function emailCheck(input) {
+		var email = input.value;
+		var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailFormat.test(email)) {
+			document.getElementById('email-error').textContent = 'Invalid email format.';
+
+		} else {
+			document.getElementById('email-error').textContent = '';
+			input.setCustomValidity('');
+		}
+	}
+
+	/*Praveen*/
+	function valueCheck() {
+
+		var userId = $('#userid').val();
+		var acctExpDate = $('#acctexpiryDate').val();
+		var value;
+
+		if (userId === "") {
+			$("#normalalertmsg").text("Fill User Id");
+			$('#normalalert').modal('show');
+			value = false;
+		} else if (acctExpDate === "") {
+			$("#normalalertmsg").text("Fill Account Expiry Date");
+			$('#normalalert').modal('show');
+			value = false;
+		}
+
+		else {
+			value = true;
+		}
+		return value;
+	}
+
+	function openAccessModal(a) {
+		var roleId = $('#roleId').val();
+		if (roleId === '') {
+			$("#normalalertmsg").text("Fill Role Id");
+			$('#normalalert').modal('show');
+		} else if (roleId === 'ADM') {
+			$('#finusers').modal('show');
+		} else if (roleId === 'GEN') {
+			$('#generalusers').modal('show');
+		}
+	}
+
+	function openAccessModalView(a) {
+		$('#finusersview').modal('show');
+
+	}
+</script>
+<script>
+	/*add function*/
+	function submitform() {
+		event.preventDefault();
+
+		if (valueCheck()) {
+
+			accessRoleUpdate();
+
+			document.getElementById("btnSubmit").disabled = true;
+
+			var formmode = "add";
+
+			var disableStart = $('#disableDate').val();
+			if (disableStart != "") {
+				var parts = disableStart.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var disableStartDate = year + "-" + month + "-" + day;
+			} else {
+				var disableStartDate = "";
+			}
+
+			var disableEnd = $('#disableTilDate').val();
+			if (disableEnd != "") {
+				var parts = disableEnd.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var disableEndDate = year + "-" + month + "-" + day;
+			} else {
+				var disableEndDate = "";
+			}
+
+			var passExpiry = $('#passExDate').val();
+			if (passExpiry != "") {
+				var parts = passExpiry.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var passwordExpiryDate = year + "-" + month + "-" + day;
+			} else {
+				var passwordExpiryDate = "";
+			}
+
+			var acctExpiry = $('#acctexpiryDate').val();
+			if (acctExpiry != "") {
+				var parts = acctExpiry.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var accountExpiryDate = year + "-" + month + "-" + day;
+			} else {
+				var accountExpiryDate = "";
+			}
+
+			var userProfile = {
+
+				userid : $('#userid').val(),
+				username : $('#username').val(),
+				branch_id : $('#branch_id').val(),
+				branch_des : $('#branch_des').val(),
+				mob_number : $('#mobNo').val(),
+				email_id : $('#emailId').val(),
+				disable_start_date : disableStartDate,
+				disable_end_date : disableEndDate,
+				password : $('#password').val(),
+				pass_exp_date : passwordExpiryDate,
+				user_status : $('#userStatus').val(),
+				login_status : $('#loginStatus').val(),
+				role_id : $('#roleId').val(),
+				acc_exp_date : accountExpiryDate,
+				role_desc : $('#roleDesc').val(),
+				permissions : $('#permission').val(),
+				work_class : $('#work_class').val(),
+				acct_access_code : $('#acct_access_code').val(),
+				doc_access_code : $('#doc_access_code').val(),
+				remarks : $('#remarks').val()
+			};
+
+			console.log(userProfile);
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : './createUser?formmode=' + formmode
+						+ '&accountExpiryDate=' + accountExpiryDate,
+				data : JSON.stringify(userProfile),
+				success : function(responseText, statusText, xhr, $form) {
+
+					console.log(responseText);
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				},
+				error : function(error) {
+					console.error(error);
+				}
+			});
+
+		} else {
+
+			event.preventDefault();
+
+		}
+
+	}
+
+	/*verify function*/
+	function verifyData(a) {
+		event.preventDefault();
+		document.getElementById("btnSubmit").disabled = true;
+		var userId = a.getAttribute('data-userId');
+
+		$.ajax({
+			type : "POST",
+			url : './verifyUser?userId=' + userId,
+			success : function(responseText, statusText, xhr, $form) {
+
+				console.log(responseText);
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			},
+			error : function(error) {
+				console.error(error);
+			}
+		});
+
+	}
+
+	/*modify function*/
+	function modifySubmit() {
+
+		event.preventDefault();
+
+		//document.getElementById("btnSubmit").disabled = true;
+
+		var formmode = "modify";
+
+		var disableStart = $('#disableDate').val();
+		if (disableStart != "") {
+			var parts = disableStart.split("-");
+			var day = parts[0];
+			var month = parts[1];
+			var year = parts[2];
+			var disableStartDate = year + "-" + month + "-" + day;
+		} else {
+			var disableStartDate = "";
+		}
+
+		var disableEnd = $('#disableTilDate').val();
+		if (disableEnd != "") {
+			var parts = disableEnd.split("-");
+			var day = parts[0];
+			var month = parts[1];
+			var year = parts[2];
+			var disableEndDate = year + "-" + month + "-" + day;
+		} else {
+			var disableEndDate = "";
+		}
+
+		var passExpiry = $('#passExDate').val();
+		if (passExpiry != "") {
+			var parts = passExpiry.split("-");
+			var day = parts[0];
+			var month = parts[1];
+			var year = parts[2];
+			var passwordExpiryDate = year + "-" + month + "-" + day;
+		} else {
+			var passwordExpiryDate = "";
+		}
+
+		var acctExpiry = $('#acctexpiryDate').val();
+		if (acctExpiry != "") {
+			var parts = acctExpiry.split("-");
+			var day = parts[0];
+			var month = parts[1];
+			var year = parts[2];
+			var accountExpiryDate = year + "-" + month + "-" + day;
+		} else {
+			var accountExpiryDate = "";
+		}
+
+		var userProfile = {
+
+			userid : $('#userid').val(),
+			username : $('#username').val(),
+			mob_number : $('#mobNo').val(),
+			email_id : $('#emailId').val(),
+			disable_start_date : disableStartDate,
+			disable_end_date : disableEndDate,
+			password : $('#password').val(),
+			pass_exp_date : passwordExpiryDate,
+			user_status : $('#userStatus').val(),
+			login_status : $('#loginStatus').val(),
+			role_id : $('#roleId').val(),
+			acc_exp_date : accountExpiryDate,
+			role_desc : $('#roleDesc').val(),
+			permissions : $('#permission').val(),
+			work_class : $('#work_class').val(),
+			acct_access_code : $('#acct_access_code').val(),
+			doc_access_code : $('#doc_access_code').val(),
+			remarks : $('#remarks').val()
+		};
+
+		console.log(userProfile);
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : './mosifyUser?formmode=' + formmode + '&accountExpiryDate='
+					+ accountExpiryDate,
+			data : JSON.stringify(userProfile),
+			success : function(responseText, statusText, xhr, $form) {
+
+				console.log(responseText);
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			},
+			error : function(error) {
+				console.error(error);
+			}
+		});
+
+	}
+
+	/*Delete verified User*/
+	function deleteRecord(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		var deleteType = a.getAttribute('data-flag');
+
+		$
+				.ajax({
+					type : "POST",
+					url : './deleteUser?deleteType=' + deleteType + '&userid='
+							+ userId,
+					success : function(responseText, statusText, xhr, $form) {
+
+						console.log(responseText);
+						$("#alertmsg").text(responseText);
+						$('#alert').modal("toggle");
+					},
+					error : function(error) {
+						console.error(error);
+					}
+				});
+	}
+
+	/*Delete Unverified User*/
+	function deleteUnverifiedRecord(a) {
+		event.preventDefault();
+		var userId = a.getAttribute('data-userId');
+		var deleteType = a.getAttribute('data-flag');
+
+		$
+				.ajax({
+					type : "POST",
+					url : './deleteUser?deleteType=' + deleteType + '&userid='
+							+ userId,
+					success : function(responseText, statusText, xhr, $form) {
+
+						console.log(responseText);
+						$("#alertmsg").text(responseText);
+						$('#alert').modal("toggle");
+					},
+					error : function(error) {
+						console.error(error);
+					}
+				});
+	}
+
+	function accessRoleUpdate() {
+		event.preventDefault();
+
+		var roleId = $('#roleId').val();
+		if (roleId === 'ADM') {
+			console.log("ADMIN");
+			var accessRole = {
+				user_id : $('#userid').val(),
+				role_id : $('#roleId').val(),
+				role_desc : $('#roleDesc').val(),
+				permissions : $('#permission').val(),
+				work_class : $('#work_class').val(),
+				admin : $('#admin').is(':checked') ? 'Y' : 'N',
+				orgnaization_details : $('#orgnaization_details')
+						.is(':checked') ? 'Y' : 'N',
+				head_office : $('#head_office').is(':checked') ? 'Y' : 'N',
+				branches : $('#branches').is(':checked') ? 'Y' : 'N',
+				exception : $('#exception').is(':checked') ? 'Y' : 'N',
+				user_controls : $('#user_controls').is(':checked') ? 'Y' : 'N',
+				user_profile : $('#user_profile').is(':checked') ? 'Y' : 'N',
+				employee_profile : $('#employee_profile').is(':checked') ? 'Y'
+						: 'N',
+				reference_code_maintenance : $('#reference_code_maintenance')
+						.is(':checked') ? 'Y' : 'N',
+				reference_code : $('#reference_code').is(':checked') ? 'Y'
+						: 'N',
+				gl_structure : $('#gl_structure').is(':checked') ? 'Y' : 'N',
+				scheme_codes : $('#scheme_codes').is(':checked') ? 'Y' : 'N',
+				chart_of_accounts : $('#chart_of_accounts').is(':checked') ? 'Y'
+						: 'N',
+				account_ledgers : $('#account_ledgers').is(':checked') ? 'Y'
+						: 'N',
+				audit_trail : $('#audit_trail').is(':checked') ? 'Y' : 'N',
+				maintenance_activities : $('#maintenance_activities').is(
+						':checked') ? 'Y' : 'N',
+				business_operations : $('#business_operations').is(':checked') ? 'Y'
+						: 'N',
+				budget_controls : $('#budget_controls').is(':checked') ? 'Y'
+						: 'N',
+				customer_on_boarding : $('#customer_on_boarding')
+						.is(':checked') ? 'Y' : 'N',
+				customer : $('#customer').is(':checked') ? 'Y' : 'N',
+				account : $('#account').is(':checked') ? 'Y' : 'N',
+				maintenance : $('#maintenance').is(':checked') ? 'Y' : 'N',
+				customer_master_maintenance : $('#customer_master_maintenance')
+						.is(':checked') ? 'Y' : 'N',
+				account_master_maintenance : $('#account_master_maintenance')
+						.is(':checked') ? 'Y' : 'N',
+				lease_accounts : $('#lease_accounts').is(':checked') ? 'Y'
+						: 'N',
+				deposit_accounts_c : $('#deposit_accounts_c').is(':checked') ? 'Y'
+						: 'N',
+				office_accounts : $('#office_accounts').is(':checked') ? 'Y'
+						: 'N',
+				document_maintenance : $('#document_maintenance')
+						.is(':checked') ? 'Y' : 'N',
+				kyc_norms : $('#kyc_norms').is(':checked') ? 'Y' : 'N',
+				transaction_maintenance : $('#transaction_maintenance').is(
+						':checked') ? 'Y' : 'N',
+				journal_entries : $('#journal_entries').is(':checked') ? 'Y'
+						: 'N',
+				account_ledger_posting : $('#account_ledger_posting').is(
+						':checked') ? 'Y' : 'N',
+				account_ledger : $('#account_ledger').is(':checked') ? 'Y'
+						: 'N',
+				trial_balance_t : $('#trial_balance_t').is(':checked') ? 'Y'
+						: 'N',
+				profit_and_loss_account_t : $('#profit_and_loss_account_t').is(
+						':checked') ? 'Y' : 'N',
+				lease_loans : $('#lease_loans').is(':checked') ? 'Y' : 'N',
+				account_maintenance_l : $('#account_maintenance_l').is(
+						':checked') ? 'Y' : 'N',
+				account_statements_l : $('#account_statements_l')
+						.is(':checked') ? 'Y' : 'N',
+				flow_details_l : $('#flow_details_l').is(':checked') ? 'Y'
+						: 'N',
+				deposit_accounts : $('#deposit_accounts').is(':checked') ? 'Y'
+						: 'N',
+				account_maintenance_d : $('#account_maintenance_d').is(
+						':checked') ? 'Y' : 'N',
+				account_statements_d : $('#account_statements_d')
+						.is(':checked') ? 'Y' : 'N',
+				flow_details_d : $('#flow_details_d').is(':checked') ? 'Y'
+						: 'N',
+
+				inquiries_and_reports : $('#inquiries_and_reports').is(
+						':checked') ? 'Y' : 'N',
+				journal_book : $('#journal_book').is(':checked') ? 'Y' : 'N',
+				account_ledgers_i : $('#account_ledgers_i').is(':checked') ? 'Y'
+						: 'N',
+				trial_balance_i : $('#trial_balance_i').is(':checked') ? 'Y'
+						: 'N',
+				general_ledger : $('#general_ledger').is(':checked') ? 'Y'
+						: 'N',
+				profit_and_loss_account_i : $('#profit_and_loss_account_i').is(
+						':checked') ? 'Y' : 'N',
+				balance_sheet : $('#balance_sheet').is(':checked') ? 'Y' : 'N'
+
+			}
+
+			console.log(accessRole);
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : './accessRoleSubmit',
+				data : JSON.stringify(accessRole),
+				success : function(responseText, statusText, xhr, $form) {
+
+					console.log(responseText);
+
+				},
+				error : function(error) {
+					console.error(error);
+				}
+			});
+		} else {
+			console.log("GENERAL");
+			var accessRole = {
+				user_id : $('#userid').val(),
+				role_id : $('#roleId').val(),
+				role_desc : $('#roleDesc').val(),
+				permissions : $('#permission').val(),
+				work_class : $('#work_class').val(),
+				admin : $('#adming').is(':checked') ? 'Y' : 'N',
+				orgnaization_details : $('#orgnaization_detailsg').is(
+						':checked') ? 'Y' : 'N',
+				head_office : $('#head_officeg').is(':checked') ? 'Y' : 'N',
+				branches : $('#branchesg').is(':checked') ? 'Y' : 'N',
+				exception : $('#exceptiong').is(':checked') ? 'Y' : 'N',
+				user_controls : $('#user_controlsg').is(':checked') ? 'Y' : 'N',
+				user_profile : $('#user_profileg').is(':checked') ? 'Y' : 'N',
+				employee_profile : $('#employee_profileg').is(':checked') ? 'Y'
+						: 'N',
+				reference_code_maintenance : $('#reference_code_maintenanceg')
+						.is(':checked') ? 'Y' : 'N',
+				reference_code : $('#reference_codeg').is(':checked') ? 'Y'
+						: 'N',
+				gl_structure : $('#gl_structureg').is(':checked') ? 'Y' : 'N',
+				scheme_codes : $('#scheme_codesg').is(':checked') ? 'Y' : 'N',
+				chart_of_accounts : $('#chart_of_accountsg').is(':checked') ? 'Y'
+						: 'N',
+				account_ledgers : $('#account_ledgersg').is(':checked') ? 'Y'
+						: 'N',
+				audit_trail : $('#audit_trailg').is(':checked') ? 'Y' : 'N',
+				maintenance_activities : $('#maintenance_activitiesg').is(
+						':checked') ? 'Y' : 'N',
+				business_operations : $('#business_operationsg').is(':checked') ? 'Y'
+						: 'N',
+				budget_controls : $('#budget_controlsg').is(':checked') ? 'Y'
+						: 'N',
+				customer_on_boarding : $('#customer_on_boardingg').is(
+						':checked') ? 'Y' : 'N',
+				customer : $('#customerg').is(':checked') ? 'Y' : 'N',
+				account : $('#accountg').is(':checked') ? 'Y' : 'N',
+				maintenance : $('#maintenanceg').is(':checked') ? 'Y' : 'N',
+				customer_master_maintenance : $('#customer_master_maintenanceg')
+						.is(':checked') ? 'Y' : 'N',
+				account_master_maintenance : $('#account_master_maintenanceg')
+						.is(':checked') ? 'Y' : 'N',
+				lease_accounts : $('#lease_accountsg').is(':checked') ? 'Y'
+						: 'N',
+				deposit_accounts_c : $('#deposit_accounts_cg').is(':checked') ? 'Y'
+						: 'N',
+				office_accounts : $('#office_accountsg').is(':checked') ? 'Y'
+						: 'N',
+				document_maintenance : $('#document_maintenanceg').is(
+						':checked') ? 'Y' : 'N',
+				kyc_norms : $('#kyc_normsg').is(':checked') ? 'Y' : 'N',
+				transaction_maintenance : $('#transaction_maintenanceg').is(
+						':checked') ? 'Y' : 'N',
+				journal_entries : $('#journal_entriesg').is(':checked') ? 'Y'
+						: 'N',
+				account_ledger_posting : $('#account_ledger_postingg').is(
+						':checked') ? 'Y' : 'N',
+				account_ledger : $('#account_ledgerg').is(':checked') ? 'Y'
+						: 'N',
+				trial_balance_t : $('#trial_balance_tg').is(':checked') ? 'Y'
+						: 'N',
+				profit_and_loss_account_t : $('#profit_and_loss_account_tg')
+						.is(':checked') ? 'Y' : 'N',
+				lease_loans : $('#lease_loansg').is(':checked') ? 'Y' : 'N',
+				account_maintenance_l : $('#account_maintenance_lg').is(
+						':checked') ? 'Y' : 'N',
+				account_statements_l : $('#account_statements_lg').is(
+						':checked') ? 'Y' : 'N',
+				flow_details_l : $('#flow_details_lg').is(':checked') ? 'Y'
+						: 'N',
+				deposit_accounts : $('#deposit_accountsg').is(':checked') ? 'Y'
+						: 'N',
+				account_maintenance_d : $('#account_maintenance_dg').is(
+						':checked') ? 'Y' : 'N',
+				account_statements_d : $('#account_statements_dg').is(
+						':checked') ? 'Y' : 'N',
+				flow_details_d : $('#flow_details_dg').is(':checked') ? 'Y'
+						: 'N',
+
+				inquiries_and_reports : $('#inquiries_and_reportsg').is(
+						':checked') ? 'Y' : 'N',
+				journal_book : $('#journal_bookg').is(':checked') ? 'Y' : 'N',
+				account_ledgers_i : $('#account_ledgers_ig').is(':checked') ? 'Y'
+						: 'N',
+				trial_balance_i : $('#trial_balance_ig').is(':checked') ? 'Y'
+						: 'N',
+				general_ledger : $('#general_ledgerg').is(':checked') ? 'Y'
+						: 'N',
+				profit_and_loss_account_i : $('#profit_and_loss_account_ig')
+						.is(':checked') ? 'Y' : 'N',
+				balance_sheet : $('#balance_sheetg').is(':checked') ? 'Y' : 'N'
+
+			}
+
+			console.log(accessRole);
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : './accessRoleSubmit',
+				data : JSON.stringify(accessRole),
+				success : function(responseText, statusText, xhr, $form) {
+
+					console.log(responseText);
+
+				},
+				error : function(error) {
+					console.error(error);
+				}
+			});
+		}
+
+	}
+</script>
+<script>
+	function openEmployeeProfile(a) {
+		event.preventDefault();
+		var userButton = document.getElementById("userButton");
+		userButton.classList.remove("active");
+
+		var employeeButton = document.getElementById("employeeButton");
+		employeeButton.classList.add("active");
+
+		location.href = './employeeProfile?formmode=list';
+	}
+</script>
+<script>
+	function userIdModal(a) {
+		//alert("hihihi")
+
+		$('#userModal').modal('show');
+
+	}
+
+	function setUserData(a) {
+		var employee_id = a.getAttribute("data-employee_id");
+		var employee_name = a.getAttribute("data-employee_name");
+		var branch_id = a.getAttribute("data-branch_id");
+		var branch_desc = a.getAttribute("data-branch_desc");
+		$("#userid").val(employee_id);
+		$("#username").val(employee_name);
+		$("#branch_id").val(branch_id);
+		$("#branch_des").val(branch_desc);
+
+		$('#userModal').modal('hide');
+
+	}
+</script>
+
+
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------User profile List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="card w-100 border">
+
+						<div class="card-header">
+							<div class="float-left">
+								<h4>USER PROFILE - LIST</h4>
+							</div>
+							<div class="btn-group nav-buttons float-right">
+								<button type="button" class="custom-btn" id="btnAdd"
+									onclick="adduser();">Create User</button>
+							</div>
+
+
+						</div>
+						<div class="mt-3"
+							style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; width: 100%;">
+							<!-- Tab buttons -->
+							<button class="tablinks active rounded-pill" id="userButton"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 30%;background-color:#f5a142;color:white;">User
+								Profile</button>
+							<button class="tablinks rounded-pill" id="employeeButton"
+								onclick="openEmployeeProfile(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 30%;background-color:#f5a142;color:white;">Employee
+								Profile</button>
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead class="table-header">
+										<tr>
+											<th>User Id</th>
+											<th>User Name</th>
+											<th>Status</th>
+											<th>Select</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="userProfile : ${userProfiles}"
+											th:attr="data-userid=${userProfile.userid}"
+											th:id="${userProfile.userid}" class="userlist">
+
+											<td><a href="#" th:text="${userProfile.userid}"
+												th:data-userId="${userProfile.userid}"
+												onclick="enquiryuser(this)">View</a></td>
+
+											<!--<td  th:text="${userProfile.userid}">
+												456</td>-->
+											<td style="width: 40%;" th:text="${userProfile.username}">TEST</td>
+
+											<th:block th:switch="${userProfile.entity_flg}"
+												style="text-align: center;">
+												<td th:case="'Y'" style="color: green;">Verified</td>
+												<td th:case="'N'" style="color: red;">UnVerified</td>
+											</th:block>
+											<td>
+												<div class="dropdown">
+													<button class="btn btn-primary p-2" type="button"
+														style="background-color: #B2BEB5; color: white; border: none; outline: none"
+														id="dropdownMenuButton" data-toggle="dropdown"
+														aria-haspopup="true" aria-expanded="false">
+														Action</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton">
+														<!--<button type="button" class="dropdown-item" id="btndelete"
+																th:attr="data-attribute=${chartacc?.acct_num}"
+																style="text-align: center;"
+																onclick="deleteuser(this);">Delete</button>
+															<div class="dropdown-divider"></div>-->
+														<a class="dropdown-item" id="btnEnquiry"
+															th:attr="data-userId=${userProfile?.userid}"
+															style="text-align: center;" onclick="enquiryuser(this);">view</a>
+														<div class="dropdown-divider"
+															th:if="${userProfile.entity_flg}=='N'"></div>
+														<a class="dropdown-item" id="btnVerify"
+															th:attr="data-userId=${userProfile?.userid}"
+															th:if="${userProfile.entity_flg}=='N'"
+															style="text-align: center;" onclick="verifyuser(this);">verify</a>
+														<div class="dropdown-divider"
+															th:if="${userProfile.entity_flg}=='N'"></div>
+														<a class="dropdown-item" id="btnVerify"
+															th:attr="data-userId=${userProfile?.userid}"
+															th:if="${userProfile.entity_flg}=='N'"
+															style="text-align: center;"
+															onclick="deleteUnverifiedUser(this);">Delete</a>
+														<div class="dropdown-divider"
+															th:if="${userProfile.entity_flg}=='Y'"></div>
+														<a class="dropdown-item" id="btnVerify"
+															th:attr="data-userId=${userProfile?.userid}"
+															th:if="${userProfile.entity_flg}=='Y'"
+															style="text-align: center;" onclick="modifyuser(this);">Modify</a>
+														<div class="dropdown-divider"
+															th:if="${userProfile.entity_flg}=='Y'"></div>
+														<a class="dropdown-item" id="btnVerify"
+															th:attr="data-userId=${userProfile?.userid}"
+															th:if="${userProfile.entity_flg}=='Y'"
+															style="text-align: center;" onclick="deleteuser(this);">Delete</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ------------------------------------user profile add---------------------------------- -->
+				<div th:if="${formmode}=='add'">
+					<div class="card w-100 border">
+						<div class="card-header">
+							<div class="float-left">
+								<h4>USER PROFILE-ADD</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<form class=" border border-secondary" action="#" method="post"
+								autocomplete="off" id="userProfile">
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userId">User Id</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="userid"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="userid" autocomplete="off" required readonly /> <i
+											id="searchIcon" class="fa fa-search position-absolute"
+											onclick="userIdModal();"
+											style="right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+									</div>
+									<div class="col-sm-1">
+
+										<a th:if="${formmode}=='add'" href="#"><i
+											class="fas fa-search searchico" data-toggle="modal"
+											data-target="#finusers" id="iconacc" hidden></i></a>
+									</div>
+									<div class="col-sm-2">
+										<label for="username">User Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="username" name="username"
+											oninput="letterOnly(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="branch_id">Branch Id</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="branch_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="branch_id" autocomplete="off" required readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="branch_des">Branch Des</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="branch_des" name="branch_des"
+											class="form-control form-control-sm bg-white border border-dark"
+											required readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Mobile No</label>
+									<div class="col-sm-2">
+										<input type="text" id="mobNo" maxlength="10" name="mob_number"
+											oninput="phoneNumber(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Email Id</label>
+									<div class="col-sm-2">
+										<input type="email" id="emailId" name="email_id"
+											oninput="emailCheck(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+										<div id="email-error" style="color: red;"></div>
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="disableDate" name="disable_start_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Till Date</label>
+									<div class="col-sm-2">
+										<input type="text" name="disable_end_date" id="disableTilDate"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+									</div>
+
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Password</label>
+									<div class="col-sm-2">
+
+										<input type="password" id="password" name="password"
+											value="Bornfire@123"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly /> <i id="eyeIcon"
+											class="fa fa-eye-slash position-absolute"
+											onclick="togglePassword()"
+											style="right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Password Expiry Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="passExDate" name="pass_exp_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Status</label>
+									<div class="col-sm-2">
+										<select id="userStatus" name="user_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="Active">Active</option>
+											<option value="Inactive">Inactive</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Status</label>
+									<div class="col-sm-2">
+										<select id="loginStatus" name="login_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="Active">Active</option>
+											<option value="Inactive">Inactive</option>
+
+										</select>
+									</div>
+
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Expiry Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="acctexpiryDate" name="acc_exp_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Flag</label>
+									<div class="col-sm-2">
+										<input id="login_flg" name="login_flg" value="N"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>
+
+									</div>
+
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Access Code</label>
+									<div class="col-sm-2">
+
+										<select id="acct_access_code" name="acct_access_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="ALL">All</option>
+											<option value="LOAN">Loan</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Document Access Code</label>
+									<div class="col-sm-2">
+										<select id="doc_access_code" name="doc_access_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="ALL">All</option>
+											<option value="LOAN">Loan</option>
+
+										</select>
+									</div>
+
+								</div>
+
+								<div class="card-header"
+									style="padding: 11px 15px;">
+									<div class="float-left" style="padding-left: 100px;">
+										<h6 style="font-size: 1.5rem;">ROLE AND RIGHTS</h6>
+
+
+									</div>
+
+
+								</div>
+
+
+								<div class="row formline mt-3" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Role Id</label>
+									<div class="col-sm-2">
+										<select id="roleId" name="role_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											onchange="roledesc();" autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="ADM">ADM</option>
+											<option value="GEN">GEN</option>
+
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Role Description</label>
+									<div class="col-sm-2">
+										<input type="text" id="roleDesc" readonly name="role_desc"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Permissions</label>
+									<div class="col-sm-2">
+										<select id="permission" name="permissions"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="R">Read</option>
+											<option value="W">Write</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Work Class</label>
+									<div class="col-sm-2">
+										<select id="work_class" name="work_class"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="M">Maker</option>
+											<option value="C">Checker</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline " style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Access Control</label>
+									<div class="col-sm-2">
+										<a href="#"> <img style="width: 16px; height: 16px;"
+											title="Search" th:src="@{/images/searchicon.png}"
+											class="searchico" onclick="openAccessModal(this);"
+											id="iconacc" alt="Search">
+										</a>
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Remarks </label>
+									<div class="col-sm-2">
+										<input type="text" id="remarks" name="remarks"
+											class="form-control form-control-sm bg-white border border-dark" />
+									</div>
+
+								</div>
+
+							</form>
+
+
+						</div>
+
+
+						<div class="card-footer text-center mt-3">
+							<button type="button" class="custom-btn"
+								id="btnHome" onclick="Home();">Home</button>
+							<button type="button" class="custom-btn"
+								id="btnSubmit" onclick="submitform();">Submit</button>
+							<button type="button" class="custom-btn"
+								id="btnBack" onclick="Back();">Back</button>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;">
+									<tr>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Entry User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+											<input type="text" id="entryuser" name="ub.entryuser"
+											th:value="${user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled>
+										</td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Modify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="verifyuser" name="ub.verifyuser"
+											th:value="${user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B> Verify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="modifyuser" name="ub.modifyuser"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+
+									</tr>
+									<tr>
+										<td style="text-align: right;"><font size="2"><B>Entry
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="entrytime" name="ub.entrytime"
+											th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td style="text-align: right;"><font size="2"><B>Modify
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="verifytime" name="ub.verifytime"
+											th:value="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm:ss')}"
+											style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td style="text-align: right;"><font size="2"><B>
+													Verify Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="modifytime" name="ub.modifytime"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- ------------------------------------user profile VIEW---------------------------------- -->
+				<div
+					th:if="${formmode}=='view' or ${formmode}=='verify' or ${formmode}=='delete' or ${formmode}=='deleteUnverified'">
+
+
+					<div class="card w-100 border">
+
+						<div class="card-header">
+							<div class="float-left" th:if="${formmode}=='view'">
+								<h4>USER PROFILE - VIEW</h4>
+
+							</div>
+							<div class="float-left" th:if="${formmode}=='verify'">
+								<h4>USER PROFILE - VERIFY</h4>
+
+							</div>
+							<div class="float-left"
+								th:if="${formmode}=='delete' or ${formmode}=='deleteUnverified' ">
+								<h4>USER PROFILE - DELETE</h4>
+
+							</div>
+							<div class="btn-group nav-buttons float-right">
+								<button type="button" class="custom-btn"
+									id="btnAdd" onclick="goToList();">List</button>
+
+							</div>
+
+
+						</div>
+						<div class="card-body">
+
+							<form class=" border border-secondary" action="#" method="post"
+								autocomplete="off" id="userProfile">
+
+
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userId">User Id</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="userid"
+											oninput="letterAndNumbers(this);"
+											th:value="${userProfile?.userid}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="userid" autocomplete="off" required readonly />
+									</div>
+									<div class="col-sm-1">
+
+										<a th:if="${formmode}=='add'" href="#"><i
+											class="fas fa-search searchico" data-toggle="modal"
+											data-target="#finusers" id="iconacc" hidden></i></a>
+									</div>
+									<div class="col-sm-2">
+										<label for="username">User Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" th:value="${userProfile?.username}"
+											id="username" name="username" oninput="letterOnly(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Branch Id</label>
+									<div class="col-sm-2">
+										<input type="text" th:value="${userProfile?.branch_id}"
+											id="branch_id" name="branch_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Branch Desc</label>
+									<div class="col-sm-2">
+										<input type="text" th:value="${userProfile?.branch_des}"
+											id="branch_des" name="branch_des"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly />
+
+									</div>
+
+								</div>
+
+
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Mobile No</label>
+									<div class="col-sm-2">
+										<input type="text" th:value="${userProfile?.mob_number}"
+											id="mobNo" maxlength="10" name="mob_number"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Email Id</label>
+									<div class="col-sm-2">
+										<input type="email" th:value="${userProfile?.email_id}"
+											id="emailId" name="email_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly />
+										<div id="email-error" style="color: red;"></div>
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Date</label>
+
+									<div class="col-sm-2">
+										<input type="text"
+											th:value="${#dates.format(userProfile?.disable_start_date, 'dd-MM-yyyy')}"
+											id="disableDate" name="disable_start_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required disabled />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Till Date</label>
+									<div class="col-sm-2">
+										<input type="text"
+											th:value="${#dates.format(userProfile?.disable_end_date, 'dd-MM-yyyy')}"
+											name="disable_end_date" id="disableTilDate"
+											class="form-control form-control-sm bg-white border border-dark"
+											required disabled />
+									</div>
+
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Password</label>
+									<div class="col-sm-2">
+
+										<input type="password" id="password" name="password"
+											value="Bornfire@123"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly /> <i id="eyeIcon"
+											class="fa fa-eye-slash position-absolute"
+											onclick="togglePassword()"
+											style="right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Password Expiry Date</label>
+
+									<div class="col-sm-2">
+										<input type="text"
+											th:value="${#dates.format(userProfile?.pass_exp_date, 'dd-MM-yyyy')}"
+											id="passExDate" name="pass_exp_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											required disabled />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Status</label>
+									<div class="col-sm-2">
+										<input type="text" id="userStatus" name="user_status"
+											th:value="${userProfile?.user_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly />
+										<!--<select id="userStatus" name="user_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required disabled>
+
+											<option value="Active"
+												th:selected="${userProfile?.user_status == 'Active'}">Active</option>
+											<option value="Inactive"
+												th:selected="${userProfile?.user_status == 'Inactive'}">Inactive
+											</option>
+										</select>-->
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Status</label>
+									<div class="col-sm-2">
+
+										<input type="text" id="loginStatus" name="login_status"
+											th:value="${userProfile?.login_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly />
+										<!--<select id="loginStatus" name="login_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required disabled>
+
+											<option value="Active"
+												th:selected="${userProfile?.login_status == 'Active'}">Active</option>
+											<option value="Inactive"
+												th:selected="${userProfile?.login_status == 'Inactive'}">Inactive
+											</option>
+
+										</select>-->
+									</div>
+
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Expiry Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="acctexpiryDate" name="acc_exp_date"
+											th:value="${#dates.format(userProfile?.acc_exp_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											required disabled />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Flag</label>
+									<div class="col-sm-2">
+										<input id="login_flg" name="login_flg"
+											th:value="${userProfile?.login_flg}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>
+
+									</div>
+
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Access Code</label>
+									<div class="col-sm-2">
+
+										<input id="acct_access_code" name="acct_access_code"
+											th:value="${userProfile?.acct_access_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>
+
+										<!--<select id="acct_access_code" name="acct_access_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="ALL">All</option>
+											<option value="LOAN">Loan</option>
+
+										</select>-->
+									</div>
+
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Document Access Code</label>
+									<div class="col-sm-2">
+
+										<input id="doc_access_code" name="doc_access_code"
+											th:value="${userProfile?.doc_access_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>
+										<!--<select id="doc_access_code" name="doc_access_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="ALL">All</option>
+											<option value="LOAN">Loan</option>
+
+										</select>-->
+									</div>
+
+								</div>
+
+
+
+								<div class="card-header"
+									style="padding: 11px 15px;">
+									<div class="float-left" style="padding-left: 100px;">
+										<h4 style="font-size: 1.5rem;">ROLE AND RIGHTS</h4>
+									</div>
+
+
+								</div>
+
+
+								<div class="row formline mt-3" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Role Id</label>
+									<div class="col-sm-2">
+										<select id="roleId" name="role_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											onchange="roledesc();" autocomplete="off" required disabled>
+											<option value="">Select</option>
+											<option value="ADM"
+												th:selected="${userProfile?.role_id == 'ADM'}">ADM
+											</option>
+											<option value="GEN"
+												th:selected="${userProfile?.role_id == 'GEN'}">GEN
+											</option>
+
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Role Description</label>
+									<div class="col-sm-2">
+										<input th:value="${userProfile?.role_desc}" type="text"
+											id="roleDesc" name="role_desc"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Permissions</label>
+									<div class="col-sm-2">
+										<select id="permission" name="permissions"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required disabled>
+											<option value="">Select</option>
+											<option value="R"
+												th:selected="${userProfile?.permissions == 'R'}">Read
+											</option>
+											<option value="W"
+												th:selected="${userProfile?.permissions == 'W'}">Write
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Work Class</label>
+									<div class="col-sm-2">
+										<select id="work_class" name="work_class"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required disabled>
+											<option value="">Select</option>
+											<option value="M"
+												th:selected="${userProfile?.work_class == 'M'}">Maker
+											</option>
+											<option value="C"
+												th:selected="${userProfile?.work_class == 'C'}">Checker
+											</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Access Control</label>
+									<div class="col-sm-2">
+										<a href="#"> <img style="width: 16px; height: 16px;"
+											title="Search" th:src="@{/images/searchicon.png}"
+											class="searchico" onclick="openAccessModalView(this);"
+											id="iconacc" alt="Search">
+										</a>
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Remarks </label>
+									<div class="col-sm-2">
+										<input type="text" id="remarks" name="remarks"
+											th:value="${userProfile?.remarks}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+
+								</div>
+
+							</form>
+						</div>
+
+						<div class="card-footer text-center mt-3">
+							<button type="button" class="custom-btn"
+								id="btnHome" onclick="Home();">Home</button>
+							<button type="button" th:if="${formmode}=='verify'"
+								class="custom-btn" id="btnSubmit"
+								th:attr="data-userId=${userProfile?.userid}"
+								onclick="verifyData(this);">Verify</button>
+							<button type="button" th:if="${formmode}=='delete'"
+								class="custom-btn" id="btnSubmit"
+								th:attr="data-userId=${userProfile?.userid},data-flag=${userProfile?.entity_flg}"
+								onclick="deleteRecord(this);">Delete</button>
+							<button type="button" th:if="${formmode}=='deleteUnverified'"
+								class="custom-btn" id="btnSubmit"
+								th:attr="data-userId=${userProfile?.userid},data-flag=${userProfile?.entity_flg}"
+								onclick="deleteUnverifiedRecord(this);">Delete</button>
+							<button type="button" class="custom-btn"
+								id="btnBack" onclick="Back();">Back</button>
+						</div>
+
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;">
+									<tr>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Entry User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="entryuser" name="ub.entryuser"
+											th:value="${userProfile?.entry_user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Modify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="verifyuser" name="ub.verifyuser"
+											th:value="${userProfile?.modify_user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B> Verify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="modifyuser" name="ub.modifyuser"
+											th:value="${userProfile?.auth_user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+
+									</tr>
+									<tr>
+										<td style="text-align: right;"><font size="2"><B>Entry
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="entrytime" name="ub.entrytime"
+											th:value="${#dates.format(userProfile?.entry_time, 'dd-MM-yyyy')}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td style="text-align: right;"><font size="2"><B>Modify
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="verifytime" name="ub.verifytime"
+											th:value="${#dates.format(userProfile?.modify_time, 'dd-MM-yyyy')}"
+											style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td style="text-align: right;"><font size="2"><B>
+													Verify Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="modifytime" name="ub.modifytime"
+											th:value="${#dates.format(userProfile?.auth_time, 'dd-MM-yyyy')}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- ------------------------------------user profile MODIFY---------------------------------- -->
+				<div th:if="${formmode}=='modify'">
+
+
+					<div class="card w-100 border">
+
+						<div class="card-header">
+							<div class="float-left">
+								<h4>USER PROFILE - MODIFY</h4>
+
+							</div>
+							<div class="btn-group nav-buttons float-right">
+								<button type="button" class="custom-btn"
+									id="btnAdd" onclick="goToList();">List</button>
+							</div>
+						</div>
+						<div class="card-body">
+
+							<form class=" border border-secondary" action="#" method="post"
+								autocomplete="off" id="userProfile">
+
+
+								<div class="row formline" style="padding: 15px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userId">User Id</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="userid"
+											oninput="letterAndNumbers(this);"
+											th:value="${userProfile?.userid}"
+											class="form-control form-control-sm bg-white border border-dark"
+											name="userid" autocomplete="off" required readonly />
+									</div>
+									<div class="col-sm-1">
+
+										<a th:if="${formmode}=='add'" href="#"><i
+											class="fas fa-search searchico" data-toggle="modal"
+											data-target="#finusers" id="iconacc" hidden></i></a>
+									</div>
+									<div class="col-sm-2">
+										<label for="username">User Name</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" th:value="${userProfile?.username}"
+											id="username" name="username" oninput="letterOnly(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="false" required readonly />
+									</div>
+								</div>
+
+
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Mobile No</label>
+									<div class="col-sm-2">
+										<input type="text" th:value="${userProfile?.mob_number}"
+											id="mobNo" maxlength="10" name="mob_number"
+											oninput="phoneNumber(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Email Id</label>
+									<div class="col-sm-2">
+										<input type="email" th:value="${userProfile?.email_id}"
+											id="emailId" name="email_id" oninput="emailCheck(this);"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+										<div id="email-error" style="color: red;"></div>
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Date</label>
+
+									<div class="col-sm-2">
+										<input type="text"
+											th:value="${#dates.format(userProfile?.disable_start_date, 'dd-MM-yyyy')}"
+											id="disableDate" name="disable_start_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required />
+									</div>
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Disable Till Date</label>
+									<div class="col-sm-2">
+										<input type="text"
+											th:value="${#dates.format(userProfile?.disable_end_date, 'dd-MM-yyyy')}"
+											name="disable_end_date" id="disableTilDate"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+									</div>
+
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Password</label>
+									<div class="col-sm-2">
+
+										<input type="password" id="password" name="password"
+											value="Bornfire@123"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly /> <i id="eyeIcon"
+											class="fa fa-eye-slash position-absolute"
+											onclick="togglePassword()"
+											style="right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Password Expiry Date</label>
+
+									<div class="col-sm-2">
+										<input type="text"
+											th:value="${#dates.format(userProfile?.pass_exp_date, 'dd-MM-yyyy')}"
+											id="passExDate" name="pass_exp_date"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">User Status</label>
+									<div class="col-sm-2">
+										<!--<input type="text" id="userStatus" name="user_status"
+											th:value="${userProfile?.user_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly />-->
+										<select id="userStatus" name="user_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="Active"
+												th:selected="${userProfile?.user_status == 'Active'}">Active</option>
+											<option value="Inactive"
+												th:selected="${userProfile?.user_status == 'Inactive'}">Inactive
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Status</label>
+									<div class="col-sm-2">
+
+										<!--<input type="text" id="loginStatus" name="login_status"
+											th:value="${userProfile?.login_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" readonly />-->
+										<select id="loginStatus" name="login_status"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option value="Active"
+												th:selected="${userProfile?.login_status == 'Active'}">Active</option>
+											<option value="Inactive"
+												th:selected="${userProfile?.login_status == 'Inactive'}">Inactive
+											</option>
+
+										</select>
+									</div>
+
+								</div>
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Expiry Date</label>
+									<div class="col-sm-2">
+										<input type="text" id="acctexpiryDate" name="acc_exp_date"
+											th:value="${#dates.format(userProfile?.acc_exp_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Login Flag</label>
+									<div class="col-sm-2">
+										<input id="login_flg" name="login_flg"
+											th:value="${userProfile?.login_flg}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>
+
+									</div>
+
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Account Access Code</label>
+									<div class="col-sm-2">
+
+										<!--<input id="acct_access_code" name="acct_access_code"
+											th:value="${userProfile?.acct_access_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>-->
+
+										<select id="acct_access_code" name="acct_access_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option
+												th:selected="${userProfile?.acct_access_code == 'ALL'}"
+												value="ALL">All</option>
+											<option
+												th:selected="${userProfile?.acct_access_code == 'LOAN'}"
+												value="LOAN">Loan</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Document Access Code</label>
+									<div class="col-sm-2">
+
+										<!--<input id="doc_access_code" name="doc_access_code"
+											th:value="${userProfile?.doc_access_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required readonly>-->
+										<select id="doc_access_code" name="doc_access_code"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+
+											<option
+												th:selected="${userProfile?.doc_access_code == 'ALL'}"
+												value="ALL">All</option>
+											<option
+												th:selected="${userProfile?.doc_access_code == 'ALL'}"
+												value="LOAN">Loan</option>
+
+										</select>
+									</div>
+
+								</div>
+
+								<div class="card-header"
+									style="background-color: #f5a142; height: 50px; padding: 11px 15px;">
+									<div class="float-left" style="padding-left: 100px;">
+										<h6 style="font-size: 1.5rem;">ROLE AND RIGHTS</h6>
+
+
+									</div>
+
+
+								</div>
+
+
+								<div class="row formline mt-3" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Role Id</label>
+									<div class="col-sm-2">
+										<select id="roleId" name="role_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											onchange="roledesc();" autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="ADM"
+												th:selected="${userProfile?.role_id == 'ADM'}">ADM
+											</option>
+											<option value="GEN"
+												th:selected="${userProfile?.role_id == 'GEN'}">GEN
+											</option>
+
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Role Description</label>
+									<div class="col-sm-2">
+										<input th:value="${userProfile?.role_desc}" type="text"
+											id="roleDesc" name="role_desc"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Permissions</label>
+									<div class="col-sm-2">
+										<select id="permission" name="permissions"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="R"
+												th:selected="${userProfile?.permissions == 'R'}">Read
+											</option>
+											<option value="W"
+												th:selected="${userProfile?.permissions == 'W'}">Write
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+
+									<label class="col-sm-2">Work Class</label>
+									<div class="col-sm-2">
+										<select id="work_class" name="work_class"
+											class="form-control form-control-sm bg-white border border-dark"
+											autocomplete="off" required>
+											<option value="">Select</option>
+											<option value="M"
+												th:selected="${userProfile?.work_class == 'M'}">Maker
+											</option>
+											<option value="C"
+												th:selected="${userProfile?.work_class == 'C'}">Checker
+											</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+
+
+									<label class="col-sm-2">Access Control</label>
+									<div class="col-sm-2">
+										<a href="#"> <img style="width: 16px; height: 16px;"
+											title="Search" th:src="@{/images/searchicon.png}"
+											class="searchico" onclick="openAccessModal(this);"
+											id="iconacc" alt="Search">
+										</a>
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2">Remarks </label>
+									<div class="col-sm-2">
+										<input type="text" id="remarks" name="remarks"
+											th:value="${userProfile?.remarks}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+
+								</div>
+
+
+							</form>
+						</div>
+
+						<div class="card-footer text-center mt-3">
+							<button type="button" class="custom-btn"
+								id="btnHome" onclick="Home();">Home</button>
+							<button type="button" class="custom-btn"
+								id="btnSubmit" onclick="modifySubmit();">Modify</button>
+							<button type="button" class="custom-btn"
+								id="btnBack" onclick="Back();">Back</button>
+						</div>
+
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;">
+									<tr>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Entry User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="entryuser" name="ub.entryuser"
+											th:value="${userProfile?.entry_user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B>Modify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="verifyuser" name="ub.verifyuser"
+											th:value="${userProfile?.modify_user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td class="col-sm-2" style="text-align: right;"><font
+											size="2"><B> Verify User :</B></font></td>
+										<td class="col-sm-2" style="width: 112px;"><input
+											type="text" id="modifyuser" name="ub.modifyuser"
+											th:value="${userProfile?.auth_user}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+
+									</tr>
+									<tr>
+										<td style="text-align: right;"><font size="2"><B>Entry
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="entrytime" name="ub.entrytime"
+											th:value="${#dates.format(userProfile?.entry_time, 'dd-MM-yyyy')}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td style="text-align: right;"><font size="2"><B>Modify
+													Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="verifytime" name="ub.verifytime"
+											th:value="${#dates.format(userProfile?.modify_time, 'dd-MM-yyyy')}"
+											style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+										<td style="text-align: right;"><font size="2"><B>
+													Verify Time :</B></font></td>
+										<td style="width: 112px"><input type="text"
+											id="modifytime" name="ub.modifytime"
+											th:value="${#dates.format(userProfile?.auth_time, 'dd-MM-yyyy')}"
+											style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+											disabled></td>
+
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+	<!--------------------------------------------------------------- Modal for alert messages-------------------------------->
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content"
+				style="position: fixed; left: 50%; transform: translate(-50%, 0%); width: 30%; height: 25%;">
+				<div class="modal-header">
+					<h5 class="modal-title">Alerts</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" onclick="goToList();">×</button>
+				</div>
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg"></h6>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="goToList();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="normalalert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content"
+				style="position: fixed; left: 50%; transform: translate(-50%, 0%); width: 30%; height: 25%;">
+				<div class="modal-header">
+					<h5 class="modal-title">Alerts</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" onclick="$('#normalalert').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="normalalertmsg"></h6>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="$('#normalalert').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="finusersview" data-backdrop="false"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			style="max-width: 800px; max-height: 160vh;">
+			<div class="modal-content"
+				style="border: 2px solid black; height: 160vh;">
+				<!-- Modal Header -->
+				<div class="modal-header" style="background-color: #e6eaed;">
+					<h4 class="modal-title" style="color: black;">User Access
+						Modules</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+
+
+
+					<li><input type="checkbox" id="admin" name="admin"
+						style="margin-right: 10px; margin-top: 10px" checked /> <label
+						for="admin">Admin </label>
+						<ul>
+							<li><input type="checkbox" id="orgnaization_details"
+								value="Y" name="orgnaization_details"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="orgnaization_details">Oraganization Details </label></li>
+							<li><input type="checkbox" id="usercontrol"
+								name="usercontrol" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="usercontrol">user control </label></li>
+							<li><input type="checkbox" id="parameters" value="Y"
+								name="parameters" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="parameters">parameters </label></li>
+							<li><input type="checkbox" id="audit_trail" value="Y"
+								name="audit_trail" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="audit_trail">Audit Trail </label></li>
+						</ul></li>
+
+
+					<li><input type="checkbox" id="day_end_operation"
+						name="day_end_operation"
+						style="margin-right: 10px; margin-top: 10px" checked /> <label
+						for="day_end_operation"> Day End Operation </label></li>
+
+					<li><input type="checkbox" id="customer_onbording" value="Y"
+						name="customer_onbording" style="margin-right: 10px" checked /> <label
+						for="customer_onbording">Customer Onbording</label>
+						<ul>
+							<li><input type="checkbox" id="minimal_data" value="Y"
+								name="minimal_data" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="minimal_data">Minimal Data </label></li>
+							<li><input type="checkbox" id="kyc_compliance" value="Y"
+								name="kyc_compliance"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="kyc_compliance">KYC Compilance </label></li>
+							<li><input type="checkbox" id="compliance_department"
+								value='Y' name="compliance_department"
+								style="margin-right: 10px" checked /> <label
+								for="compliance_department">Compliance Department</label></li>
+							<li><input type="checkbox" id="hold_reject" value="Y"
+								name="hold_reject" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="hold_reject">Hold And Reject </label></li>
+							<li><input type="checkbox"
+								id="Customer_detail_for_collection" value="Y"
+								name="Customer_detail_for_collection"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="Customer_detail_for_collection">Customer Detail For
+									Collection </label></li>
+
+
+						</ul></li>
+					<li><input type="checkbox" id="customer_maker" value='Y'
+						name="customer_maker" style="margin-right: 10px" checked /> <label
+						for="customer_maker">Customer Maker</label>
+						<ul>
+							<li><input type="checkbox" id="Customer_maintenance"
+								value="Y" name="Customer_maintenance"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="Customer_maintenance">Customer Maintanance</label> </label></li>
+
+						</ul></li>
+
+					<li><input type="checkbox" id="Lease_loans" value='Y'
+						name="Lease_loans" style="margin-right: 10px" checked /> <label
+						for="Lease_loans">Lease Loans</label>
+						<ul>
+							<li><input type="checkbox" id="lease_account_open" value="Y"
+								name="lease_account_open"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="lease_account_open">Lease Account Open </label></li>
+							<li><input type="checkbox" id="lease_loan_maintanance"
+								value="Y" name="lease_loan_maintanance"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="lease_loan_maintanance">Lease Loan Maintanance </label></li>
+							<li><input type="checkbox" id="lease_operation" value='Y'
+								name="lease_operation" style="margin-right: 10px" checked /> <label
+								for="lease_operation">Lease Operation</label></li>
+
+							<li><input type="checkbox" id="colleateral_inventary_master"
+								value='Y' name="colleateral_inventary_master"
+								style="margin-right: 10px" checked /> <label
+								for="colleateral_inventary_master">Colleateral Inventary
+									Master</label></li>
+							<li><input type="checkbox" id="colletral_flow_control"
+								value='Y' name="colletral_flow_control"
+								style="margin-right: 10px" checked /> <label
+								for="colletral_flow_control">Colleateral Flow Control</label></li>
+							<li><input type="checkbox" id="depreciation_flow_control"
+								value='Y' name="depreciation_flow_control"
+								style="margin-right: 10px" checked /> <label
+								for="depreciation_flow_control">Depreciation Flow
+									Control</label></li>
+							<li><input type="checkbox" id="colleateral_management"
+								value='Y' name="colleateral_management"
+								style="margin-right: 10px" checked /> <label
+								for="colleateral_management">Colleateral Management</label></li>
+
+							<li><input type="checkbox" id="colleateral_maintance"
+								value='Y' name="colleateral_maintance"
+								style="margin-right: 10px" checked /> <label
+								for="colleateral_maintance">Colleateral Maintance</label></li>
+							<li><input type="checkbox" id="lease_loan_maintance"
+								value='Y' name="lease_loan_maintance" style="margin-right: 10px"
+								checked /> <label for="lease_loan_maintance">Lease Loan
+									Maintance</label></li>
+
+							<li><input type="checkbox" id="dscr_ration" value='Y'
+								name="dscr_ration" style="margin-right: 10px" checked /> <label
+								for="dscr_ration">Dscr Ratio</label></li>
+
+
+						</ul></li>
+
+
+
+
+					<li><input type="checkbox" id="transaction_maintanance"
+						value='Y' name="transaction_maintanance"
+						style="margin-right: 10px" checked /> <label
+						for="transaction_maintanance">Transaction Maintanance</label>
+						<ul>
+							<li><input type="checkbox" id="journal_entries" value="Y"
+								name="journal_entries"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="journal_entries">Journal Entries</label></li>
+							<li><input type="checkbox" id="account_ledger_posting"
+								value="Y" name="account_ledger_posting"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="account_ledger_posting"> Account Ledger Posting</label></li>
+
+							<li><input type="checkbox" id="account_ledger" value="Y"
+								name="account_ledger"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="account_ledger"> Account Ledger</label></li>
+
+							<li><input type="checkbox" id="trial_balance" value="Y"
+								name="trial_balance"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="trial_balance"> Trail Balance>
+
+									<li><input type="checkbox" id="Profit_and_lose" value="Y"
+										name="Profit_and_lose"
+										style="margin-right: 10px; margin-top: 10px" checked /> <label
+										for="Profit_and_lose"> Profit And Lose Account</label></li>
+
+									<li><input type="checkbox" id="day_end_operation"
+										value="Y" name="day_end_operation"
+										style="margin-right: 10px; margin-top: 10px" checked /> <label
+										for="day_end_operation"> Day End Operation</label></li>
+						</ul></li>
+
+					<li><input type="checkbox" id="collection_process" value="Y"
+						name="collection_process"
+						style="margin-right: 10px; margin-top: 10px" checked /> <label
+						for="collection_process"> Collection Process</label>
+
+
+						<ul>
+							<li><input type="checkbox" id="participating_banks"
+								value="Y" name="participating_banks"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="participating_banks">Participating Banks </label></li>
+
+							<li><input type="checkbox" id="lease_collecting" value="Y"
+								name="lease_collecting"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="lease_collecting">Lease Collecting</label></li>
+
+
+
+						</ul></li>
+
+					<li><input type="checkbox" id="batch_job_execution" value="Y"
+						name="batch_job_execution"
+						style="margin-right: 10px; margin-top: 10px" checked /> <label
+						for="batch_job_execution">Batch Job Execution</label>
+
+						<ul>
+							<li><input type="checkbox" id="batch_job" value="Y"
+								name="batch_job" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="batch_job">Batch Job </label></li>
+
+
+
+
+						</ul></li>
+
+					<li><input type="checkbox" id="inquries_and_report" value="Y"
+						name="batch_job" style="margin-right: 10px; margin-top: 10px"
+						checked /> <label for="inquries_and_report"> Inquires And
+							Report </label>
+
+						<ul>
+							<li><input type="checkbox" id="account_balance" value="Y"
+								name="account_balance"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="account_balance">Account Balance </label></li>
+							<li><input type="checkbox" id="interset_summary" value="Y"
+								name="interset_summary"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="interset_summary">Interest Summary</label></li>
+
+							<li><input type="checkbox" id="jounal_book" value="Y"
+								name="jounal_book" style="margin-right: 10px; margin-top: 10px"
+								checked /> <label for="jounal_book">Journal Book</label></li>
+							<li><input type="checkbox" id="account_ledger" value="Y"
+								name="account_ledger"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="account_ledger">Account Ledger Book</label></li>
+							<li><input type="checkbox" id="trial_balance" value="Y"
+								name="trial_balance"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="trial_balance">Trial Balance </label></li>
+							<li><input type="checkbox" id="general_ledger" value="Y"
+								name="general_ledger"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="general_ledger">Journal Ledger </label></li>
+							<li><input type="checkbox" id="profit_and_lost" value="Y"
+								name="profit_and_lost"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="profit_and_lost">Profit And Lost Account </label></li>
+							<li><input type="checkbox" id="balance_sheet" value="Y"
+								name="balance_sheet"
+								style="margin-right: 10px; margin-top: 10px" checked /> <label
+								for="balance_sheet">Balance Sheet </label></li>
+
+						</ul></li>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="finusersview1" data-backdrop="false"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			style="max-width: 800px; max-height: 160vh;">
+			<div class="modal-content"
+				style="border: 2px solid black; height: 160vh;">
+				<!-- Modal Header -->
+				<div class="modal-header" style="background-color: #e6eaed;">
+					<h4 class="modal-title" style="color: black;">User Access
+						Modules</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<input type="checkbox" id="" name="admin"
+						style="margin-right: 10px" th:checked="${access?.admin == 'Y'}"
+						disabled />Admin
+
+					<ul>
+						<li><input type="checkbox" id="" name="orgnaization_details"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.orgnaization_details == 'Y'}" disabled />
+							<label for="orgnaization_details">Oraganization Details </label>
+							<ul>
+								<li><input type="checkbox" id="" value="Y"
+									name="head_office" style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.head_office == 'Y'}" disabled /> <label
+									for="head_office">Head Office </label></li>
+								<li><input type="checkbox" id="" name="branches"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.branches == 'Y'}" disabled /> <label
+									for="branches">Branches </label></li>
+								<li><input type="checkbox" id="" value="Y" name="exception"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.exception == 'Y'}" disabled /> <label
+									for="exception">Exception </label></li>
+							</ul></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="user_controls" style="margin-right: 10px"
+							th:checked="${access?.user_controls == 'Y'}" disabled /> <label
+							for="user_controls">User Control</label>
+							<ul>
+								<li><input type="checkbox" id="" value="Y"
+									name="user_profile"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.user_profile == 'Y'}" disabled /> <label
+									for="user_profile">User Profile </label></li>
+								<li><input type="checkbox" id="" value="Y"
+									name="employee_profile"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.employee_profile == 'Y'}" disabled /> <label
+									for="employee_profile">Employee Profile </label></li>
+
+							</ul></li>
+						<li><input type="checkbox" id="" value='Y'
+							name="reference_code_maintenance" style="margin-right: 10px"
+							th:checked="${access?.reference_code_maintenance == 'Y'}"
+							disabled /> <label for="reference_code_maintenance">Parameters</label>
+							<ul>
+								<li><input type="checkbox" id="" value="Y"
+									name="reference_code"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.reference_code == 'Y'}" disabled /> <label
+									for="reference_code">Reference Code Maintanance</label> </label></li>
+								<li><input type="checkbox" id="" value="Y"
+									name="gl_structure"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.gl_structure == 'Y'}" disabled /> <label
+									for="gl_structure">GL Structure </label></li>
+								<li><input type="checkbox" id="" value="Y"
+									name="scheme_codes"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.scheme_codes == 'Y'}" disabled /> <label
+									for="scheme_codes">Parameter </label></li>
+								<li><input type="checkbox" id="" value="Y"
+									name="chart_of_accounts"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.chart_of_accounts == 'Y'}" disabled /> <label
+									for="chart_of_accounts">Chart of Accounts </label></li>
+								<li><input type="checkbox" id="" value="Y"
+									name="account_ledgers"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.account_ledgers == 'Y'}" disabled /> <label
+									for="account_ledgers">Account Ledgers </label></li>
+							</ul></li>
+
+						<li><input type="checkbox" id="" value='Y' name="audit_trail"
+							style="margin-right: 10px"
+							th:checked="${access?.audit_trail == 'Y'}" disabled /> <label
+							for="audit_trail">Audit Trial</label>
+							<ul>
+								<li><input type="checkbox" id="" value="Y"
+									name="maintenance_activities"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.maintenance_activities == 'Y'}" disabled />
+									<label for="maintenance_activities">Maintanance
+										Activities </label></li>
+								<li><input type="checkbox" id="" value="Y"
+									name="business_operations"
+									style="margin-right: 10px; margin-top: 10px"
+									th:checked="${access?.business_operations == 'Y'}" disabled />
+									<label for="business_operations">Buisness Operations </label></li>
+
+							</ul></li>
+						<li><input type="checkbox" id="" value='Y'
+							name="budget_controls" style="margin-right: 10px"
+							th:checked="${access?.budget_controls == 'Y'}" disabled /> <label
+							for="budget_controls">Budget Control</label></li>
+					</ul>
+
+					<input type="checkbox" id="" value="Y" name="customer_on_boarding"
+						style="margin-right: 10px"
+						th:checked="${access?.customer_on_boarding == 'Y'}" disabled />Customer
+					Onboarding
+
+					<ul>
+						<li><input type="checkbox" id="" value="Y" name="customer"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.customer == 'Y'}" disabled /> <label
+							for="customer">Customer </label></li>
+						<li><input type="checkbox" id="" value="Y" name="account"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account == 'Y'}" disabled /> <label
+							for="account">Account</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="" value='Y' name="maintenance"
+						style="margin-right: 10px"
+						th:checked="${access?.maintenance == 'Y'}" disabled />Maintanance
+
+					<ul>
+						<li><input type="checkbox" id="" value="Y"
+							name="customer_master_maintenance"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.customer_master_maintenance == 'Y'}"
+							disabled /> <label for="customer_master_maintenance">Customer
+								Master Maintanance</label></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="account_master_maintenance"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_master_maintenance == 'Y'}"
+							disabled /> <label for="account_master_maintenance">
+								Account Master Maintenance</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="lease_accounts"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.lease_accounts == 'Y'}" disabled /> <label
+							for="lease_accounts"> Lease Accounts</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="deposit_accounts_c"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.deposit_accounts_c == 'Y'}" disabled /> <label
+							for="deposit_accounts_c"> Deposit Accounts</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="office_accounts"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.office_accounts == 'Y'}" disabled /> <label
+							for="office_accounts"> Office Accounts</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="document_maintenance"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.document_maintenance == 'Y'}" disabled />
+							<label for="document_maintenance"> Document Maintenance</label></li>
+
+						<li><input type="checkbox" id="" value="Y" name="kyc_norms"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.kyc_norms == 'Y'}" disabled /> <label
+							for="kyc_norms"> KYC Norms</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="" value="Y"
+						name="transaction_maintenance" style="margin-right: 10px"
+						th:checked="${access?.transaction_maintenance == 'Y'}" disabled />Transaction
+					Maintenance
+
+					<ul>
+						<li><input type="checkbox" id="" value="Y"
+							name="journal_entries"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.journal_entries == 'Y'}" disabled /> <label
+							for="journal_entries">Journal Entries </label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="account_ledger_posting"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_ledger_posting == 'Y'}" disabled />
+							<label for="account_ledger_posting">Account Ledger
+								Posting</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="account_ledger"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_ledger == 'Y'}" disabled /> <label
+							for="account_ledger">Account Ledger</label></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="trial_balance_t"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.trial_balance_t == 'Y'}" disabled /> <label
+							for="trial_balance_t">Trial Balance</label></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="profit_and_loss_account_t"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.profit_and_loss_account_t == 'Y'}" disabled />
+							<label for="profit_and_loss_account_t">Profit and Loss
+								Account</label></li>
+
+					</ul>
+
+
+					<input type="checkbox" id="" value="Y" name="lease_loans"
+						style="margin-right: 10px"
+						th:checked="${access?.lease_loans == 'Y'}" disabled />Lease Loans
+
+					<ul>
+						<li><input type="checkbox" id="" value="Y"
+							name="account_maintenance_l"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_maintenance_l == 'Y'}" disabled />
+							<label for="account_maintenance_l">Account Maintenace </label></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="account_statements_l"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_statements_l == 'Y'}" disabled />
+							<label for="account_statements_l">Account Statements</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="flow_details_l"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.flow_details_l == 'Y'}" disabled /> <label
+							for="flow_details_l">Flow Details</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="" value="Y" name="deposit_accounts"
+						style="margin-right: 10px"
+						th:checked="${access?.deposit_accounts == 'Y'}" disabled />Deposit
+					Accounts
+
+					<ul>
+						<li><input type="checkbox" id="" value="Y"
+							name="account_maintenance_d"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_maintenance_d == 'Y'}" disabled />
+							<label for="account_maintenance_d">Account Maintenace </label></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="account_statements_d"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_statements_d == 'Y'}" disabled />
+							<label for="account_statements_d">Account Statements</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="flow_details_d"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.flow_details_d == 'Y'}" disabled /> <label
+							for="flow_details_d">Flow Details</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="" value="Y" name="inquiries_and_reports"
+						style="margin-right: 10px"
+						th:checked="${access?.inquiries_and_reports == 'Y'}" disabled />Inquiries
+					and Reports
+
+					<ul>
+						<li><input type="checkbox" id="" value="Y"
+							name="journal_book" style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.journal_book == 'Y'}" disabled /> <label
+							for="journal_book">Journal Book </label></li>
+						<li><input type="checkbox" id="" value="Y"
+							name="account_ledgers_i"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.account_ledgers_i == 'Y'}" disabled /> <label
+							for="account_ledgers_i">Account Ledgers</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="trial_balance_i"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.trial_balance_i == 'Y'}" disabled /> <label
+							for="trial_balance_i">Trial Balance</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="general_ledger"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.general_ledger == 'Y'}" disabled /> <label
+							for="general_ledger">General Ledger</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="profit_and_loss_account_i"
+							style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.profit_and_loss_account_i == 'Y'}" disabled />
+							<label for="profit_and_loss_account_i">Profit and Loss
+								Account</label></li>
+
+						<li><input type="checkbox" id="" value="Y"
+							name="balance_sheet" style="margin-right: 10px; margin-top: 10px"
+							th:checked="${access?.balance_sheet == 'Y'}" disabled /> <label
+							for="balance_sheet">Balance Sheet</label></li>
+
+					</ul>
+
+
+					<div>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="generalusers" data-backdrop="false"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			style="max-width: 800px; max-height: 160vh;">
+			<div class="modal-content"
+				style="border: 2px solid black; height: 160vh;">
+				<!-- Modal Header -->
+				<div class="modal-header" style="background-color: #e6eaed;">
+					<h4 class="modal-title" style="color: black;">User Access
+						Modules</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<input type="checkbox" id="adming" name="admin"
+						style="margin-right: 10px" />Admin
+
+					<ul>
+						<li><input type="checkbox" id="orgnaization_detailsg"
+							name="orgnaization_details"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="orgnaization_details">Oraganization Details </label>
+							<ul>
+								<li><input type="checkbox" id="head_officeg" value="Y"
+									name="head_office" style="margin-right: 10px; margin-top: 10px" />
+									<label for="head_office">Head Office </label></li>
+								<li><input type="checkbox" id="branchesg" name="branches"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="branches">Branches </label></li>
+								<li><input type="checkbox" id="exceptiong" value="Y"
+									name="exception" style="margin-right: 10px; margin-top: 10px" />
+									<label for="exception">Exception </label></li>
+							</ul></li>
+						<li><input type="checkbox" id="user_controlsg" value="Y"
+							name="user_controls" style="margin-right: 10px" /> <label
+							for="user_controls">User Control</label>
+							<ul>
+								<li><input type="checkbox" id="user_profileg" value="Y"
+									name="user_profile"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="user_profile">User Profile </label></li>
+								<li><input type="checkbox" id="employee_profileg" value="Y"
+									name="employee_profile"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="employee_profile">Employee Profile </label></li>
+
+							</ul></li>
+						<li><input type="checkbox" id="reference_code_maintenanceg"
+							value='Y' name="reference_code_maintenance"
+							style="margin-right: 10px" /> <label
+							for="reference_code_maintenance">Parameters</label>
+							<ul>
+								<li><input type="checkbox" id="reference_codeg" value="Y"
+									name="reference_code"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="reference_code">Reference Code Maintanance</label> </label></li>
+								<li><input type="checkbox" id="gl_structureg" value="Y"
+									name="gl_structure"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="gl_structure">GL Structure </label></li>
+								<li><input type="checkbox" id="scheme_codesg" value="Y"
+									name="scheme_codes"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="scheme_codes">Parameter </label></li>
+								<li><input type="checkbox" id="chart_of_accountsg"
+									value="Y" name="chart_of_accounts"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="chart_of_accounts">Chart of Accounts </label></li>
+								<li><input type="checkbox" id="account_ledgersg" value="Y"
+									name="account_ledgers"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="account_ledgers">Account Ledgers </label></li>
+							</ul></li>
+
+						<li><input type="checkbox" id="audit_trailg" value='Y'
+							name="audit_trail" style="margin-right: 10px" /> <label
+							for="audit_trail">Audit Trial</label>
+							<ul>
+								<li><input type="checkbox" id="maintenance_activitiesg"
+									value="Y" name="maintenance_activities"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="maintenance_activities">Maintanance Activities </label></li>
+								<li><input type="checkbox" id="business_operationsg"
+									value="Y" name="business_operations"
+									style="margin-right: 10px; margin-top: 10px" /> <label
+									for="business_operations">Buisness Operations </label></li>
+
+							</ul></li>
+						<li><input type="checkbox" id="budget_controlsg" value='Y'
+							name="budget_controls" style="margin-right: 10px" checked /> <label
+							for="budget_controls">Budget Control</label></li>
+					</ul>
+
+					<input type="checkbox" id="customer_on_boardingg" value="Y"
+						name="customer_on_boarding" style="margin-right: 10px" checked />Customer
+					Onboarding
+
+					<ul>
+						<li><input type="checkbox" id="customerg" value="Y"
+							name="service_charges_fees"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="customerg">Customer </label></li>
+						<li><input type="checkbox" id="accountg" value="Y"
+							name="wallet_fees_charges"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="accountg">Account</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="maintenanceg" value='Y'
+						name="maintenanceg" style="margin-right: 10px" checked />Maintanance
+
+					<ul>
+						<li><input type="checkbox" id="customer_master_maintenanceg"
+							value="Y" name="customer_master_maintenance"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="customer_master_maintenance">Customer Master
+								Maintanance</label></li>
+						<li><input type="checkbox" id="account_master_maintenanceg"
+							value="Y" name="account_master_maintenance"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_master_maintenance"> Account Master
+								Maintenance</label></li>
+
+						<li><input type="checkbox" id="lease_accountsg" value="Y"
+							name="lease_accounts"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="lease_accounts"> Lease Accounts</label></li>
+
+						<li><input type="checkbox" id="deposit_accounts_cg" value="Y"
+							name="deposit_accounts_c"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="deposit_accounts_c"> Deposit Accounts</label></li>
+
+						<li><input type="checkbox" id="office_accountsg" value="Y"
+							name="office_accounts"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="office_accounts"> Office Accounts</label></li>
+
+						<li><input type="checkbox" id="document_maintenanceg"
+							value="Y" name="document_maintenance"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="document_maintenance"> Document Maintenance</label></li>
+
+						<li><input type="checkbox" id="kyc_normsg" value="Y"
+							name="kyc_norms" style="margin-right: 10px; margin-top: 10px"
+							checked /> <label for="kyc_norms"> KYC Norms</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="transaction_maintenanceg" value="Y"
+						name="transaction_maintenance" style="margin-right: 10px" checked />Transaction
+					Maintenance
+
+					<ul>
+						<li><input type="checkbox" id="journal_entriesg" value="Y"
+							name="journal_entries"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="journal_entries">Journal Entries </label></li>
+
+						<li><input type="checkbox" id="account_ledger_postingg"
+							value="Y" name="account_ledger_posting"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_ledger_posting">Account Ledger Posting</label></li>
+
+						<li><input type="checkbox" id="account_ledgerg" value="Y"
+							name="account_ledger"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_ledger">Account Ledger</label></li>
+						<li><input type="checkbox" id="trial_balance_tg" value="Y"
+							name="trial_balance_t"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="trial_balance_t">Trial Balance</label></li>
+						<li><input type="checkbox" id="profit_and_loss_account_tg"
+							value="Y" name="profit_and_loss_account_t"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="profit_and_loss_account_t">Profit and Loss Account</label></li>
+
+					</ul>
+
+
+					<input type="checkbox" id="lease_loansg" value="Y"
+						name="lease_loans" style="margin-right: 10px" checked />Lease
+					Loans
+
+					<ul>
+						<li><input type="checkbox" id="account_maintenance_lg"
+							value="Y" name="account_maintenance_l"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_maintenance_l">Account Maintenace </label></li>
+						<li><input type="checkbox" id="account_statements_lg"
+							value="Y" name="account_statements_l"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_statements_l">Account Statements</label></li>
+
+						<li><input type="checkbox" id="flow_details_lg" value="Y"
+							name="flow_details_l"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="flow_details_l">Flow Details</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="deposit_accountsg" value="Y"
+						name="deposit_accounts" style="margin-right: 10px" checked />Deposit
+					Accounts
+
+					<ul>
+						<li><input type="checkbox" id="account_maintenance_dg"
+							value="Y" name="account_maintenance_d"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_maintenance_d">Account Maintenace </label></li>
+						<li><input type="checkbox" id="account_statements_dg"
+							value="Y" name="account_statements_d"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_statements_d">Account Statements</label></li>
+
+						<li><input type="checkbox" id="flow_details_dg" value="Y"
+							name="flow_details_d"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="flow_details_d">Flow Details</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="inquiries_and_reportsg" value="Y"
+						name="inquiries_and_reports" style="margin-right: 10px" checked />Inquiries
+					and Reports
+
+					<ul>
+						<li><input type="checkbox" id="journal_bookg" value="Y"
+							name="journal_book" style="margin-right: 10px; margin-top: 10px"
+							checked /> <label for="journal_book">Journal Book </label></li>
+						<li><input type="checkbox" id="account_ledgers_ig" value="Y"
+							name="account_ledgers_i"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="account_ledgers_i">Account Ledgers</label></li>
+
+						<li><input type="checkbox" id="trial_balance_ig" value="Y"
+							name="trial_balance_i"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="trial_balance_i">Trial Balance</label></li>
+
+						<li><input type="checkbox" id="general_ledgerg" value="Y"
+							name="general_ledger"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="general_ledger">General Ledger</label></li>
+
+						<li><input type="checkbox" id="profit_and_loss_account_ig"
+							value="Y" name="profit_and_loss_account_i"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="profit_and_loss_account_i">Profit and Loss Account</label></li>
+
+						<li><input type="checkbox" id="balance_sheetg" value="Y"
+							name="balance_sheet" style="margin-right: 10px; margin-top: 10px"
+							checked /> <label for="balance_sheet">Balance Sheet</label></li>
+
+					</ul>
+
+
+					<div>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="finusers" data-backdrop="false"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			style="max-width: 800px; max-height: 160vh;">
+			<div class="modal-content"
+				style="border: 2px solid black; height: 160vh;">
+				<!-- Modal Header -->
+				<div class="modal-header" style="background-color: #e6eaed;">
+					<h4 class="modal-title" style="color: black;">User Access
+						Modules</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<input type="checkbox" id="admin" name="admin"
+						style="margin-right: 10px" checked />Admin
+
+					<ul>
+						<li><input type="checkbox" id="orgnaization_details"
+							name="orgnaization_details"
+							style="margin-right: 10px; margin-top: 10px" checked /> <label
+							for="orgnaization_details">Oraganization Details </label>
+							<ul>
+								<li><input type="checkbox" id="head_office" value="Y"
+									name="head_office" style="margin-right: 10px; margin-top: 10px"
+									checked /> <label for="head_office">Head Office </label></li>
+								<li><input type="checkbox" id="branches" name="branches"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="branches">Branches </label></li>
+								<li><input type="checkbox" id="exception" value="Y"
+									name="exception" style="margin-right: 10px; margin-top: 10px"
+									checked /> <label for="exception">Exception </label></li>
+							</ul></li>
+						<li><input type="checkbox" id="user_controls" value="Y"
+							name="user_controls" style="margin-right: 10px" checked /> <label
+							for="user_controls">User Control</label>
+							<ul>
+								<li><input type="checkbox" id="user_profile" value="Y"
+									name="user_profile"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="user_profile">User Profile </label></li>
+								<li><input type="checkbox" id="employee_profile" value="Y"
+									name="employee_profile"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="employee_profile">Employee Profile </label></li>
+
+							</ul></li>
+						<li><input type="checkbox" id="reference_code_maintenance"
+							value='Y' name="reference_code_maintenance"
+							style="margin-right: 10px" checked /> <label
+							for="reference_code_maintenance">Parameters</label>
+							<ul>
+								<li><input type="checkbox" id="reference_code" value="Y"
+									name="reference_code"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="reference_code">Reference Code Maintanance</label> </label></li>
+								<li><input type="checkbox" id="gl_structure" value="Y"
+									name="gl_structure"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="gl_structure">GL Structure </label></li>
+								<li><input type="checkbox" id="scheme_codes" value="Y"
+									name="scheme_codes"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="scheme_codes">Parameter </label></li>
+								<li><input type="checkbox" id="chart_of_accounts" value="Y"
+									name="chart_of_accounts"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="chart_of_accounts">Chart of Accounts </label></li>
+								<li><input type="checkbox" id="account_ledgers" value="Y"
+									name="account_ledgers"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="account_ledgers">Account Ledgers </label></li>
+							</ul></li>
+
+						<li><input type="checkbox" id="audit_trail" value='Y'
+							name="audit_trail" style="margin-right: 10px" checked /> <label
+							for="audit_trail">Audit Trial</label>
+							<ul>
+								<li><input type="checkbox" id="maintenance_activities"
+									value="Y" name="maintenance_activities"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="maintenance_activities">Maintanance Activities </label></li>
+								<li><input type="checkbox" id="business_operations"
+									value="Y" name="business_operations"
+									style="margin-right: 10px; margin-top: 10px" checked /> <label
+									for="business_operations">Buisness Operations </label></li>
+
+							</ul></li>
+						<li><input type="checkbox" id="budget_controls" value='Y'
+							name="budget_controls" style="margin-right: 10px" /> <label
+							for="budget_controls">Budget Control</label></li>
+					</ul>
+
+					<input type="checkbox" id="customer_on_boarding" value="Y"
+						name="customer_on_boarding" style="margin-right: 10px" />Customer
+					Onboarding
+
+					<ul>
+						<li><input type="checkbox" id="customer" value="Y"
+							name="customer" style="margin-right: 10px; margin-top: 10px" />
+							<label for="customer">Customer </label></li>
+						<li><input type="checkbox" id="account" value="Y"
+							name="account" style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account">Account</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="maintenance" value='Y'
+						name="maintenance" style="margin-right: 10px" />Maintanance
+
+					<ul>
+						<li><input type="checkbox" id="customer_master_maintenance"
+							value="Y" name="customer_master_maintenance"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="customer_master_maintenance">Customer Master
+								Maintanance</label></li>
+						<li><input type="checkbox" id="account_master_maintenance"
+							value="Y" name="account_master_maintenance"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_master_maintenance"> Account Master
+								Maintenance</label></li>
+
+						<li><input type="checkbox" id="lease_accounts" value="Y"
+							name="lease_accounts"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="lease_accounts"> Lease Accounts</label></li>
+
+						<li><input type="checkbox" id="deposit_accounts_c" value="Y"
+							name="deposit_accounts_c"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="deposit_accounts_c"> Deposit Accounts</label></li>
+
+						<li><input type="checkbox" id="office_accounts" value="Y"
+							name="office_accounts"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="office_accounts"> Office Accounts</label></li>
+
+						<li><input type="checkbox" id="document_maintenance"
+							value="Y" name="document_maintenance"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="document_maintenance"> Document Maintenance</label></li>
+
+						<li><input type="checkbox" id="kyc_norms" value="Y"
+							name="kyc_norms" style="margin-right: 10px; margin-top: 10px" />
+							<label for="kyc_norms"> KYC Norms</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="transaction_maintenance" value="Y"
+						name="transaction_maintenance" style="margin-right: 10px" />Transaction
+					Maintenance
+
+					<ul>
+						<li><input type="checkbox" id="journal_entries" value="Y"
+							name="journal_entries"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="journal_entries">Journal Entries </label></li>
+
+						<li><input type="checkbox" id="account_ledger_posting"
+							value="Y" name="account_ledger_posting"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_ledger_posting">Account Ledger Posting</label></li>
+
+						<li><input type="checkbox" id="account_ledger" value="Y"
+							name="account_ledger"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_ledger">Account Ledger</label></li>
+						<li><input type="checkbox" id="trial_balance_t" value="Y"
+							name="trial_balance_t"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="trial_balance_t">Trial Balance</label></li>
+						<li><input type="checkbox" id="profit_and_loss_account_t"
+							value="Y" name="profit_and_loss_account_t"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="profit_and_loss_account_t">Profit and Loss Account</label></li>
+
+					</ul>
+
+
+					<input type="checkbox" id="lease_loans" value="Y"
+						name="lease_loans" style="margin-right: 10px" />Lease Loans
+
+					<ul>
+						<li><input type="checkbox" id="account_maintenance_l"
+							value="Y" name="account_maintenance_l"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_maintenance_l">Account Maintenace </label></li>
+						<li><input type="checkbox" id="account_statements_l"
+							value="Y" name="account_statements_l"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_statements_l">Account Statements</label></li>
+
+						<li><input type="checkbox" id="flow_details_l" value="Y"
+							name="flow_details_l"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="flow_details_l">Flow Details</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="deposit_accounts" value="Y"
+						name="deposit_accounts" style="margin-right: 10px" />Deposit
+					Accounts
+
+					<ul>
+						<li><input type="checkbox" id="account_maintenance_d"
+							value="Y" name="account_maintenance_d"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_maintenance_d">Account Maintenace </label></li>
+						<li><input type="checkbox" id="account_statements_d"
+							value="Y" name="account_statements_d"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_statements_d">Account Statements</label></li>
+
+						<li><input type="checkbox" id="flow_details_d" value="Y"
+							name="flow_details_d"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="flow_details_d">Flow Details</label></li>
+
+					</ul>
+
+					<input type="checkbox" id="inquiries_and_reports" value="Y"
+						name="inquiries_and_reports" style="margin-right: 10px" />Inquiries
+					and Reports
+
+					<ul>
+						<li><input type="checkbox" id="journal_book" value="Y"
+							name="journal_book" style="margin-right: 10px; margin-top: 10px" />
+							<label for="journal_book">Journal Book </label></li>
+						<li><input type="checkbox" id="account_ledgers_i" value="Y"
+							name="account_ledgers_i"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="account_ledgers_i">Account Ledgers</label></li>
+
+						<li><input type="checkbox" id="trial_balance_i" value="Y"
+							name="trial_balance_i"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="trial_balance_i">Trial Balance</label></li>
+
+						<li><input type="checkbox" id="general_ledger" value="Y"
+							name="general_ledger"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="general_ledger">General Ledger</label></li>
+
+						<li><input type="checkbox" id="profit_and_loss_account_i"
+							value="Y" name="profit_and_loss_account_i"
+							style="margin-right: 10px; margin-top: 10px" /> <label
+							for="profit_and_loss_account_i">Profit and Loss Account</label></li>
+
+						<li><input type="checkbox" id="balance_sheet" value="Y"
+							name="balance_sheet" style="margin-right: 10px; margin-top: 10px" />
+							<label for="balance_sheet">Balance Sheet</label></li>
+
+					</ul>
+
+
+					<div>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" data-backdrop="false" data-keyboard="false"
+		id="userModal">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 200%; margin-left: -400px;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">List of Employees</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" onclick="$('#userModal').modal('hide')">×</button>
+				</div>
+				<div class="modal-body" style="height: 70vh; overflow-y: auto;">
+					<table class="table  table-bordered  table-hover table-sm"
+						id="usertableSyncTab">
+						<thead>
+							<tr class="filters">
+								<th><input oninput="filterSyncRec()" type="text"
+									placeholder="Employee Id" class="form-control font-weight-bold"
+									id="filterInputSyncNo"
+									style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th><input oninput="filterSyncRec()" type="text"
+									placeholder="Employee Name"
+									class="form-control font-weight-bold" id="filterInputBorrName"
+									style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th><input oninput="filterSyncRec()" type="text"
+									placeholder="Branch Id" class="form-control font-weight-bold"
+									id="filterInputBorrName"
+									style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th><input oninput="filterSyncRec()" type="text"
+									placeholder="Branch Des" class="form-control font-weight-bold"
+									id="filterInputBorrName"
+									style="width: 100%; height: 23px; font-size: 12px; margin-left: -3px;">
+								</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody id="filterhower">
+							<tr th:each="getDetails : ${getEmployeeDetails}"
+								th:attr="data-employee_id=${getDetails.employee_id}, data-employee_name=${getDetails.employee_name},data-branch_id=${getDetails.branch_id},data-branch_desc=${getDetails.branch_desc}"
+								onclick="setUserData(this)" style="cursor: pointer;">
+								<td th:text="${getDetails?.employee_id}">456</td>
+								<td th:text="${getDetails?.employee_name}">456</td>
+								<td th:text="${getDetails?.branch_id}">456</td>
+								<td th:text="${getDetails?.branch_desc}">456</td>
+								<td><input type="radio" id="btnclick" name="btnradio" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+</html>

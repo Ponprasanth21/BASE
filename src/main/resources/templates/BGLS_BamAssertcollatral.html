@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+.status-verified {
+	color: green;
+}
+
+.status-pending {
+	color: red; /* or any other color you prefer */
+}
+</style>
+<style>
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+<style>
+.table {
+	width: 129%;
+	margin-bottom: 1rem;
+	color: #212529;
+}
+
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+td input{border: 1px solid #ced4da;}
+</style>
+
+
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+</script>
+
+
+
+
+<script>
+
+function formatDate(date) {
+	var datelive = new Date(); //
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var hours = datelive.getHours();
+    var minutes = datelive.getMinutes();
+
+    // Ensure two digits for day, month, hours, and minutes
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    return day + '-' + month + '-' + year;
+}
+function calculateFlowStartDates(acquisitionDate) {
+    var flowStartDates = [];
+    var currentYear = acquisitionDate.getFullYear();
+
+    // Loop through subsequent years until 2027-03-31
+    while (currentYear <= 3027) {
+        var startDate = new Date(currentYear, 2, 31); // March 31st of each year
+        flowStartDates.push(startDate);
+        currentYear++;
+    }
+
+    return flowStartDates;
+}
+
+function getMonthDayDifference(startDate, endDate) {
+    // Convert input strings to Date objects
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Calculate the difference in years, months, and days
+    let yearsDiff = end.getFullYear() - start.getFullYear();
+    let monthsDiff = end.getMonth() - start.getMonth();
+    let daysDiff = end.getDate() - start.getDate();
+
+    // Adjust for negative day difference by borrowing a month
+    if (daysDiff < 0) {
+        monthsDiff--;
+        const previousMonth = new Date(end.getFullYear(), end.getMonth(), 0).getDate(); // Last day of the previous month
+        daysDiff += previousMonth;
+    }
+
+    // Adjust for negative month difference by borrowing a year
+    if (monthsDiff < 0) {
+        yearsDiff--;
+        monthsDiff += 12;
+    }
+
+    // Combine years and months into total months
+    let totalMonths = (yearsDiff * 12) + monthsDiff;
+
+    // Ensure both totalMonths and daysDiff are positive by taking absolute values
+    totalMonths = Math.abs(totalMonths);
+    daysDiff = Math.abs(daysDiff);
+
+    // Format result as "months.days" (e.g., "6.28")
+    return `${totalMonths}.${daysDiff}`;
+}
+
+
+function parseDateString(dateString) {
+    // Expected format: dd-MM-yyyy
+    let parts = dateString.split("-");
+    if (parts.length !== 3) {
+        console.error("Invalid date format:", dateString);
+        return null;
+    }
+
+    let day = parseInt(parts[0], 10);
+    let month = parseInt(parts[1], 10) - 1; // JavaScript months are zero-based
+    let year = parseInt(parts[2], 10);
+
+    // Create a Date object
+    let date = new Date(year, month, day);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+        console.error("Invalid date:", dateString);
+        return null;
+    }
+
+    return date;
+}
+
+function deef(acquisitionDateInput){
+	
+	var datelive = new Date(); 
+const date = new Date(acquisitionDateInput);
+
+const pad = (num) => num.toString().padStart(2, '0');
+
+const month = pad(date.getDate());
+const  day = pad(date.getMonth() + 1); // Months are zero-based
+const year = date.getFullYear();
+const hours = pad(datelive.getHours());
+const minutes = pad(datelive.getMinutes());
+
+const formattedDate = `${day}-${month}-${year}`;
+console.log(formattedDate); // "01-08-2024 00:00"
+
+return formattedDate;
+}
+ 
+function genflows() { 
+
+    var dep = document.getElementById('dep_method').value;
+	alert(dep);
+	
+	if(dep=='SLM'){
+	
+    // Get the number of years input
+    var yearsInput = document.getElementById('lifeofyear').value;
+    var years = parseInt(yearsInput);
+   
+    var acquisitionDateInput = document.getElementById('DATE_OF_ACQN').value;
+    //alert(acquisitionDateInput)
+   // let acquisitionDate = new Date(acquisitionDateInput);
+    let acquisitionDate = parseDateString(acquisitionDateInput);
+   // alert(acquisitionDate)
+    
+    
+    var dep_method = document.getElementById('dep_method').value;
+     var flowStartDates = calculateFlowStartDates(acquisitionDate);
+     //alert(flowStartDates[0]);
+     var result = getMonthDayDifference(acquisitionDate,flowStartDates[0] );
+     var deppercent = document.getElementById('dep_percentge').value;
+     var percent = parseInt(deppercent);
+     var original_cost = document.getElementById('original_cost').value;
+     var cur_book = document.getElementById('current_book_value').value;
+
+ 	var rm=original_cost;
+ 	
+
+    // Show the fieldset
+    var fieldset = document.getElementById('tableset');
+    fieldset.style.display = 'block';
+    
+    // Get the table body
+    var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+    // Clear any existing rows
+    tbody.innerHTML = '';
+
+    // Generate rows based on the number of years
+    for (var i = 0; i <= years; i++) {
+        var row = document.createElement('tr');
+
+        // Create 13 columns for each row
+        for (var j = 0; j < 13; j++) {
+            var cell = document.createElement('td');
+            // Create an input element for each cell
+            var input = document.createElement('input');
+            input.type = 'text';
+            
+            // Set the text content for the first column only
+            if (j === 0) {
+                input.value = i + 1; // Display the row number
+                input.readOnly = true; // Make it read-only
+            }
+            // Set the year value in the second column
+            if (j === 1) {
+                input.value = "DEPR"; // Display the year
+                input.readOnly = true; // Make it read-only
+            }
+         // Set the acquisition date in the third column first cell
+             if (j === 1 && i === 0) {
+                input.value = "ACQN";
+                input.readOnly = true;
+            }
+            // Set the flow start dates in the third column
+             if (j === 2 && i < flowStartDates.length) {
+                input.value = formatDate(flowStartDates[i]);
+                input.readOnly = true;
+                if (j === 2 && i === 0) {
+                	//alert(acquisitionDateInput)
+                    input.value = acquisitionDateInput;
+                    input.readOnly = true;
+                }
+            }
+             if (j === 3) {
+                 input.value = "YEARLY"; // Display the year
+                 input.readOnly = true; // Make it read-only
+             }
+            if (j === 4) {
+                input.value = dep_method; // Display the year
+                input.readOnly = true; // Make it read-only
+            }
+             if (j === 5) {
+                 input.value = deppercent; // Display the year
+                 input.readOnly = true; // Make it read-only
+             }
+             if (j === 6) {
+                 input.value = original_cost; // Display the year
+                 input.readOnly = true; 
+                 input.style.textAlign = 'right';
+             }
+             
+             if (j === 7 && i===1) {
+
+            	var cl=original_cost * (percent / 100);
+            	 input.value=cl/12*result;
+            	 var dp=input.value;
+                 input.readOnly = true;// Make it read-only
+                 input.style.textAlign = 'right';
+             }
+             
+             if (j === 7 && i>1) {
+
+            	 input.value = original_cost * (percent / 100);
+            	 var dp=input.value;
+                 input.readOnly = true;// Make it read-only
+                 input.style.textAlign = 'right';
+             }
+             
+             
+             //For Book value
+             if (j === 8 && i === 0) {
+                 input.value = original_cost;
+                 input.readOnly = true;
+                 input.style.textAlign = 'right';
+             }
+             if (j === 8 && i>0) {
+            	 if(remainingValue!=null){
+            	 rm=remainingValue;
+            	 	}
+             var remainingValue = rm-dp;
+             input.value = remainingValue; 
+             input.readOnly = true; 
+             input.style.textAlign = 'right';
+             
+        }
+         // Set id and class for input cells
+            input.id = 'input_' + i + '_' + j; // Example: input_1_2
+            input.name = 'input_rows' + j;  
+         //   input.classList.add('form-control');
+
+            
+            
+            // Append the input element to the cell
+            cell.appendChild(input);
+            // Append the cell to the row
+            row.appendChild(cell);
+        }
+
+        // Append the row to the table body
+        tbody.appendChild(row);
+    }
+}
+	
+	
+	if(dep=='WDV'){
+
+	    // Get the number of years input
+	    var yearsInput = document.getElementById('lifeofyear').value;
+	    var years = parseInt(yearsInput);
+	   
+	    var acquisitionDateInput = document.getElementById('DATE_OF_ACQN').value;
+	   // var acquisitionDate = new Date(acquisitionDateInput);  
+	    let acquisitionDate = parseDateString(acquisitionDateInput);
+	    
+	    var dep_method = document.getElementById('dep_method').value;
+	     var flowStartDates = calculateFlowStartDates(acquisitionDate);
+	     var result = getMonthDayDifference(acquisitionDate,flowStartDates[0] );
+	     var deppercent = document.getElementById('dep_percentge').value;
+	     var percent = parseInt(deppercent);
+	     var original_cost = document.getElementById('original_cost').value;
+	     var cur_book = document.getElementById('current_book_value').value;
+	 	var rm=original_cost;
+	 	
+	 	
+
+	    // Show the fieldset
+	    var fieldset = document.getElementById('tableset');
+	    fieldset.style.display = 'block';
+	    
+	    // Get the table body
+	    var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+	    // Clear any existing rows
+	    tbody.innerHTML = '';
+
+	    // Generate rows based on the number of years
+	    for (var i = 0; i <= years; i++) {
+	        var row = document.createElement('tr');
+
+	        // Create 13 columns for each row
+	        for (var j = 0; j < 13; j++) {
+	            var cell = document.createElement('td');
+	            // Create an input element for each cell
+	            var input = document.createElement('input');
+	            input.type = 'text';
+	            
+	            // Set the text content for the first column only
+	            if (j === 0) {
+	                input.value = i + 1; // Display the row number
+	                input.readOnly = true; // Make it read-only
+	            }
+	            // Set the year value in the second column
+	            if (j === 1) {
+	                input.value = "DEPR"; // Display the year
+	                input.readOnly = true; // Make it read-only
+	            }
+	         // Set the acquisition date in the third column first cell
+	             if (j === 1 && i === 0) {
+	                input.value = "ACQN";
+	                input.readOnly = true;
+	            }
+	            // Set the flow start dates in the third column
+	             if (j === 2 && i < flowStartDates.length) {
+                input.value = formatDate(flowStartDates[i]);
+                input.readOnly = true;
+                if (j === 2 && i === 0) {
+                    input.value = acquisitionDateInput;
+                    input.readOnly = true;
+                }
+            }
+	             if (j === 3) {
+	                 input.value = "YEARLY"; // Display the year
+	                 input.readOnly = true; // Make it read-only
+	             }
+	            if (j === 4) {
+	                input.value = dep_method; // Display the year
+	                input.readOnly = true; // Make it read-only
+	            }
+	             if (j === 5) {
+	                 input.value = deppercent; // Display the year
+	                 input.readOnly = true; // Make it read-only
+	             }
+	             if (j === 6) {
+	                 input.value = original_cost; // Display the year
+	                 input.readOnly = true; 
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             //Depretiation
+	             if (j === 7 && i===1) {
+	            	 
+	            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+	                 if (prevBookValueElement) {
+	                     var prevBookValue = parseFloat(prevBookValueElement.value);
+	                    // alert(prevBookValue)
+	                     cl= (prevBookValue * (percent / 100)).toFixed(2);
+	                     input.value=cl/12*result;
+	                    var dp= input.value
+	                 input.readOnly = true;// Make it read-only
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             }
+	             
+					if (j === 7 && i>1) {
+	            	 
+	            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+	                 if (prevBookValueElement) {
+	                     var prevBookValue = parseFloat(prevBookValueElement.value);
+	                    // alert(prevBookValue)
+	                     input.value=(prevBookValue * (percent / 100)).toFixed(2);
+	                    var dp= input.value
+	                 input.readOnly = true;// Make it read-only
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             }
+	             //For Book value
+	             if (j === 8 && i === 0) {
+	                 input.value = original_cost;
+	                 input.readOnly = true;
+	                 input.style.textAlign = 'right';
+	             }
+	             if (j === 8 && i>0) {
+	            	 if(remainingValue!=null){
+	            	 rm=remainingValue;
+	            	 }
+	             var remainingValue = rm-dp;
+	             input.value = remainingValue; 
+	             input.readOnly = true; 
+	             input.style.textAlign = 'right';
+	             
+	        }
+	             if (j === 9 && i === 0) {
+	                input.value = acquisitionDateInput;
+	                 input.readOnly = true;
+	             }
+	             if (j === 10 && i === 0) {
+		                input.value = '124/1';
+		                 input.readOnly = true;
+		             }
+	             if (j === 11 && i === 0) {
+		                input.value = original_cost;
+		                 input.readOnly = true;
+		             }
+	             
+	             
+	             input.id = 'input_' + i + '_' + j;
+	             input.name = 'input_rows' + j;  // Set the name attribute
+
+	            
+	            
+	            // Append the input element to the cell
+	            cell.appendChild(input);
+	            // Append the cell to the row
+	            row.appendChild(cell);
+	        }
+
+	        // Append the row to the table body
+	        tbody.appendChild(row);
+	    }
+		
+		
+		
+	}
+}
+</script>
+
+<script>
+function addSubmit() {
+		
+		var value = $('#input_0_1').val();
+
+		if (!value) {
+			alert("Please Generate the flow !!!");
+		} else {
+			
+			var assetflowslist = [];
+
+		    var assetserialno1 =  $("#asset_serial_no").val();
+		    var dep_method1 = $('input[name="dep_method"]:checked').val();
+		    var assetName1 = $("input[name='asset_name']").val();
+		    var asset_currency1 = $("input[name='asset_currency']").val();
+		    var date_of_purchase1 = $("input[name='date_of_purchase']").val();
+		    var year_of_purchase1 = $("input[name='year_of_purchase']").val();
+		    var asst_exp_date1 = $("input[name='asst_exp_date']").val();
+		    var acquis_date1 = $("input[name='acquis_date']").val();
+		    var life_span_months1 = $("input[name='life_span_months']").val();
+		    var depreciation_start_date1 = $("input[name='depreciation_start_date']").val();
+		    var asset_type1 = $("input[name='asset_type']").val();
+		    var original_cost1 = $("input[name='original_cost']").val();
+		    var accum_depres1 = $("input[name='accum_depres']").val();
+		    var curr_book_value1 = $("input[name='curr_book_value']").val();
+		    var depreciation_flg1 = $("input[name='depreciation_flg']").val();
+		    var depreciation_method1 = $('#dep_method').val();
+		    var depreciation_percentage1 = $("input[name='depreciation_percentage']").val();
+		    var depreciation_frequency1 = $("input[name='depreciation_frequency']").val();
+		    var date_of_last_depreciation1 = $("input[name='date_of_last_depreciation']").val();
+		    
+		    
+		    
+		    $('#flowsTable tbody tr').each(function(index) {
+  
+    var row = $(this);
+
+    var input_rows0 = row.find('input[name="input_rows0"]').val() || 0;
+   // alert(input_rows0);
+    var input_rows1 = row.find('input[name="input_rows1"]').val() || 0;
+    var input_rows2 = row.find('input[name="input_rows2"]').val() || 0;
+    var input_rows3 = row.find('input[name="input_rows3"]').val() || 0;
+    var input_rows4 = row.find('input[name="input_rows4"]').val() || 0;
+    var input_rows5 = row.find('input[name="input_rows5"]').val() || 0;
+    var input_rows6 = row.find('input[name="input_rows6"]').val() || 0;
+    var input_rows7 = row.find('input[name="input_rows7"]').val() || 0;
+    var input_rows8 = row.find('input[name="input_rows8"]').val() || 0;
+    var input_rows9 = row.find('input[name="input_rows9"]').val() || 0;
+    var input_rows10 = row.find('input[name="input_rows10"]').val() || 0;
+    var input_rows11 = row.find('input[name="input_rows11"]').val() || 0;
+    var input_rows12 = row.find('input[name="input_rows12"]').val() || "NA";
+
+    if (input_rows0) {
+        var taxtable = {
+            gen_roll_no: input_rows0,
+            gen_flow_id: input_rows1,
+            gen_flow_strt_date: input_rows2,
+            gen_frequncy: input_rows3,
+            gen_method: input_rows4,
+            gen_percentage: input_rows5,
+            gen_original_cost: input_rows6,
+            gen_depreciation: input_rows7,
+            gen_book_value: input_rows8,
+            gen_tran_date: input_rows9,
+            gen_tran_id: input_rows10,
+            gen_amount: input_rows11,
+            gen_remarks: input_rows12,
+            
+            asset_serial_no : assetserialno1,
+            dep_method : dep_method1,
+            asset_name : assetName1,
+            asset_currency : asset_currency1,
+            date_of_purchase : date_of_purchase1,
+            year_of_purchase : year_of_purchase1,
+            asst_exp_date : asst_exp_date1,
+            acquis_date : acquis_date1,
+            life_span_months : life_span_months1,
+            depreciation_start_date : depreciation_start_date1,
+            asset_type : asset_type1,
+            original_cost : original_cost1,
+            accum_depres : accum_depres1,
+            curr_book_value : curr_book_value1,
+            depreciation_flg : depreciation_flg1,
+            depreciation_method : depreciation_method1,
+            depreciation_percentage : depreciation_percentage1,
+            depreciation_frequency : depreciation_frequency1,
+            date_of_last_depreciation : date_of_last_depreciation1
+            
+        };
+
+        assetflowslist.push(taxtable);
+    } else {
+        console.warn("Row " + index + " is missing data and will be skipped.");
+    }
+});
+
+		   // console.log("Final assetflowslist:", assetflowslist);
+
+		  if (assetflowslist.length > 0) {
+		        $.ajax({
+		            type: 'POST',
+		            url: './addAssets?formmode=add',
+		            contentType: 'application/json',
+		            data: JSON.stringify(assetflowslist),
+		            success: function(response) {
+		            	//alert(response);
+		            	//window.location.reload();
+		            	$("#alertmsg").text(response);
+						$('#alert').modal("toggle");
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("AJAX error:", status, error);
+		                alert("An error occurred while sending the data.");
+		            }
+		        });
+		    } else {
+		        alert("No data to send.");
+		    }
+			
+		}
+
+	}
+
+</script>
+<script>
+
+function getYearFromISODate(isoDateString) {
+    // Parse the ISO date string into a Date object
+    let date = new Date(isoDateString);
+
+    // Extract the year
+    let year = date.getFullYear();
+
+    return year;
+}
+function formatISODateToDDMMYYYY(isoDateString) {
+    // Parse the ISO date string
+    let date = new Date(isoDateString);
+    let datelive = new Date();
+
+    // Extract day, month, year, hours, and minutes
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
+    let year = date.getFullYear();
+    let hours = datelive.getHours();
+    let minutes = datelive.getMinutes();
+
+    // Pad day, month, hours, and minutes with leading zeros if necessary
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    // Format the date as dd-MM-yyyy HH:mm
+    return `${day}-${month}-${year}`;
+}
+
+
+/* function handleSelectChange() {
+    var assetSerialNumber = document.getElementById('asset_serial_no').value;
+    alert(assetSerialNumber)
+    if (assetSerialNumber) {
+        $.ajax({
+            type: 'GET',
+            url: "./get_serial_Inv",
+            data: { AN: assetSerialNumber },
+            success: function(response) {
+                console.log("Response from server:", response);
+                
+             
+                let formattedDate = formatISODateToDDMMYYYY(response.date_of_purchase);
+                //alert(formattedDate);
+                let asst_exp_date = formatISODateToDDMMYYYY(response.asst_exp_date);
+                let ACQN = formatISODateToDDMMYYYY(response.date_of_acqn);
+                let date_of_last_depr = formatISODateToDDMMYYYY(response.date_of_last_depr);
+                let year = getYearFromISODate(response.year_of_purchase);
+                console.log(year); 
+                
+                
+                
+                    document.getElementById('asset_name').value = response.asst_name || '';
+                    document.getElementById('asset_type').value = response.asset_type || '';
+                    document.getElementById('asset_currency').value = response.asst_crncy || '';
+                    document.getElementById('original_cost').value = response.org_cost || '';
+                    document.getElementById('accum_depres').value = response.acc_depr || '';
+                    document.getElementById('date_of_purchase').value = formattedDate || '';
+                    document.getElementById('current_book_value').value = response.cur_book_value || '';
+                    document.getElementById('year_of_purchase').value = year || '';
+                    document.getElementById('depreciation_flg').value = response.depr_flag || '';
+                    document.getElementById('asst_exp_date').value = asst_exp_date || '';
+                    document.getElementById('dep_method').value = response.depr_method || '';
+                    
+                    document.getElementById('DATE_OF_ACQN').value = ACQN || '';
+                    document.getElementById('dep_percentge').value = response.depr_percent || '';
+                    document.getElementById('lifeofyear').value = response.life_span_mth || '';
+                    document.getElementById('depreciation_frequency').value = response.depr_freq || '';
+                    document.getElementById('depreciation_start_date').value = formattedDate || '';
+                    document.getElementById('date_of_last_depreciation').value = date_of_last_depr || '';
+               
+            },
+            error: function(error) {
+                console.error("Error fetching asset details:", error);
+              
+            }
+        });
+    } 
+}
+ */
+ 
+ document.addEventListener('DOMContentLoaded', function() {
+     var assetSerialNumber = document.getElementById('asst_srl_no').value; 
+     //alert(assetSerialNumber)        // Get value from the input field
+     if (assetSerialNumber) {
+         handleSelectChange();
+     }
+ });
+ function handleSelectChange() {
+	 
+	    var assetSerialNumber = document.getElementById('asst_srl_no').value; // Get value from the input field
+	  //  alert(assetSerialNumber); // Alert the current value
+
+	    // Check if the assetSerialNumber is not empty
+	    if (assetSerialNumber) {
+	        $.ajax({
+	            type: 'GET',
+	            url: "./get_serial_Inv", // Ensure the URL is correct
+	            data: { AN: assetSerialNumber }, // Send the asset serial number
+	            success: function(response) {
+	                console.log("Response from server:", response);
+	                
+	                // Assume the response contains the necessary data, format the dates
+	                let formattedDate = formatISODateToDDMMYYYY(response.date_of_purchase);
+	                let asst_exp_date = formatISODateToDDMMYYYY(response.asst_exp_date);
+	                let ACQN = formatISODateToDDMMYYYY(response.date_of_acqn);
+	                let date_of_last_depr = formatISODateToDDMMYYYY(response.date_of_last_depr);
+	                let year = getYearFromISODate(response.year_of_purchase);
+
+	                // Update the corresponding fields with the response data
+	                document.getElementById('asset_name').value = response.asst_name || '';
+	                document.getElementById('asset_type').value = response.asset_type || '';
+	                document.getElementById('asset_currency').value = response.asst_crncy || '';
+	                document.getElementById('original_cost').value = response.org_cost || '';
+	                document.getElementById('accum_depres').value = response.acc_depr || '';
+	                document.getElementById('date_of_purchase').value = formattedDate || '';
+	                document.getElementById('current_book_value').value = response.cur_book_value || '';
+	                document.getElementById('year_of_purchase').value = year || '';
+	                document.getElementById('depreciation_flg').value = response.depr_flag || '';
+	                document.getElementById('asst_exp_date').value = asst_exp_date || '';
+	                document.getElementById('dep_method').value = response.depr_method || '';
+	                document.getElementById('DATE_OF_ACQN').value = ACQN || '';
+	                document.getElementById('dep_percentge').value = response.depr_percent || '';
+	                document.getElementById('lifeofyear').value = response.life_span_mth || '';
+	                document.getElementById('depreciation_frequency').value = response.depr_freq || '';
+	                document.getElementById('depreciation_start_date').value = formattedDate || '';
+	                document.getElementById('date_of_last_depreciation').value = date_of_last_depr || '';
+	            },
+	            error: function(error) {
+	                console.error("Error fetching asset details:", error);
+	            }
+	        });
+	    } else {
+	        console.log("Asset Serial Number is empty, no AJAX call made.");
+	    }
+	}
+
+</script>
+</head>
+<title>BTM</title>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BGLSHeaderMenu :: header"></div>	
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid content">
+					<div class="row">
+						<div class="col-sm-12">
+							<form action="#" th:object="${asset_flows}" method="POST"
+								autocomplete="off" id="asset_flows">
+								<div class="card">
+
+									<div class="card-header" style="background-color: #BBC3CB;">
+										<div class="float-left">
+											<h3> COLLATERAL FLOW</h3>
+										</div>
+									</div>
+									<div class="card-body">
+										<fieldset>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Collateral Serial No</label>
+													</div>
+													<div class="col-sm-3">
+
+															
+															<!-- <select id="asset_serial_no" class="form-control form-control-sm"
+														name="asset_serial_no" autocomplete="off" onchange="handleSelectChange()">
+														<option value="">Select Serial No</option>
+														<option th:each="assetName : ${lists}"
+															th:value="${assetName}" th:text="${assetName}"></option>
+													</select> -->
+														<input type="text" th:value="${serialNo}" id="asst_srl_no"
+															
+															class="form-control form-control-sm" autocomplete="off"
+															name="asst_srl_no" readonly />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Collateral Type</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="asset_type" id="asset_type"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Collateral Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asset_name" name="asset_name"
+															class="form-control form-control-sm" autocomplete="off"
+															 readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Original Cost</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="number" name="original_cost" style="text-align:right"
+															id="original_cost" class="form-control form-control-sm"
+															autocomplete="false" readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Collateral Currency</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asset_currency" name="asset_currency"
+															class="form-control form-control-sm" autocomplete="off"
+															 readonly />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Accumulated Depreciation</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="number" name="accum_depres" style="text-align:right"
+															id="accum_depres" class="form-control form-control-sm"
+															autocomplete="false" readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Date of Purchase</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="date_of_purchase" name="date_of_purchase"
+															class="form-control form-control-sm" autocomplete="off"
+															 readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">current book value</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="number" name="curr_book_value" style="text-align:right"
+															id="current_book_value" class="form-control form-control-sm"
+															autocomplete="false"  readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Year of Purchase</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="number" id="year_of_purchase" name="year_of_purchase"
+															class="form-control form-control-sm" autocomplete="off"
+															 readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Depreciation flag</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="depreciation_flg" id="depreciation_flg"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Collateral Expiry Date</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asst_exp_date" name="asst_exp_date"
+															class="form-control form-control-sm" autocomplete="off"
+															 readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="dep_method">Depreciation Method</label>
+													</div>
+													<div class="col-sm-3">
+														<select name="depreciation_method" id="dep_method"
+															class="form-control form-control-sm" Disabled>
+															<option value="">SELECT</option>
+															<option value="SLM">SLM</option>
+															<option value="WDV">WDV</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Acquisition Date</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="DATE_OF_ACQN" name="acquis_date"
+															class="form-control form-control-sm" autocomplete="off"
+													 readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Depreciation Percentage</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="depreciation_percentage" style="text-align: right;" id="dep_percentge"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="lifeofyear">Life Span Months</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="lifeofyear" name="life_span_months"
+															class="form-control form-control-sm" autocomplete="off"
+															style="text-align:right" readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Depreciation Frequency</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="depreciation_frequency" id="depreciation_frequency"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Depreciation Start Date</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="depreciation_start_date" name="depreciation_start_date"
+															class="form-control form-control-sm" autocomplete="off"
+															 readonly/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Date of last
+															Depreciation</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="date_of_last_depreciation" id="date_of_last_depreciation"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn btn-sm btn-primary"
+													style="text-align: center;" id="genflow"
+													onclick="genflows();">GENERATE FLOWS</button>
+											</div>
+										</fieldset>
+
+
+										<fieldset id="tableset" style="display:none">
+										<div class="table-responsive mt-3">
+			 <table class="table table-bordered mt-3" id="flowsTable" >
+            <thead>
+                <tr>
+                    <!-- Generating 13 columns -->
+                    <th style="font-weight: 500;">SRL</th>
+                    <th style="font-weight: 500;">FLOW ID</th>
+                    <th style="font-weight: 500;">FLOW START DATE</th>
+                    <th style="font-weight: 500;">FREQUENCY</th>
+                    <th style="font-weight: 500;">METHOD</th>
+                    <th style="font-weight: 500;">PERCENTAGE</th>
+                    <th style="font-weight: 500;">ORGINAL COST</th>
+                    <th style="font-weight: 500;" >DEPRECIATION</th>
+                    <th style="font-weight: 500;">BOOK VALUE</th>
+                    <th style="font-weight: 500;">AMOUNT</th>
+                    <th style="font-weight: 500;">TRAN DATE</th>
+                    <th style="font-weight: 500;">TRAN ID</th>
+                    <th style="font-weight: 500;">REMARKS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be appended here by JavaScript -->
+            </tbody>
+        </table>
+        </div>
+										</fieldset>
+									</div>
+									<div class="card-footer text-center"
+										style="background-color: #BBC3CB;">
+
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+
+									<button type="button" class="btn btn-xs btn-primary"
+											id="btnSubmit1" onclick="addSubmit();">Submit</button> 
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back()">Back</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: white;">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="width: 120px" onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

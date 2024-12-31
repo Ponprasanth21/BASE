@@ -1,0 +1,1241 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/color_document.css}">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #e9ecef;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+		.tablinks {
+			background-color: #f1f1f1;
+			/* Default background color */
+			border: none;
+			color: black;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			transition: background-color 0.3s;
+		}
+
+		.tablinks.active {
+			background-color: #2084a9;
+			color: white;
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f2f2f2;
+		}
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 56px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+		.tabcontent {
+			display: none;
+			padding: 0px;
+			border-top: 1px solid #ccc;
+		}
+
+		.active {
+			background-color: #2084a9;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			/* Hidden by default */
+			position: absolute;
+			/* Stay in place */
+			z-index: 1;
+			/* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* Full width */
+			height: 100%;
+			/* Full height */
+			overflow: auto;
+			/* Enable scroll if needed */
+			background-color: rgb(0, 0, 0);
+			/* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* Black w/ opacity */
+		}
+
+		/* Modal Content */
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 100%;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-animation-name: animatetop;
+			-webkit-animation-duration: 0.4s;
+			animation-name: animatetop;
+			animation-duration: 0.4s
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+			font-family: Arial, sans-serif;
+		}
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+
+		select {
+			width: 75% !important;
+		}
+	</style>
+
+	<script>
+
+		$(function () {
+			$("#fromdate").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				changeYear: true,
+				onSelect: function (selectedDate) {
+					// Set the minDate for the "To Date" based on the selected "From Date"
+					$("#todate").datepicker("option", "minDate", selectedDate);
+				}
+			});
+
+			$("#todate").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				changeYear: true
+
+			});
+		});
+
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+		function add() {
+
+			location.href = './deposits?formmode=add';
+
+		}
+
+		function navigate() {
+
+			location.href = './accountLedger';
+
+		}
+
+		function refreshPage(a) {
+			event.preventDefault();
+			location.reload();
+		}
+
+		function view(a) {
+			var actno = a.getAttribute('data-act');
+			location.href = './deposits?formmode=view&actno=' + actno;
+		}
+
+		function verify(a) {
+			var actno = a.getAttribute('data-act');
+			location.href = './deposits?formmode=verify&actno=' + actno;
+		}
+
+		function modify(a) {
+			var actno = a.getAttribute('data-act');
+			location.href = './deposits?formmode=modify&actno=' + actno;
+		}
+
+		function clickMe() {
+			$('#alert').modal('show');
+		}
+
+
+		function postingvalues(radio) {
+			var accountvalue = document.getElementById("depositeaccountno").value;
+			var flowCode = radio.getAttribute('data-flow_code');
+			var flowDate = radio.getAttribute('data-flow_date');
+			var flowAmount = radio.getAttribute('data-flow_amount');
+			var currency = document.getElementById('currency').value;
+
+			var url = 'journalEntries?formmode=add&account_no='
+				+ encodeURIComponent(accountvalue) + '&flow_code='
+				+ encodeURIComponent(flowCode) + '&flow_date='
+				+ encodeURIComponent(flowDate) + '&flow_amount='
+				+ encodeURIComponent(flowAmount) + '&currency='
+				+ encodeURIComponent(currency);
+			location.href = url;
+		}
+	</script>
+	<script>
+
+		function callCollectionScreen(a) {
+			event.preventDefault();
+			location.href = 'leasecollection';
+		}
+
+		function callflowDetails() {
+			getflowDetails();
+		}
+
+		function getaccountName(a) {
+			event.preventDefault();
+			var accountNum = document.getElementById('acct_num1').value;
+
+			console.log(accountNum);
+
+			$.ajax({
+				type: 'GET',
+				url: './getAccountName',
+				data: {
+					accountNum: accountNum
+				},
+				success: function (data) {
+					console.log(data);
+					var acctName = data;
+
+					$('#acctName').val(acctName);
+
+					/*for loan position get*/
+					$.ajax({
+						type: 'GET',
+						url: './getLoanPosition',
+						data: {
+							accountNum: accountNum
+						},
+						success: function (data) {
+							console.log(data);
+
+							var tHTML = '';
+
+							if (data.length > 0) {
+								$
+									.each(
+										data,
+										function (index, entity) {
+
+
+											var flow_date = entity.flow_date !== null ? formatDate(entity.flow_date)
+												: "";
+											var flow_code = entity.flow_code !== null ? entity.flow_code
+												: "";
+											var flow_amt = entity.flow_amt !== null ? entity.flow_amt
+												: "0.00";
+
+											var adj_amt = entity.adj_amt !== null ? entity.adj_amt
+												: "0.00";
+
+											var adj_dt = entity.adj_dt !== null ? formatDate(entity.adj_dt)
+												: "";
+
+											var overdue_amt = (parseFloat(adj_amt) - parseFloat(flow_amt)) < 0 ?
+												(parseFloat(flow_amt) - parseFloat(adj_amt)).toFixed(2) :
+												"0.00";
+
+
+
+											tHTML += "<tr>"
+												+ '<td>' + flow_date + '</td>'
+												+ '<td>' + flow_code + '</td>'
+
+												+ '<td  class="text-right">' + formatNumberWithCommas(flow_amt) + '</td>'
+												+ '<td  class="text-right">' + formatNumberWithCommas(adj_amt) + '</td>'
+
+												+ '<td>' + adj_dt + '</td>'
+												+ '<td  class="text-right">' + formatNumberWithCommas(overdue_amt) + '</td>'
+
+												+ "</tr>";
+
+										});
+
+
+							} else {
+								tHTML += "<tr><td colspan='9'>No records available</td></tr>";
+							}
+							$("#positionTableBody").empty().append(tHTML);
+
+						},
+						error: function () {
+							$('#errorMessage').text('Error fetching data');
+							$('#errorModal').modal('show');
+						}
+					});
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+
+
+
+		}
+
+		function getaccountDetails(a) {
+			event.preventDefault();
+			var accountNum = document.getElementById('acct_num1').value;
+			var amount = document.getElementById('amount').value;
+			var operationType = '';
+
+			if ($('#cash').is(':checked')) {
+				operationType = 'CollectionCash';
+			} else {
+				operationType = 'CollectionRouting';
+			}
+
+			console.log(accountNum + " " + amount + " " + operationType);
+
+
+			$.ajax({
+				type: 'GET',
+				url: './loanCollection',
+				data: {
+					accountNum: accountNum,
+					amount: amount,
+					operationType: operationType
+				},
+				success: function (data) {
+					console.log(data);
+
+					$("#alertmsgNormal").text(data);
+					$('#alertsvalNormal').modal("toggle");
+
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+
+
+		}
+
+		function getAbstractionrecords(a) {
+			event.preventDefault();
+			var operationType = '';
+
+			if ($('#abstractionCash').is(':checked')) {
+				operationType = 'Cash';
+			} else {
+				operationType = 'Routing';
+			}
+
+			console.log(operationType);
+
+
+
+			$.ajax({
+				type: 'GET',
+				url: './getAbstractionRecords',
+				data: {
+					operationType: operationType
+				},
+				success: function (data) {
+					console.log(data);
+
+
+					var tHTML = "";
+					var creditTotal = 0;
+					var debitTotal = 0;
+					var openingBal = 0;
+
+					if (data.length > 0) {
+						$
+							.each(
+								data,
+								function (index, entity) {
+
+
+									var tran_id = entity.tran_id !== null ? entity.tran_id
+										: "";
+									var acct_num = entity.acct_num !== null ? entity.acct_num
+										: "";
+									var part_tran_type = entity.part_tran_type !== null ? entity.part_tran_type
+										: "";
+
+									var tran_amt = entity.tran_amt !== null ? entity.tran_amt
+										: "0.00";
+
+									if (part_tran_type.toLowerCase() === "credit") {
+										var credit_amt = tran_amt;
+										var debit_amt = 0;
+										creditTotal += credit_amt;
+									} else if (part_tran_type.toLowerCase() === "debit") {
+										var credit_amt = 0;
+										var debit_amt = tran_amt;
+										debitTotal += debit_amt;
+									} else {
+										var credit_amt = 0;
+										var debit_amt = 0;
+									}
+
+
+									tHTML += "<tr>"
+										+ '<td>' + tran_id + '</td>'
+										+ '<td>' + acct_num + '</td>'
+										+ '<td>' + part_tran_type + '</td>'
+										+ '<td  class="text-right">' + formatNumberWithCommas(debit_amt) + '</td>'
+										+ '<td  class="text-right">' + formatNumberWithCommas(credit_amt) + '</td>'
+
+										+ "</tr>";
+
+								});
+
+						tHTML += "<tr>"
+							+ '<td>' + "" + '</td>'
+							+ '<td>' + "" + '</td>'
+							+ '<td>' + "Total" + '</td>'
+							+ '<td  class="text-right">' + formatNumberWithCommas(debitTotal) + '</td>'
+							+ '<td  class="text-right">' + formatNumberWithCommas(creditTotal) + '</td>'
+
+							+ "</tr>";
+
+
+					} else {
+						tHTML += "<tr><td colspan='9'>No records available</td></tr>";
+					}
+					$("#flowIdTbody").empty().append(tHTML);
+					$('#creditTotal').val(formatNumberWithCommas(creditTotal));
+					$('#debitTotal').val(formatNumberWithCommas(debitTotal));
+
+					var Total = openingBal - creditTotal + debitTotal
+					document.getElementById("closingBal").value = Total.toFixed(2);
+					$('#abstractModal').modal('show');
+
+
+
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+
+
+		}
+
+
+
+
+		function handleRadioClickCollection(selectedRadio) {
+			var flow_amt = selectedRadio.getAttribute("data-flow_amt").replace(/,/g, '');
+			var flow_code = selectedRadio.getAttribute("data-flow_code");
+			var flow_id = selectedRadio.getAttribute("data-flow_id");
+			var flow_date = selectedRadio.getAttribute("data-flow_date");
+			var loan_acct_no = selectedRadio.getAttribute("data-loan_acct_no");
+			var acct_name = selectedRadio.getAttribute("data-acct_name");
+			var operation;
+
+			console.log(flow_amt + " " + flow_id + " " + flow_code + " " + loan_acct_no + " " + acct_name + " " + flow_date);
+
+			if ($('#cash').is(':checked')) {
+
+				console.log('cash option checked');
+
+				var operation = 'CollectionCash';
+
+				console.log(flow_amt + " " + flow_id + " " + flow_code + " " + loan_acct_no + " " + acct_name + " " + flow_date + " " + operation);
+
+
+				/*$.ajax({
+					type: 'GET',
+					url: './transactionCollection',
+					data: {
+						flow_amount: flow_amt,
+						flow_code: flow_code,
+						flow_date: flow_date,
+						account_no: loan_acct_no,
+						accountName: acct_name,
+						flow_id: flow_id,
+						operation: operation
+
+
+					},
+					success: function (data) {
+						console.log(data);
+
+						var tranId = data.trim();
+						var parttranid = "1";
+
+
+						var url = 'accountLedgerPost?formmode=verify' +
+							'&acct_num=' + encodeURIComponent(loan_acct_no) +
+							'&tran_id=' + encodeURIComponent(tranId) +
+							'&part_tran_id=' + encodeURIComponent(parttranid);  // Include tranId in the URL
+
+						// Redirect to the constructed URL
+						location.href = url;
+
+
+
+					},
+					error: function () {
+						$('#errorMessage').text('Error fetching data');
+						$('#errorModal').modal('show');
+					}
+				});*/
+
+			} else {
+
+				var operation = 'CollectionRouting';
+				console.log('routing option checked');
+
+				console.log(flow_amt + " " + flow_id + " " + flow_code + " " + loan_acct_no + " " + acct_name + " " + flow_date + " " + operation);
+
+
+				/*$.ajax({
+					type: 'GET',
+					url: './transactionCollection',
+					data: {
+						flow_amount: flow_amt,
+						flow_code: flow_code,
+						flow_date: flow_date,
+						account_no: loan_acct_no,
+						accountName: acct_name,
+						flow_id: flow_id,
+						operation: operation
+
+
+					},
+					success: function (data) {
+						console.log(data);
+
+						var tranId = data.trim();
+						var parttranid = "1";
+
+
+						var url = 'accountLedgerPost?formmode=verify' +
+							'&acct_num=' + encodeURIComponent(loan_acct_no) +
+							'&tran_id=' + encodeURIComponent(tranId) +
+							'&part_tran_id=' + encodeURIComponent(parttranid);  // Include tranId in the URL
+
+						// Redirect to the constructed URL
+						location.href = url;
+
+
+
+					},
+					error: function () {
+						$('#errorMessage').text('Error fetching data');
+						$('#errorModal').modal('show');
+					}
+				});*/
+
+			}
+
+
+		}
+
+		function handleRadioClickBooking(selectedRadio) {
+			var flow_amt = selectedRadio.getAttribute("data-flow_amt").replace(/,/g, '');
+			var flow_code = selectedRadio.getAttribute("data-flow_code");
+			var flow_id = selectedRadio.getAttribute("data-flow_id");
+			var flow_date = selectedRadio.getAttribute("data-flow_date");
+			var loan_acct_no = selectedRadio.getAttribute("data-loan_acct_no");
+			var acct_name = selectedRadio.getAttribute("data-acct_name");
+			var operation = selectedRadio.getAttribute("data-operation");
+			var interest = selectedRadio.getAttribute("data-interest");
+			var days = selectedRadio.getAttribute("data-days");
+
+			console.log(flow_amt + " " + flow_code + " " + loan_acct_no + " " + acct_name + " " + flow_date);
+
+
+			$.ajax({
+				type: 'GET',
+				url: './transactionBooking',
+				data: {
+					flow_amount: flow_amt,
+					flow_code: flow_code,
+					flow_date: flow_date,
+					account_no: loan_acct_no,
+					accountName: acct_name,
+					flow_id: flow_id,
+					operation: operation,
+					interest: interest,
+					days: days
+
+
+				},
+				success: function (data) {
+					console.log(data);
+
+					var array = data.split(',');
+
+					var tranId = array[0].trim();
+					var ActNo = array[1].trim();
+					var parttranid = "1";
+
+
+					var url = 'accountLedgerPost?formmode=verify' +
+						'&acct_num=' + encodeURIComponent(ActNo) +
+						'&tran_id=' + encodeURIComponent(tranId) +
+						'&part_tran_id=' + encodeURIComponent(parttranid);  // Include tranId in the URL
+
+					// Redirect to the constructed URL
+					location.href = url;
+
+
+
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+		}
+
+		function formatDateToDD(dateString) {
+
+			var parts = dateString.split('-');
+
+			return parts[2] + '-' + parts[1] + '-' + parts[0];
+		}
+
+		function formatNumberWithCommas(number) {
+
+			if (!number && number !== 0) return '';
+			console.log("number : " + number);
+			let numberString = number.toString();
+			console.log("numberString : " + numberString);
+
+			let [integerPart, decimalPart] = numberString.split('.');
+
+			let lastThreeDigits = integerPart.slice(-3);
+			let otherDigits = integerPart.slice(0, -3);
+
+			if (otherDigits !== '') {
+				lastThreeDigits = ',' + lastThreeDigits;
+			}
+
+			let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+			if (!decimalPart) {
+				decimalPart = '00';
+			}
+			let formattedNumber = formattedIntegerPart + '.' + decimalPart;
+			console.log("formattedIntegerPart : " + formattedIntegerPart);
+			console.log("decimalPart : " + decimalPart);
+
+			return formattedNumber;
+		}
+
+		function formatDate(dateString) {
+
+			var date = new Date(dateString);
+
+
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		function updateCreditTotal() {
+			var openingBal = parseFloat(document.getElementById("openingBal").value) || 0;
+			var CreditTotal = parseFloat(document.getElementById("creditTotal").value.replace(/,/g, '')) || 0;
+			var DebitTotal = parseFloat(document.getElementById("debitTotal").value.replace(/,/g, '')) || 0;
+
+			var Total = openingBal - CreditTotal + DebitTotal
+			document.getElementById("closingBal").value = Total.toFixed(2);
+		}
+
+		function formatfornumbers(input) {
+
+			var annualIncomeInput = input.value;
+
+			input.value = parseFloat(annualIncomeInput).toFixed(2);
+
+		}
+
+	</script>
+
+
+
+
+</head>
+
+
+<body>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			// Get today's date
+
+			document.getElementById('collection').checked = true;
+			document.getElementById('routing').checked = true;
+
+
+
+
+			//getflowDetails();
+		});
+
+
+
+	</script>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+
+				<div th:if="${formmode}=='list'">
+					<div class="card-header ">
+						<div class="float-left">
+							<h4>LEASE LOAN OPERATIONS</h4>
+						</div>
+					</div>
+
+					<div class="card-body border">
+
+						<!-- Main Row for Transaction Type and Account Type Sections in a Single Row -->
+						<div class="row mt-3" style="padding-left: 30px;">
+							<!-- OPERATION TYPE Section -->
+							<div class="col-md-3 border p-2">
+								<h6 class="mt-2">OPERATION TYPE</h6>
+								<div class="row mt-1">
+									<!-- Transaction Type Options -->
+									<div class=" col-sm-5">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="transactionOption"
+												id="disbursement"> <label class="form-check-label"
+												for="disbursement">Disbursement</label>
+										</div>
+									</div>
+									<div class=" col-sm-6 ">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="transactionOption"
+												id="collection"> <label class="form-check-label"
+												for="collection">Collection</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- COLLECTION TYPE Section -->
+							<div class="col-md-4 border p-2 ml-3">
+								<h6 class="mt-2">COLLECTION TYPE</h6>
+								<div class="row mt-1">
+									<div class="col-6 col-sm-6 col-md-3">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="accountOption" id="cash">
+											<label class="form-check-label" for="cash">Cash</label>
+										</div>
+									</div>
+									<div class=" col-sm-6 ">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="accountOption"
+												id="routing"> <label class="form-check-label" for="routing">Office
+												Routing Account</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- TRANSACTION ABSTRACTION Section -->
+							<div class="col-md-4 border p-2 ml-3">
+								<h6 class="mt-2">TRANSACTION ABSTRACT</h6>
+								<div class="row mt-1">
+									<div class="col-6 col-sm-6 col-md-3">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="accountOption"
+												id="abstractionCash" onchange="getAbstractionrecords(this);"> <label
+												class="form-check-label" for="abstractionCash">Cash</label>
+										</div>
+									</div>
+									<div class=" col-sm-6 ">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="accountOption"
+												id="abstractionRouting" onchange="getAbstractionrecords(this);"> <label
+												class="form-check-label" for="abstractionRouting">Office
+												Routing Account</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+						<!-- Section Heading: Date Range -->
+						<!--<h6 class="mt-3" style="padding-left: 20px;">OPERATION DATE</h6>-->
+						<div class="row formline mt-4" style="padding-left: 20px;">
+
+
+
+							<div class="col-sm-1">Account No</div>
+							<div class="col-sm-2">
+
+								<select name="acct_num" id="acct_num1" onchange="getaccountName(this);"
+									placeholder="select">
+									<option th:selected="${empty == ''}" value="">Select</option>
+									<option th:each="ref : ${booking}" th:value="${ref}" th:text="${ref}"></option>
+								</select>
+
+								<!--</select> <select class="d-none" name="acct_num" id="acct_num2"
+									onchange="callflowDetails()" placeholder="select">
+									<option th:selected="${empty == ''}" value="">select</option>
+									<option th:each="ref : ${booking1}" th:value="${ref}" th:text="${ref}"></option>
+
+								</select>-->
+
+							</div>
+
+							<div class="col-sm-1">Account Name</div>
+							<div class="col-sm-2">
+								<input type="text" name="acctName" id="acctName" readonly />
+							</div>
+
+							<div class="col-sm-1">Amount</div>
+							<div class="col-sm-2">
+								<input type="text" name="amount" id="amount" />
+
+							</div>
+							<div class="col-sm-2">
+								<button class="btn btn-primary P-2" onclick="getaccountDetails(this);">Enter</button>
+							</div>
+
+
+						</div>
+
+						<!--<div class="mt-1" id="loanPositionDiv">
+
+							<div class="row formline mt-2" style="padding-left: 30px;">
+
+
+								<h5 class="mt-1">Loan Position</h5>
+
+
+							</div>
+
+
+							<table class="table table-bordered table-sm mt-1"
+								style="margin-bottom: 0px; font-size: initial;" id="positionTable">
+								<thead class="thead-light">
+									<tr>
+										<th style="width:15%">Flow Date</thstyle>
+										<th style="width:10%">Flow Code</th>
+										<th style="text-align: right;width: 20%;">Flow Amt</th>
+
+										<th style="text-align: right;width: 20%;">Adj Amt</th>
+										<th style="width:15%">Adj Date</thstyle>
+										<th style="text-align: right;width: 20%;">OverDue Amt</th>
+
+
+
+
+									</tr>
+								</thead>
+
+								<tbody id="positionTableBody">
+									<tr>
+										<td colspan="9" style="text-align: center;">No records
+											available</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>-->
+
+
+
+					</div>
+
+
+
+
+					<div class="card-footer text-center">
+
+
+						<button class="custom-btn" onclick="Home();">Home</button>
+						<button class="custom-btn" onclick="back();">Back</button>
+
+					</div>
+
+
+
+
+				</div>
+
+
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alertERE">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="background-color: white;">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel" style="text-align: center; color: white;">ACCOUNT
+						DETAILS</div>
+				</div>
+				<div class="modal-body">
+					<table class="table table-bordered table-hover table-sm">
+						<thead>
+							<tr style="text-align: center;">
+								<th style="font-weight: bold;">SOL ID</th>
+								<th style="font-weight: bold;">SOL DESCRIPTION</th>
+								<th style="font-weight: bold;">SELECT</th>
+							</tr>
+						</thead>
+						<tbody id="trancheDetList">
+							<tr th:each="accvals : ${solvalues}">
+								<td style="text-align: left;" th:text="${accvals[0]}"></td>
+								<td style="text-align: left;" th:text="${accvals[1]}"></td>
+								<td style="text-align: center;"><input type="radio" name="radioGroup"
+										th:data-value1="${accvals[0]}" th:data-value2="${accvals[1]}"
+										onclick="requestvalue(this);" />
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer text-center">
+					<button type="button" class="btn btn-primary p-2" id="selectedAccount" onclick="closemodal();"
+						style="color: white;">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alertsvalNormal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 120%; height: 25%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header" style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Alert
+							Message</h5>
+						<!-- Alert message will appear here -->
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body"
+						style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px">
+						<h6 id="alertmsgNormal"></h6>
+						<!-- Response will be displayed here -->
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer" style="justify-content: center; width: 100%;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="refreshPage(this);">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false" id="abstractModal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 170%; height: 80%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header" style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">ABSTRACT
+						</h5>
+						<!-- Alert message will appear here -->
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body" style="height: 500px; overflow-y: auto; font-size: 14px">
+						<div class="mt-1" id="transactionAbstractionDiv">
+
+							<div class="row formline mt-2" style="padding-left: 10px;">
+
+
+
+								<div class="col-sm-2">User Id</div>
+								<div class="col-sm-2">
+									<input type="text" name="userId" id="userId" th:value="${session.USERID}"
+										readonly />
+
+
+								</div>
+
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-3">User Name</div>
+								<div class="col-sm-1">
+									<input type="text" name="acctName" id="acctName" th:value="${session.USERNAME}"
+										readonly />
+								</div>
+
+
+							</div>
+
+
+							<!-- Table -->
+							<table class="table table-bordered table-sm mt-4"
+								style="margin-bottom: 0px; font-size: initial; max-height: 400px; overflow-y: auto;"
+								id="flowIdTable">
+								<thead class="thead-light">
+									<tr>
+										<th style="width: 10%">Tran ID</thstyle>
+										<th style="width: 10%">Account No</th>
+										<th style="width: 10%">Tran type</th>
+										<th style="text-align: right; width: 10%;">Debit</th>
+										<th style="text-align: right; width: 10%;">Credit</th>
+
+
+
+
+									</tr>
+								</thead>
+
+								<tbody id="flowIdTbody">
+									<tr>
+										<td colspan="9" style="text-align: center;">No records
+											available</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="row formline mt-2" style="padding-left: 30px;">
+
+								<div class="col-sm-2"></div>
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-3">Opening Balance</div>
+								<div class="col-sm-1">
+									<input type="text" name="openingBal" id="openingBal" style="text-align: right;"
+										value="0.00" onchange="updateCreditTotal();formatfornumbers(this)" />
+								</div>
+
+
+							</div>
+							<div class="row formline mt-2" style="padding-left: 30px;">
+
+								<div class="col-sm-2"></div>
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-2"></div>
+								<div class="col-sm-3">Deposit</div>
+								<div class="col-sm-1">
+									<input type="text" name="creditTotal" id="creditTotal" style="text-align: right;"
+										readonly />
+								</div>
+
+
+							</div>
+							<div class="row formline mt-2" style="padding-left: 30px;">
+
+								<div class="col-sm-2"></div>
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-3">Withdrawl</div>
+								<div class="col-sm-1">
+									<input type="text" name="debitTotal" id="debitTotal" style="text-align: right;"
+										readonly />
+
+
+								</div>
+
+
+
+
+
+
+							</div>
+
+
+							<div class="row formline mt-2" style="padding-left: 30px;">
+
+								<div class="col-sm-2"></div>
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-2"></div>
+
+								<div class="col-sm-3">Closing Balance</div>
+								<div class="col-sm-1">
+									<input type="text" name="closingBal" id="closingBal" style="text-align: right;"
+										readonly />
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer" style="justify-content: center; width: 100%;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="$('#abstractModal').modal('close');">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+
+
+</html>

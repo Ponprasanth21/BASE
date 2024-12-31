@@ -1,0 +1,2041 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+	CREATED BY : PRAVEEN
+	DATE : 19-09-24
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+	<style>
+		body {
+			font-size: 0.8rem;
+		}
+
+		.btn {
+			line-height: 0.5rem;
+		}
+
+		.table-bordered td,
+		.table-bordered th {
+			font-size: smaller;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 80px;
+			margin-top: 80px;
+		}
+
+		.table .thead-light th {
+			color: #495057;
+			background-color: #f5a142;
+			border-color: #dee2e6;
+			width: 23px;
+		}
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+		.tablinks.active {
+			background-color: #007bff;
+			color: #fff;
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.scroll {
+			max-height: 60vh;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 0px solid #ccc;
+			border-top: none;
+		}
+
+		#myPieChart {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+			margin-left: 350px;
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 70%;
+			height: 50%;
+			margin-left: 200px;
+		}
+
+		.modal-pass {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 40%;
+			height: 25%;
+			margin-left: 400PX;
+			margin-right: auto;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+			font-family: Arial, sans-serif;
+		}
+
+		.close {
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		.password-info {
+			visibility: hidden;
+			width: 320px;
+			background-color: #333;
+			color: #fff;
+			text-align: left;
+			border-radius: 10px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		input:hover+.password-info {
+			visibility: visible;
+			opacity: 0.8;
+		}
+
+		.table-responsive {
+			max-height: 650px;
+			overflow-y: auto;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		thead {
+			top: 0;
+			background-color: #f9f9f9;
+			z-index: 10;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+	</style>
+
+	<script>
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+		$(function () {
+			$(
+				"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
+				.datepicker({
+					dateFormat: "dd-mm-yy",
+					changeMonth: true,
+					changeYear: true
+
+				});
+		});
+
+		function enquiryuser(element) {
+			var tranId = $(element).attr('data-tranid');
+			var partnId = $(element).attr('data-partnid');
+			var acctNum = $(element).attr('data-acctnum');
+
+			var url = 'accountLedgerPost?formmode=view&tran_id=' + tranId
+				+ '&part_tran_id=' + partnId + '&acct_num=' + acctNum;
+
+			location.href = url;
+		}
+
+		function verifyuser(element) {
+			var tranId = $(element).attr('data-tranid');
+			var partnId = $(element).attr('data-partnid');
+			var acctNum = $(element).attr('data-acctnum');
+			var Entryuser = $(element).attr('data-entryuser');
+			var Userid = $(element).attr('data-userid');
+
+			var url = 'accountLedgerPost?formmode=verify&tran_id=' + tranId
+				+ '&part_tran_id=' + partnId + '&acct_num=' + acctNum;
+
+			location.href = url;
+		}
+
+		function verifysubmit(element) {
+
+			var tranId = $(element).attr('data-tranid');
+			var partnId = $(element).attr('data-partnid');
+			var acctNum = $(element).attr('data-acctnum');
+			console.log(tranId + " " + partnId + " " + acctNum);
+			
+			
+			  //  $('#tran_id_display').text(tranId);
+			
+			var url = './postedTrmRecords?tran_id=' + tranId
+				+ '&part_tran_id=' + partnId + '&acct_num=' + acctNum; // Include part_tran_type in the URL
+
+			$.ajax({
+				type: "GET",
+				url: url, // Pass the values directly in the URL
+				success: function (responseText) {
+					console.log(responseText);
+					$("#alertmsg").text(responseText+" Tran ID : "+tranId);
+					$('#alertsval').modal("toggle");
+
+				},
+				error: function (xhr, status, error) {
+					console.error("Error: " + error);
+					console.error("Response Text: " + xhr.responseText);
+				}
+			});
+		}
+
+		function validationAccount(element) {
+
+			var tranId = $(element).attr('data-tranid');
+
+			console.log(tranId);
+			// Construct the URL with query parameters, including part_tran_type
+			var url = './validateAccountStatus?tran_id=' + tranId;
+
+			$.ajax({
+				type: "GET",
+				url: url, // Pass the values directly in the URL
+				success: function (responseText) {
+					console.log(responseText);
+
+					$("#alertmsgNormal").text(responseText);
+					$('#alertsvalNormal').modal("toggle");
+
+				},
+				error: function (xhr, status, error) {
+					console.error("Error: " + error);
+					console.error("Response Text: " + xhr.responseText);
+				}
+			});
+		}
+
+
+
+		function refreshPage() {
+			location.href = 'accountLedgerPost';
+		}
+	</script>
+	<script>
+		/* function validatesubmit(element) {
+			var tranId = $(element).attr('data-tranid');
+			var partnId = $(element).attr('data-partnid');
+			var acctNum = $(element).attr('data-acctnum');
+	
+			console.log("partTranTypes:", this.partTranTypes);
+			console.log("partTranidTypes:", this.partTranidTypes);
+	
+			var partTranTypesMessage = "The partTran values are: ["
+					+ partTranTypes.join(', ') + "]";
+			var partTranidTypesMessage = "The partTranidTypes values are: ["
+					+ partTranidTypes.join(', ') + "]";
+	
+			alert(partTranTypesMessage);
+			alert(partTranidTypesMessage);
+	
+			if (partTranidTypes.length === 1) {
+				alert("Hello! You have a single part_tran_id.");
+			}
+	
+			if (partTranidTypes.length > 1) {
+				alert("Welcome to all! Multiple part_tran_ids detected: "
+						+ partTranidTypes.join(', ')
+						+ ". Please process them accordingly.");
+			}
+	
+			if (partTranidTypes.length === 0) {
+				alert("No part_tran_id values available."); // Handling the case with no part_tran_id values
+			}
+		} */
+	</script>
+	<script>
+		function add() {
+
+			location.href = 'journalEntries?formmode=add';
+		}
+
+		function list() {
+
+			location.href = './assosiateProfile?formmode=list';
+		}
+
+		function setAccountDetails(a) {
+			var accountvalues = a.getAttribute("data-acctnum");
+
+			$.ajax({
+				type: 'GET',
+				url: './transactionaccountdetails',
+				data: {
+					acct_num: accountvalues
+				},
+				success: function (data) {
+					console.log(data);
+
+					var datas1 = data.gl_code || ''; // Fallback to empty string if null/undefined
+					var datas2 = data.glsh_code || ''; // Same here
+					var datas3 = data.acct_crncy || '';
+					var datas4 = data.acct_bal || '';
+					var datas5 = data.add_det_flg || '';
+
+					var addDetailsFlag;
+					if (datas5 === "C") {
+						addDetailsFlag = "Credit";
+					} else if (datas5 === "D") {
+						addDetailsFlag = "Debit";
+					} else {
+						addDetailsFlag = "Credit"; // Default case
+					}
+
+					// Format account balance
+					var balance = parseFloat(datas4);
+					var viewbalance = !isNaN(balance) ? balance.toLocaleString(
+						undefined, {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2
+					}) : '0.00'; // If balance is NaN, default to '0.00'
+
+					console
+						.log(datas1, datas2, datas3, datas4, datas5,
+							viewbalance);
+
+					// Create table row with attributes
+					var trHTML = '<tr style="cursor: pointer;" data-acct_num="'
+						+ accountvalues + '" data-tran_amt="'
+						+ (data.tran_amt || '') + '" data-tran_id="'
+						+ (data.tran_id || '') + '" data-part_tran_id="'
+						+ (data.part_tran_id || '') + '" data-part_tran_type="'
+						+ (data.part_tran_type || '') + '" data-acct_name="'
+						+ (data.acct_name || '') + '">'
+						+ '<td style="text-align: left;">' + datas1 + '</td>'
+						+ '<td style="text-align:left;">' + datas2 + '</td>'
+						+ '<td style="text-align:left;">' + datas3 + '</td>'
+						+ '<td style="text-align:right;">' + viewbalance
+						+ '</td>' // Show balance
+						+ '<td style="text-align:left;">' + addDetailsFlag
+						+ '</td>' + '</tr>';
+
+					// Append the row even if transaction amount is empty
+					$('#transactionaccountvaluesbody').empty().append(trHTML);
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+
+			var lkg = document.getElementById("transactionaccountvalues");
+			console.log(accountvalues);
+
+		}
+
+		function setAccountInPreviousandNext(accountNum) {
+			var accountvalues = accountNum;
+
+			$.ajax({
+				type: 'GET',
+				url: './transactionaccountdetails',
+				data: {
+					acct_num: accountvalues
+				},
+				success: function (data) {
+					console.log(data);
+
+					var datas1 = data.gl_code || ''; // Fallback to empty string if null/undefined
+					var datas2 = data.glsh_code || ''; // Same here
+					var datas3 = data.acct_crncy || '';
+					var datas4 = data.acct_bal || '';
+					var datas5 = data.add_det_flg || '';
+
+					var addDetailsFlag;
+					if (datas5 === "C") {
+						addDetailsFlag = "Credit";
+					} else if (datas5 === "D") {
+						addDetailsFlag = "Debit";
+					} else {
+						addDetailsFlag = "Credit"; // Default case
+					}
+
+					// Format account balance
+					var balance = parseFloat(datas4);
+					var viewbalance = !isNaN(balance) ? balance.toLocaleString(
+						undefined, {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2
+					}) : '0.00'; // If balance is NaN, default to '0.00'
+
+					console
+						.log(datas1, datas2, datas3, datas4, datas5,
+							viewbalance);
+
+					// Create table row with attributes
+					var trHTML = '<tr style="cursor: pointer;" data-acct_num="'
+						+ accountvalues + '" data-tran_amt="'
+						+ (data.tran_amt || '') + '" data-tran_id="'
+						+ (data.tran_id || '') + '" data-part_tran_id="'
+						+ (data.part_tran_id || '') + '" data-part_tran_type="'
+						+ (data.part_tran_type || '') + '" data-acct_name="'
+						+ (data.acct_name || '') + '">'
+						+ '<td style="text-align: left;">' + datas1 + '</td>'
+						+ '<td style="text-align:left;">' + datas2 + '</td>'
+						+ '<td style="text-align:left;">' + datas3 + '</td>'
+						+ '<td style="text-align:right;">' + viewbalance
+						+ '</td>' // Show balance
+						+ '<td style="text-align:left;">' + addDetailsFlag
+						+ '</td>' + '</tr>';
+
+					// Append the row even if transaction amount is empty
+					$('#transactionaccountvaluesbody').empty().append(trHTML);
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+
+			var lkg = document.getElementById("transactionaccountvalues");
+			console.log(accountvalues);
+
+		}
+
+		function datavalueses(selectedRadio) {
+			var row = selectedRadio.closest('tr');
+
+			var acct_num = selectedRadio.getAttribute("data-acct_num");
+			var tran_particulars = selectedRadio
+				.getAttribute("data-tran_particulars");
+			var tran_amt = selectedRadio.getAttribute("data-tran_amt");
+			var part_tran_type = selectedRadio.getAttribute("data-part_tran_type");
+			var acct_name = selectedRadio.getAttribute("data-acct_name");
+			console.log(part_tran_type);
+			console.log(tran_particulars);
+			// LAGEN LOAN handling
+
+
+			if (part_tran_type.trim() === 'Debit') {
+
+				document.getElementById("account_num_debit").value = acct_num;
+				document.getElementById("transaction_amt_debit").value = parseFloat(
+					tran_amt).toLocaleString(undefined, {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2
+					});
+				document.getElementById("account_name_debit").value = acct_name;
+
+				$
+					.ajax({
+						type: 'GET',
+						url: './transactionaccountdetails',
+						data: {
+							acct_num: acct_num
+						},
+						success: function (data) {
+							console.log('Credit Account Data:', data);
+							var acctBal = (data.acct_bal !== undefined && !isNaN(data.acct_bal)) ? parseFloat(data.acct_bal)
+								: 0;
+
+							$("#account_balance_debit").val(
+								acctBal.toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								}));
+
+							var tran_amt4 = (!isNaN(tran_amt)) ? parseFloat(tran_amt)
+								: 0;
+							var result = acctBal - tran_amt4;
+							result = !isNaN(result) ? result : 0;
+
+							$("#original_balance_debit").val(
+								result.toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								}));
+
+							$('#alertpostaccountval').modal("toggle");
+						},
+						error: function () {
+							$('#errorMessage').text('Error fetching data');
+							$('#errorModal').modal('show');
+						}
+					});
+
+			} else if (part_tran_type.trim() === 'Credit') {
+
+				document.getElementById("tran_acct_number").value = acct_num;
+				document.getElementById("tran_amount_value").value = parseFloat(
+					tran_amt).toLocaleString(undefined, {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2
+					});
+				document.getElementById("account_name_val").value = acct_name;
+
+				$
+					.ajax({
+						type: 'GET',
+						url: './transactionaccountdetails',
+						data: {
+							acct_num: acct_num
+						},
+						success: function (data) {
+							console.log('Credit Account Data:', data);
+							var acctBal = (data.acct_bal !== undefined && !isNaN(data.acct_bal)) ? parseFloat(data.acct_bal)
+								: 0;
+
+							$("#acctbalancecredits").val(
+								acctBal.toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								}));
+
+							var tran_amt4 = (!isNaN(tran_amt)) ? parseFloat(tran_amt)
+								: 0;
+							var result = acctBal + tran_amt4;
+							result = !isNaN(result) ? result : 0;
+
+							$("#orginalbalancecredit").val(
+								result.toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								}));
+
+							// Show modal after setting the values
+
+							$('#alertpostaccount').modal("toggle");
+						},
+						error: function () {
+							$('#errorMessage').text('Error fetching data');
+							$('#errorModal').modal('show');
+						}
+					});
+			}
+			else {
+
+			}
+
+		}
+
+		function accountclosepopup() {
+			// Hide the modal
+			$('#alertpostaccount').modal("toggle");
+
+			// Clear any selected radio button
+			$('input[name="selection"]:checked').prop('checked', false);
+
+			// Optionally, reset the modal input fields (if needed)
+			document.getElementById("tran_acct_number").value = '';
+			document.getElementById("tran_amount_value").value = '';
+			document.getElementById("debit_acct_no").value = '';
+			document.getElementById("debit_amount").value = '';
+			document.getElementById("balance_updated").value = '';
+		}
+
+		function accountclosepopupval() {
+			$('#alertpostaccountval').modal("toggle");
+
+			// Clear any selected radio button
+			$('input[name="selection"]:checked').prop('checked', false);
+
+			// Optionally, reset the modal input fields (if needed)
+			document.getElementById("tran_acct_number").value = '';
+			document.getElementById("tran_amount_value").value = '';
+			document.getElementById("debit_acct_no").value = '';
+			document.getElementById("debit_amount").value = '';
+			document.getElementById("balance_updated").value = '';
+		}
+
+		function views() {
+			var lkg = document.getElementById("usertablevalues");
+			lkg.classList.remove('d-none'); // Remove the 'd-none' class to show the table
+			var lkg1 = document.getElementById("transactionaccountvalues");
+			lkg1.classList.add('d-none');
+		}
+
+		function formatAmount(amount) {
+			if (amount == 0) {
+				return '0.00';
+			}
+			return new Intl.NumberFormat('en-US', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			}).format(amount);
+		}
+
+		function selectActions(element) {
+			$('#transactionTableBody').empty();
+
+			var tranId = $(element).attr('data-tranid');
+			var partnId = $(element).attr('data-partnid');
+			var acctNum = $(element).attr('data-acctnum');
+
+			$.ajax({
+				type: 'GET',
+				url: './transactionaccountdetailsvalues',
+				data: {
+					tran_id: tranId,
+					part_tran_id: partnId,
+					acct_num: acctNum
+				},
+				success: function (data) {
+					console.log(data);
+					$("#tran_id").val(data.tran_id);
+					$("#part_tran_id").val(data.part_tran_id);
+					$("#acct_num1").val(data.acct_num);
+					$("#acct_name").val(data.acct_name);
+					$("#tran_type").val(data.tran_type);
+					$("#part_tran_type").val(data.part_tran_type);
+					$("#acct_crncy").val(data.acct_crncy);
+					$("#tran_amt").val(formatAmount(data.tran_amt));
+					$("#tran_particular").val(data.tran_particular);
+					$("#tran_remarks").val(data.tran_remarks);
+					$("#gst_amount").val(data.flow_code);
+					$("#gst_type").val(formatDate(data.flow_date)); // Format date
+					$("#tran_code").val(data.tran_code);
+					$("#tran_rpt_code").val(data.tran_rpt_code);
+					$("#tran_ref_no").val(data.tran_ref_no);
+					$("#add_details").val(data.add_details);
+					$("#partition_type").val(data.partition_type);
+					$("#partition_det").val(data.partition_det);
+					$("#instr_num").val(data.instr_num);
+					$("#ref_crncy").val(data.ref_crncy);
+					$("#ref_crncy_amt").val(data.ref_crncy_amt);
+					$("#rate_code").val(data.rate_code);
+					$("#rate").val(data.rate);
+					$("#entry_user").val(data.entry_user);
+					$("#post_user").val(data.post_user);
+					$("#tran_status").val(data.tran_status);
+					$("#del_flg").val(data.del_flg);
+
+					document.getElementById('currentPartTran').innerText = data.part_tran_id;
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+				}
+			});
+		}
+
+		// Function to format date to dd-MM-yyyy
+		function formatDate(dateString) {
+			const date = new Date(dateString);
+			const day = String(date.getDate()).padStart(2, '0');
+			const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+			const year = date.getFullYear();
+			return `${day}-${month}-${year}`;
+		}
+	</script>
+
+	<script>
+		function getPartTranRecords(button) {
+			event.preventDefault();
+
+			const currentPartTran = parseInt(document.getElementById('currentPartTran').innerText);
+			const maxPartTran = parseInt(document.getElementById('maxPartTran').innerText);
+
+			var tranId = $("#tran_id").val();
+
+			let partTranId = currentPartTran;
+
+			if (button.id === 'previous-btn') {
+
+				if (currentPartTran > 1) {
+					/*previous record*/
+					partTranId = currentPartTran - 1;
+					document.getElementById('currentPartTran').innerText = partTranId;
+
+					$("#tran_id").val("");
+					$("#part_tran_id").val("");
+					$("#acct_num1").val("");
+					$("#acct_name").val("");
+					$("#tran_type").val("");
+					$("#part_tran_type").val("");
+					$("#acct_crncy").val("");
+					$("#tran_amt").val("");
+					$("#tran_particular").val("");
+					$("#tran_remarks").val("");
+					$("#gst_amount").val("");
+					$("#gst_type").val("");
+					$("#tran_code").val("");
+					$("#tran_rpt_code").val("");
+					$("#tran_ref_no").val("");
+					$("#add_details").val("");
+					$("#partition_type").val("");
+					$("#partition_det").val("");
+					$("#instr_num").val("");
+					$("#ref_crncy").val("");
+					$("#ref_crncy_amt").val("");
+					$("#rate_code").val("");
+					$("#rate").val("");
+					$("#entry_user").val("");
+					$("#post_user").val("");
+					$("#tran_status").val("");
+					$("#del_flg").val("");
+					$("#value_date").val("");
+					$("#tran_date").val("");
+					$("#entry_time").val("");
+					$("#post_time").val("");
+					$("#flow_code").val("");
+					$("#flow_date").val("");
+
+
+
+					$.ajax({
+						type: 'GET',
+						url: './transactionValues',
+						data: {
+							tran_id: tranId,
+							part_tran_id: partTranId
+
+						},
+						success: function (data) {
+							console.log(data);
+
+							var flowdes = null;
+							var flowcode = data.flow_code != null ? data.flow_code : "";
+
+							switch (flowcode) {
+								case 'PI':
+									flowdes = 'Principal Inflow';
+									break;
+								case 'PO':
+									flowdes = 'Principal Outflow';
+									break;
+								case 'II':
+									flowdes = 'Interest Inflow';
+									break;
+								case 'IO':
+									flowdes = 'Interest Outflow';
+									break;
+								case 'INDEM':
+									flowdes = 'Interest Demand';
+									break;
+								case 'PRDEM':
+									flowdes = 'Principal Demand';
+									break;
+								case 'TO':
+									flowdes = 'Total Outflow';
+									break;
+								default:
+									flowdes = '';  // Default value if none of the cases match
+							}
+
+							$("#tran_id").val(data.tran_id != null ? data.tran_id : "");
+							$("#part_tran_id").val(data.part_tran_id != null ? data.part_tran_id : "");
+							$("#acct_num1").val(data.acct_num != null ? data.acct_num : "");
+							$("#acct_name").val(data.acct_name != null ? data.acct_name : "");
+							$("#tran_type").val(data.tran_type != null ? data.tran_type : "");
+							$("#part_tran_type").val(data.part_tran_type != null ? data.part_tran_type : "");
+							$("#acct_crncy").val(data.acct_crncy != null ? data.acct_crncy : "");
+							$("#tran_amt").val(data.tran_amt != null ? formatNumberWithCommas(data.tran_amt) : "");
+							$("#tran_particular").val(data.tran_particular != null ? data.tran_particular : "");
+							$("#tran_remarks").val(data.tran_remarks != null ? data.tran_remarks : "");
+							$("#gst_amount").val(data.gst_amount != null ? formatNumberWithCommas(data.gst_amount) : "");
+							$("#gst_type").val(data.gst_type != null ? data.gst_type : "");
+							$("#tran_code").val(data.tran_code != null ? data.tran_code : "");
+							$("#tran_rpt_code").val(data.tran_rpt_code != null ? data.tran_rpt_code : "");
+							$("#tran_ref_no").val(data.tran_ref_no != null ? data.tran_ref_no : "");
+							$("#add_details").val(data.add_details != null ? data.add_details : "");
+							$("#partition_type").val(data.partition_type != null ? data.partition_type : "");
+							$("#partition_det").val(data.partition_det != null ? data.partition_det : "");
+							$("#instr_num").val(data.instr_num != null ? data.instr_num : "");
+							$("#ref_crncy").val(data.ref_crncy != null ? data.ref_crncy : "");
+							$("#ref_crncy_amt").val(data.ref_crncy_amt != null ? data.ref_crncy_amt : "");
+							$("#rate_code").val(data.rate_code != null ? data.rate_code : "");
+							$("#rate").val(data.rate != null ? data.rate : "");
+							$("#entry_user").val(data.entry_user != null ? data.entry_user : "");
+							$("#post_user").val(data.post_user != null ? data.post_user : "");
+							$("#tran_status").val(data.tran_status != null ? data.tran_status : "");
+							$("#del_flg").val(data.del_flg != null ? data.del_flg : "");
+							$("#value_date").val(data.value_date != null ? formatDateToDD(data.value_date) : "");
+							$("#tran_date").val(data.tran_date != null ? formatDateToDD(data.tran_date) : "");
+							$("#entry_time").val(data.entry_time != null ? formatDateToDD(data.entry_time) : "");
+							$("#post_time").val(data.post_time != null ? formatDateToDD(data.post_time) : "");
+							$("#flow_code").val(data.flow_code != null ? data.flow_code : "");
+							$("#flow_code").attr("title", flowdes);
+							$("#flow_date").val(data.flow_date != null ? formatDateToDD(data.flow_date) : "");
+
+							setAccountInPreviousandNext(data.acct_num != null ? data.acct_num : "");
+						},
+						error: function () {
+							$('#errorMessage').text('Error fetching data');
+							$('#errorModal').modal('show');
+						}
+					});
+				} else {
+					alert('This is the first record!');
+					return;
+				}
+			} else if (button.id === 'next-btn') {
+
+				if (currentPartTran < maxPartTran) {
+					/*next record*/
+					partTranId = currentPartTran + 1;
+					document.getElementById('currentPartTran').innerText = partTranId;
+
+
+					$("#tran_id").val("");
+					$("#part_tran_id").val("");
+					$("#acct_num1").val("");
+					$("#acct_name").val("");
+					$("#tran_type").val("");
+					$("#part_tran_type").val("");
+					$("#acct_crncy").val("");
+					$("#tran_amt").val("");
+					$("#tran_particular").val("");
+					$("#tran_remarks").val("");
+					$("#gst_amount").val("");
+					$("#gst_type").val("");
+					$("#tran_code").val("");
+					$("#tran_rpt_code").val("");
+					$("#tran_ref_no").val("");
+					$("#add_details").val("");
+					$("#partition_type").val("");
+					$("#partition_det").val("");
+					$("#instr_num").val("");
+					$("#ref_crncy").val("");
+					$("#ref_crncy_amt").val("");
+					$("#rate_code").val("");
+					$("#rate").val("");
+					$("#entry_user").val("");
+					$("#post_user").val("");
+					$("#tran_status").val("");
+					$("#del_flg").val("");
+					$("#value_date").val("");
+					$("#tran_date").val("");
+					$("#entry_time").val("");
+					$("#post_time").val("");
+					$("#flow_code").val("");
+					$("#flow_date").val("");
+
+
+
+					$.ajax({
+						type: 'GET',
+						url: './transactionValues',
+						data: {
+							tran_id: tranId,
+							part_tran_id: partTranId
+
+						},
+						success: function (data) {
+							console.log(data);
+
+							$("#tran_id").val(data.tran_id != null ? data.tran_id : "");
+							$("#part_tran_id").val(data.part_tran_id != null ? data.part_tran_id : "");
+							$("#acct_num1").val(data.acct_num != null ? data.acct_num : "");
+							$("#acct_name").val(data.acct_name != null ? data.acct_name : "");
+							$("#tran_type").val(data.tran_type != null ? data.tran_type : "");
+							$("#part_tran_type").val(data.part_tran_type != null ? data.part_tran_type : "");
+							$("#acct_crncy").val(data.acct_crncy != null ? data.acct_crncy : "");
+							$("#tran_amt").val(data.tran_amt != null ? formatNumberWithCommas(data.tran_amt) : "");
+							$("#tran_particular").val(data.tran_particular != null ? data.tran_particular : "");
+							$("#tran_remarks").val(data.tran_remarks != null ? data.tran_remarks : "");
+							$("#gst_amount").val(data.gst_amount != null ? formatNumberWithCommas(data.gst_amount) : "");
+							$("#gst_type").val(data.gst_type != null ? data.gst_type : "");
+							$("#tran_code").val(data.tran_code != null ? data.tran_code : "");
+							$("#tran_rpt_code").val(data.tran_rpt_code != null ? data.tran_rpt_code : "");
+							$("#tran_ref_no").val(data.tran_ref_no != null ? data.tran_ref_no : "");
+							$("#add_details").val(data.add_details != null ? data.add_details : "");
+							$("#partition_type").val(data.partition_type != null ? data.partition_type : "");
+							$("#partition_det").val(data.partition_det != null ? data.partition_det : "");
+							$("#instr_num").val(data.instr_num != null ? data.instr_num : "");
+							$("#ref_crncy").val(data.ref_crncy != null ? data.ref_crncy : "");
+							$("#ref_crncy_amt").val(data.ref_crncy_amt != null ? data.ref_crncy_amt : "");
+							$("#rate_code").val(data.rate_code != null ? data.rate_code : "");
+							$("#rate").val(data.rate != null ? data.rate : "");
+							$("#entry_user").val(data.entry_user != null ? data.entry_user : "");
+							$("#post_user").val(data.post_user != null ? data.post_user : "");
+							$("#tran_status").val(data.tran_status != null ? data.tran_status : "");
+							$("#del_flg").val(data.del_flg != null ? data.del_flg : "");
+							$("#value_date").val(data.value_date != null ? formatDateToDD(data.value_date) : "");
+							$("#tran_date").val(data.tran_date != null ? formatDateToDD(data.tran_date) : "");
+							$("#entry_time").val(data.entry_time != null ? formatDateToDD(data.entry_time) : "");
+							$("#post_time").val(data.post_time != null ? formatDateToDD(data.post_time) : "");
+							$("#flow_code").val(data.flow_code != null ? data.flow_code : "");
+							$("#flow_date").val(data.flow_date != null ? formatDateToDD(data.flow_date) : "");
+
+							setAccountInPreviousandNext(data.acct_num != null ? data.acct_num : "");
+						},
+						error: function () {
+							$('#errorMessage').text('Error fetching data');
+							$('#errorModal').modal('show');
+						}
+					});
+				} else {
+					alert('This is the last record!');
+					return;
+				}
+			}
+
+
+
+
+		}
+
+		function formatDateToDD(dateString) {
+
+			var date = new Date(dateString);
+
+
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+
+			return day + '-' + month + '-' + year;
+		}
+
+		//number input
+		function formatNumberWithCommas(number) {
+
+			if (!number && number !== 0) return '';
+			console.log("number : " + number);
+			let numberString = number.toString();
+			console.log("numberString : " + numberString);
+
+			let [integerPart, decimalPart] = numberString.split('.');
+
+			let lastThreeDigits = integerPart.slice(-3);
+			let otherDigits = integerPart.slice(0, -3);
+
+			if (otherDigits !== '') {
+				lastThreeDigits = ',' + lastThreeDigits;
+			}
+
+			let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+			if (!decimalPart) {
+				decimalPart = '00';
+			}
+			let formattedNumber = formattedIntegerPart + '.' + decimalPart;
+			console.log("formattedIntegerPart : " + formattedIntegerPart);
+			console.log("decimalPart : " + decimalPart);
+
+			return formattedNumber;
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11 ml-5 mt-2" style="font-size: 0.8rem;">
+
+
+				<!-- ------------------------------------Journal Entries List---------------------------------- -->
+				<div th:if="${formmode}=='list'">
+
+
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #f5a142; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.2rem; color: black;">ACCOUNT LEDGER
+									POSTING-LIST</h6>
+							</div>
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial; table-layout: fixed; width: 100%;"
+									id="usertable">
+									<thead class="thead-light">
+										<tr>
+											<th style="text-align: left">Tran Date</th>
+											<th style="text-align: left">Tran Id</th>
+											<th style="text-align: left">Pa Tran Ty</th>
+											<th style="text-align: left">Currency</th>
+											<th style="text-align: right">Amount</th>
+											<th style="text-align: left">Acct Num</th>
+											<th style="text-align: left; width: 20%;">Acct Name</th>
+											<th style="text-align: left; width: 20%;">Tran Particular</th>
+											<th style="text-align: left">Status</th>
+											<th style="text-align: center">Select</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="details : ${jour}" th:if="${details.tran_status} == 'ENTERED'">
+
+											<td
+												th:text="${details.tran_date != null ? #dates.format(details.tran_date,'dd-MM-yyyy') : ''}">
+											</td>
+
+											<td th:text="${details.tran_id} + '/' + ${details.part_tran_id}"></td>
+											<td th:text="${details.part_tran_type}"></td>
+											<td th:text="${details.acct_crncy}"></td>
+
+											<td style="text-align: right;"
+												th:text="${details?.tran_amt == 0 ? '0.00' :#numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+											</td>
+											<td th:text="${details.acct_num}"></td>
+											<td th:text="${details.acct_name}"></td>
+											<td th:text="${details.tran_particular}"></td>
+											<td th:text="${details.tran_status}"></td>
+											<td style="text-align: center;">
+
+												<input type="radio" id="dropdownMenuButton" th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num},
+														data-entryuser=${details.entry_user},data-userid=${user_id}" onclick="verifyuser(this);">
+												</input>
+
+											</td>
+
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5a142">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- ------------------------------------Journal Entries add---------------------------------- -->
+				<div th:if="${formmode}=='verify'">
+
+					<div class="card w-100 border">
+						<div class="card-header" style="background-color: #f5a142; height: 50px">
+							<div class="d-flex justify-content-between align-items-center h-100">
+								<!-- Left side: Title -->
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">ACCOUNT LEDGER POSTING</h6>
+								</div>
+
+								<!-- Right side: Date field -->
+								<div class="d-flex align-items-center">
+									<!-- Date label -->
+									<div class="col-auto pr-2">
+										<span>Date</span>
+									</div>
+
+									<!-- Date input -->
+									<div class="col-auto">
+										<input type="text" name="current" id="current"
+											th:value="${#dates.format(ledgervalues.tran_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						<div class="card-body">
+
+							<form class=" border border-secondary" method="post" id="journaladd" autocomplete="off">
+
+
+
+
+
+
+
+
+								<div class="row formline" style="padding: 15px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Id</div>
+
+									<div class="col-sm-2">
+										<div class="input-group">
+											<input type="text" name="tran_id" id="tran_id"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${ledgervalues.tran_id}" readonly />
+											<!-- <div class="input-group-append">
+												<button type="button"
+													th:attr="data-acct_num=${Acctnum},data-acct_number=${ledgervalues.acct_num},
+												data-tran_amt=${ledgervalues.tran_amt},data-tran_id=${ledgervalues.tran_id},
+												data-part_tran_id=${ledgervalues.part_tran_id}"
+													onclick="views(this)">
+													<i class="fa fa-search"></i>
+												</button>
+											</div> -->
+										</div>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Part Tran Id</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="part_tran_id" id="part_tran_id"
+											th:value="${ledgervalues.part_tran_id}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Acct NO</div>
+
+									<div class="col-sm-2">
+										<div class="input-group">
+											<input type="text" name="acct_num" id="acct_num1"
+												class="form-control form-control-sm bg-white border border-dark"
+												th:value="${ledgervalues.acct_num}" readonly />
+										</div>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Acct Name</div>
+									<div class="col-sm-2">
+
+
+										<input type="text" name="acct_name" id="acct_name"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.acct_name}" readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Type</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_type" id="tran_type"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.tran_type}" readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Part Tran Type</div>
+									<div class="col-sm-2">
+										<input type="text" name="part_tran_type" id="part_tran_type"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.part_tran_type}" readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Acct CCY</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_crncy" id="acct_crncy" title="Seychellois Rupee"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.acct_crncy}" readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Amt</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_amt" id="tran_amt" oninput="amountInput(this);"
+											th:value="${ledgervalues.tran_amt == 0 ? '0.00' :#numbers.formatDecimal(ledgervalues.tran_amt, 0, 'COMMA', 2, 'POINT')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Particulars</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="" name="tran_particular" id="tran_particular"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.tran_particular}" oninput="letterOnly(this);"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Remarks</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_remarks" id="tran_remarks"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.tran_remarks}" oninput="letterOnly(this);"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Flow Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="flow_date" id="flow_code" th:value="${ledgervalues.flow_code}" oninput="amountInput(this);"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Flow Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" placeholder="" name="flow_date" id="flow_date"
+											th:value="${#dates.format(ledgervalues.flow_date, 'dd-MM-yyyy')}"
+											oninput="letterOnly(this);"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Date</div>
+
+
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_date" id="tran_date"
+											th:value="${#dates.format(ledgervalues.tran_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Value Date</div>
+									<div class="col-sm-2">
+
+
+										<input type="text" name="value_date" id="value_date"
+											th:value="${#dates.format(ledgervalues.value_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_code" id="tran_code"
+											th:value="${ledgervalues.tran_code}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Report Code</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_rpt_code" id="tran_rpt_code"
+											th:value="${ledgervalues.tran_rpt_code}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Ref NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_ref_no" id="tran_ref_no"
+											th:value="${ledgervalues.tran_ref_no}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Details</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="add_details" id="add_details"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.add_details}" oninput="letterOnly(this);"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Partition Type</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="partition_type" id="partition_type"
+											th:value="${ledgervalues.partition_type}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Partition Details</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="partition_det" id="partition_det"
+											class="form-control form-control-sm bg-white border border-dark"
+											th:value="${ledgervalues.partition_det}" oninput="letterOnly(this);"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Instrument NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="instr_num" id="instr_num"
+											th:value="${ledgervalues.instr_num}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Instrument Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="instr_date" id="instr_date"
+											th:value="${#dates.format(ledgervalues.instr_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Ref CCY</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="ref_crncy" id="ref_crncy"
+											th:value="${ledgervalues.ref_crncy}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Ref CCY Amt</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ref_crncy_amt" id="ref_crncy_amt"
+											oninput="amountInput(this);" th:value="${ledgervalues.ref_crncy_amt}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Rate Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="rate_code" id="rate_code"
+											th:value="${ledgervalues.rate_code}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Rate</div>
+									<div class="col-sm-2">
+
+
+										<input type="text" name="rate" id="rate" th:value="${ledgervalues.rate}"
+											oninput="amountInput(this);"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Entry User</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="entry_user" id="entry_user"
+											th:value="${ledgervalues.entry_user}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Post User</div>
+									<div class="col-sm-2">
+
+										<input type="text" placeholder="" name="post_user" id="post_user"
+											th:value="${ledgervalues.post_user}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Entry Time</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="entry_time" id="entry_time"
+											th:value="${#dates.format(ledgervalues.entry_time, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Post Time</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="post_time" id="post_time"
+											th:value="${#dates.format(ledgervalues.post_time, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2" hidden>Modify User</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="modify_user" id="modify_user"
+											th:value="${ledgervalues.modify_user}"
+											class="form-control form-control-sm bg-white border border-dark" hidden />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2" hidden>Modify Time</div>
+									<div class="col-sm-2">
+
+										<input type="text" placeholder="" name="modify_time" id="modify_time"
+											th:value="${#dates.format(ledgervalues.modify_time, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark" hidden />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_status" id="tran_status"
+											th:value="${ledgervalues.tran_status}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Deleted</div>
+									<div class="col-sm-2">
+
+										<input type="text" placeholder="" name="del_flg" id="del_flg"
+											th:value="${ledgervalues.del_flg}"
+											class="form-control form-control-sm bg-white border border-dark" readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+								<br>
+
+								<div class="d-flex justify-content-end align-items-center mr-3 mb-2">
+									<button id="previous-btn" class="btn btn-primary me-2"
+										onclick="getPartTranRecords(this);">Previous</button>
+									<span class="mx-1" th:text="${currentPartTran}" id="currentPartTran"></span>
+									<span class="mx-1">/</span>
+									<span class="mx-1" id="maxPartTran" th:text="${maxPartTran}"></span>
+									<button id="next-btn" class="btn btn-primary ms-2"
+										onclick="getPartTranRecords(this);">Next</button>
+								</div>
+
+
+								<!--<div class="row formline" style="padding: 10px 0px 5px 1015px;">
+									<button class="btn btn-primary p-2" onclick="uploadfiles(this);">Upload
+										Files</button>
+								</div>-->
+								<div class="table-responsive mt-1">
+									<table class="table  table-bordered table-sm rounded-lg"
+										style="margin-bottom: 0px; font-size: initial; width:100%;"
+										id="transactionaccountvalues">
+										<thead class="thead-light">
+											<tr>
+												<th style="text-align: left; ">GENERAL
+													LEDGER</th>
+												<th style="text-align: left;">GL SUB HEAD</th>
+												<th style="text-align: left; ">CRNCY</th>
+												<th style="text-align: right; ">ACCOUNT
+													BALANCE</th>
+												<th style="text-align: left; ">BALANCE IND</th>
+											</tr>
+										</thead>
+										<tbody id="transactionaccountvaluesbody">
+
+											<tr>
+
+												<td th:text="${gldetails.gl_code}"></td>
+												<td th:text="${gldetails.glsh_code}"></td>
+												<td th:text="${gldetails.acct_crncy}"></td>
+												<td style="text-align: right;"
+													th:text="${gldetails?.acct_bal == 0 ? '0.00' : #numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+												</td>
+												<td
+													th:text="${gldetails.add_det_flg == 'C' or gldetails.add_det_flg == 'N' ? 'Credit' : 'Debit' }">
+												</td>
+
+
+											</tr>
+
+
+										</tbody>
+									</table>
+								</div>
+
+								<div class="table-responsive ">
+									<table class="table table-bordered table-hover table-sm d-none"
+										style="margin-bottom: 0px; font-size: initial; table-layout: fixed; width: 100%;"
+										id="usertablevalues">
+										<thead class="thead-light">
+											<tr>
+												<th style="text-align: left">TRAN DATE</th>
+												<th style="text-align: left">TRAN ID</th>
+												<th style="text-align: left">PA TRAN TY</th>
+												<th style="text-align: left">CURRENCY</th>
+												<th style="text-align: right">AMOUNT</th>
+												<th style="text-align: left">ACCT NUM</th>
+												<th style="text-align: left; width: 20%;">ACCT NAME</th>
+												<th style="text-align: left">STATUS</th>
+												<th style="text-align: center">VALIDATE</th>
+												<th style="text-align: center; width: 10%;">ACCOUNT BAL</th>
+												<th style="text-align: center">SELECT</th>
+											</tr>
+										</thead>
+										<tbody id="placelist">
+											<tr th:each="details : ${jour}">
+												<td
+													th:text="${details.tran_date != null ? #dates.format(details.tran_date,'dd-MM-yyyy') : ''}">
+												</td>
+												<td th:text="${details.tran_id} + '/' + ${details.part_tran_id}"></td>
+												<td th:text="${details.part_tran_type}"></td>
+												<td th:text="${details.acct_crncy}"></td>
+												<td style="text-align: right;"
+													th:text="${details?.tran_amt == 0 ? '0.00' : #numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+												</td>
+												<td th:text="${details.acct_num}"></td>
+												<td th:text="${details.acct_name}"></td>
+												<td th:text="${details.tran_status}"></td>
+												<td style="text-align: center;"><input type="radio" id="radioSelect"
+														name="actionRadio" th:attr="data-acct_num=${details.acct_num}, 
+                     data-acct_name=${details.acct_name}, 
+                     data-tran_amt=${details?.tran_amt}, 
+                     data-part_tran_type=${details.part_tran_type},
+                     data-tran_particulars=${details.tran_particular}" onclick="datavalueses(this);"></td>
+
+												<td style="text-align: center;"><input type="radio" id="radioSelect"
+														name="actionRadio" th:attr="data-acctnum=${details.acct_num}"
+														onclick="setAccountDetails(this);"></td>
+												<td style="text-align: center;"><input type="radio" id="radioSelect"
+														name="actionRadio"
+														th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num}"
+														onclick="selectActions(this);"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+
+
+
+
+
+
+							</form>
+
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover table-sm d-none"
+									style="margin-bottom: 0px; font-size: initial; table-layout: fixed; width: 100%;"
+									id="usertablevalues1">
+									<thead class="thead-light">
+										<tr>
+											<th style="text-align: left">TRAN DATE</th>
+											<th style="text-align: left">TRAN ID</th>
+											<th style="text-align: left">PA TRAN TY</th>
+											<th style="text-align: left">CURRENCY</th>
+											<th style="text-align: right">AMOUNT</th>
+											<th style="text-align: left">ACCT NUM</th>
+											<th style="text-align: left; width: 20%;">ACCT NAME</th>
+											<th style="text-align: left">STATUS</th>
+											<th style="text-align: center">SELECT</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="details : ${jour}">
+											<td
+												th:text="${details.tran_date != null ? #dates.format(details.tran_date,'dd-MM-yyyy') : ''}">
+											</td>
+											<td th:text="${details.tran_id} + '/' + ${details.part_tran_id}"></td>
+											<td th:text="${details.part_tran_type}"></td>
+											<td th:text="${details.acct_crncy}"></td>
+											<td style="text-align: right;"
+												th:text="${details?.tran_amt == 0 ? '0.00' : #numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+											</td>
+											<td th:text="${details.acct_num}"></td>
+											<td th:text="${details.acct_name}"></td>
+											<td th:text="${details.tran_status}"></td>
+											<td style="text-align: center;"><input type="radio" id="radioSelect"
+													name="actionRadio"
+													th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num}"
+													onclick="selectActions(this);"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;display:none;" id="usertablevalues1">
+								<thead class="card-header fs-5" style="text-align: center !important;">
+									<!-- <tr th:each="accvals : ${bankvalues}">
+											<td colspan="4" th:text="'Account No : ' + ${accvals[0]}">
+											</td>
+											<td colspan="3"><label
+												style="font-size: 15px; margin-right: 10px;">Account
+													Name : </label></td>
+										</tr> -->
+									<tr style="text-align: left">
+										<th>Flow ID</th>
+										<th>FLOW CODE</th>
+										<th>FLOW DATE</th>
+										<th style="text-align: center">FLOW AMOUNT</th>
+										<th style="text-align: center">Outstanding BALANCE</th>
+										<th style="text-align: center;">Posting</th>
+									</tr>
+								</thead>
+								<tbody id="recorddetails">
+
+									<tr th:each="Flow : ${listact}">
+
+										<td th:text="${Flow.flow_id}"></td>
+										<td th:text="${Flow.flow_code}"></td>
+										<td th:text="${#dates.format(Flow.flow_date, 'dd-MM-yyyy')}"></td>
+										<td style="text-align: right"
+											th:text="${#numbers.formatDecimal(Flow.flow_amt, 0, 'COMMA', 2, 'POINT')}">
+										</td>
+										<td style="text-align: right"
+											th:text="${#numbers.formatDecimal(Flow.clr_bal_amt, 0, 'COMMA', 2, 'POINT')}">
+										</td>
+										<td style="text-align: center;" id="transactionpost"><input type="radio"
+												id="radioSelect" name="actionRadio">
+									</tr>
+
+
+								</tbody>
+							</table>
+
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5a142">
+
+
+							<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="opentable();">View</button>
+							<button class="btn btn-primary p-2" th:attr="data-tranid=${ledgervalues.tran_id}"
+								onclick="validationAccount(this);">Validate</button>
+							<button class="btn btn-primary p-2" id="transactionAddButton" th:attr="data-tranid=${ledgervalues.tran_id}, data-partnid=${ledgervalues.part_tran_id}, data-acctnum=${ledgervalues.acct_num},
+								data-parttrantype=${ledgervalues.part_tran_type}" onclick="verifysubmit(this);">Post</button>
+							<button class="btn btn-primary p-2" onclick="Back();">Back</button>
+						</div>
+
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;">
+									<tr>
+										<td class="col-sm-2" style="text-align: right;">
+											<font size="2"><B>Entry User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+											<input type="text" id="entryuser" name="entry_user"
+												th:value="${ledgervalues?.entry_user}"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+												disabled>
+										</td>
+										<td class="col-sm-2" style="text-align: right;">
+											<font size="2"><B>Modify User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px;"><input type="text" id="modifyuser"
+												name="modify_user" th:value="${ledgervalues?.modify_user}"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+												disabled></td>
+										<td class="col-sm-2" style="text-align: right;">
+											<font size="2"><B> Verify User :</B></font>
+										</td>
+										<td class="col-sm-2" style="width: 112px;"><input type="text" id="verifyuser"
+												name="post_user" th:value="${ledgervalues?.post_user}"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+												disabled></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">
+											<font size="2"><B>Entry
+													Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="entrytime" name="ub.entrytime"
+												th:value="${#dates.format(ledgervalues?.entry_time, 'dd-MM-yyyy')}"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+												disabled></td>
+										<td style="text-align: right;">
+											<font size="2"><B>Modify
+													Time : </B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="modifytime" name="modify_time"
+												th:value="${#dates.format(ledgervalues?.modify_time, 'dd-MM-yyyy')}"
+												style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+												disabled></td>
+										<td style="text-align: right;">
+											<font size="2"><B>Verify
+													Time :</B></font>
+										</td>
+										<td style="width: 112px"><input type="text" id="verifytime" name="post_time"
+												th:value="${#dates.format(ledgervalues?.post_time, 'dd-MM-yyyy')}"
+												style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+												disabled></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alertsval" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 120%; height: 25%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header" style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Alert
+							Message</h5>
+						<!-- Alert message will appear here -->
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body"
+						style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px">
+				
+				 <h6 id="tran_id_display"></h6>
+						<h6 id="alertmsg"></h6>
+						
+						<!-- Response will be displayed here -->
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer" style="justify-content: center; width: 100%;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="refreshPage()">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alertsvalNormal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 120%; height: 25%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header" style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Alert
+							Message</h5>
+						<!-- Alert message will appear here -->
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body"
+						style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px">
+						<h6 id="alertmsgNormal"></h6>
+						<!-- Response will be displayed here -->
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer" style="justify-content: center; width: 100%;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="$('#alertsvalNormal').modal('hide');">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alertpostaccount" tabindex="-1"
+		role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 140%; height: 35%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header" style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Post
+							Transaction Details - Credit</h5>
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body">
+						<div class="row formline">
+							<div class="col-sm-3">Account No</div>
+							<div class="col-sm-3">
+								<input type="text" name="tran_acct_no" id="tran_acct_number"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+							<div class="col-sm-3">Account Name</div>
+							<div class="col-sm-3">
+								<input type="text" name="account_name_val" id="account_name_val"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+						</div>
+						<br>
+						<div class="row formline">
+							<div class="col-sm-3">Transaction Amount</div>
+							<div class="col-sm-3">
+								<input type="text" name="tran_amount" id="tran_amount_value"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+							<div class="col-sm-3">Account Balance</div>
+							<div class="col-sm-3">
+								<input type="text" name="acctbalancecredit" id="acctbalancecredits"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+						</div>
+						<br>
+						<div class="row formline">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-3">Balance After Posting</div>
+							<div class="col-sm-3">
+								<input type="text" name="balance_updated" id="orginalbalancecredit"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer" style="justify-content: center;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="accountclosepopup()">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false" id="alertpostaccountval" tabindex="-1"
+		role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="width: 140%; height: 35%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header" style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 13px">Post
+							Transaction Details - Debit</h5>
+					</div>
+
+					<!-- Body with Response -->
+					<div class="modal-body">
+						<div class="row formline">
+							<div class="col-sm-3">Account No</div>
+							<div class="col-sm-3">
+								<input type="text" name="tran_acct_no" id="account_num_debit"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+							<div class="col-sm-3">Account Name</div>
+							<div class="col-sm-3">
+								<input type="text" name="debit_acct_no" id="account_name_debit"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+						</div>
+						<br>
+						<div class="row formline">
+							<div class="col-sm-3">Transaction Amount</div>
+							<div class="col-sm-3">
+								<input type="text" name="tran_amount" id="transaction_amt_debit"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+							<div class="col-sm-3">Account Balance</div>
+							<div class="col-sm-3">
+								<input type="text" name="debit_amount" id="account_balance_debit"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+						</div>
+						<br>
+						<div class="row formline">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-3">Balance After Posting</div>
+							<div class="col-sm-3">
+								<input type="text" name="balance_updated" id="original_balance_debit"
+									class="form-control form-control-sm bg-white border border-dark" readonly />
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer with Close Button -->
+					<div class="modal-footer" style="justify-content: center;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="accountclosepopupval()">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	function opentable() {
+		event.preventDefault();
+		var viewTable = document.getElementById("usertablevalues");
+		viewTable.classList.remove('d-none');
+	}
+</script>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- BAJ VERSION 1.0.1  -->
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/chartjs/2.8.0/Chart.min.css"
+	th:href="@{webjars/chartjs/2.8.0/Chart.min.css}">
+<script src="webjars/chartjs/2.8.0/Chart.min.js"
+	th:src="@{webjars/chartjs/2.8.0/Chart.min.js}"></script>
+
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<style>
+.container-manager {
+	width: 83.5%;
+	padding-right: 135px;
+	padding-left: 120px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+/* .orange-background {
+    background-color: #f48c30;
+    color: white; /* Optional for readability */
+} */
+
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function Yes(){
+		location.href="./changePassword";
+	}
+		$(document).ready(function () {
+			
+			var userdate = document.getElementById("pdate").value;
+			var userdate1 = userdate.split('-');
+			var date1 = userdate1[0];
+			var month1 = userdate1[1];
+			
+			var year = userdate1[2];
+			let todays = new Date().toISOString().slice(0, 10);
+			const startDate  = todays;
+			const endDate    = userdate;
+
+			const diffInMs   = new Date(endDate) - new Date(startDate)
+			const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+			if(diffInDays<=3 && diffInDays>0){
+$("#alert1").modal("toggle");
+			}else
+			if(diffInDays==0){
+				$('#alert2').modal({backdrop: 'static', keyboard: false}, 'show');
+				$("#alert2").modal("toggle");
+							}
+			
+});
+		
+	/*>]]*/
+	
+	function t(){
+		
+		$.ajax({
+					type : 'get',
+					url : './t',
+
+					success : function(data) {
+
+						/*<![CDATA[*/
+
+					alert(data);
+					}
+
+				})
+
+	}
+	
+	
+</script>
+
+</head>
+<body class="orange-background">
+	<div th:insert="BGLSHeaderMenu :: header"></div>
+	<!-- <i class="fa fa-question-circle" aria-hidden="true"
+		onclick="docEmb('Report')" id="ques"></i> -->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="d-none">
+					<img th:src=@{images/HomePageLogoBAJ.jpg} id="showmenu" alt="Bornfire" style="width:100%;height:650px;">
+				</div>
+				<p onclick="t()"></p>	
+				<div style="display:none">
+				<!--<input type="text" id="pdate" th:value="${#dates.format(RoleMenu?.pw_expy_date,'yyyy-MM-dd')}" />-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--------------------------------------------------------- Password change modal------------------------------------------------ -->
+	<div class="modal fade" id="alert1">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-header">
+					<h4 class="modal-title" style="text-align: center;">BORNFIRE MANAGER</h4>
+	
+				</div>
+				<br>
+				<div class="form-group">
+							<!--<p style="margin-left:120px;">Password Expiry Date :</p><p style="margin-top:-38px; margin-left:290px;" th:text="${#dates.format(RoleMenu?.pw_expy_date,'dd-MM-yyyy')}">-->
+						</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg1" style="font-size: 16px;text-align:center">Do You Want Change Password?</p>
+					<button type="button" class="btn btn-primary p-2" data-dismiss="modal" onclick="Yes(this);">Yes</button>
+					<button type="button" class="btn btn-primary p-2" data-dismiss="modal" onclick="">No</button>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+	<div class="modal fade" id="alert2">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-header">
+					<h4 class="modal-title" style="text-align: center;">BORNFIRE MANAGER</h4>
+	
+				</div>
+				<br>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					
+					<p id="alertmsg1" style="font-size: 16px;text-align:center">Change Password</p>
+					<button type="button" class="btn btn-primary p-2" data-dismiss="modal" onclick="Yes(this);">OK</button>
+				</div>
+			</div>
+		</div>
+	</div> 
+</body>
+</html>

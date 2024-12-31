@@ -1,0 +1,590 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td {
+	font-size: smaller;
+	padding: 8px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+.table-container {
+	position: relative;
+	max-height: 500px; /* Set the height of the scrollable area */
+	overflow-y: scroll; /* Force a vertical scrollbar */
+}
+
+.table-bordered {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table-bordered thead th {
+	position: sticky;
+	top: 0; /* Keeps the header fixed */
+	background-color: #f1f1f1; /* Optional: header background color */
+	z-index: 1;
+}
+
+.table-responsive {
+	max-height: 650px;
+	overflow-y: auto;
+}
+
+.table-bordered tbody td {
+	background-color: #fff; /* Optional: body row background color */
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #f5a142;
+	border-color: #dee2e6;
+	width: 23px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif; /* Using a more common font */
+}
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+.tablinks.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.table-bordered th {
+	font-size: medium;
+}
+</style>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+
+	function add() {
+		//alert("add")
+		location.href = './refCodeMain?formmode=nav';
+	}
+
+	function list() {
+		//alert("add")
+		location.href = './refCodeMain?formmode=list';
+	}
+
+	function RefCode(a) {
+		event.preventDefault();
+		var ref = document.getElementById("RefButton");
+		ref.classList.add("active");
+
+		var gl = document.getElementById("GLButton");
+		gl.classList.remove("active");
+
+		var scheme = document.getElementById("param");
+		scheme.classList.remove("active");
+
+		var chart = document.getElementById("chartOfAccounts");
+		chart.classList.remove("active");
+
+		var act = document.getElementById("accountLedger");
+		act.classList.remove("active");
+
+		location.href = './refCodeMain?formmode=list';
+	}
+
+	function GLStruct(a) {
+		event.preventDefault();
+		var ref = document.getElementById("RefButton");
+		ref.classList.remove("active");
+
+		var gl = document.getElementById("GLButton");
+		gl.classList.add("active");
+
+		var scheme = document.getElementById("param");
+		scheme.classList.remove("active");
+
+		var chart = document.getElementById("chartOfAccounts");
+		chart.classList.remove("active");
+
+		var act = document.getElementById("accountLedger");
+		act.classList.remove("active");
+
+		location.href = './glcode';
+	}
+
+	function SchemeCode(a) {
+		event.preventDefault();
+		var ref = document.getElementById("RefButton");
+		ref.classList.remove("active");
+
+		var gl = document.getElementById("GLButton");
+		gl.classList.remove("active");
+
+		var scheme = document.getElementById("param");
+		scheme.classList.add("active");
+
+		var chart = document.getElementById("chartOfAccounts");
+		chart.classList.remove("active");
+
+		var act = document.getElementById("accountLedger");
+		act.classList.remove("active");
+
+		location.href = './Parameter';
+	}
+
+	function Chart(a) {
+		event.preventDefault();
+		var ref = document.getElementById("RefButton");
+		ref.classList.remove("active");
+
+		var gl = document.getElementById("GLButton");
+		gl.classList.remove("active");
+
+		var scheme = document.getElementById("param");
+		scheme.classList.remove("active");
+
+		var chart = document.getElementById("chartOfAccounts");
+		chart.classList.add("active");
+
+		var act = document.getElementById("accountLedger");
+		act.classList.remove("active");
+
+		location.href = './chartOfAccounts';
+	}
+
+	function Account(a) {
+		event.preventDefault();
+		var ref = document.getElementById("RefButton");
+		ref.classList.remove("active");
+
+		var gl = document.getElementById("GLButton");
+		gl.classList.remove("active");
+
+		var scheme = document.getElementById("param");
+		scheme.classList.remove("active");
+
+		var chart = document.getElementById("chartOfAccounts");
+		chart.classList.remove("active");
+
+		var act = document.getElementById("accountLedger");
+		act.classList.add("active");
+
+		location.href = './accountLedger';
+	}
+
+	function updateTypeDescription() {
+		const selectedValue = $('#ref_type').val();
+		//alert(selectedValue);
+
+		$.ajax({
+			url : './getTypeDescription',
+			type : 'GET',
+			data : {
+				refType : selectedValue,
+
+			},
+			success : function(data) {
+				//alert(data);
+
+				var values = data.split(" - ");
+
+				// Set values to respective fields
+				$('#ref_type_desc').val(values[0] || "");
+				$('#module_id').val(values[1] || "");
+			},
+		});
+
+	}
+
+	function Submit() {
+
+		$.ajax({
+			url : './refAdd',
+			data : $("#refForm").serialize(),
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal('show');
+			}
+		});
+
+	}
+</script>
+</head>
+<body>
+	<div class="col-sm-2">
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
+				<div th:if="${formmode}=='list'">
+					<div class="card">
+						<div class="card-header ">
+							<div class="float-left">
+								<h4>REFERENCE CODE MAINTENANCE</h4>
+							</div>
+							<div class="float-right">
+								<button class="custom-btn" onclick="add();">Add</button>
+							</div>
+						</div>
+						<div class="mt-3"
+							style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; width: 100%;">
+							<!-- Tab buttons -->
+							<button class="tablinks active rounded-pill" id="RefButton"
+								onclick="RefCode(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%; background-color: #f5a142; color: white;">Reference
+								Code Maintenance</button>
+							<button class="tablinks rounded-pill" id="GLButton"
+								onclick="GLStruct(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%; background-color: #f5a142; color: white;">GL
+								Structure</button>
+							<button class="tablinks rounded-pill" id="param"
+								onclick="SchemeCode(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%; background-color: #f5a142; color: white;">Scheme
+								Codes</button>
+							<button class="tablinks rounded-pill" id="chartOfAccounts"
+								onclick="Chart(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%; background-color: #f5a142; color: white;">Chart
+								of Accounts</button>
+							<button class="tablinks rounded-pill" id="accountLedger"
+								onclick="Account(this);"
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%; background-color: #f5a142; color: white;">Account
+								Ledger</button>
+
+						</div>
+
+						<div class="card-body">
+							<div class="table-responsive">
+								<!-- <div class="card-header "
+								style="background-color: #f5a142; height: 50px">
+
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">REFERENCE CODE
+									MAINTENANCE</h6>
+								</div>
+
+								<div class="float-right">
+									<button class="btn btn-primary p-2" onclick="add();">Add</button>
+
+								</div>
+
+							</div> -->
+								<table class="table table-bordered table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;"
+									id="AssosiateTable">
+									<thead>
+										<tr>
+											<th>Ref Type</th>
+											<th>Type Desc</th>
+											<th>Ref Id</th>
+											<th>Ref Desc</th>
+											<th>Module Id</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="EmployeeData, iterator : ${refList}">
+											<td th:text="${EmployeeData.ref_type}"></td>
+											<td
+												th:text="${#strings.replace(EmployeeData.ref_type_desc, '_', ' ')}"></td>
+											<td th:text="${EmployeeData.ref_id}"></td>
+											<td th:text="${EmployeeData.ref_id_desc}"></td>
+											<td th:text="${EmployeeData.module_id}"></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" onclick="Back();">Back</button>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='nav'">
+					<div class="card">
+						<div class="card-header ">
+							<div class="float-left">
+								<h4>REFERENCE CODE MAINTENANCE - ADD</h4>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<form class="border border-secondary" action="#" method="post"
+								id="refForm" autocomplete="off">
+								<div class="row formline" style="padding: 10px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Reference
+										Type</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<select name="ref_type" id="ref_type"
+											onchange="updateTypeDescription()"
+											class="form-control form-control-sm bg-white border border-dark">
+											<option value="">Select</option>
+											<th:block th:each="code : ${refType}">
+												<option th:value="${code}" th:text="${code}"></option>
+											</th:block>
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Type
+										Descriptions</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="ref_type_desc" id="ref_type_desc"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Reference
+										Id</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="ref_id" id="ref_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Reference
+										Descriptions</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="ref_id_desc" id="ref_id_desc"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Module</div>
+
+
+									<div class="col-sm-2 d-flex align-items-center">
+										<input type="text" name="module_id" id="module_id"
+											class="form-control form-control-sm bg-white border border-dark"
+											required />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2 d-flex align-items-center">Remarks</div>
+									<div class="col-sm-2 d-flex align-items-center">
+
+										<input type="text" name="remarks" id="remarks"
+											class="form-control form-control-sm bg-white border border-dark" />
+
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" onclick="Submit();">Submit</button>
+							<button class="custom-btn" onclick="Back();">Back</button>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg"></h6>
+					<button type="button" class="btn btn-primary" onclick="list()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert1" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg1"></h6>
+					<button type="button" class="btn btn-primary"
+						onclick="$('#alert1').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
