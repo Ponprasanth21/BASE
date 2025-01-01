@@ -311,8 +311,19 @@ List<TRAN_MAIN_TRM_WRK_ENTITY> set_dab_acc_num(@Param("acctnum") List<String> ac
 	@Query(value = "select tran_amt from BGLS_TRM_WRK_TRANSACTIONS WHERE part_tran_type = 'Debit' AND TRAN_ID = ?1 AND PART_TRAN_ID=?2", nativeQuery = true)
 	BigDecimal getdebit(String tran_id,BigDecimal partTranID);
 	
-	@Query(value = "SELECT TRAN_DATE,TRAN_ID || '/' || TO_CHAR(PART_TRAN_ID) AS TRANSACTION_ID,TRAN_PARTICULAR,ACCT_CRNCY,TRAN_AMT,CASE WHEN PART_TRAN_TYPE = 'credit' THEN TRAN_AMT ELSE 0 END AS Credit,CASE WHEN PART_TRAN_TYPE = 'debit' THEN TRAN_AMT ELSE 0 END AS Debit FROM BGLS_TRM_WRK_TRANSACTIONS WHERE ACCT_NUM = '1500001000' AND TRAN_STATUS = 'POSTED' ORDER BY TRAN_DATE, TRAN_ID, PART_TRAN_ID", nativeQuery = true)
-	List<Object[]> getList(@Param("acct_num") String acct_num);
+	
+	  @Query(value =
+	  "SELECT TRAN_DATE,TRAN_ID || '/' || TO_CHAR(PART_TRAN_ID) AS TRANSACTION_ID,TRAN_PARTICULAR,ACCT_CRNCY,TRAN_AMT,CASE WHEN PART_TRAN_TYPE = 'credit' THEN TRAN_AMT ELSE 0 END AS Credit,CASE WHEN PART_TRAN_TYPE = 'debit' THEN TRAN_AMT ELSE 0 END AS Debit FROM BGLS_TRM_WRK_TRANSACTIONS WHERE ACCT_NUM = '1500001000' AND TRAN_STATUS = 'POSTED' ORDER BY TRAN_DATE, TRAN_ID, PART_TRAN_ID"
+	  , nativeQuery = true) List<Object[]> getList(@Param("acct_num") String
+	 acct_num);
+	 
+	
+	/*
+	 * @Query(value =
+	 * "SELECT TRAN_DATE,TRAN_ID + '/' + CAST(PART_TRAN_ID AS VARCHAR(50)) AS TRANSACTION_ID, TRAN_PARTICULAR,ACCT_CRNCY, TRAN_AMT,CASE PART_TRAN_TYPE WHEN 'credit' THEN TRAN_AMT ELSE 0 END as Credit,CASE PART_TRAN_TYPE  WHEN 'debit' THEN TRAN_AMT ELSE 0 END as Debit FROM BGLS_TRM_WRK_TRANSACTIONS WHERE acct_num =?1 AND TRAN_STATUS='POSTED' ORDER BY TRAN_DATE, TRAN_ID, PART_TRAN_ID"
+	 * , nativeQuery = true) List<Object[]> getList(@Param("acct_num") String
+	 * acct_num);
+	 */
 	
 	@Query(value = "select * from BGLS_TRM_WRK_TRANSACTIONS aa where aa.acct_num = ?1", nativeQuery = true)
 	TRAN_MAIN_TRM_WRK_ENTITY gettranpopvaluesdata(String acct_num);
@@ -330,6 +341,8 @@ List<TRAN_MAIN_TRM_WRK_ENTITY> set_dab_acc_num(@Param("acctnum") List<String> ac
 	List<Integer> currentTableRecords(String tranId);
 
 
+	
+	
 	
 	@Query(value = "SELECT * FROM BGLS_TRM_WRK_TRANSACTIONS WHERE ACCT_NUM = ?1 AND TRAN_DATE BETWEEN CAST(?2 AS DATE) AND CAST(?3 AS DATE) AND TRAN_STATUS='POSTED' ORDER BY TRAN_ID", nativeQuery = true)
 	List<TRAN_MAIN_TRM_WRK_ENTITY> getTranList(String acct_num, String fromdate, String todate);

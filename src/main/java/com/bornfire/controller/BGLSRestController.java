@@ -289,8 +289,8 @@ public class BGLSRestController {
 
 	@RequestMapping(value = "employeeAdd1", method = RequestMethod.POST)
 	@ResponseBody
-	public String employeeAddPhoto(@RequestParam("photoFile") MultipartFile photoFile,
-			@RequestParam String employeeId, HttpServletRequest rq) {
+	public String employeeAddPhoto(@RequestParam("photoFile") MultipartFile photoFile, @RequestParam String employeeId,
+			HttpServletRequest rq) {
 
 		System.out.println("Uploading photo for employee ID: " + employeeId);
 
@@ -493,6 +493,73 @@ public class BGLSRestController {
 	}
 
 	/* PRAVEEN */
+	/*
+	 * @GetMapping("/getTransactionBalance")
+	 * 
+	 * @ResponseBody public BigDecimal getTransactionBalance(@RequestParam(required
+	 * = false) String acctnum,
+	 * 
+	 * @RequestParam(required = false) String fromdate, Model md) {
+	 * 
+	 * System.out.println("Acct number: " + acctnum + " From date: " + fromdate);
+	 * 
+	 * SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	 * SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	 * 
+	 * Date fromDateParsed = null; String formattedDate = null;
+	 * 
+	 * try {
+	 * 
+	 * if (fromdate != null) { fromDateParsed = inputDateFormat.parse(fromdate);
+	 * 08-12-2024 }
+	 * 
+	 * if (fromDateParsed != null) {
+	 * 
+	 * formattedDate = outputDateFormat.format(fromDateParsed); 08-DEC-2024 } }
+	 * catch (ParseException e) { e.printStackTrace();
+	 * System.out.println("Error parsing 'fromdate': " + e.getMessage()); }
+	 * 
+	 * // Now pass the formatted date to the repository query BigDecimal tranDateBal
+	 * = dab_Repo.getTranDateBAlance(acctnum, formattedDate);
+	 * System.out.println("THE VALUE OF tran_date_bal: " + tranDateBal);
+	 * 
+	 * return tranDateBal; }
+	 * 
+	 * PRAVEEN
+	 * 
+	 * @GetMapping("/getTransactionRecords") public List<TRAN_MAIN_TRM_WRK_ENTITY>
+	 * getTransactionRecords(@RequestParam(required = false) String acctnum,
+	 * 
+	 * @RequestParam(required = false) String fromdate, @RequestParam(required =
+	 * false) String todate) {
+	 * 
+	 * SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	 * 08-12-2024 SimpleDateFormat outputDateFormat = new
+	 * SimpleDateFormat("dd-MMM-yyyy"); 08-DEC-2024
+	 * 
+	 * Date fromDateParsed = null; Date toDateParsed = null;
+	 * 
+	 * try { if (fromdate != null) { fromDateParsed =
+	 * inputDateFormat.parse(fromdate); } if (todate != null) { toDateParsed =
+	 * inputDateFormat.parse(todate); } } catch (ParseException e) {
+	 * e.printStackTrace();
+	 * 
+	 * }
+	 * 
+	 * String formattedFromDate = (fromDateParsed != null) ?
+	 * outputDateFormat.format(fromDateParsed) : null; String formattedToDate =
+	 * (toDateParsed != null) ? outputDateFormat.format(toDateParsed) : null;
+	 * 
+	 * System.out.println("Formatted Dates: From = " + formattedFromDate + ", To = "
+	 * + formattedToDate);
+	 * 
+	 * List<TRAN_MAIN_TRM_WRK_ENTITY> records =
+	 * tRAN_MAIN_TRM_WRK_REP.getTranList(acctnum, formattedFromDate,
+	 * formattedToDate); for (TRAN_MAIN_TRM_WRK_ENTITY i : records) {
+	 * System.out.println(i + "records"); } return records; }
+	 */
+
+	/* PRAVEEN */
 	@GetMapping("/getTransactionBalance")
 	@ResponseBody
 	public BigDecimal getTransactionBalance(@RequestParam(required = false) String acctnum,
@@ -563,7 +630,8 @@ public class BGLSRestController {
 		}
 		return records;
 	}
-
+	
+	
 	/* Thanveer */
 	@RequestMapping(value = "AddScreens", method = RequestMethod.POST)
 
@@ -663,21 +731,19 @@ public class BGLSRestController {
 			return "Branch Name Already Exist";
 		} else {
 
-
 			try {
 				Organization_Branch_Entity up = organization_Branch_Entity;
-				 
-				 
-				 if (photoFile != null && !photoFile.isEmpty()) {
-				       
-				            byte[] photoBytes = photoFile.getBytes(); // Convert the MultipartFile to byte array
-				            up.setPhoto(photoBytes); // Set the byte array to the photo field
-				        
-				    } else {
-				        // Handle the case where no file was selected
-				        return "No file selected";
-				    }
-				
+
+				if (photoFile != null && !photoFile.isEmpty()) {
+
+					byte[] photoBytes = photoFile.getBytes(); // Convert the MultipartFile to byte array
+					up.setPhoto(photoBytes); // Set the byte array to the photo field
+
+				} else {
+					// Handle the case where no file was selected
+					return "No file selected";
+				}
+
 				up.setEntity_flg("N");
 				up.setModify_flg("N");
 				up.setDel_flg("N");
@@ -712,16 +778,13 @@ public class BGLSRestController {
 				audit.setField_name("-");
 
 				bglsBusinessTable_Rep.save(audit);
-			
 
 				return "Added successfully.";
 			} catch (IOException e) {
 				e.printStackTrace();
 				return "Error processing the image.";
 			}
-			
 
-		
 		}
 	}
 	/* tab2Del */
@@ -1197,15 +1260,15 @@ public class BGLSRestController {
 	@RequestMapping(value = "GeneralLedgerAdd", method = RequestMethod.POST)
 	@ResponseBody
 	public String GeneralLedgerAdd(@RequestParam("formmode") String formmode,
-			@RequestParam(required = false) String glcode,@ModelAttribute GeneralLedgerEntity generalLedgerEntity,
+			@RequestParam(required = false) String glcode, @ModelAttribute GeneralLedgerEntity generalLedgerEntity,
 			Model md, HttpServletRequest rq) {
 		String userid = (String) rq.getSession().getAttribute("USERID");
-		
+
 		String glsh_code = generalLedgerEntity.getGlsh_code();
-		
-		System.out.println("the controller glcode is here "+glcode);
-		System.out.println("the controller glshcode is here "+glsh_code);
-		String msg = adminOperServices.addGeneralLedger(generalLedgerEntity, formmode,glsh_code, glcode, userid);
+
+		System.out.println("the controller glcode is here " + glcode);
+		System.out.println("the controller glshcode is here " + glsh_code);
+		String msg = adminOperServices.addGeneralLedger(generalLedgerEntity, formmode, glsh_code, glcode, userid);
 		return msg;
 	}
 
@@ -1227,8 +1290,8 @@ public class BGLSRestController {
 			transaction.setSrl_no(nextSerialNumber); // Set the serial number manually
 
 			String data1 = transaction.getFlow_code();
-			System.out.println("The flow code is "+data1);
-			
+			System.out.println("The flow code is " + data1);
+
 			String accountNumber = transaction.getAcct_num();
 			System.out.println("Account Number : " + accountNumber);
 			String partitionFlag = chart_Acc_Rep.getpartitionFlag(accountNumber);
@@ -4182,8 +4245,7 @@ public class BGLSRestController {
 
 		return tranRefRecords;
 	}
-	
-	
+
 	/* Thanveer */
 	@RequestMapping(value = "DeleteScreens", method = RequestMethod.POST)
 
@@ -4284,7 +4346,5 @@ public class BGLSRestController {
 
 		return msg;
 	}
-
-	
 
 }
