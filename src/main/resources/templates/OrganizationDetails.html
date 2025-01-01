@@ -106,7 +106,7 @@ body {
 
 .tablinks.active {
 	background-color: #2084a9;
-	color:white;
+	color: white;
 }
 
 .tab {
@@ -633,7 +633,7 @@ input:hover+.password-info {
 							</div>
 						</div>
 						<div class="tab mt-2"
-							style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
+							style="background-color: #e9ecef;padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
 							<button class="tablinks" onclick="openTab(event, 'tab1')"
 								style="font-size: 16px; padding: 4px 8px; height: 32px;">Head
 								Office</button>
@@ -840,7 +840,7 @@ input:hover+.password-info {
 
 						<div id="tab2" class="tabcontent" style="display: none">
 							<div class="card-body">
-								<div class="card-header" style="height:50px;">
+								<div class="card-header" style="height: 50px;">
 									<div class="float-left">
 										<h4>LIST OF BRANCHES</h4>
 									</div>
@@ -881,40 +881,32 @@ input:hover+.password-info {
 										          data-modify_flg=${EmployeeData.modify_flg}	"
 												onclick="branchfunction(this)" /></td>
 										</tr>
-
 									</tbody>
-
 								</table>
-
-
-								<div class="card-footer text-center">
-									<button class="custom-btn" onclick="Home();">Home</button>
-									<button class="custom-btn" onclick="Back();">Back</button>
-								</div>
+							</div>
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
 							</div>
 						</div>
 
 						<div id="tab3" class="tabcontent" style="display: none">
-						<div class="card-header">
+							<div class="card-body">
+								<div class="card-header" style="height:50px;">
 									<div class="float-left">
 										<h4>EXCEPTIONS</h4>
 									</div>
 								</div>
-							<div class="card-body">
-								
-
-								
 							</div>
 							<div class="card-footer text-center">
-									<button class="custom-btn" onclick="Home();">Home</button>
-									<button class="custom-btn" onclick="Back();">Back</button>
-								</div>
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
+							</div>
 						</div>
 
 						<div id="tabCalendar" class="tabcontent" style="display: none;">
 							<div class="tab mt-2"
-								style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around;
-								margin-top: 10px; width: 100%; height: 43px">
+								style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
 								<!-- Submodule Tab buttons for Calendar Maintenance -->
 								<button class="subtablinks"
 									onclick="openSubTab(event, 'tabCalendarMaster')"

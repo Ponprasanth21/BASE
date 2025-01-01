@@ -27,13 +27,16 @@
 }
 
 .card-footer {
+	background-color: #e9ecef;
 }
 
 .card-header {
 	font-size: 1.2rem;
+	background-color: #e9ecef;
 }
 
 .table-header {
+	background-color: #e9ecef;
 	height: 50px;
 	font-size: 1.2rem;
 }
