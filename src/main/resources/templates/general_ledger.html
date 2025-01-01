@@ -20,6 +20,9 @@
 <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
 	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
@@ -168,7 +171,7 @@ input:hover+.password-info {
 
 				<div th:if="${formmode}=='list'">
 					<div class="card w-100 border">
-						<div class="card-header" style="background-color: #e9ecef">
+						<div class="card-header">
 							<div class="float-left">
 								<h4>GENERAL LEDGER - LIST</h4>
 							</div>
@@ -238,11 +241,10 @@ input:hover+.password-info {
 								</tbody>
 							</table>
 						</div>
-						<div class="card-footer text-center border-top-0"
-							style="background-color: #e9ecef">
-							<button type="button" class="btn btn-xs btn-primary mr-2"
+						<div class="card-footer text-center border-top-0">
+							<button type="button" class="custom-btn"
 								id="btnHome" onclick="home();">Home</button>
-							<button type="button" class="btn btn-xs btn-primary ml-2"
+							<button type="button" class="custom-btn"
 								id="btnBack" onclick="back();">Back</button>
 						</div>
 

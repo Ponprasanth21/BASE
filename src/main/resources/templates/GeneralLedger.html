@@ -126,8 +126,8 @@ tr td:first-child:before {
 }
 
 .tablinks.active {
-	background-color: #007bff;
-	color: #fff;
+	background-color: #2084a9;
+	color:white;
 }
 </style>
 <style>
@@ -788,23 +788,23 @@ tr td:first-child:before {
 							<!-- Tab buttons -->
 							<button class="tablinks rounded-pill" id="RefButton"
 								onclick="RefCode(this);"
-								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;background-color:#f5a142;color:white;">Reference
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;">Reference
 								Code Maintenance</button>
 							<button class="tablinks active rounded-pill" id="GLButton"
 								onclick="GLStruct(this);"
-								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;background-color:#f5a142;color:white;">GL
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;">GL
 								Structure</button>
 							<button class="tablinks rounded-pill" id="param"
 								onclick="SchemeCode(this);"
-								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;background-color:#f5a142;color:white;">Scheme
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;">Scheme
 								Codes</button>
 							<button class="tablinks rounded-pill" id="chartOfAccounts"
 								onclick="Chart(this);"
-								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;background-color:#f5a142;color:white;">Chart
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;">Chart
 								of Accounts</button>
 							<button class="tablinks rounded-pill" id="accountLedger"
 								onclick="Account(this);"
-								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;background-color:#f5a142;color:white;">Account
+								style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;">Account
 								Ledger</button>
 						</div>
 
@@ -1184,14 +1184,14 @@ tr td:first-child:before {
 							<button type="button" class="custom-btn" onclick="home()"
 								id="btnHome">Home</button>
 							<a class="custom-btn" onclick="addUser()"
-								th:if="${formmode}=='view'" style="color:white;" id="btnModify">Add</a> <a
+								th:if="${formmode}=='view'" id="btnModify">Add</a> <a
 								class="custom-btn" onclick="upload()"
-								th:if="${formmode}=='view'" style="color:white;" id="btnupload">Upload</a> <a
+								th:if="${formmode}=='view'" id="btnupload">Upload</a> <a
 								class="custom-btn" id="btnModify"
-								th:if="${formmode}=='view'" style="color:white;" onclick="modifyData();">Modify</a> <a
+								th:if="${formmode}=='view'"  onclick="modifyData();">Modify</a> <a
 								class="custom-btn" id="btnDelete"
-								th:if="${formmode}=='view'" style="color:white;" onclick="deleteData();">Delete</a> <a
-								class="custom-btn" style="color:white;" th:if="${formmode}=='view'"
+								th:if="${formmode}=='view'" onclick="deleteData();">Delete</a> <a
+								class="custom-btn" th:if="${formmode}=='view'"
 								id="btnList" onclick="userList();">List</a>
 
 							<button th:if="${formmode}== 'add'" type="button"

@@ -24,6 +24,9 @@
 <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
 	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
@@ -72,8 +75,6 @@ body {
 }
 
 .table .thead-light th {
-	color: #495057;
-	background-color: #f5a142;
 	border-color: #dee2e6;
 	width: 23px;
 }
@@ -554,7 +555,7 @@ $(document)
 				<div th:if="${formmode}=='list'">
 					<div class="panel panel-primary filterable">
 						<div class="card w-100 border panel panel-primary filterable">
-							<div class="card-header" style="background-color: #f5a142">
+							<div class="card-header">
 								<div class="float-left"
 									style="display: flex; margin-left: -10px; justify-content: space-between; align-items: center;">
 									<h5>INCOME</h5>
@@ -563,7 +564,7 @@ $(document)
 								</div>
 								<div class="float-right">
 									<button type="button"
-										class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
+										class="custom-btn btn-filter">Filter</button>
 								</div>
 
 							</div>
@@ -619,9 +620,8 @@ $(document)
 									style="text-align: center; font-weight: bold;"></div>
 							</div>
 
-							<div class="card-footer text-center border-top-0"
-								style="background-color: #f5a142">
-								<button type="button" class="btn btn-xs btn-primary mr-2"
+							<div class="card-footer text-center border-top-0">
+								<button type="button" class="custom-btn"
 									id="btnHome" onclick="Home();">Home</button>
 
 							</div>
@@ -637,7 +637,7 @@ $(document)
 				<div th:if="${formmode}=='list'">
 					<div class="panel panel-primary filterable">
 						<div class="card w-100 border panel panel-primary filterable">
-							<div class="card-header" style="background-color: #f5a142">
+							<div class="card-header">
 								<div class="d-flex justify-content-between align-items-center">
 									<h5 class=" mb-0">EXPENDITURE</h5>
 									<div class="d-flex align-items-center">
@@ -648,7 +648,7 @@ $(document)
 											class="form-control font-weight-bold" placeholder="HEAD"
 											hidden>
 										<button type="button"
-											class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
+											class="custom-btn btn-filter">Filter</button>
 									</div>
 								</div>
 							</div>
@@ -705,10 +705,8 @@ $(document)
 
 
 
-							<div class="card-footer text-center border-top-0"
-								style="background-color: #f5a142">
-
-								<button type="button" class="btn btn-xs btn-primary ml-2"
+							<div class="card-footer text-center border-top-0">
+								<button type="button" class="custom-btn"
 									id="btnBack" onclick="back();">Back</button>
 							</div>
 

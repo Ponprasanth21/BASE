@@ -24,6 +24,9 @@
 <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
 	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
@@ -72,8 +75,6 @@ body {
 }
 
 .table .thead-light th {
-	color: #495057;
-	background-color: #f5a142;
 	border-color: #dee2e6;
 	width: 23px;
 }
@@ -415,18 +416,15 @@ input:hover+.password-info {
 						<div class="card w-100 border panel panel-primary filterable">
 
 							<div class="card-header"
-								style="background-color: #f5a142; height: 50px">
+								style="height: 50px">
 								<div class="float-left">
-									<h6
-										style="margin-left: -15px; font-size: 1.2rem; color: black;">TRAIL
-										BALANCE - LIST</h6>
+									<h4>TRAIL BALANCE - LIST</h4>
 								</div>
-
 								<div
 									class="float-right d-flex justify-content-end align-items-center"
 									style="flex-wrap: nowrap;">
 									<button type="button"
-										class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
+										class="custom-btn btn-filter">Filter</button>
 									<input type="date" name="reportDate" id="reportDate"
 										th:value="${TRANDATE}"
 										class="form-control form-control-sm bg-white border border-dark" />
@@ -574,13 +572,9 @@ input:hover+.password-info {
 
 							</div>
 
-							<div class="card-footer text-center mt-2"
-								style="background-color: #f5a142">
-
-
-								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
-								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
-
+							<div class="card-footer text-center mt-2">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
 							</div>
 						</div>
 					</div>

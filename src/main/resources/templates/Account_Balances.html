@@ -20,6 +20,9 @@
 <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
 	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
@@ -99,7 +102,7 @@ body {
 
 .tablinks.active {
 	background-color: #2084a9;
-	color: white;
+	color:white;
 }
 
 .tab {
@@ -625,12 +628,10 @@ input:hover+.password-info {
 			<div class="col-sm-11 ml-5 mt-2">
 
 				<div th:if="${formmode}=='list'">
-					<div class="card-header "
-						style="background-color: #f5a142; HEIGHT: 50px; padding-left: 5px;">
+					<div class="card-header " style="height:50px;">
 
 						<div class="float-left">
-							<h6 style="font-size: 1.2rem; color: black;" class="ml-4">Account
-								Balances</h6>
+							<h4>Account Balances</h4>
 						</div>
 					</div>
 
@@ -645,17 +646,11 @@ input:hover+.password-info {
 								Account Balances
 							</label>
 						</div>
-
 					</div>
 
-
-					<div class="card-footer text-center"
-						style="background-color: #f5a142;">
-
-
+					<div class="card-footer text-center">
 						<button class="btn btn-primary P-2" onclick="Home();">Home</button>
 						<button class="btn btn-primary P-2" onclick="back();">Back</button>
-
 					</div>
 
 
@@ -670,7 +665,7 @@ input:hover+.password-info {
 								<div class="panel panel-primary filterable">
 									<div
 										class="card-header d-flex justify-content-between align-items-center"
-										style="background-color: #f5a142; height: auto;">
+										style="height: auto;">
 										<div>
 											<h4
 												style="font-family: Verdana; font-size: x-large; font-style: inherit;">Lease
@@ -690,8 +685,7 @@ input:hover+.password-info {
 
 										<div class="table-responsive mt-2">
 											<table class=" table  table-bordered  table-hover table-sm">
-												<thead style="background-color: #f5a142;">
-
+												<thead>
 													<tr>
 														<th>Sr No</th>
 														<th>Customer ID</th>
@@ -731,10 +725,10 @@ input:hover+.password-info {
 									</div>
 
 									<div class="card-footer text-center">
-										<button type="button" class="btn btn-primary" id="btnHome"
+										<button type="button" class="custom-btn" id="btnHome"
 											onclick="home()">Home</button>
 
-										<button type="button" class="btn btn-primary" id="btnBack"
+										<button type="button" class="custom-btn" id="btnBack"
 											onclick="back()">Back</button>
 
 									</div>

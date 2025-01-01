@@ -24,6 +24,9 @@
 <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/color_document.css}">
+
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
 	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
@@ -674,19 +677,15 @@ input:hover+.password-info {
 						<div class="card w-100 border panel panel-primary filterable">
 
 							<div class="card-header"
-								style="background-color: #e9ecef; height: 50px">
+								style="height: 50px">
 								<div class="float-left">
-									<h6 style="font-size: 1.2rem; color: black;">ACCOUNT
-										LEDGER - LIST</h6>
+									<h4>ACCOUNT LEDGER - LIST</h4>
 								</div>
 								<div class="float-right">
 									<button type="button"
-										class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
+										class="custom-btn btn-filter">Filter</button>
 								</div>
 							</div>
-
-
-
 
 							<div class="card-body">
 								<div class="table-responsive">
@@ -760,13 +759,9 @@ input:hover+.password-info {
 								</div>
 							</div>
 
-							<div class="card-footer text-center"
-								style="background-color: #e9ecef">
-
-
-								<button class="btn btn-primary p-2" onclick="Home();">Home</button>
-								<button class="btn btn-primary p-2" onclick="Back();">Back</button>
-
+							<div class="card-footer text-center">
+								<button class="custom-btn" onclick="Home();">Home</button>
+								<button class="custom-btn" onclick="Back();">Back</button>
 							</div>
 
 						</div>
@@ -780,9 +775,9 @@ input:hover+.password-info {
 
 					<div class="card w-100 border">
 						<div class="card-header"
-							style="background-color: #e9ecef; height: 50px">
+							style="height: 50px">
 							<div class="float-left">
-								<h6 style="font-size: 1.2rem; color: black;">ACCOUNT LEDGER - VIEW</h6>
+								<h4>ACCOUNT LEDGER - VIEW</h4>
 							</div>
 
 						</div>
@@ -1041,13 +1036,10 @@ input:hover+.password-info {
 							</tbody>
 						</table>
 						<!---------------------------------------------------------------------------------------------------->
-						<div class="card-footer text-center"
-							style="background-color: #e9ecef">
-							<button class="btn btn-primary" onclick="Home();">Home</button>
-							<button class="btn btn-primary" onclick="Back();">Back</button>
+						<div class="card-footer text-center">
+							<button class="custom-btn" onclick="Home();">Home</button>
+							<button class="custom-btn" onclick="Back();">Back</button>
 						</div>
-
-
 					</div>
 
 

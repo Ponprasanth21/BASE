@@ -105,8 +105,8 @@ body {
 }
 
 .tablinks.active {
-	background-color: #f5a142;
-	color: white;
+	background-color: #2084a9;
+	color:white;
 }
 
 .tab {
@@ -633,17 +633,17 @@ input:hover+.password-info {
 							</div>
 						</div>
 						<div class="tab mt-2"
-							style="background-color: #f5a142; padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
+							style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; margin-top: 10px; width: 100%; height: 43px">
 							<button class="tablinks" onclick="openTab(event, 'tab1')"
-								style="font-size: 16px; padding: 4px 8px; height: 32px; color: white;">Head
+								style="font-size: 16px; padding: 4px 8px; height: 32px;">Head
 								Office</button>
 							<button class="tablinks" onclick="openTab(event, 'tab2')"
-								style="font-size: 16px; padding: 4px 8px; height: 32px; color: white;">Branches</button>
+								style="font-size: 16px; padding: 4px 8px; height: 32px;">Branches</button>
 							<button class="tablinks" onclick="openTab(event, 'tabCalendar')"
-								style="font-size: 16px; padding: 4px 8px; height: 32px; color: white;">Calendar
+								style="font-size: 16px; padding: 4px 8px; height: 32px;">Calendar
 								Maintenance</button>
 							<button class="tablinks" onclick="openTab(event, 'tab3')"
-								style="font-size: 16px; padding: 4px 8px; height: 32px; color: white;">Exceptions</button>
+								style="font-size: 16px; padding: 4px 8px; height: 32px;">Exceptions</button>
 						</div>
 
 						<div id="tab1" class="tabcontent" style="display: block">
@@ -840,7 +840,7 @@ input:hover+.password-info {
 
 						<div id="tab2" class="tabcontent" style="display: none">
 							<div class="card-body">
-								<div class="card-header">
+								<div class="card-header" style="height:50px;">
 									<div class="float-left">
 										<h4>LIST OF BRANCHES</h4>
 									</div>
@@ -853,7 +853,6 @@ input:hover+.password-info {
 									style="margin-bottom: 0px; font-size: initial;"
 									id="AssosiateTable">
 									<thead class="table-header">
-
 										<tr>
 											<th>Srl No</th>
 											<th>Branch Code</th>
@@ -915,15 +914,15 @@ input:hover+.password-info {
 						<div id="tabCalendar" class="tabcontent" style="display: none;">
 							<div class="tab mt-2"
 								style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around;
-								 background-color: #f5a142;color:white; margin-top: 10px; width: 100%; height: 43px">
+								margin-top: 10px; width: 100%; height: 43px">
 								<!-- Submodule Tab buttons for Calendar Maintenance -->
 								<button class="subtablinks"
 									onclick="openSubTab(event, 'tabCalendarMaster')"
-									style="font-size: 16px; padding: 4px 8px; height: 32px;color:white;">Calendar
+									style="font-size: 16px; padding: 4px 8px; height: 32px;">Calendar
 									Master</button>
 								<button class="subtablinks"
 									onclick="openSubTab(event, 'tabHolidayMaster')"
-									style="font-size: 16px; padding: 4px 8px; height: 32px;color:white;">Holiday
+									style="font-size: 16px; padding: 4px 8px; height: 32px;">Holiday
 									Master</button>
 							</div>
 
