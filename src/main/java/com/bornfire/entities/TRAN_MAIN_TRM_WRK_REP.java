@@ -284,8 +284,16 @@ List<TRAN_MAIN_TRM_WRK_ENTITY> set_dab_acc_num(@Param("acctnum") List<String> ac
 	@Query(value = "select  * from BGLS_TRM_WRK_TRANSACTIONS order by TRAN_DATE,TRAN_ID,PART_TRAN_ID ", nativeQuery = true)
 	List<TRAN_MAIN_TRM_WRK_ENTITY> findByjournal();
 	
-	@Query(value = "select  * from BGLS_TRM_WRK_TRANSACTIONS where tran_date=?1 order by TRAN_DATE,TRAN_ID,PART_TRAN_ID  ", nativeQuery = true)
+	/*
+	 * @Query(value =
+	 * "select  * from BGLS_TRM_WRK_TRANSACTIONS where tran_date=?1 order by TRAN_DATE,TRAN_ID,PART_TRAN_ID  "
+	 * , nativeQuery = true) List<TRAN_MAIN_TRM_WRK_ENTITY> findByjournal1(Date
+	 * date);
+	 */
+	
+	@Query(value = "SELECT * FROM BGLS_TRM_WRK_TRANSACTIONS WHERE TRUNC(TRAN_DATE) = TRUNC(?1) ORDER BY TRAN_DATE, TRAN_ID, PART_TRAN_ID", nativeQuery = true)
 	List<TRAN_MAIN_TRM_WRK_ENTITY> findByjournal1(Date date);
+
 	
 	@Query(value = "select * from BGLS_TRM_WRK_TRANSACTIONS aa where aa.part_tran_id =?2 and aa.tran_id =?1 ", nativeQuery = true)
 	TRAN_MAIN_TRM_WRK_ENTITY getmodifyjournal(String tran_id, String part_tran_id);
