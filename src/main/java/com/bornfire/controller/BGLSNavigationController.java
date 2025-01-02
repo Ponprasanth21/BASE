@@ -56,6 +56,8 @@ import com.bornfire.entities.Account_Ledger_Rep;
 import com.bornfire.entities.Assosiate_Profile_Entity;
 import com.bornfire.entities.Assosiate_Profile_Repo;
 import com.bornfire.entities.BACP_CUS_PROFILE_REPO;
+import com.bornfire.entities.BAJAccountLedgerRepo;
+import com.bornfire.entities.BAJ_TrmView_Repo;
 import com.bornfire.entities.BGLSAuditTable_Rep;
 import com.bornfire.entities.BGLSBusinessTable_Entity;
 import com.bornfire.entities.BGLSBusinessTable_Rep;
@@ -289,6 +291,15 @@ public class BGLSNavigationController {
 
 	@Autowired
 	HolidayMaster_Rep holidayMaster_Rep;
+	
+	
+	@Autowired
+	BAJAccountLedgerRepo bAJAccountLedgerRepo;
+	
+	@Autowired
+	BAJ_TrmView_Repo bAJ_TrmView_Repo;
+	
+	
 
 	public String getPagesize() {
 		return pagesize;
@@ -3430,4 +3441,24 @@ public class BGLSNavigationController {
 		return msg;
 	}
 
+	
+	@RequestMapping(value = "AccountLedger", method = { RequestMethod.GET, RequestMethod.POST })
+	public String AccountLedger(@RequestParam(required = false) String formmode, Model md, HttpServletRequest req,
+			@RequestParam(required = false) String acct_num) {
+		System.out.println("The account " + acct_num);
+		
+
+		if (formmode == null || formmode.equals("list")) {
+			md.addAttribute("AccountLedger", bAJAccountLedgerRepo.getList());
+			md.addAttribute("formmode", "list");
+
+		} else if (formmode.equals("ViewAccLedger")) {
+			md.addAttribute("formmode", "ViewAccLedger");
+			md.addAttribute("Accountvalue", bAJAccountLedgerRepo.getaccno(acct_num));
+			md.addAttribute("AccList", bAJ_TrmView_Repo.getAccRecord(acct_num));
+
+		}
+
+		return "BTMAccountLedger";
+	}
 }

@@ -51,6 +51,9 @@ import com.bornfire.entities.Access_Role_Entity;
 import com.bornfire.entities.Account_Ledger_Entity;
 import com.bornfire.entities.Account_Ledger_Rep;
 import com.bornfire.entities.BACP_CUS_PROFILE_REPO;
+import com.bornfire.entities.BAJ_DABView_Rep;
+import com.bornfire.entities.BAJ_TrmView_Entity;
+import com.bornfire.entities.BAJ_TrmView_Repo;
 import com.bornfire.entities.BGLSAuditTable;
 import com.bornfire.entities.BGLSAuditTable_Rep;
 import com.bornfire.entities.BGLSBusinessTable_Entity;
@@ -214,6 +217,14 @@ public class BGLSRestController {
 
 	@Autowired
 	Transaction_Reversed_Table_Repo transaction_Reversed_Table_Repo;
+	
+	
+	@Autowired
+	BAJ_TrmView_Repo bAJ_TrmView_Repo;
+
+	@Autowired
+	BAJ_DABView_Rep bAJ_DABView_Rep;
+
 
 	/* THANVEER */
 	@RequestMapping(value = "employeeAdd", method = RequestMethod.POST)
@@ -4347,4 +4358,89 @@ public class BGLSRestController {
 		return msg;
 	}
 
+	@GetMapping("/getTransactionBalance2")
+	@ResponseBody
+	public Object getTransactionBalance2(@RequestParam(required = false) String acctnum,
+			@RequestParam(required = false) String fromdate, Model md) {
+
+		System.out.println("Acct number: " + acctnum + " From date: " + fromdate);
+
+		SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		Date fromDateParsed = null;
+		String formattedDate = null;
+
+		try {
+			// Ensure 'fromdate' is correctly parsed
+			if (fromdate != null) {
+				fromDateParsed = inputDateFormat.parse(fromdate);
+			}
+
+			// Format the parsed date to 'dd-MMM-yyyy'
+			if (fromDateParsed != null) {
+				SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+				formattedDate = outputDateFormat.format(fromDateParsed); // Format to'dd-MMM-yyyy'
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			System.out.println("Error parsing 'fromdate': " + e.getMessage());
+		}
+
+		// Now pass the formatted date to the repository query
+		Object[] tranDateBal = bAJ_DABView_Rep.getTranlst(acctnum, formattedDate);
+		System.out.println("tranDateBal"+tranDateBal);
+		/*
+		 * md.addAttribute("Accountvalue1", tranDateBal[0]);
+		 * md.addAttribute("Accountvalue2", tranDateBal[0]);
+		 */
+		
+		
+		
+		
+		return tranDateBal;
+	}
+	
+	@GetMapping("/getTransactionRecords2")
+	@ResponseBody
+	public List<BAJ_TrmView_Entity> getTransactionRecords2(@RequestParam(required = false) String acctnum,
+			@RequestParam(required = false) String fromdate, @RequestParam(required = false) String todate) {
+		System.out.println("getTrans------------");
+
+		// Define the input date format
+		SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+		Date fromDateParsed = null;
+		Date toDateParsed = null;
+
+		try {
+			if (fromdate != null) {
+				fromDateParsed = inputDateFormat.parse(fromdate);
+			}
+			if (todate != null) {
+				toDateParsed = inputDateFormat.parse(todate);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			// Handle the exception, possibly return an error response
+			//return List.of(); // Return an empty list or handle appropriately
+		}
+
+		// Format dates for display or further processing
+		SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String formattedDate = (fromDateParsed != null) ? outputDateFormat.format(fromDateParsed) : null;
+		String formattedDate1 = (toDateParsed != null) ? outputDateFormat.format(toDateParsed) : null;
+
+		System.out.println("Formatted Dates: From = " + formattedDate + ", To = " + formattedDate1);
+
+		List<BAJ_TrmView_Entity> records = bAJ_TrmView_Repo.getTranlst(acctnum, formattedDate, formattedDate1);
+
+		System.out.println("Records: " + records);
+		for (BAJ_TrmView_Entity up1 : records) {
+			System.out.println("Record: " + up1);
+		}
+
+		return records;
+	}
+	
+	
+	
 }

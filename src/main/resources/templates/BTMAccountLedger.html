@@ -1,0 +1,834 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function listcharge(a) {
+		var acct_num = a.getAttribute("data-acct_num");
+		console.log(acct_num);
+		location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
+				+ acct_num;
+	}
+
+	$(function () {
+	    $("#fromdate").datepicker({
+	        changeMonth: true,
+	        changeYear: true,
+	        dateFormat: "dd-mm-yy",
+	        maxDate: 0,
+	        onSelect: function (selected) {
+	            var dt = $(this).datepicker('getDate');
+	            if (dt) {
+	                dt.setDate(dt.getDate());
+	                $("#todate").datepicker("option", "minDate", dt);
+	            }
+	        }
+	    });
+
+	    $("#todate").datepicker({
+	        changeMonth: true,
+	        changeYear: true,
+	        dateFormat: "dd-mm-yy",
+	        maxDate: 0,
+	        onSelect: function (selected) {
+	            var fromdate = $("#fromdate").val();
+	            var todate = $("#todate").val();
+
+	            if (!fromdate) {
+	                alert("Enter From date");
+	            } else {
+	                funcall();
+	            }
+	        }
+	    });
+	});
+
+</script>
+<script type="text/javascript">
+ 
+</script>
+
+<script type="text/javascript">
+
+
+   
+</script>
+
+
+<style>
+/* Hide the "Part Tran Id" and "Test" columns */
+.part-tran-id-col, .test-col {
+	display: none;
+}
+</style>
+<script>
+function formatDecimal(value, decimalPlaces) {
+	    return parseFloat(value).toFixed(decimalPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
+function formatDate(dateString) {
+	    let date = new Date(dateString);
+	    let day = String(date.getDate()).padStart(2, '0'); // Add leading zero if necessary
+	    let month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+	    let year = date.getFullYear();
+	    return `${day}-${month}-${year}`;
+	}
+
+
+
+
+var globalBalance1 = 0.00;
+
+
+
+function funcall() { 
+		
+	    /* updateMinusDate(); */
+
+	   
+	    var acctnum = $('#acct_num').val();
+	    var fromdate = $('#fromdate').val();
+	    var todate = $('#todate').val();
+
+	    // Validate account number and date fields
+	    if (!acctnum) {
+	        alert("Account number is required");
+	        return;
+	    }
+	    if (!fromdate || !todate) {
+	        alert("Both From and To dates are required");
+	        return;
+	    }
+
+	    // Hide the initial table and show a loading message
+	    $('#list1').hide();
+	    $('#loadingMessage').show();  // Show loading message
+
+	 // Inside the success function after the balanceData fetch
+	    $.ajax({
+	        url: './getTransactionBalance2',  // API endpoint for balance
+	        type: 'GET',
+	        data: {
+	            acctnum: acctnum,
+	            fromdate: fromdate
+	        },
+	        success: function (balanceData) {
+	        	 console.log("balancedata2:"+balanceData);  // Log the full response
+
+	             // Since balanceData[0] is the inner array, access the first element of that inner array
+	             let innerArray = balanceData[0];  // The inner array
+					let date1 = innerArray[0];  
+	                 let Obalance = innerArray[1];  
+	                 let formattedDateString = new Date(date1).toLocaleDateString('en-GB');
+	              // Format the balance with commas as thousand separators and two decimal places
+	                 let formattedBalance = Obalance.toLocaleString('en-US', { 
+	                     minimumFractionDigits: 2, 
+	                     maximumFractionDigits: 2 
+	                 });
+	         
+	            let balance = parseFloat(Obalance);
+
+
+	            // Second AJAX call to get transaction records
+	            $.ajax({
+	                url: './getTransactionRecords2',
+	                type: 'GET',
+	                data: {
+	                    acctnum: acctnum,
+	                    fromdate: fromdate,
+	                    todate: todate
+	                },
+	                success: function (data) {
+	                    
+	                	console.log("datadatadatadatadatadatadatadatadata"+data)
+
+	                    // Clear the existing table rows
+	                    var tableBody = document.getElementById("transactionBody");
+	                    tableBody.innerHTML = '';  // Remove all old rows
+						
+	                    
+	                    if (isNaN(parseFloat(formattedBalance))) {
+	                        openingBalance = '0.00';  // Default value if it's NaN
+	                    }
+
+	                  
+	                    let headerHTML = `
+	                        <tr>
+	                    		<td colspan="1"><strong>B/F:</strong>${formattedDateString}</td>
+	                            <td colspan="2"></td>
+	                            <td colspan="3"></td>
+	                            <td colspan="1" style="text-align:right">${formattedBalance}</td>
+	                        </tr>`;
+	                    tableBody.innerHTML = headerHTML;  // Insert the header row
+						
+	                    let transactions = [];
+	                    // Generate new rows for the fetched transaction data
+	                    let trHTML = '';
+	                    
+	                    data.forEach(function (record) {
+	                        let formattedDate = record.tran_date ? formatDate(record.tran_date) : '';
+	                        let debitAmount = (record.part_tran_type === 'debit') ? parseFloat(formatDecimal(record.tran_amt, 2).replace(/,/g, '')) : 0.00;
+	                        let creditAmount = (record.part_tran_type === 'credit') ? parseFloat(formatDecimal(record.tran_amt, 2).replace(/,/g, '')) : 0.00;
+	                        let tran = (record.tran_id || '') + "/" + (record.part_tran_id || '');
+	                        //let balance = getBalanceFromAlert(formattedAlertMessage, tran);
+	                      
+	                        
+	                        console.log("balancebalancebalancebalancebalancebalancebalance"+balance+tran)
+	                       if (record.part_tran_type === 'debit') {
+                			balance -= debitAmount;
+            				} else if (record.part_tran_type === 'credit') {
+                				balance += creditAmount;
+            					}
+	                        // Remove the minus sign from the balance by using its absolute value
+	                        let absoluteBalance = Math.abs(balance);
+	                       /*  globalBalance1 = balance;   */
+	                        // Determine the indicator based on the balance value
+	                        let indicator = '';
+	                        if (balance < 0) {
+	                            indicator = 'DR';  // Debit if balance is negative
+	                        } else if (balance >= 0) {
+	                            indicator = 'CR';  // Credit if balance is positive
+	                        }
+
+	                        // Generate the row with formatted date, debit, credit, balance (without minus), and indicator columns
+	                        trHTML += `
+	                            <tr>
+	                                <td>${formattedDate}</td>
+	                                <td>${tran}</td>
+	                                <td>${(record.tran_particular || '')}</td>
+	                                <td>${(record.acct_crncy || '')}</td>
+	                                <td style="text-align:right">${formatDecimal(debitAmount, 2)}</td>
+	                                <td style="text-align:right">${formatDecimal(creditAmount, 2)}</td>
+	                                <td style="text-align:right">${formatDecimal(absoluteBalance, 2)}</td>
+	                                <td style="text-align:right">${indicator}</td>
+	                            </tr>`;
+	                            
+	                            
+	                            
+	                            
+	                        transactions.push({ tran, balance });
+	                        console.log("transactions transactions transactions"+transactions);
+	                        
+	                     
+	                    });
+
+	                    // Add the new rows to the table body
+	                    tableBody.innerHTML += trHTML;  // Append the transaction rows
+
+	                    // Hide the loading message and show the updated table
+	                    $('#loadingMessage').hide();
+	                    $('#transactionTable').show();
+	                    
+	                    $('#downloadButton').show(); 
+	                },
+	                error: function (error) {
+	                    alert("Error occurred: " + error.responseText);
+	                    $('#loadingMessage').hide();  // Hide loading message on error
+	                }
+	            });
+	        },
+	        error: function (error) {
+	            alert("Error occurred while fetching balance: " + error.responseText);
+	            $('#loadingMessage').hide();  // Hide loading message on error
+	        }
+	    });
+
+	}
+ 
+
+
+// Function to extract balance from alert message
+ function getBalanceFromAlert(alertMessage, tran) {
+    // Find the start index of the relevant section
+    let startIndex = alertMessage.indexOf(`Column 2: ${tran}`);
+   
+    if (startIndex !== -1) {
+        let balanceText = alertMessage.substring(startIndex);
+        
+        let balanceStartIndex = balanceText.indexOf("Updated Balance: ");
+       
+        if (balanceStartIndex !== -1) {
+            balanceText = balanceText.substring(balanceStartIndex + "Updated Balance: ".length);
+            let balanceEndIndex = balanceText.indexOf("\n");
+            if (balanceEndIndex === -1) {
+                balanceEndIndex = balanceText.length;
+            }
+            return parseFloat(balanceText.substring(0, balanceEndIndex).replace(/,/g, ''));
+        }
+    }
+    return 0;
+} 
+
+	 let globalBalance = 0;
+	let formattedAlertMessage = '';  // Global variable to store the formatted alert message
+
+	document.addEventListener("DOMContentLoaded", function() {
+	    let rows = document.querySelectorAll("#listvalues tr");
+	    let balance = 0;
+
+	    rows.forEach(row => {
+	        // Extract values from columns 1 to 7
+	        let tran = row.querySelector("td:nth-child(1)").innerText.trim();
+	        let col2 = row.querySelector("td:nth-child(2)").innerText.trim();
+	        let col3 = row.querySelector("td:nth-child(3)").innerText.trim();
+	        let col4 = row.querySelector("td:nth-child(4)").innerText.trim();
+	        let debit = parseFloat(row.querySelector("td:nth-child(5) span").innerText.replace(/,/g, '')) || 0;
+	        let credit = parseFloat(row.querySelector("td:nth-child(6) span").innerText.replace(/,/g, '')) || 0;
+	        let balanceValue = parseFloat(row.querySelector("td:nth-child(7)").innerText.replace(/,/g, '')) || 0;
+
+	        // Update the running balance
+	        balance = balance - debit + credit;
+
+	        // Format the alert message for this row
+	        let message = `Transaction: ${tran}\n` +
+	                      `Column 2: ${col2}\n` +
+	                      `Column 3: ${col3}\n` +
+	                      `Column 4: ${col4}\n` +
+	                      `Debit: ${debit}\n` +
+	                      `Credit: ${credit}\n` +
+	                      `Balance Value: ${balanceValue}\n` +
+	                      `Updated Balance: ${formatDecimal(balance, 2)}`;
+
+	        // Store the message in the global variable
+	        formattedAlertMessage += message + '\n\n';  // Append each message with a newline for separation
+
+	        // Set the balance in the last column with formatted number
+	        row.querySelector(".balancelist").innerText = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(balance);
+	    });
+
+	    // Store the final balance in the global variable
+	    globalBalance = balance;
+
+	}); 
+
+
+// Function to get the first date from the table and set it in the From Date field
+	function setFirstDate() {
+		// Get all date elements from the table (Tran Date column)
+		var dateElements = document.querySelectorAll('#list1 tbody tr td:nth-child(1) span');
+		
+		if (dateElements.length > 0) {
+			// Retrieve the first date (assuming the table is sorted by date)
+			var firstDate = dateElements[0].textContent;
+
+			// Set the first date in the From Date input field
+			document.getElementById('fromdate').value = firstDate;
+		}
+	}
+
+
+	function setCurrentDate() {
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+		var yyyy = today.getFullYear();
+		var currentDate = dd + '-' + mm + '-' + yyyy; // Format: dd-MM-yyyy
+
+		document.getElementById('todate').value = currentDate;
+	}
+
+
+window.onload = function() {
+		setFirstDate();
+		setCurrentDate();
+	};
+
+	
+
+
+	$('#TranBalance').val(formattedBalance);
+	/* $('#minusdate').val(previousDate); */
+	
+	
+function downloadFile(fileType) {
+		  
+	      
+	        var a = document.getElementById("acct_num").value;
+			var b = document.getElementById("fromdate").value;
+			var c = document.getElementById("todate").value;
+			alert(a+b+c);
+	        location.href = 'accountledgerdownload?filetype=' + fileType+'&acct_num='+a+'&fromdate='+b+'&todate='+c+'&globalBalance1='+globalBalance1;
+}
+
+
+//Example of a filtered transaction list with calculated balance
+
+// Send the data to the backend
+/* fetch('/generateReport', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ transactions: filteredTransactions })
+}).then(response => response.json())
+  .then(data => {
+      console.log('Report generated:', data);
+  }); */
+  
+  
+
+ 
+  function sendFilteredDataToBackend(transactions) {
+	  console.log("transactionstransactionstransactions2222222222222"+ transactions)
+      $.ajax({
+          url: 'generateReport',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({ transactions: transactions }), // Send the transactions as JSON
+          success: function(response) {
+              console.log('Transactions successfully sent to backend');
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.error('Error sending transactions:', textStatus, errorThrown);
+          }
+      });
+  }
+
+
+</script>
+</head>
+<title>BTM</title>
+<body>
+<div class="col-sm-2">
+
+		<div th:insert="BGLSHeaderMenu :: header"></div>
+	</div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container-manager" >
+		<div class="row"  >
+		<div class="col-sm-11">
+		<div th:if="${formmode}=='list'">
+		
+			<form action="#" method="post" autocomplete="off" >
+				<div class="card w-100 h-100 border">
+					<div class="card-header d-flex justify-content-between">
+						<h4>Account Ledger-Inquiries</h4>
+					
+					</div>
+					<div class="card-body p-2">
+						<div class="table-responsive mt-3">
+							<table class="table table-bordered">
+								<thead>
+									<tr class="filters">
+										<th>Classification</th>
+										<th>Account Number</th>
+										<th>Account Name</th>
+										<th>Currency</th>
+										<th>Credits</th>
+										<th>Debits</th>
+										<th>Balance</th>
+										<th>Status</th>
+										<th>Select</th>
+									</tr>
+								</thead>
+								<tbody id="listvalues2" th:each="values : ${AccountLedger}">
+									<tr>
+										<td><span th:text="${values.classification}"></span></td>
+										<td><span th:text="${values.acct_num}"></span></td>
+										<td><span th:text="${values.acct_name}"></span></td>
+										<td><span th:text="${values.acct_crncy}"></span></td>
+										<td><span
+											th:text="${values.cr_amt != null && values.cr_amt != 0 ? #numbers.formatDecimal(values.cr_amt, 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+
+										<td><span
+											th:text="${values.dr_amt  != null && values.dr_amt  != 0 ? #numbers.formatDecimal(values.dr_amt , 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+
+
+										<td><span
+											th:text="${values.acct_bal != null  && values.acct_bal  != 0? #numbers.formatDecimal(values.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+										<th:block th:switch="${values.acct_status}">
+											<td th:case="'Y'" style="color: green; text-align: left;">ACTIVE</td>
+											<td th:case="'N'" style="color: red; text-align: left;">DEACTIVE</td>
+											<td th:case="*">UNKNOWN STATUS</td>
+										</th:block>
+
+										<td style="text-align: center;"><input type="radio"
+											id="btnclick" name="btnradio" style="cursor: pointer;"
+											th:attr="data-acct_num=${values.acct_num}"
+											th:id="${values.acct_num}" onclick="listcharge(this)"></td>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer text-center border-top-0 bg-white">
+						<button type="button" class="btn btn-primary" id="btnHome"
+							onclick="home();">Home</button>
+						<button type="button" class="btn btn-primary" id="btnBack"
+							onclick="home();">Back</button>
+					</div>
+				</div>
+			</form>
+			</div>
+			</div>
+		</div>
+		<!-------- -------------------------view--------------------------------------------- -->
+
+
+		<div th:if="${formmode}=='ViewAccLedger'">
+
+			<div class="row" style="width: 1500px; height: 200px">
+
+				<div class="col-sm-12"
+					style="margin-left: 3px; width: 1500px; height: 330px">
+
+					<div class="card w-100 h-100 border" style="width: 1800px;margin:0px;padding:0px;" >
+						<div class="card-header">
+							<div>
+								<div class="float-left">
+									<h5>ACCOUNT LEDGER</h5>
+								</div>
+								<!-- <div class="float-right" id="downloadButton"
+									style="display: none;">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle"
+											data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">Download</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#"
+												onclick="filterTransactions()">Download PDF</a>
+											 <a class="dropdown-item" href="#"
+												id='downloadButton2'>Download Excel</a>
+										</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="card-body" >
+							<form action="#" id="" th:object="${Accountvalue}">
+								<div class="w-100 h-100">
+
+									<div class="row formline">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Account No</div>
+										<div class="col-sm-2">
+											<input type="text" name="acct_num" id="acct_num"
+												class="form-control-sm" th:value="${Accountvalue?.acct_num}"
+												readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Account Name</div>
+										<div class="col-sm-2">
+											<input type="text" name="acct_name" id="acct_name"
+												class="form-control-sm"
+												th:value="${Accountvalue?.acct_name}" readonly>
+										</div>
+									</div>
+
+									<div class="row formline" >
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Account Currency</div>
+										<div class="col-sm-2">
+											<input type="text" name="acct_crncy" id="acct_crncy"
+												class="form-control-sm"
+												th:value="${Accountvalue?.acct_crncy}" readonly />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Account Balance</div>
+										<div class="col-sm-2">
+											<input type="text" name="acct_bal" id="acct_bal"
+												class="form-control-sm"
+												th:value="${Accountvalue?.acct_bal != null && Accountvalue?.acct_bal != 0 ? 
+                      #numbers.formatDecimal(Accountvalue?.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : 
+                      '0.00'}"
+												readonly />
+										</div>
+
+									</div>
+								</div>
+
+								<div class="row formline" >
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">General Ledger</div>
+									<div class="col-sm-2">
+										<input type="text" name="gl_code" id="gl_code"
+											class="form-control-sm" th:value="${Accountvalue?.gl_code}"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">GL Description</div>
+									<div class="col-sm-2">
+										<input type="text" name="gl_desc" id="gl_desc"
+											class="form-control-sm" th:value="${Accountvalue?.gl_desc}"
+											readonly />
+									</div>
+								</div>
+								<div class="row formline" >
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">GL Sub Head</div>
+									<div class="col-sm-2">
+										<input type="text" name="glsh_code" id="glsh_code"
+											class="form-control-sm" th:value="${Accountvalue?.glsh_code}"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">GL Sub Head Description</div>
+									<div class="col-sm-2">
+										<input type="text" name="glsh_desc" id="glsh_desc"
+											class="form-control-sm" th:value="${Accountvalue?.glsh_desc}"
+											readonly />
+									</div>
+								</div>
+								<div class="row formline" >
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Ref Currency</div>
+									<div class="col-sm-2">
+										<input type="text" name="ref_crncy" id="ref_crncy"
+											class="form-control-sm" th:value="${Accountvalue?.ref_crncy}"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Ref Currency Balance</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ref_crncy_bal" id="ref_crncy_bal"
+											class="form-control-sm"
+											th:value="${Accountvalue?.ref_crncy_bal != null && Accountvalue?.ref_crncy_bal != 0 ? 
+                      #numbers.formatDecimal(Accountvalue?.ref_crncy_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : 
+                      '0.00'}"
+											readonly />
+									</div>
+								</div>
+								<div class="row formline" >
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Type</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_type" id="acct_type"
+											class="form-control-sm" th:value="${Accountvalue?.acct_type}"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Status</div>
+									<div class="col-sm-2">
+										<input type="text" name="acct_status" id="acct_status"
+											class="form-control-sm"
+											th:value="${Accountvalue?.acct_status == 'Y' ? 'ACTIVE' : (Accountvalue?.acct_status == 'N' ? 'DEACTIVE' : 'UNKNOWN STATUS')}"
+											readonly />
+									</div>
+								</div>
+								<div class="row formline">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">From Date</div>
+									<div class="col-sm-2">
+										<input type="text" id="fromdate" class="form-control-sm"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">To Date</div>
+									<div class="col-sm-2">
+										<input type="text" name="todate" id="todate"
+											class="form-control-sm" onchange="funcall()" />
+									</div>
+								</div>
+								</form>
+						</div>
+						
+						<!-- ----------------------------------------------------------------------------------------------------- -->
+						<div class="card-body "  style="margin:0px;padding:0px;" >
+							<div class="table-responsive " >
+								<table class="table table-bordered " id="list1" >
+									<thead>
+										<tr class="filters">
+											<th>Tran Date</th>
+											<th>Tran Id</th>
+											<th>Tran Particulars</th>
+											<th>Currency</th>
+											<th style="text-align:right">Debits</th>
+											<th style="text-align:right">Credits</th>
+											<th style="text-align:right">Balance</th>
+
+										</tr>
+									</thead>
+									<tbody id="listvalues" th:each="values, iterStat : ${AccList}">
+										<tr style="line-height:0px;">
+											<td><span
+												th:text="${#dates.format(values.tran_date, 'dd-MM-yyyy')}"></span></td>
+											<td><span
+												th:text="${values.tran_id} + '/' + ${values.part_tran_id}"></span></td>
+											<td><span th:text="${values.tran_particular}"></span></td>
+											<td><span th:text="${values.acct_crncy}"></span></td>
+											<td style="text-align:right"><span
+												th:text="${values.part_tran_type == 'debit' ? #numbers.formatDecimal(values.tran_amt, 1, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+											<td style="text-align:right"><span
+												th:text="${values.part_tran_type == 'credit' ? #numbers.formatDecimal(values.tran_amt, 1, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+											<td style="text-align:right"><span class="balancelist" th:text="0.00"></span></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+						
+						<!-- -------------------------------------------------------------------------------------- -->
+
+						<div id="loadingMessage" style="display: none;">Loading,
+							please wait...</div>
+
+						<div class="row formline" style="display: none;"
+							id="invisibledate">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2">Previous Date</div>
+							<div class="col-sm-2">
+								<input type="text" id="minusdate" class="form-control-sm"
+									th:text="${#dates.format(Accountvalue1, 'dd-MM-yyyy')}"> readonly />
+							</div>
+							
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2">Opening Balance</div>
+							<div class="col-sm-2">
+								<input class="form-control-sm" id="TranBalance" readonly />
+							</div>
+						</div>
+						<!-- Table to display transaction records -->
+						<table class="table" id="transactionTable"
+							style="display: none;margin:0px;padding:0px;">
+							<thead>
+								<tr style="line-height: 0px">
+									<th >Tran Date</th>
+									<th >Tran Id</th>
+									<th >Tran Particulars</th>
+									<th >Currency</th>
+									<th style="text-align:right">Debits</th>
+									<th style="text-align:right">Credits</th>
+									<th style="text-align:right">Balance</th>
+									<th style="text-align:right">Indicator</th>
+								</tr>
+							</thead>
+							<tbody id="transactionBody">
+								<!-- This row is for Previous Date and Opening Balance -->
+								<tr>
+
+								</tr>
+							</tbody>
+						</table>
+						<!---------------------------------------------------------------------------------------------------->
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+</body>
+</html>
