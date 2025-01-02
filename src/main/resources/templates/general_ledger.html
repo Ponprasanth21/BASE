@@ -142,20 +142,16 @@ input:hover+.password-info {
 }
 </style>
 
-<script>
-	function Home() {
-
+<script th:inline="javascript">
+	function home() {
 		location.href = 'Dashboard';
 	}
 
-	function Back() {
+	function back() {
 		window.history.back();
 	}
 </script>
-
 </head>
-
-
 <body>
 
 	<div class="col-sm-2">
@@ -176,81 +172,83 @@ input:hover+.password-info {
 								<h4>GENERAL LEDGER - LIST</h4>
 							</div>
 						</div>
-								<div class=card-body>
-								<label>ACCOUNT LIST</label> <input type="text" id="gross_sal">
-						 </div>
-
-						<div class="table-responsive">
-							<table class="table  table-bordered  table-hover table-sm"
-								style="margin-bottom: 0px; font-size: initial;" id="usertable">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align: center">Sub Head</th>
-										<th style="text-align: center;">Description</th>
-										<th style="text-align: center">Acc Number</th>
-										<th style="text-align: center">Account Balance</th>
-										<th style="text-align: center">Opening Balance</th>
-										<th style="text-align: center">Credits</th>
-										<th style="text-align: center">Debits</th>
-										<th style="text-align: center">Closeing Balance</th>
-									</tr>
-								</thead>
-								<tbody id="placelist">
-									<tr th:each="chartacc : ${chartaccount}">
-										<td th:text="${chartacc?.classification}"></td>
-										<td th:text="${chartacc?.gl_code}" style="text-align: right;"></td>
-										<td th:text="${chartacc?.glsh_code}"
-											style="text-align: right;"></td>
-										<td th:text="${chartacc?.acct_num}" style="text-align: right;"></td>
-										<td th:text="${chartacc?.acct_name}"></td>
-										<td th:text="${chartacc?.acct_crncy}"></td>
-										<td th:text="${chartacc?.cr_amt}" style="text-align: right;"></td>
-										<td th:text="${chartacc?.dr_amt}" style="text-align: right;"></td>
-										<td th:text="${chartacc?.acct_bal}" style="text-align: right;"></td>
-										<th:block th:switch="${chartacc.entity_flg}">
-											<td th:case="'Y'" style="color: green;">Active</td>
-											<td th:case="'N'" style="color: red;">UnActive</td>
-										</th:block>
-										<td>
-											<div class="dropdown" style="text-align: center;">
-												<button class="btn btn-sm btn-info btns" type="button"
-													id="dropdownMenuButton" data-toggle="dropdown"
-													aria-haspopup="true" aria-expanded="false">Action</button>
-												<div class="dropdown-menu"
-													aria-labelledby="dropdownMenuButton">
-													<button type="button" class="dropdown-item" id="btnmodify"
-														th:attr="data-attr=${chartacc?.acct_num}"
-														style="text-align: center;" onclick="modifyuser(this);">Modify</button>
-													<div class="dropdown-divider"></div>
-													<button type="button" class="dropdown-item" id="btnmodify"
-														th:attr="data-attr=${chartacc?.acct_num}"
-														style="text-align: center;" onclick="verifyuser(this);">Verify</button>
-													<div class="dropdown-divider"></div>
-													<button type="button" class="dropdown-item" id="btndelete"
-														th:attr="data-attribute=${chartacc?.acct_num}"
-														style="text-align: center;" onclick="deleteuser(this);">Delete</button>
-													<div class="dropdown-divider"></div>
-													<button type="button" class="dropdown-item" id="btnEnquiry"
-														th:attr="data-attr=${chartacc?.acct_num}"
-														style="text-align: center;" onclick="enquiryuser(this);">view</button>
+						<div class=card-body>
+							<label>ACCOUNT LIST</label> <input type="text" id="gross_sal">
+							<div class="table-responsive">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead class="thead-light">
+										<tr>
+											<th style="text-align: center">Sub Head</th>
+											<th style="text-align: center;">Description</th>
+											<th style="text-align: center">Acc Number</th>
+											<th style="text-align: center">Account Balance</th>
+											<th style="text-align: center">Opening Balance</th>
+											<th style="text-align: center">Credits</th>
+											<th style="text-align: center">Debits</th>
+											<th style="text-align: center">Closeing Balance</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="chartacc : ${chartaccount}">
+											<td th:text="${chartacc?.classification}"></td>
+											<td th:text="${chartacc?.gl_code}" style="text-align: right;"></td>
+											<td th:text="${chartacc?.glsh_code}"
+												style="text-align: right;"></td>
+											<td th:text="${chartacc?.acct_num}"
+												style="text-align: right;"></td>
+											<td th:text="${chartacc?.acct_name}"></td>
+											<td th:text="${chartacc?.acct_crncy}"></td>
+											<td th:text="${chartacc?.cr_amt}" style="text-align: right;"></td>
+											<td th:text="${chartacc?.dr_amt}" style="text-align: right;"></td>
+											<td th:text="${chartacc?.acct_bal}"
+												style="text-align: right;"></td>
+											<th:block th:switch="${chartacc.entity_flg}">
+												<td th:case="'Y'" style="color: green;">Active</td>
+												<td th:case="'N'" style="color: red;">UnActive</td>
+											</th:block>
+											<td>
+												<div class="dropdown" style="text-align: center;">
+													<button class="btn btn-sm btn-info btns" type="button"
+														id="dropdownMenuButton" data-toggle="dropdown"
+														aria-haspopup="true" aria-expanded="false">Action</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton">
+														<button type="button" class="dropdown-item" id="btnmodify"
+															th:attr="data-attr=${chartacc?.acct_num}"
+															style="text-align: center;" onclick="modifyuser(this);">Modify</button>
+														<div class="dropdown-divider"></div>
+														<button type="button" class="dropdown-item" id="btnmodify"
+															th:attr="data-attr=${chartacc?.acct_num}"
+															style="text-align: center;" onclick="verifyuser(this);">Verify</button>
+														<div class="dropdown-divider"></div>
+														<button type="button" class="dropdown-item" id="btndelete"
+															th:attr="data-attribute=${chartacc?.acct_num}"
+															style="text-align: center;" onclick="deleteuser(this);">Delete</button>
+														<div class="dropdown-divider"></div>
+														<button type="button" class="dropdown-item"
+															id="btnEnquiry" th:attr="data-attr=${chartacc?.acct_num}"
+															style="text-align: center;" onclick="enquiryuser(this);">view</button>
+													</div>
 												</div>
-											</div>
 
-										</td>
-									</tr>
-								</tbody>
-							</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 						<div class="card-footer text-center border-top-0">
-							<button type="button" class="custom-btn"
-								id="btnHome" onclick="home();">Home</button>
-							<button type="button" class="custom-btn"
-								id="btnBack" onclick="back();">Back</button>
+							<button type="button" class="custom-btn" id="btnHome"
+								onclick="home();">Home</button>
+							<button type="button" class="custom-btn" id="btnBack"
+								onclick="back();">Back</button>
 						</div>
 
 					</div>
-
 				</div>
+
+
 			</div>
 		</div>
 	</div>

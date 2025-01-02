@@ -193,12 +193,12 @@ input:hover+.password-info {
 .table-bordered thead th {
 	position: sticky;
 	top: 0; /* Keeps the header fixed */
-	background-color: #f1f1f1; /* Optional: header background color */
+	background-color: #e9ecef; /* Optional: header background color */
 	z-index: 1;
 }
 
 .table-responsive {
-	max-height: 650px;
+	max-height: 655px;
 	overflow-y: auto;
 }
 
@@ -508,7 +508,6 @@ function verifysubmit(a) {
 										style="text-align: center;" onclick="adduser(this);">Add</button>
 								</div>
 							</div>
-
 							<div class="mt-3"
 								style="padding: 4px 4px; position: relative; display: flex; justify-content: space-around; width: 100%;">
 								<!-- Tab buttons -->
@@ -532,14 +531,13 @@ function verifysubmit(a) {
 									onclick="Account(this);"
 									style="font-size: 16px; padding: 4px 8px; height: 40%; width: 18%;">Account
 									Ledger</button>
-
 							</div>
 
 							<div class="card-body">
 								<div class="table-responsive">
 									<table class="table  table-bordered  table-hover table-sm"
 										style="margin-bottom: 0px; font-size: initial;" id="usertable">
-										<thead class="table-header">
+										<thead class="table-header" style="background-color: #e9ecef;">
 											<tr class="filters">
 												<th style="width: 6%"><input type="text"
 													class="form-control font-weight-bold" placeholder="Head"

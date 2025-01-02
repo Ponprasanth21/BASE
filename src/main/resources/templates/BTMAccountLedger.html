@@ -44,11 +44,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 <style>
-.btns {
-	float: right;
-	margin: 5px;
-}
-
 .col-sm-5 {
 	padding-bottom: 15px;
 }
@@ -85,6 +80,7 @@
 nav {
 	border-bottom: 2px solid grey;
 }
+
 .container-manager {
 	width: 83.5%;
 	padding-right: 15px;
@@ -93,6 +89,64 @@ nav {
 	margin-left: 17.3%;
 	margin-top: 80px;
 	margin-top: 80px;
+}
+</style>
+<style>
+.table-bordered td {
+	font-size: smaller;
+	padding: 8px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+.table-container {
+	position: relative;
+	max-height: 500px; /* Set the height of the scrollable area */
+	overflow-y: scroll; /* Force a vertical scrollbar */
+}
+
+.table-bordered {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table-bordered thead th {
+	position: sticky;
+	top: 0; /* Keeps the header fixed */
+	background-color: #e9ecef; /* Optional: header background color */
+	z-index: 1;
+}
+
+.table-responsive {
+	max-height: 655px;
+	overflow-y: auto;
+}
+
+  .table-responsive1 {
+    max-height: 400px; /* Set the height for the scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+.table-bordered tbody td {
+	background-color: #fff; /* Optional: body row background color */
+}
+
+ .rmvbord {
+    border: none;  /* Removes the border */
+    background-color: transparent;  /* Removes the background color */
+    color: black;  /* Text color */
+    padding: 10px 20px;  /* Add padding */
+    cursor: pointer;  /* Pointer cursor on hover */
+  }
+
+  .rmvbord:hover {
+    background-color: transparent;  /* Ensures no background on hover */
+  }
+</style>
+<style>
+/* Hide the "Part Tran Id" and "Test" columns */
+.part-tran-id-col, .test-col {
+	display: none;
 }
 </style>
 <script th:inline="javascript">
@@ -147,24 +201,7 @@ nav {
 	});
 
 </script>
-<script type="text/javascript">
- 
-</script>
-
-<script type="text/javascript">
-
-
-   
-</script>
-
-
-<style>
-/* Hide the "Part Tran Id" and "Test" columns */
-.part-tran-id-col, .test-col {
-	display: none;
-}
-</style>
-<script>
+<script th:inline="javascript">
 function formatDecimal(value, decimalPlaces) {
 	    return parseFloat(value).toFixed(decimalPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -490,94 +527,88 @@ function downloadFile(fileType) {
 
 </script>
 </head>
-<title>BTM</title>
+<title>BASE</title>
 <body>
-<div class="col-sm-2">
-
+	<div class="col-sm-2">
 		<div th:insert="BGLSHeaderMenu :: header"></div>
 	</div>
 
 	<!---------------------User List Ends--------------------------------------------------------->
 	<!---------------------User Edit form Starts-------------------------------------------------->
-	<div class="container-manager" >
-		<div class="row"  >
-		<div class="col-sm-11">
-		<div th:if="${formmode}=='list'">
-		
-			<form action="#" method="post" autocomplete="off" >
-				<div class="card w-100 h-100 border">
-					<div class="card-header d-flex justify-content-between">
-						<h4>Account Ledger-Inquiries</h4>
-					
-					</div>
-					<div class="card-body p-2">
-						<div class="table-responsive mt-3">
-							<table class="table table-bordered">
-								<thead>
-									<tr class="filters">
-										<th>Classification</th>
-										<th>Account Number</th>
-										<th>Account Name</th>
-										<th>Currency</th>
-										<th>Credits</th>
-										<th>Debits</th>
-										<th>Balance</th>
-										<th>Status</th>
-										<th>Select</th>
-									</tr>
-								</thead>
-								<tbody id="listvalues2" th:each="values : ${AccountLedger}">
-									<tr>
-										<td><span th:text="${values.classification}"></span></td>
-										<td><span th:text="${values.acct_num}"></span></td>
-										<td><span th:text="${values.acct_name}"></span></td>
-										<td><span th:text="${values.acct_crncy}"></span></td>
-										<td><span
-											th:text="${values.cr_amt != null && values.cr_amt != 0 ? #numbers.formatDecimal(values.cr_amt, 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11 ml-5 mt-2">
 
-										<td><span
-											th:text="${values.dr_amt  != null && values.dr_amt  != 0 ? #numbers.formatDecimal(values.dr_amt , 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+				<div th:if="${formmode}=='list'">
+					<form action="#" method="post" autocomplete="off">
+						<div class="card w-100 h-100 border">
+							<div class="card-header d-flex justify-content-between"
+								style="background-color: #e9ecef;">
+								<h4>Account Ledger-Inquiries</h4>
+
+							</div>
+							<div class="card-body p-2">
+								<div class="table-responsive mt-3">
+									<table class="table table-bordered">
+										<thead>
+											<tr class="filters">
+												<th>Classification</th>
+												<th>Account Number</th>
+												<th>Account Name</th>
+												<th>Currency</th>
+												<th>Credits</th>
+												<th>Debits</th>
+												<th>Balance</th>
+												<th>Status</th>
+												<th>Select</th>
+											</tr>
+										</thead>
+										<tbody id="listvalues2" th:each="values : ${AccountLedger}">
+											<tr>
+												<td><span th:text="${values.classification}"></span></td>
+												<td><span th:text="${values.acct_num}"></span></td>
+												<td><span th:text="${values.acct_name}"></span></td>
+												<td><span th:text="${values.acct_crncy}"></span></td>
+												<td><span
+													th:text="${values.cr_amt != null && values.cr_amt != 0 ? #numbers.formatDecimal(values.cr_amt, 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+
+												<td><span
+													th:text="${values.dr_amt  != null && values.dr_amt  != 0 ? #numbers.formatDecimal(values.dr_amt , 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
 
 
-										<td><span
-											th:text="${values.acct_bal != null  && values.acct_bal  != 0? #numbers.formatDecimal(values.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-										<th:block th:switch="${values.acct_status}">
-											<td th:case="'Y'" style="color: green; text-align: left;">ACTIVE</td>
-											<td th:case="'N'" style="color: red; text-align: left;">DEACTIVE</td>
-											<td th:case="*">UNKNOWN STATUS</td>
-										</th:block>
+												<td><span
+													th:text="${values.acct_bal != null  && values.acct_bal  != 0? #numbers.formatDecimal(values.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
+												<th:block th:switch="${values.acct_status}">
+													<td th:case="'Y'" style="color: green; text-align: left;">ACTIVE</td>
+													<td th:case="'N'" style="color: red; text-align: left;">DEACTIVE</td>
+													<td th:case="*">UNKNOWN STATUS</td>
+												</th:block>
 
-										<td style="text-align: center;"><input type="radio"
-											id="btnclick" name="btnradio" style="cursor: pointer;"
-											th:attr="data-acct_num=${values.acct_num}"
-											th:id="${values.acct_num}" onclick="listcharge(this)"></td>
-								</tbody>
-							</table>
+												<td style="text-align: center;"><input type="radio"
+													id="btnclick" name="btnradio" style="cursor: pointer;"
+													th:attr="data-acct_num=${values.acct_num}"
+													th:id="${values.acct_num}" onclick="listcharge(this)"></td>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef;">
+								<button type="button" class="custom-btn rmvbord" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="custom-btn rmvbord" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
 						</div>
-					</div>
-					<div class="card-footer text-center border-top-0 bg-white">
-						<button type="button" class="btn btn-primary" id="btnHome"
-							onclick="home();">Home</button>
-						<button type="button" class="btn btn-primary" id="btnBack"
-							onclick="home();">Back</button>
-					</div>
+					</form>
 				</div>
-			</form>
-			</div>
-			</div>
-		</div>
-		<!-------- -------------------------view--------------------------------------------- -->
+				<!-------- -------------------------view--------------------------------------------- -->
 
 
-		<div th:if="${formmode}=='ViewAccLedger'">
-
-			<div class="row" style="width: 1500px; height: 200px">
-
-				<div class="col-sm-12"
-					style="margin-left: 3px; width: 1500px; height: 330px">
-
-					<div class="card w-100 h-100 border" style="width: 1800px;margin:0px;padding:0px;" >
-						<div class="card-header">
+				<div th:if="${formmode}=='ViewAccLedger'">
+					<div class="card w-100 h-100 border"
+						style="width: 1800px; margin: 0px; padding: 0px;">
+						<div class="card-header" style="background-color: #e9ecef;">
 							<div>
 								<div class="float-left">
 									<h5>ACCOUNT LEDGER</h5>
@@ -598,7 +629,7 @@ function downloadFile(fileType) {
 								</div> -->
 							</div>
 						</div>
-						<div class="card-body" >
+						<div class="card-body">
 							<form action="#" id="" th:object="${Accountvalue}">
 								<div class="w-100 h-100">
 
@@ -620,7 +651,7 @@ function downloadFile(fileType) {
 										</div>
 									</div>
 
-									<div class="row formline" >
+									<div class="row formline">
 										<div class="col-sm-1"></div>
 										<div class="col-sm-2">Account Currency</div>
 										<div class="col-sm-2">
@@ -644,7 +675,7 @@ function downloadFile(fileType) {
 									</div>
 								</div>
 
-								<div class="row formline" >
+								<div class="row formline">
 									<div class="col-sm-1"></div>
 									<div class="col-sm-2">General Ledger</div>
 									<div class="col-sm-2">
@@ -661,7 +692,7 @@ function downloadFile(fileType) {
 											readonly />
 									</div>
 								</div>
-								<div class="row formline" >
+								<div class="row formline">
 									<div class="col-sm-1"></div>
 									<div class="col-sm-2">GL Sub Head</div>
 									<div class="col-sm-2">
@@ -678,7 +709,7 @@ function downloadFile(fileType) {
 											readonly />
 									</div>
 								</div>
-								<div class="row formline" >
+								<div class="row formline">
 									<div class="col-sm-1"></div>
 									<div class="col-sm-2">Ref Currency</div>
 									<div class="col-sm-2">
@@ -699,7 +730,7 @@ function downloadFile(fileType) {
 											readonly />
 									</div>
 								</div>
-								<div class="row formline" >
+								<div class="row formline">
 									<div class="col-sm-1"></div>
 									<div class="col-sm-2">Account Type</div>
 									<div class="col-sm-2">
@@ -732,103 +763,103 @@ function downloadFile(fileType) {
 											class="form-control-sm" onchange="funcall()" />
 									</div>
 								</div>
-								</form>
+							</form>
 						</div>
-						
+
 						<!-- ----------------------------------------------------------------------------------------------------- -->
-						<div class="card-body "  style="margin:0px;padding:0px;" >
-							<div class="table-responsive " >
-								<table class="table table-bordered " id="list1" >
+						<div class="card-body " style="margin: 0px; padding: 0px;">
+							<div class="table-responsive1">
+								<table class="table table-bordered " id="list1">
 									<thead>
 										<tr class="filters">
 											<th>Tran Date</th>
 											<th>Tran Id</th>
 											<th>Tran Particulars</th>
 											<th>Currency</th>
-											<th style="text-align:right">Debits</th>
-											<th style="text-align:right">Credits</th>
-											<th style="text-align:right">Balance</th>
+											<th style="text-align: right">Debits</th>
+											<th style="text-align: right">Credits</th>
+											<th style="text-align: right">Balance</th>
 
 										</tr>
 									</thead>
 									<tbody id="listvalues" th:each="values, iterStat : ${AccList}">
-										<tr style="line-height:0px;">
+										<tr style="line-height: 0px;">
 											<td><span
 												th:text="${#dates.format(values.tran_date, 'dd-MM-yyyy')}"></span></td>
 											<td><span
 												th:text="${values.tran_id} + '/' + ${values.part_tran_id}"></span></td>
 											<td><span th:text="${values.tran_particular}"></span></td>
 											<td><span th:text="${values.acct_crncy}"></span></td>
-											<td style="text-align:right"><span
+											<td style="text-align: right"><span
 												th:text="${values.part_tran_type == 'debit' ? #numbers.formatDecimal(values.tran_amt, 1, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-											<td style="text-align:right"><span
+											<td style="text-align: right"><span
 												th:text="${values.part_tran_type == 'credit' ? #numbers.formatDecimal(values.tran_amt, 1, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-											<td style="text-align:right"><span class="balancelist" th:text="0.00"></span></td>
+											<td style="text-align: right"><span class="balancelist"
+												th:text="0.00"></span></td>
 										</tr>
 									</tbody>
 								</table>
-
 							</div>
+
+
+							<!-- -------------------------------------------------------------------------------------- -->
+
+							<div id="loadingMessage" style="display: none;">Loading,
+								please wait...</div>
+
+							<div class="row formline" style="display: none;"
+								id="invisibledate">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Previous Date</div>
+								<div class="col-sm-2">
+									<input type="text" id="minusdate" class="form-control-sm"
+										th:text="${#dates.format(Accountvalue1, 'dd-MM-yyyy')}">
+									readonly />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2"></div>
+								<div class="col-sm-2">Opening Balance</div>
+								<div class="col-sm-2">
+									<input class="form-control-sm" id="TranBalance" readonly />
+								</div>
+							</div>
+							<!-- Table to display transaction records -->
+							<table class="table" id="transactionTable"
+								style="display: none; margin: 0px; padding: 0px;">
+								<thead>
+									<tr style="line-height: 0px">
+										<th>Tran Date</th>
+										<th>Tran Id</th>
+										<th>Tran Particulars</th>
+										<th>Currency</th>
+										<th style="text-align: right">Debits</th>
+										<th style="text-align: right">Credits</th>
+										<th style="text-align: right">Balance</th>
+										<th style="text-align: right">Indicator</th>
+									</tr>
+								</thead>
+								<tbody id="transactionBody">
+									<!-- This row is for Previous Date and Opening Balance -->
+									<tr>
+
+									</tr>
+								</tbody>
+							</table>
+
 						</div>
-						
-						<!-- -------------------------------------------------------------------------------------- -->
-
-						<div id="loadingMessage" style="display: none;">Loading,
-							please wait...</div>
-
-						<div class="row formline" style="display: none;"
-							id="invisibledate">
-							<div class="col-sm-1"></div>
-							<div class="col-sm-2">Previous Date</div>
-							<div class="col-sm-2">
-								<input type="text" id="minusdate" class="form-control-sm"
-									th:text="${#dates.format(Accountvalue1, 'dd-MM-yyyy')}"> readonly />
-							</div>
-							
-							<div class="col-sm-1"></div>
-							<div class="col-sm-2"></div>
-							<div class="col-sm-2">Opening Balance</div>
-							<div class="col-sm-2">
-								<input class="form-control-sm" id="TranBalance" readonly />
-							</div>
-						</div>
-						<!-- Table to display transaction records -->
-						<table class="table" id="transactionTable"
-							style="display: none;margin:0px;padding:0px;">
-							<thead>
-								<tr style="line-height: 0px">
-									<th >Tran Date</th>
-									<th >Tran Id</th>
-									<th >Tran Particulars</th>
-									<th >Currency</th>
-									<th style="text-align:right">Debits</th>
-									<th style="text-align:right">Credits</th>
-									<th style="text-align:right">Balance</th>
-									<th style="text-align:right">Indicator</th>
-								</tr>
-							</thead>
-							<tbody id="transactionBody">
-								<!-- This row is for Previous Date and Opening Balance -->
-								<tr>
-
-								</tr>
-							</tbody>
-						</table>
 						<!---------------------------------------------------------------------------------------------------->
-						<div class="card-footer text-center"
-							style="background-color: #e9ecef">
-							<button class="btn btn-primary" onclick="Home();">Home</button>
-							<button class="btn btn-primary" onclick="Back();">Back</button>
+						<div class="card-footer text-center" style="background-color: #e9ecef;">
+							<button type="button" class="custom-btn rmvbord" id="btnHome"
+								onclick="home();">Home</button>
+							<button type="button" class="custom-btn rmvbord" id="btnBack"
+								onclick="back();">Back</button>
 						</div>
-
-
 					</div>
-
 				</div>
+
 			</div>
 		</div>
-	</div>
-
 	</div>
 </body>
 </html>
