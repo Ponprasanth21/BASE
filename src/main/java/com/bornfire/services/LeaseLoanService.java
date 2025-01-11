@@ -1,18 +1,34 @@
 package com.bornfire.services;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.bornfire.config.BGLSDataSource;
 import com.bornfire.entities.BACP_CUS_PROFILE_REPO;
+import com.bornfire.entities.BAJAccountLedgerRepo;
+import com.bornfire.entities.BAJAccountLedger_Entity;
 import com.bornfire.entities.Chart_Acc_Rep;
 import com.bornfire.entities.DMD_TABLE;
 import com.bornfire.entities.DMD_TABLE_REPO;
@@ -26,12 +42,32 @@ import com.bornfire.entities.Loan_Repayment_Master_Repo;
 import com.bornfire.entities.NoticeDetailsPayment0Entity;
 import com.bornfire.entities.NoticeDetailsPayment0Rep;
 import com.bornfire.entities.TestPrincipalCalculation;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
+import com.lowagie.text.pdf.PdfWriter;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 @Service
 public class LeaseLoanService {
 
 	@Autowired
 	Lease_Loan_Work_Repo lease_Loan_Work_Repo;
+
+	@Autowired
+	Environment env;
+
+	@Autowired
+	DataSource srcdataSource;
 
 	@Autowired
 	NoticeDetailsPayment0Rep paymentWorkRepo;
@@ -44,12 +80,15 @@ public class LeaseLoanService {
 
 	@Autowired
 	DMD_TABLE_REPO dMD_TABLE_REPO;
-	
+
 	@Autowired
 	Chart_Acc_Rep chart_Acc_Rep;
-	
+
 	@Autowired
 	BACP_CUS_PROFILE_REPO bACP_CUS_PROFILE_REPO;
+
+	@Autowired
+	BAJAccountLedgerRepo bAJAccountLedgerRepo;
 
 	@Autowired
 	InterestCalculationServices interestCalculationServices;
@@ -127,15 +166,15 @@ public class LeaseLoanService {
 			lease_Loan_Master_Repo.save(masterLoan);
 			loan_Repayment_Master_Repo.save(masterPayment);
 
-			String demandFlow = disbursementDemand(masterLoan,entryUser);
+			String demandFlow = disbursementDemand(masterLoan, entryUser);
 			System.out.println(demandFlow);
 
-			String principalFlow = principalAndInterestDemand(masterLoan, masterPayment,entryUser);
+			String principalFlow = principalAndInterestDemand(masterLoan, masterPayment, entryUser);
 			System.out.println(principalFlow);
 
 			lease_Loan_Work_Repo.deleteRecord(loandetails.getLoan_accountno());
 			paymentWorkRepo.deleteRecord(repaymentDetails.getAccount_no());
-			
+
 			msg = "Lease Account Verified Successfully";
 		} else {
 			msg = "Lease Account Verified Failed";
@@ -144,7 +183,7 @@ public class LeaseLoanService {
 		return msg;
 	}
 
-	public String disbursementDemand(Lease_Loan_Master_Entity master,String user) {
+	public String disbursementDemand(Lease_Loan_Master_Entity master, String user) {
 
 		DMD_TABLE demand = new DMD_TABLE();
 
@@ -169,7 +208,7 @@ public class LeaseLoanService {
 	}
 
 	public String principalAndInterestDemand(Lease_Loan_Master_Entity master,
-			Loan_Repayment_Master_Entity paymentMaster,String user) {
+			Loan_Repayment_Master_Entity paymentMaster, String user) {
 
 		int no_of_inst = Integer.valueOf(paymentMaster.getNo_of_inst());
 
@@ -258,6 +297,94 @@ public class LeaseLoanService {
 
 		return "Principle and Interest Demand Updated";
 
+	}
+
+	public File getSalaryFile(String filetype, String acctNum, String fromDate, String toDate)
+			throws JRException, SQLException, DocumentException, IOException {
+		String path = env.getProperty("output.exportpath"); // Define the path
+		String fileName = "AccountLedger_" + System.currentTimeMillis();
+		String fullPath = path + fileName;
+
+		// Load and compile the Jasper report
+		InputStream jasperFile = this.getClass().getResourceAsStream("/static/jasper/statement_report.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(jasperFile);
+
+		BAJAccountLedger_Entity value = bAJAccountLedgerRepo.getaccno(acctNum);
+		String tempdata = value.getAccount_type();
+
+		String account_name = value.getAcct_name(); // Retrieve the account name
+		Date date_of_birth = value.getDate_of_birth(); // Retrieve the date of birth
+
+		// Extract the first four letters of the account name
+		String namePart = account_name.substring(0, Math.min(account_name.length(), 4)).toUpperCase();
+
+		// Format the date of birth to extract the first four numbers (DDMM)
+		SimpleDateFormat dateFormat = new SimpleDateFormat("ddMM");
+		String datePart = dateFormat.format(date_of_birth);
+
+		// Combine namePart and datePart to generate the password
+		String password = namePart + datePart;
+
+		// Set the password string variable
+		System.out.println("Generated Password: " + password);
+
+		String temp_ids;
+		if ("SBA".equals(tempdata)) {
+			temp_ids = "SBA001";
+			System.out.println("Savings account present: " + temp_ids);
+		} else if ("CAA".equals(tempdata)) {
+			temp_ids = "CAA001";
+			System.out.println("Current account present: " + temp_ids);
+		} else {
+			temp_ids = ""; // Assign a default value if no condition matches
+			System.out.println("No account type matched. Default template ID: " + temp_ids);
+		}
+
+		// Parameters map creation
+		Map<String, Object> params = new HashMap<>();
+		params.put("ACCT_NO", acctNum); // Account number
+		params.put("FROM_DATE", fromDate); // From date
+		params.put("TO_DATE", toDate); // To date
+		params.put("TEMPLATE_ID", temp_ids); // Template ID derived from tempdata
+
+		// Printing parameters for debugging (optional)
+		System.out.println("Parameters: " + params);
+
+		// Generate report
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, srcdataSource.getConnection());
+
+		if ("pdf".equalsIgnoreCase(filetype)) {
+			fullPath += ".pdf";
+
+			// Export JasperPrint to PDF bytes
+			byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+			// Encrypt the PDF with a password using iText
+			try (FileOutputStream fos = new FileOutputStream(fullPath)) {
+				PdfReader reader = new PdfReader(new ByteArrayInputStream(pdfBytes));
+				PdfStamper stamper = new PdfStamper(reader, fos);
+
+				// Set the user and owner password
+				String userPassword = "1234";
+				String ownerPassword = "owner123"; // Optional, for advanced control
+
+				stamper.setEncryption(userPassword.getBytes(), ownerPassword.getBytes(), PdfWriter.ALLOW_PRINTING, // Permissions
+						PdfWriter.ENCRYPTION_AES_128 // Encryption level
+				);
+				stamper.close();
+				reader.close();
+			}
+		} else if ("excel".equalsIgnoreCase(filetype)) {
+			fullPath += ".xlsx";
+			JRXlsxExporter exporter = new JRXlsxExporter();
+			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fullPath));
+			exporter.exportReport();
+		} else if ("email".equalsIgnoreCase(filetype)) {
+			System.out.println("The gmail will recive that " + filetype);
+		}
+
+		return new File(fullPath);
 	}
 
 }

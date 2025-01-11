@@ -90,6 +90,11 @@ nav {
 	margin-top: 80px;
 	margin-top: 80px;
 }
+
+.nav-link.active {
+	font-weight: bold;
+	color: #007bff;
+}
 </style>
 <style>
 .table-bordered td {
@@ -141,6 +146,11 @@ nav {
 
 .rmvbord:hover {
 	background-color: transparent; /* Ensures no background on hover */
+}
+
+.table-responsive {
+	max-height: 258px;
+	overflow-y: auto;
 }
 </style>
 <style>
@@ -537,39 +547,85 @@ function downloadFile(fileType) {
       });
   }
 
-  function sendemail() {
-	    alert("Email function will be working");
-
-	    var acctNum = document.getElementById("acct_num").value; // Get account number
-	    var fromDate = document.getElementById("fromdate").value; // Get from date
-	    var toDate = document.getElementById("todate").value; // Get to date
-	    alert("Account Number: " + acctNum);
-
-	    // Ensure all fields are filled
-	    if (!acctNum || !fromDate || !toDate) {
-	        alert("Please fill in all fields before sending the email.");
-	        return;
-	    }
-
-	    $.ajax({
-	        url: 'sendingmail_templates',
-	        type: 'POST',
-	        contentType: 'application/json',
-	        data: JSON.stringify({ 
-	            acct_num: acctNum, 
-	            from_date: fromDate, 
-	            to_date: toDate 
-	        }), // Send all parameters as JSON
-	        success: function(response) {
-	            console.log('Email sent successfully:', response);
-	            alert(response); // Notify the user of success
-	        },
-	        error: function(jqXHR, textStatus, errorThrown) {
-	            console.error('Error sending email:', textStatus, errorThrown);
-	            alert('Failed to send email. Please try again.');
-	        }
+  function openTab(evt, tabName) {
+	    // Hide all tab content
+	    const tabContents = document.getElementsByClassName("tabcontent");
+	    Array.from(tabContents).forEach((content) => {
+	        content.style.display = "none";
 	    });
+
+	    // Remove active class from all tabs
+	    const tabLinks = document.getElementsByClassName("nav-link");
+	    Array.from(tabLinks).forEach((link) => {
+	        link.classList.remove("active");
+	    });
+
+	    // Show the selected tab content and add active class
+	    const selectedTab = document.getElementById(tabName);
+	    if (selectedTab) {
+	        selectedTab.style.display = "block";
+	    }
+	    evt.currentTarget.classList.add("active");
 	}
+
+  function savingbalance() {
+	    const savingsDetails = document.getElementById("savingsdetails");
+	    if (savingsDetails.style.display === "none" || !savingsDetails.style.display) {
+	        savingsDetails.style.display = "block"; // Show the element
+	    } else {
+	        savingsDetails.style.display = "none"; // Hide the element
+	    }
+	}
+
+function currentbalance(){
+	alert("hello buddy");
+}
+
+function overdraftbalance(){
+	alert("welcome buddy");
+}
+
+function modify() {
+    alert("alert button will work");
+    document.getElementById("address_line_1").removeAttribute("readonly");
+    document.getElementById("address_line_2").removeAttribute("readonly");
+    document.getElementById("city").removeAttribute("readonly");
+    document.getElementById("state").removeAttribute("readonly");
+    document.getElementById("country").removeAttribute("readonly");
+    document.getElementById("organization_name").removeAttribute("readonly");
+    document.getElementById("footer_content_1").removeAttribute("readonly");
+    document.getElementById("footer_content_2").removeAttribute("readonly");
+    document.getElementById("footer_content_3").removeAttribute("readonly");
+    
+ // Hide the Modify button and show the Submit button
+    document.getElementById("modifybtnclick").style.display = "none"; 
+    document.getElementById("modifybtnsubmit").style.display = "inline-block"; // Change display to make the Submit button visible
+}
+
+function modifysubmit(a) {
+	  var template_id = document.getElementById("template_id_value").innerText.trim(); 
+	alert(template_id)
+	if ($("#modifyForm").valid()) {
+
+		var url = './modifyscreens?template_id=' + template_id;
+
+		$("#modifyForm").attr('action', url);
+
+		var options = {
+			success : showResponse
+		};
+
+		$("#modifyForm").ajaxSubmit(options);
+
+		function showResponse(responseText, statusText, xhr, $form) {
+			$("#alertmsg").text(responseText);
+			$('#alert').modal("toggle");
+
+		}
+		;
+	}
+};
+
 </script>
 </head>
 <title>BASE</title>
@@ -585,340 +641,232 @@ function downloadFile(fileType) {
 			<div class="col-sm-11 ml-5 mt-2">
 
 				<div th:if="${formmode}=='list'">
-					<form action="#" method="post" autocomplete="off">
-						<div class="card w-100 h-100 border">
-							<div class="card-header d-flex justify-content-between"
-								style="background-color: #e9ecef;">
-								<h4>Account Ledger-Inquiries</h4>
-
-							</div>
-							<div class="card-body p-2">
-								<div class="table-responsive mt-3">
-									<table class="table table-bordered">
-										<thead>
-											<tr class="filters">
-												<th>Classification</th>
-												<th>Account Number</th>
-												<th>Account Name</th>
-												<th>Currency</th>
-												<th>Credits</th>
-												<th>Debits</th>
-												<th>Balance</th>
-												<th>Status</th>
-												<th>Select</th>
-											</tr>
-										</thead>
-										<tbody id="listvalues2" th:each="values : ${AccountLedger}">
-											<tr>
-												<td><span th:text="${values.classification}"></span></td>
-												<td><span th:text="${values.acct_num}"></span></td>
-												<td><span th:text="${values.acct_name}"></span></td>
-												<td><span th:text="${values.acct_crncy}"></span></td>
-												<td><span
-													th:text="${values.cr_amt != null && values.cr_amt != 0 ? #numbers.formatDecimal(values.cr_amt, 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-
-												<td><span
-													th:text="${values.dr_amt  != null && values.dr_amt  != 0 ? #numbers.formatDecimal(values.dr_amt , 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-
-
-												<td><span
-													th:text="${values.acct_bal != null  && values.acct_bal  != 0? #numbers.formatDecimal(values.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-												<th:block th:switch="${values.acct_status}">
-													<td th:case="'Y'" style="color: green; text-align: left;">ACTIVE</td>
-													<td th:case="'N'" style="color: red; text-align: left;">DEACTIVE</td>
-													<td th:case="*">UNKNOWN STATUS</td>
-												</th:block>
-
-												<td style="text-align: center;"><input type="radio"
-													id="btnclick" name="btnradio" style="cursor: pointer;"
-													th:attr="data-acct_num=${values.acct_num}"
-													th:id="${values.acct_num}" onclick="listcharge(this)"></td>
-										</tbody>
-									</table>
+					<div class="card w-100 h-100 border">
+						<div class="card-header d-flex justify-content-between"
+							style="background-color: #e9ecef;">
+							<h4>ACCOUNT STATEMENTS - PARAMETER</h4>
+							<div class="row">
+								<!-- Tab Navigation -->
+								<div class="nav-item" role="presentation">
+									<a class="nav-link active" id="account-tab"
+										style="font-size: 16px;" onclick="openTab(event, 'tab1')"
+										href="javascript:void(0);" role="tab" aria-controls="account"
+										aria-selected="true">Account</a>
 								</div>
-							</div>
-							<div class="card-footer text-center"
-								style="background-color: #e9ecef;">
-								<button type="button" class="custom-btn rmvbord" id="btnHome"
-									onclick="home();">Home</button>
-								<button type="button" class="custom-btn rmvbord" id="btnBack"
-									onclick="back();">Back</button>
-							</div>
-						</div>
-					</form>
-				</div>
-				<!-------- -------------------------view--------------------------------------------- -->
-
-
-				<div th:if="${formmode}=='ViewAccLedger'">
-					<div class="card w-100 h-100 border"
-						style="width: 1800px; margin: 0px; padding: 0px;">
-						<div class="card-header" style="background-color: #e9ecef;">
-							<div>
-								<div class="float-left">
-									<h5>ACCOUNT LEDGER</h5>
+								<div class="nav-item" role="presentation">
+									<a class="nav-link" id="customer-tab" style="font-size: 16px;"
+										onclick="openTab(event, 'tab2')" href="javascript:void(0);"
+										role="tab" aria-controls="customer" aria-selected="false">Customer</a>
 								</div>
-								<div class="float-right" id="downloadButton"
-									style="display: none;">
-									<div class="btn-group">
-										<button type="button" class="btn btn-primary dropdown-toggle"
-											data-toggle="dropdown" aria-haspopup="true"
-											aria-expanded="false">Download</button>
-										<div class="dropdown-menu">
-											<a class="dropdown-item" href="#"
-												onclick="downloadFile('pdf')">PDF</a> <a
-												class="dropdown-item" href="#"
-												onclick="downloadFile('excel')" id="downloadButton2">Excel</a>
-											<a class="dropdown-item" href="#"
-												onclick="sendemail(this)" id="downloadButton3">Email</a>
-										</div>
-									</div>
+								<div class="nav-item" role="presentation">
+									<a class="nav-link" id="consolidated-tab"
+										style="font-size: 16px;" onclick="openTab(event, 'tab3')"
+										href="javascript:void(0);" role="tab"
+										aria-controls="consolidated" aria-selected="false">Consolidated</a>
 								</div>
 							</div>
 						</div>
 						<div class="card-body">
-							<form action="#" id="" th:object="${Accountvalue}">
-								<div class="w-100 h-100">
 
-									<div class="row formline">
-										<div class="col-sm-1"></div>
-										<div class="col-sm-2">Account No</div>
-										<div class="col-sm-2">
-											<input type="text" name="acct_num" id="acct_num"
-												class="form-control-sm" th:value="${Accountvalue?.acct_num}"
-												readonly />
-										</div>
-										<div class="col-sm-1"></div>
-										<div class="col-sm-1"></div>
-										<div class="col-sm-2">Account Name</div>
-										<div class="col-sm-2">
-											<input type="text" name="acct_name" id="acct_name"
-												class="form-control-sm"
-												th:value="${Accountvalue?.acct_name}" readonly>
-										</div>
+							<!-- Tab Content -->
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<div class="row">
+									<div class="col-sm-3"></div>
+									<div class="col-sm-2" onclick="savingbalance(this)">
+										<h5>Savings Account</h5>
 									</div>
-
-									<div class="row formline">
-										<div class="col-sm-1"></div>
-										<div class="col-sm-2">Account Currency</div>
-										<div class="col-sm-2">
-											<input type="text" name="acct_crncy" id="acct_crncy"
-												class="form-control-sm"
-												th:value="${Accountvalue?.acct_crncy}" readonly />
-
-										</div>
-										<div class="col-sm-1"></div>
-										<div class="col-sm-1"></div>
-										<div class="col-sm-2">Account Balance</div>
-										<div class="col-sm-2">
-											<input type="text" name="acct_bal" id="acct_bal"
-												class="form-control-sm"
-												th:value="${Accountvalue?.acct_bal != null && Accountvalue?.acct_bal != 0 ? 
-                      #numbers.formatDecimal(Accountvalue?.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : 
-                      '0.00'}"
-												readonly />
-										</div>
-
+									<br>
+									<div class="col-sm-2" onclick="currentbalance(this)">
+										<h5>Current Account</h5>
 									</div>
-								</div>
-
-								<div class="row formline">
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">General Ledger</div>
-									<div class="col-sm-2">
-										<input type="text" name="gl_code" id="gl_code"
-											class="form-control-sm" th:value="${Accountvalue?.gl_code}"
-											readonly />
+									<br>
+									<div class="col-sm-2" onclick="overdraftbalance(this)">
+										<h5>Overdraft Account</h5>
 									</div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">GL Description</div>
-									<div class="col-sm-2">
-										<input type="text" name="gl_desc" id="gl_desc"
-											class="form-control-sm" th:value="${Accountvalue?.gl_desc}"
-											readonly />
-									</div>
-								</div>
-								<div class="row formline">
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">GL Sub Head</div>
-									<div class="col-sm-2">
-										<input type="text" name="glsh_code" id="glsh_code"
-											class="form-control-sm" th:value="${Accountvalue?.glsh_code}"
-											readonly />
-									</div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">GL Sub Head Description</div>
-									<div class="col-sm-2">
-										<input type="text" name="glsh_desc" id="glsh_desc"
-											class="form-control-sm" th:value="${Accountvalue?.glsh_desc}"
-											readonly />
-									</div>
-								</div>
-								<div class="row formline">
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">Ref Currency</div>
-									<div class="col-sm-2">
-										<input type="text" name="ref_crncy" id="ref_crncy"
-											class="form-control-sm" th:value="${Accountvalue?.ref_crncy}"
-											readonly />
-									</div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">Ref Currency Balance</div>
-									<div class="col-sm-2">
-
-										<input type="text" name="ref_crncy_bal" id="ref_crncy_bal"
-											class="form-control-sm"
-											th:value="${Accountvalue?.ref_crncy_bal != null && Accountvalue?.ref_crncy_bal != 0 ? 
-                      #numbers.formatDecimal(Accountvalue?.ref_crncy_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : 
-                      '0.00'}"
-											readonly />
-									</div>
-								</div>
-								<div class="row formline">
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">Account Type</div>
-									<div class="col-sm-2">
-										<input type="text" name="acct_type" id="acct_type"
-											class="form-control-sm" th:value="${Accountvalue?.acct_type}"
-											readonly />
-									</div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">Account Status</div>
-									<div class="col-sm-2">
-										<input type="text" name="acct_status" id="acct_status"
-											class="form-control-sm"
-											th:value="${Accountvalue?.acct_status == 'Y' ? 'ACTIVE' : (Accountvalue?.acct_status == 'N' ? 'DEACTIVE' : 'UNKNOWN STATUS')}"
-											readonly />
-									</div>
-								</div>
-
-								<div class="row formline">
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">Email Id</div>
-									<div class="col-sm-2">
-										<input type="text" name="email_id" id="email_id"
-											class="form-control-sm" th:value="${Accountvalue?.email_id}"
-											readonly />
-									</div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">Phone Number</div>
-									<div class="col-sm-2">
-										<input type="text" name="phone_no" id="phone_no"
-											class="form-control-sm" th:value="${Accountvalue?.phone_no}"
-											readonly />
-									</div>
-								</div>
-
-								<div class="row formline">
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">From Date</div>
-									<div class="col-sm-2">
-										<input type="text" id="fromdate" class="form-control-sm"
-											readonly />
-									</div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-1"></div>
-									<div class="col-sm-2">To Date</div>
-									<div class="col-sm-2">
-										<input type="text" name="todate" id="todate"
-											class="form-control-sm" onchange="funcall()" />
-									</div>
-								</div>
-							</form>
-						</div>
-
-						<!-- ----------------------------------------------------------------------------------------------------- -->
-						<div class="card-body " style="margin: 0px; padding: 0px;">
-							<div class="table-responsive1">
-								<table class="table table-bordered " id="list1">
-									<thead>
-										<tr class="filters">
-											<th>Tran Date</th>
-											<th>Tran Id</th>
-											<th>Tran Particulars</th>
-											<th>Currency</th>
-											<th style="text-align: right">Debits</th>
-											<th style="text-align: right">Credits</th>
-											<th style="text-align: right">Balance</th>
-
-										</tr>
-									</thead>
-									<tbody id="listvalues" th:each="values, iterStat : ${AccList}">
-										<tr style="line-height: 0px;">
-											<td><span
-												th:text="${#dates.format(values.tran_date, 'dd-MM-yyyy')}"></span></td>
-											<td><span
-												th:text="${values.tran_id} + '/' + ${values.part_tran_id}"></span></td>
-											<td><span th:text="${values.tran_particular}"></span></td>
-											<td><span th:text="${values.acct_crncy}"></span></td>
-											<td style="text-align: right"><span
-												th:text="${values.part_tran_type == 'debit' ? #numbers.formatDecimal(values.tran_amt, 1, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-											<td style="text-align: right"><span
-												th:text="${values.part_tran_type == 'credit' ? #numbers.formatDecimal(values.tran_amt, 1, 'COMMA', 2, 'POINT') : '0.00'}"></span></td>
-											<td style="text-align: right"><span class="balancelist"
-												th:text="0.00"></span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-
-							<!-- -------------------------------------------------------------------------------------- -->
-
-							<div id="loadingMessage" style="display: none;">Loading,
-								please wait...</div>
-
-							<div class="row formline" style="display: none;"
-								id="invisibledate">
-								<div class="col-sm-1"></div>
-								<div class="col-sm-2">Previous Date</div>
-								<div class="col-sm-2">
-									<input type="text" id="minusdate" class="form-control-sm"
-										th:text="${#dates.format(Accountvalue1, 'dd-MM-yyyy')}">
-									readonly />
-								</div>
-
-								<div class="col-sm-1"></div>
-								<div class="col-sm-2"></div>
-								<div class="col-sm-2">Opening Balance</div>
-								<div class="col-sm-2">
-									<input class="form-control-sm" id="TranBalance" readonly />
+									<div class="col-sm-3"></div>
 								</div>
 							</div>
-							<!-- Table to display transaction records -->
-							<table class="table" id="transactionTable"
-								style="display: none; margin: 0px; padding: 0px;">
-								<thead>
-									<tr style="line-height: 0px">
-										<th>Tran Date</th>
-										<th>Tran Id</th>
-										<th>Tran Particulars</th>
-										<th>Currency</th>
-										<th style="text-align: right">Debits</th>
-										<th style="text-align: right">Credits</th>
-										<th style="text-align: right">Balance</th>
-										<th style="text-align: right">Indicator</th>
-									</tr>
-								</thead>
-								<tbody id="transactionBody">
-									<!-- This row is for Previous Date and Opening Balance -->
-									<tr>
+							<div id="tab2" class="tabcontent" style="display: none;">
+								<div class="col-sm-2">
+									<h4>Customer Content</h4>
+								</div>
+								<div class="col-sm-10"></div>
+							</div>
+							<div id="tab3" class="tabcontent" style="display: none;">
+								<div class="col-sm-2">
+									<h4>Consolidated Content</h4>
+								</div>
+								<div class="col-sm-10"></div>
+							</div>
 
-									</tr>
-								</tbody>
-							</table>
+							<div class="card" id="savingsdetails" style="display: none;">
+								<div class="card-header">
+									<h4 id="template_id_value"
+										th:text="${savingstempdata.template_id}">Savings account
+										details</h4>
+								</div>
+								<div class="card-body">
+									<form method="post" id="modifyForm" autocomplete="off">
+										<div>
+											<div class="row">
+												<div class="col-sm-10"></div>
+												<div class="col-sm-2">
+													<img th:src=@{/images/client_Logo.png} style="width: 220px"
+														alt="Bornfire">
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-2">
+													<label for="organizationname">Organization Name</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="organization_name"
+														name="organization_name"
+														style="width: auto; min-width: 250px; max-width: 100%; word-wrap: break-word;"
+														th:value="${savingstempdata.organization_name}" readonly />
+												</div>
+											</div>
+											<br>
+											<div>
+												<div class="row">
+													<div class="col-sm-2">
+														<label for="addressLine1">Address Line 1:</label>
+													</div>
+													<div class="col-sm-2">
+														<input id="address_line_1" type="text"
+															name="address_line_1"
+															th:value="${savingstempdata.address_line_1}" readonly />
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-2">
+														<label for="addressLine2">Address Line 2:</label>
+													</div>
+													<div class="col-sm-2">
+														<input id="address_line_2" name="address_line_2"
+															type="text" th:value="${savingstempdata.address_line_2}"
+															readonly />
+													</div>
+												</div>
 
+												<div class="row">
+													<div class="col-sm-2">
+														<label for="cityState">City</label>
+													</div>
+													<div class="col-sm-2">
+														<input id="city" name="city" type="text"
+															th:value="${savingstempdata.city}" readonly />
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-sm-2">
+														<label for="cityState">State</label>
+													</div>
+													<div class="col-sm-2">
+														<input id="state" name="state" type="text"
+															th:value="${savingstempdata.state}" readonly />
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-sm-2">
+														<label for="country">Country:</label>
+													</div>
+													<div class="col-sm-2">
+														<input id="country" name="country" type="text"
+															th:value="${savingstempdata.country}" readonly />
+													</div>
+												</div>
+											</div>
+											<br>
+											<div>
+												<div class="row">
+													<div class="col-sm-8"></div>
+													<div class="col-sm-2">
+														<label>Customer Id</label>
+													</div>
+													<div class="col-sm-2">
+														<input type="text" id="customer_id" name="customer_id"
+															th:value="${savingstempdata.customer_id}" />
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-2">
+														<label>Your Account Statement as on</label>
+													</div>
+													<div class="col-sm-2">
+														<input type="text" value="12-12-2024" readonly />
+													</div>
+													<div class="col-sm-2"></div>
+													<div class="col-sm-2" style="text-align: right;">
+														<label>Statement Period from</label>
+													</div>
+													<div class="col-sm-1" style="text-align: right;">
+														<input type="text" value="12-12-2024" />
+													</div>
+													<div class="col-sm-1" style="text-align: center;">
+														<label>To</label>
+													</div>
+													<div class="col-sm-2">
+														<input type="text" value="12-12-2024" />
+													</div>
+												</div>
+
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-sm-1"
+													style="background-color: #FF813D; color: white;">
+													<img th:src="@{/images/global.png}" style="width: 20px"
+														alt="Bornfire">
+												</div>
+												<div class="col-sm-2"
+													style="background-color: #FF813D; color: white; text-align: left;">
+													<input type="text" id="footer_content_1"
+														name="footer_content_1"
+														style="background-color: #FF813D; color: white; border: none; width: 100%; text-align: left;"
+														th:value="${savingstempdata.footer_content_1}" readonly />
+												</div>
+												<div class="col-sm-3"
+													style="background-color: #FF813D; color: white;"></div>
+												<div class="col-sm-4"
+													style="background-color: #FF813D; color: white; text-align: right;">
+													<input type="text" id="footer_content_2"
+														name="footer_content_2"
+														style="background-color: #FF813D; color: white; border: none; width: 100%; text-align: right;"
+														th:value="${savingstempdata.footer_content_2}" readonly />
+												</div>
+												<div class="col-sm-1"
+													style="background-color: #FF813D; color: white;">
+													<img th:src="@{/images/phone-call.png}" style="width: 20px"
+														alt="Bornfire">
+												</div>
+												<div class="col-sm-1"
+													style="background-color: #FF813D; color: white; text-align: left;">
+													<input type="text" id="footer_content_3"
+														name="footer_content_3"
+														style="background-color: #FF813D; color: white; border: none; width: 100%; text-align: left;"
+														th:value="${savingstempdata.footer_content_3}" readonly />
+												</div>
+											</div>
+
+										</div>
+									</form>
+								</div>
+
+							</div>
 						</div>
-						<!---------------------------------------------------------------------------------------------------->
 						<div class="card-footer text-center"
 							style="background-color: #e9ecef;">
 							<button type="button" class="custom-btn rmvbord" id="btnHome"
 								onclick="home();">Home</button>
+							<button type="button" class="custom-btn rmvbord"
+								id="modifybtnclick" onclick="modify();">Modify</button>
+							<button type="button" class="custom-btn rmvbord"
+								id="modifybtnsubmit" onclick="modifysubmit(this);"
+								style="display: none;">Submit</button>
 							<button type="button" class="custom-btn rmvbord" id="btnBack"
 								onclick="back();">Back</button>
 						</div>
@@ -928,5 +876,33 @@ function downloadFile(fileType) {
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content"
+				style="width: 120%; height: 25%; margin-right: 480px;">
+				<div class="card">
+					<!-- Header with Alert Message -->
+					<div class="modal-header"
+						style="justify-content: center; width: 100%;">
+						<h5 class="modal-title" id="popupAlert" style="font-size: 18px;">BANK
+							OF BARODA</h5>
+					</div>
+					<div class="modal-body"
+						style="text-align: center; display: flex; flex-direction: column; align-items: center; height: 100px; overflow-y: auto; font-weight: bold; font-size: 15px;">
+						<h6 id="alertmsg"></h6>
+					</div>
+					<div class="modal-footer"
+						style="justify-content: center; width: 100%;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="backs()">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

@@ -50,7 +50,11 @@ public class BAJAccountLedger_Entity {
 	private String	passport;
 	private String	bank_acc_name;
 	private String	bank_remarks;
-	
+	private String	account_type;
+	private String	email_id;
+	private BigDecimal	phone_no;
+	private Date	date_of_birth;
+	private String	customer_name;
 	public String getClassification() {
 		return classification;
 	}
@@ -285,10 +289,93 @@ public class BAJAccountLedger_Entity {
 	public void setBank_remarks(String bank_remarks) {
 		this.bank_remarks = bank_remarks;
 	}
+	public String getAccount_type() {
+		return account_type;
+	}
+	public void setAccount_type(String account_type) {
+		this.account_type = account_type;
+	}
+	public String getEmail_id() {
+		return email_id;
+	}
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
+	public BigDecimal getPhone_no() {
+		return phone_no;
+	}
+	public void setPhone_no(BigDecimal phone_no) {
+		this.phone_no = phone_no;
+	}
+	public Date getDate_of_birth() {
+		return date_of_birth;
+	}
+	public void setDate_of_birth(Date date_of_birth) {
+		this.date_of_birth = date_of_birth;
+	}
+	public String getCustomer_name() {
+		return customer_name;
+	}
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
+	}
+	public BAJAccountLedger_Entity(String classification, String acct_type, String gl_code, String gl_desc,
+			String glsh_code, String glsh_desc, String acct_num, String acct_name, String add_det_flg,
+			String acct_partition, String acct_crncy, String ref_crncy, String ref_code, String ref_desc,
+			String rpt_code, String acct_status, BigDecimal cr_amt, BigDecimal dr_amt, BigDecimal acct_bal,
+			BigDecimal ref_crncy_bal, String entry_user, Date entry_time, String modify_user, Date modify_time,
+			String auth_user, Date auth_time, String entity_flg, String del_flg, String acct_cls_flg,
+			Date acct_cls_date, String own_type, String own_remarks, String vendor_type, String vendor_name,
+			String pan_no, String gstin, String passport, String bank_acc_name, String bank_remarks,
+			String account_type, String email_id, BigDecimal phone_no, Date date_of_birth, String customer_name) {
+		super();
+		this.classification = classification;
+		this.acct_type = acct_type;
+		this.gl_code = gl_code;
+		this.gl_desc = gl_desc;
+		this.glsh_code = glsh_code;
+		this.glsh_desc = glsh_desc;
+		this.acct_num = acct_num;
+		this.acct_name = acct_name;
+		this.add_det_flg = add_det_flg;
+		this.acct_partition = acct_partition;
+		this.acct_crncy = acct_crncy;
+		this.ref_crncy = ref_crncy;
+		this.ref_code = ref_code;
+		this.ref_desc = ref_desc;
+		this.rpt_code = rpt_code;
+		this.acct_status = acct_status;
+		this.cr_amt = cr_amt;
+		this.dr_amt = dr_amt;
+		this.acct_bal = acct_bal;
+		this.ref_crncy_bal = ref_crncy_bal;
+		this.entry_user = entry_user;
+		this.entry_time = entry_time;
+		this.modify_user = modify_user;
+		this.modify_time = modify_time;
+		this.auth_user = auth_user;
+		this.auth_time = auth_time;
+		this.entity_flg = entity_flg;
+		this.del_flg = del_flg;
+		this.acct_cls_flg = acct_cls_flg;
+		this.acct_cls_date = acct_cls_date;
+		this.own_type = own_type;
+		this.own_remarks = own_remarks;
+		this.vendor_type = vendor_type;
+		this.vendor_name = vendor_name;
+		this.pan_no = pan_no;
+		this.gstin = gstin;
+		this.passport = passport;
+		this.bank_acc_name = bank_acc_name;
+		this.bank_remarks = bank_remarks;
+		this.account_type = account_type;
+		this.email_id = email_id;
+		this.phone_no = phone_no;
+		this.date_of_birth = date_of_birth;
+		this.customer_name = customer_name;
+	}
 	public BAJAccountLedger_Entity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-
 }

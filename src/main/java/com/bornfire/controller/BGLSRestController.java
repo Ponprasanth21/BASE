@@ -92,6 +92,8 @@ import com.bornfire.entities.TRAN_MAIN_TRM_WRK_ENTITY;
 import com.bornfire.entities.TRAN_MAIN_TRM_WRK_REP;
 import com.bornfire.entities.Td_defn_Repo;
 import com.bornfire.entities.Td_defn_table;
+import com.bornfire.entities.Templates_Data_Entity;
+import com.bornfire.entities.Templates_Data_Rep;
 import com.bornfire.entities.TestPrincipalCalculation;
 import com.bornfire.entities.Test_Collection_Entity;
 import com.bornfire.entities.Transaction_Partition_Detail_Entity;
@@ -217,14 +219,15 @@ public class BGLSRestController {
 
 	@Autowired
 	Transaction_Reversed_Table_Repo transaction_Reversed_Table_Repo;
-	
-	
+
 	@Autowired
 	BAJ_TrmView_Repo bAJ_TrmView_Repo;
 
 	@Autowired
 	BAJ_DABView_Rep bAJ_DABView_Rep;
 
+	@Autowired
+	Templates_Data_Rep templates_Data_Rep;
 
 	/* THANVEER */
 	@RequestMapping(value = "employeeAdd", method = RequestMethod.POST)
@@ -641,8 +644,7 @@ public class BGLSRestController {
 		}
 		return records;
 	}
-	
-	
+
 	/* Thanveer */
 	@RequestMapping(value = "AddScreens", method = RequestMethod.POST)
 
@@ -4387,18 +4389,15 @@ public class BGLSRestController {
 
 		// Now pass the formatted date to the repository query
 		Object[] tranDateBal = bAJ_DABView_Rep.getTranlst(acctnum, formattedDate);
-		System.out.println("tranDateBal"+tranDateBal);
+		System.out.println("tranDateBal" + tranDateBal);
 		/*
 		 * md.addAttribute("Accountvalue1", tranDateBal[0]);
 		 * md.addAttribute("Accountvalue2", tranDateBal[0]);
 		 */
-		
-		
-		
-		
+
 		return tranDateBal;
 	}
-	
+
 	@GetMapping("/getTransactionRecords2")
 	@ResponseBody
 	public List<BAJ_TrmView_Entity> getTransactionRecords2(@RequestParam(required = false) String acctnum,
@@ -4421,7 +4420,7 @@ public class BGLSRestController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 			// Handle the exception, possibly return an error response
-			//return List.of(); // Return an empty list or handle appropriately
+			// return List.of(); // Return an empty list or handle appropriately
 		}
 
 		// Format dates for display or further processing
@@ -4440,7 +4439,23 @@ public class BGLSRestController {
 
 		return records;
 	}
-	
-	
-	
+
+	@RequestMapping(value = "modifyscreens", method = RequestMethod.POST)
+
+	@ResponseBody
+	public String modifyscreens(@RequestParam(required = false) String template_id, Model md, HttpServletRequest rq,
+			@ModelAttribute Templates_Data_Entity templates_Data_Entity) {
+		System.out.println("the getting values template id are here "+template_id);
+		String msg = "";
+		Templates_Data_Entity up = templates_Data_Rep.getRole(template_id);
+		if(Objects.nonNull(up)) {
+			up = templates_Data_Entity;
+			templates_Data_Rep.save(up);
+			msg = "Modify Successfully";
+		}else {
+			msg = "Data Not Found";
+		}
+		return msg;
+	}
+
 }

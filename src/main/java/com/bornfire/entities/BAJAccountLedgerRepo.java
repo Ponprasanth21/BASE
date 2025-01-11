@@ -15,5 +15,6 @@ public interface BAJAccountLedgerRepo extends JpaRepository<BAJAccountLedger_Ent
 	@Query(value = "Select * From COA_VIEW Where acct_num =?1 ", nativeQuery = true)
 	BAJAccountLedger_Entity getaccno(String acct_num);
 	
-
+	@Query(value = "Select * From COA_VIEW Where acct_num =?1 ", nativeQuery = true)
+	List<BAJAccountLedger_Entity> getaccnodata(String acct_num);
 }

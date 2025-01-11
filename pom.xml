@@ -184,9 +184,7 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.co3
-
-        39956m/artifact/org.webjars/chartjs -->
+		<!-- https://mvnrepository.co3 39956m/artifact/org.webjars/chartjs -->
 
 		<dependency>
 
@@ -198,10 +196,8 @@
 
 		</dependency>
 
-		<!-- <dependency> <groupId>org.springframework.session</groupId>
-		<artifactId>spring-session-jdbc</artifactId>
-
-            </dependency> -->
+		<!-- <dependency> <groupId>org.springframework.session</groupId> <artifactId>spring-session-jdbc</artifactId> 
+			</dependency> -->
 
 		<dependency>
 
@@ -211,8 +207,7 @@
 
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
 
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
@@ -220,8 +215,7 @@
 			<version>6.21.3</version>
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts -->
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts -->
 
 		<dependency>
 
@@ -259,8 +253,7 @@
 
 		<!-- EXCEL -->
 
-		<!--
-		https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-functions -->
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-functions -->
 
 		<dependency>
 
@@ -346,8 +339,7 @@
 
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/com.github.darrachequesne/spring-data-jpa-datatables -->
+		<!-- https://mvnrepository.com/artifact/com.github.darrachequesne/spring-data-jpa-datatables -->
 
 		<dependency>
 
@@ -411,6 +403,19 @@
 			<version>1.9.0</version> <!-- Use the latest version -->
 
 		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.70</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version> <!-- Use the version you're working with -->
+		</dependency>
+
 
 	</dependencies>
 

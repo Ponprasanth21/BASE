@@ -1,5 +1,9 @@
 package com.bornfire.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.springframework.core.io.InputStreamResource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,6 +30,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.transaction.Transactional;
@@ -36,6 +41,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +64,7 @@ import com.bornfire.entities.Assosiate_Profile_Entity;
 import com.bornfire.entities.Assosiate_Profile_Repo;
 import com.bornfire.entities.BACP_CUS_PROFILE_REPO;
 import com.bornfire.entities.BAJAccountLedgerRepo;
+import com.bornfire.entities.BAJAccountLedger_Entity;
 import com.bornfire.entities.BAJ_TrmView_Repo;
 import com.bornfire.entities.BGLSAuditTable_Rep;
 import com.bornfire.entities.BGLSBusinessTable_Entity;
@@ -117,6 +125,7 @@ import com.bornfire.entities.Salary_Pay_Rep;
 import com.bornfire.entities.TRAN_MAIN_TRM_WRK_ENTITY;
 import com.bornfire.entities.TRAN_MAIN_TRM_WRK_REP;
 import com.bornfire.entities.Td_defn_Repo;
+import com.bornfire.entities.Templates_Data_Rep;
 import com.bornfire.entities.Test_Collection_Entity;
 import com.bornfire.entities.UserProfile;
 import com.bornfire.entities.UserProfileRep;
@@ -124,9 +133,14 @@ import com.bornfire.entities.paystructureentity;
 import com.bornfire.entities.paystructurerep;
 import com.bornfire.services.AdminOperServices;
 import com.bornfire.services.BGLS_Inventeryservice;
+import com.bornfire.services.LeaseLoanService;
 import com.bornfire.services.LoginServices;
+import com.bornfire.services.Template_sending_service;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.monitorjbl.xlsx.exceptions.ParseException;
+import java.text.DateFormat;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @ConfigurationProperties("default")
@@ -142,6 +156,9 @@ public class BGLSNavigationController {
 
 	@Autowired
 	DataSource srcdataSource;
+	
+	@Autowired
+	LeaseLoanService leaseLoanService;
 
 	@Autowired
 	Chart_Acc_Rep chart_Acc_Rep;
@@ -298,6 +315,12 @@ public class BGLSNavigationController {
 	
 	@Autowired
 	BAJ_TrmView_Repo bAJ_TrmView_Repo;
+	
+	@Autowired
+	Templates_Data_Rep templates_Data_Rep;
+	
+	@Autowired
+	Template_sending_service template_sending_service;
 	
 	
 
@@ -3461,4 +3484,100 @@ public class BGLSNavigationController {
 
 		return "BTMAccountLedger";
 	}
+	
+	@RequestMapping(value = "accountledgerdownload", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<InputStreamResource> accountledgerdownload(
+	        @RequestParam String acct_num,
+	        @RequestParam String fromdate,
+	        @RequestParam String todate,
+	        @RequestParam String filetype,
+	        HttpServletResponse response
+	) throws IOException, ParseException, SQLException, JRException, java.text.ParseException {
+	    // Convert dates
+	    SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	    String formattedFromDate = outputFormat.format(inputFormat.parse(fromdate));
+	    String formattedToDate = outputFormat.format(inputFormat.parse(todate));
+
+	    // Generate the file
+	    File generatedFile = leaseLoanService.getSalaryFile(filetype, acct_num, formattedFromDate, formattedToDate);
+
+	    // Set response headers
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + generatedFile.getName());
+	    headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
+
+	    // Stream the file back to the client
+	    InputStreamResource resource = new InputStreamResource(new FileInputStream(generatedFile));
+	    return ResponseEntity.ok()
+	            .headers(headers)
+	            .contentLength(generatedFile.length())
+	            .body(resource);
+	}
+	
+	@RequestMapping(value = "Accounttemplates", method = { RequestMethod.GET, RequestMethod.POST })
+	public String Accounttemplates(@RequestParam(required = false) String formmode, Model md, HttpServletRequest req,
+			@RequestParam(required = false) String temp_id) {
+		System.out.println("The temp_id account " + temp_id);
+		
+		if (formmode == null || formmode.equals("list")) {
+			md.addAttribute("formmode", "list");
+			String temp_ids = "SBA001";
+			md.addAttribute("savingstempdata", templates_Data_Rep.getRole(temp_ids));
+		} else if (formmode.equals("ViewAccLedger")) {
+			md.addAttribute("formmode", "ViewAccLedger");
+		}
+
+		return "Accounttemplates";
+	}
+	
+	@RequestMapping(value = "sendingmail_templates", method = RequestMethod.POST)
+	public ResponseEntity<String> sendMails(
+	        @RequestBody Map<String, String> requestBody) throws SQLException, ParseException, IOException, java.text.ParseException, JRException {
+
+	    // Extract parameters from the request body
+	    String acctNum = requestBody.get("acct_num");
+	    String fromDate = requestBody.get("from_date");
+	    String toDate = requestBody.get("to_date");
+
+	    // Validate input
+	    if (acctNum == null || fromDate == null || toDate == null) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing required parameters");
+	    }
+
+	    System.out.println("Processing email sending...");
+	    System.out.println("Account Number: " + acctNum);
+	    System.out.println("From Date: " + fromDate);
+	    System.out.println("To Date: " + toDate);
+	    
+	    // Fetch email ID from the database
+	    BAJAccountLedger_Entity place = bAJAccountLedgerRepo.getaccno(acctNum);
+	    String mailTo = place.getEmail_id();
+	    if (mailTo == null || mailTo.isEmpty()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email ID not found for Account Number: " + acctNum);
+	    }
+
+	    System.out.println("The sending mail ID is: " + mailTo);
+
+	    // Email details
+	    String from = "ponprasanth.t@bornfire.co.in";
+	    String username = "ponprasanth.t@bornfire.co.in";
+	    String password = "Bornfire#123";
+	    String host = "sg2plzcpnl491716.prod.sin2.secureserver.net";
+	    String cc = "ponprasanth.t@bornfire.co.in";
+	    String refNo = acctNum;
+
+	    // Debug log
+	    System.out.println("To: " + mailTo);
+	    System.out.println("CC: " + cc);
+	    System.out.println("Reference Number: " + refNo);
+
+	    // Call service method to send email
+	    template_sending_service.sendingmail(from, host, mailTo, cc, username, password, refNo, fromDate, toDate);
+
+	    // Return success response
+	    return ResponseEntity.status(HttpStatus.OK).body("Email sent successfully");
+	}
+	
 }
